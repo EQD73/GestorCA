@@ -29,20 +29,24 @@ $sql1 = "SELECT * FROM $tablam2 WHERE id ='$codigoConsulta'";
 $resultado = pg_query($conexion, $sql1);
 $obj = pg_fetch_object($resultado);
 
-class PDF extends FPDF {
+class PDF extends FPDF
+{
     public $headerData; // Variable para almacenar los datos del encabezado
     public $footerData; // Variable para almacenar los datos del pie de pagina
     // Método para establecer los datos del encabezado
-    public function setHeaderData($data) {
+    public function setHeaderData($data)
+    {
         $this->headerData = $data;
     }
     // Método para establecer los datos del encabezado
-    public function setFooterData($data) {
+    public function setFooterData($data)
+    {
         $this->footerData = $data;
     }
 
     // Encabezado
-    function Header() {
+    function Header()
+    {
         // // Fuente del encabezado
         // $this->SetFont('Arial', 'B', 12);
         // // Título del encabezado
@@ -65,7 +69,8 @@ class PDF extends FPDF {
     }
 
     //Pie de página
-    function Footer() {
+    function Footer()
+    {
         // Posición a 1.5 cm del final de la página
         $this->SetY(-15);
         // Fuente del pie de página
@@ -73,7 +78,7 @@ class PDF extends FPDF {
         // Número de página
         //$this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
         $this->AliasNbPages();
-      
+
         $this->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
         $this->Cell(5);
         $this->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
@@ -86,10 +91,11 @@ class PDF extends FPDF {
     }
 
     // Función para controlar el salto de página
-    public function checkPageBreak($bottomMargin, $yFin) {
+    public function checkPageBreak($bottomMargin, $yFin)
+    {
         $pageHeight = $this->GetPageHeight(); // Obtiene la altura de la página
         //if ($this->GetY() > ($pageHeight - $bottomMargin)) {
-            //if ($yFin > ($pageHeight - $bottomMargin)) {
+        //if ($yFin > ($pageHeight - $bottomMargin)) {
         if ($yFin > (270 - $bottomMargin)) {
             $this->AddPage();
             $this->Ln(3);
@@ -100,8 +106,8 @@ class PDF extends FPDF {
 if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codigo_programa <> "31" && $obj->codigo_programa <> "32") {
 
     $pdf = new PDF("P", "mm", "Letter");
-    $pdf->setHeaderData($obj2); 
-    $pdf->setFooterData($obj); 
+    $pdf->setHeaderData($obj2);
+    $pdf->setFooterData($obj);
     $pdf->SetTitle('Formato Consignador Academico de contenidos');
     $pdf->AddPage();
     // Márgenes y altura de página
@@ -218,10 +224,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s1_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x1, $y1, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 2
     $x2 = $pdf->GetX();
@@ -243,10 +249,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s2_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x2, $y2, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 3
     $x3 = $pdf->GetX();
@@ -260,7 +266,7 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     // Eliminar líneas en blanco
     $cleanedCont3 = preg_replace("/\n\s*\n/", "\n", trim($cont3));
     $startY = $pdf->GetY();
-    $pdf->MultiCell(80, 3, mb_convert_encoding( $cleanedCont3, 'ISO-8859-1'), 0, 'J', 0, 4);
+    $pdf->MultiCell(80, 3, mb_convert_encoding($cleanedCont3, 'ISO-8859-1'), 0, 'J', 0, 4);
     $endY = $pdf->GetY();
     $ylines = $endY - $startY;
     $pdf->SetXY(130, $y);
@@ -268,10 +274,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s3_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x3, $y3, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 4
     $x4 = $pdf->GetX();
@@ -293,10 +299,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s4_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x4, $y4, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 5
     $x5 = $pdf->GetX();
@@ -321,10 +327,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s5_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x5, $y5, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 6
     $x6 = $pdf->GetX();
@@ -347,11 +353,11 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s6_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x6, $y6, 200, $ylines);
-    $yFin =$endY;
-    
+    $yFin = $endY;
+
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 7
     // Contenido original con líneas en blanco
@@ -360,8 +366,8 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $cleanedCont7 = preg_replace("/\n\s*\n/", "\n", trim($cont7));
     $lineas = explode("\n", $cont7);
     $cantidadLineas = count($lineas);
-    if ($yFin+$cantidadLineas > 250){
-        $yFin= ($yFin+$cantidadLineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
         $pdf->checkPageBreak($bottomMargin, $yFin);
     }
     $x7 = $pdf->GetX();
@@ -379,12 +385,12 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s7_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x7, $y7, 200, $ylines);
-    $yFin =intval($endY);
+    $yFin = intval($endY);
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
-    
+
     //semana 8
     // Contenido original con líneas en blanco
     $cont8 = $obj->s8_contenidos;
@@ -392,8 +398,8 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $cleanedCont8 = preg_replace("/\n\s*\n/", "\n", trim($cont8));
     $lineas = explode("\n", $cont8);
     $cantidadLineas = count($lineas);
-    if ($yFin+$cantidadLineas > 250){
-        $yFin= ($yFin+$cantidadLineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
         $pdf->checkPageBreak($bottomMargin, $yFin);
     }
     $x8 = $pdf->GetX();
@@ -411,10 +417,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s8_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x8, $y8, 200, $ylines);
-    $yFin =intval($endY);
+    $yFin = intval($endY);
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 9
     // Contenido original con líneas en blanco
@@ -423,8 +429,8 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $cleanedCont9 = preg_replace("/\n\s*\n/", "\n", trim($cont9));
     $lineas = explode("\n", $cont9);
     $cantidadLineas = count($lineas);
-    if ($yFin+$cantidadLineas > 250){
-        $yFin= ($yFin+$cantidadLineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
         $pdf->checkPageBreak($bottomMargin, $yFin);
     }
     $x9 = $pdf->GetX();
@@ -442,10 +448,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s9_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x9, $y9, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 10
     // Contenido original con líneas en blanco
@@ -454,8 +460,8 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $cleanedCont10 = preg_replace("/\n\s*\n/", "\n", trim($cont10));
     $lineas = explode("\n", $cont10);
     $cantidadLineas = count($lineas);
-    if ($yFin+$cantidadLineas > 250){
-        $yFin= ($yFin+$cantidadLineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
         $pdf->checkPageBreak($bottomMargin, $yFin);
     }
     $x10 = $pdf->GetX();
@@ -474,10 +480,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s10_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x10, $y10, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 11
     // Contenido original con líneas en blanco
@@ -486,8 +492,8 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $cleanedCont11 = preg_replace("/\n\s*\n/", "\n", trim($cont11));
     $lineas = explode("\n", $cont11);
     $cantidadLineas = count($lineas);
-    if ($yFin+$cantidadLineas > 250){
-        $yFin= ($yFin+$cantidadLineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
         $pdf->checkPageBreak($bottomMargin, $yFin);
     }
     $x11 = $pdf->GetX();
@@ -505,10 +511,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s11_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x11, $y11, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 12
     // Contenido original con líneas en blanco
@@ -517,8 +523,8 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $cleanedCont12 = preg_replace("/\n\s*\n/", "\n", trim($cont12));
     $lineas = explode("\n", $cont12);
     $cantidadLineas = count($lineas);
-    if ($yFin+$cantidadLineas > 250){
-        $yFin= ($yFin+$cantidadLineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
         $pdf->checkPageBreak($bottomMargin, $yFin);
     }
     $x12 = $pdf->GetX();
@@ -536,10 +542,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s12_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x12, $y12, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 13
     // Contenido original con líneas en blanco
@@ -548,8 +554,8 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $cleanedCont13 = preg_replace("/\n\s*\n/", "\n", trim($cont13));
     $lineas = explode("\n", $cont13);
     $cantidadLineas = count($lineas);
-    if ($yFin+$cantidadLineas > 250){
-        $yFin= ($yFin+$cantidadLineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
         $pdf->checkPageBreak($bottomMargin, $yFin);
     }
     $x13 = $pdf->GetX();
@@ -567,22 +573,22 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s13_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x13, $y13, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 14
-     // Contenido original con líneas en blanco
-     $cont14 = $obj->s14_contenidos;
-     // Eliminar líneas en blanco
-     $cleanedCont14 = preg_replace("/\n\s*\n/", "\n", trim($cont14));
-     $lineas = explode("\n", $cont14);
-     $cantidadLineas = count($lineas);
-     if ($yFin+$cantidadLineas > 250){
-         $yFin= ($yFin+$cantidadLineas);
-         $pdf->checkPageBreak($bottomMargin, $yFin);
-     }
+    // Contenido original con líneas en blanco
+    $cont14 = $obj->s14_contenidos;
+    // Eliminar líneas en blanco
+    $cleanedCont14 = preg_replace("/\n\s*\n/", "\n", trim($cont14));
+    $lineas = explode("\n", $cont14);
+    $cantidadLineas = count($lineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
+        $pdf->checkPageBreak($bottomMargin, $yFin);
+    }
     $x14 = $pdf->GetX();
     $y14 = $pdf->GetY();
     $pdf->SetFont("Arial", "", 6);
@@ -598,25 +604,25 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s14_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x14, $y14, 200, $ylines);
-    $yFin =intval($endY);
+    $yFin = intval($endY);
     //$pdf->Cell(10, 5, $yFin);
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 15
-     // Contenido original con líneas en blanco
-     $cont15 = $obj->s15_contenidos;
-     // Eliminar líneas en blanco
-     $cleanedCont15 = preg_replace("/\n\s*\n/", "\n", trim($cont15));
-     $lineas = explode("\n", $cont15);
-     $cantidadLineas = count($lineas);
-     //$pdf->Cell(10, 5, $cantidadLineas);
-     if ($yFin+$cantidadLineas > 250){
-         $yFin= ($yFin+$cantidadLineas);
-         
-         $pdf->checkPageBreak($bottomMargin, $yFin);
-     }
+    // Contenido original con líneas en blanco
+    $cont15 = $obj->s15_contenidos;
+    // Eliminar líneas en blanco
+    $cleanedCont15 = preg_replace("/\n\s*\n/", "\n", trim($cont15));
+    $lineas = explode("\n", $cont15);
+    $cantidadLineas = count($lineas);
+    //$pdf->Cell(10, 5, $cantidadLineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
+
+        $pdf->checkPageBreak($bottomMargin, $yFin);
+    }
     $x15 = $pdf->GetX();
     $y15 = $pdf->GetY();
     $pdf->SetFont("Arial", "", 6);
@@ -632,10 +638,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s15_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x15, $y15, 200, $ylines);
-    $yFin =intval($endY);
+    $yFin = intval($endY);
     //$pdf->Cell(10, 5, $yFin);
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
+    if ($yFin < 250) {
         realizarSalto($ylines, $pdf);
     }
     //semana 16
@@ -645,8 +651,8 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $cleanedCont16 = preg_replace("/\n\s*\n/", "\n", trim($cont16));
     $lineas = explode("\n", $cont16);
     $cantidadLineas = count($lineas);
-    if ($yFin+$cantidadLineas > 250){
-        $yFin= ($yFin+$cantidadLineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
         $pdf->checkPageBreak($bottomMargin, $yFin);
     }
     $x16 = $pdf->GetX();
@@ -664,10 +670,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s16_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x16, $y16, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 17
     // Contenido original con líneas en blanco
@@ -676,8 +682,8 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $cleanedCont17 = preg_replace("/\n\s*\n/", "\n", trim($cont17));
     $lineas = explode("\n", $cont17);
     $cantidadLineas = count($lineas);
-    if ($yFin+$cantidadLineas > 250){
-        $yFin= ($yFin+$cantidadLineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
         $pdf->checkPageBreak($bottomMargin, $yFin);
     }
     $x17 = $pdf->GetX();
@@ -695,10 +701,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s17_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x17, $y17, 200, $ylines);
-    $yFin =$endY;
+    $yFin = $endY;
     $pdf->checkPageBreak($bottomMargin, $yFin);
-    if ($yFin < 250) { 
-     realizarSalto($ylines, $pdf);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
     //semana 18
     // Contenido original con líneas en blanco
@@ -707,8 +713,8 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $cleanedCont18 = preg_replace("/\n\s*\n/", "\n", trim($cont18));
     $lineas = explode("\n", $cont18);
     $cantidadLineas = count($lineas);
-    if ($yFin+$cantidadLineas > 250){
-        $yFin= ($yFin+$cantidadLineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
         $pdf->checkPageBreak($bottomMargin, $yFin);
     }
     $x18 = $pdf->GetX();
@@ -726,7 +732,7 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s18_metodologia, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->rect($x18, $y18, 200, $ylines);
-    if ($endY > 240) { 
+    if ($endY > 240) {
         $pdf->AddPage();
     }
     //validacion
@@ -752,38 +758,17 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->Cell(65, 2, mb_convert_encoding("ELABORÓ", 'ISO-8859-1'), 0, 0, "C");
     $pdf->Cell(70, 2, mb_convert_encoding("REVISÓ", 'ISO-8859-1'), 0, 0, "C");
     $pdf->Cell(65, 2, mb_convert_encoding("APROBÓ", 'ISO-8859-1'), 0, 1, "C");
-    //$pdf->Ln(6);
-    //pie de pagina 2
-    // $pdf->SetY(250); // Posición desde el final
-    // $pdf->SetFont("Arial", "", 6);
-    // $pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-    // $pdf->Cell(5);
-    // $pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-    // $pdf->Cell(5);
-    // date_default_timezone_set("America/Bogota");
-    // $pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-    // $pdf->Cell(5);
-    // $pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-    // $pdf->Cell(0, 5, mb_convert_encoding('Página ', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
-
 } else {
 
     //$pdf = new FPDF("P", "mm", "Letter");
-    $pdf = new PDF_TextBox("P", "mm", "Letter");
+    $pdf = new PDF("P", "mm", "Letter");
+    $pdf->setHeaderData($obj2);
+    $pdf->setFooterData($obj);
     $pdf->SetTitle('Formato Consignador Academico de contenidos');
     $pdf->AddPage();
-    $pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-    $pdf->SetFont("Arial", "B", 12);
-    $pdf->Cell(100, 21, mb_convert_encoding("Consignación Académica de Contenidos", 'ISO-8859-1'), 1, 0, "C");
-    $pdf->SetFont("Arial", "", 9);
-    $pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-    $pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-    $pdf->Cell(160);
-    $pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-    $pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-    $pdf->Cell(160);
-    $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-    $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
+    // Márgenes y altura de página
+    $bottomMargin = 20; // Espacio reservado para el footer
+    $pageHeight = 279;  // Altura total de la página Letter en mm (216 x 279)
     $pdf->SetFont("Arial", "B", 9);
     $pdf->SetFillColor(181, 178, 178);
     $pdf->SetTextColor(0, 0, 0);
@@ -840,18 +825,23 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont("Arial", "B", 9);
     $pdf->Cell(200, 5, mb_convert_encoding("Resultados del aprendizaje del programa", 'ISO-8859-1'), 1, 1, "C", true);
-    $pdf->rect(10, 65, 200, 25);
+
+    // Contenido original con líneas en blanco
+    $content1 = $obj->resultados_aprendizaje;
+
+    // Eliminar líneas en blanco
+    $cleanedContent1 = preg_replace("/\n\s*\n/", "\n", trim($content1));
+
+    //$pdf->rect(10, 65, 200, 24);
     $pdf->SetFont("Arial", "", 7);
-    //$pdf->MultiCell(200, 3, mb_convert_encoding($obj->resultados_aprendizaje, 'ISO-8859-1'), 0,'J',0,5);
-    $pdf->SetXY(10, 65);
-    $pdf->drawTextBox($obj->resultados_aprendizaje, 200, 25, 'J', 'T');
-    $pdf->SetXY(10, 90);
+    $pdf->MultiCell(200, 3, mb_convert_encoding($cleanedContent1, 'ISO-8859-1'), 1, 'J', 0, 5);
+
     $pdf->SetFillColor(181, 178, 178);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont("Arial", "B", 9);
     $pdf->Cell(200, 5, mb_convert_encoding("Intensidad Horaria Semanal", 'ISO-8859-1'), 1, 1, "C", true);
     $pdf->SetFont("Arial", "B", 8);
-    $pdf->Cell(50, 5, mb_convert_encoding("Horas de trabajo teórico Semanal:", 'ISO-8859-1'), 0, 0, "L");
+    $pdf->Cell(50, 5, mb_convert_encoding("Horas de trabajo teórico Semanal:", 'ISO-8859-1'), 1, 0, "L");
     $pdf->SetFont("Arial", "", 8);
     $pdf->Cell(10, 5, mb_convert_encoding($obj->htts, 'ISO-8859-1'), 1, 0, "C");
     $pdf->SetFont("Arial", "B", 8);
@@ -861,7 +851,8 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $pdf->SetFont("Arial", "B", 8);
     $pdf->Cell(60, 5, mb_convert_encoding("Horas de trabajo independiente Semanal:", 'ISO-8859-1'), 0, 0, "L");
     $pdf->SetFont("Arial", "", 8);
-    $pdf->Cell(10, 5, mb_convert_encoding($obj->htis, 'ISO-8859-1'), 1, 1, "C");
+    $pdf->Cell(10, 5, mb_convert_encoding($obj->htis, 'ISO-8859-1'), 1, 0, "C");
+    $pdf->Cell(10, 5, mb_convert_encoding("", 'ISO-8859-1'), 1, 1, "C");
     $pdf->SetFillColor(181, 178, 178);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont("Arial", "B", 9);
@@ -869,9 +860,10 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     //$pdf->rect(10,105, 200, 5);
     $pdf->SetFont("Arial", "", 6);
     $pdf->Cell(200, 6, mb_convert_encoding(" SEMANA                                                                       CONTENIDOS                                                                                                  ESTRATEGIAS METODOLÓGICAS          METODOS DE EVALUACIÓN", 'ISO-8859-1'), 1, 1, "L");
-
+    $x1 = $pdf->GetX();
+    $y1 = $pdf->GetY();
     //semana 1 postgrado
-    $pdf->SetFont("Arial", "", 6);
+    /*   $pdf->SetFont("Arial", "", 6);
     $y = $pdf->GetY();
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s1_titulo_p . " (" . $obj->s1_rangoi_p . " al " . $obj->s1_rangof_p . ")", 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->SetXY(50, $y);
@@ -886,7 +878,32 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     } else {
         $pdf->rect(10, 170, 200, 11);
     }
-    $pdf->Ln(8);
+    $pdf->Ln(8); */
+    ////
+    //semana 1
+    $pdf->SetFont("Arial", "", 6);
+    $y = $pdf->GetY();
+    $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s1_titulo_p . " (" . $obj->s1_rangoi_p . " al " . $obj->s1_rangof_p . ")", 'ISO-8859-1'), 0, 'J', 0, 4);
+    $pdf->SetXY(50, $y);
+    // Contenido original con líneas en blanco
+    $cont1 = $obj->s1_contenidos_p;
+    // Eliminar líneas en blanco
+    $cleanedCont1 = preg_replace("/\n\s*\n/", "\n", trim($cont1));
+    $startY = $pdf->GetY();
+    $pdf->MultiCell(80, 3, mb_convert_encoding($cleanedCont1, 'ISO-8859-1'), 0, 'J', 0, 4);
+    $endY = $pdf->GetY();
+    $ylines = $endY - $startY;
+    $pdf->SetXY(130, $y);
+    $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s1_estrategia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
+    $pdf->SetXY(170, $y);
+    $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s1_metodologia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
+    $pdf->rect($x1, $y1, 200, $ylines);
+    $yFin = $endY;
+    $pdf->checkPageBreak($bottomMargin, $yFin);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
+    }
+    /////
     //semana 2 postgrados
     $pdf->SetFont("Arial", "", 6);
     $y = $pdf->GetY();
