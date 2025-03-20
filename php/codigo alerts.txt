@@ -1,0 +1,13 @@
+<?php } else {
+            // Definir un mensaje y tipo de alerta
+            $mensaje = "Semana Actual ya fue diligenciada";
+            $tipo = "success"; // Puede ser 'success', 'danger', 'warning', 'info'
+        ?>
+            <div class="container mt-4">
+                <?php if (!empty($mensaje)) : ?>
+                    <div class="alert alert-<?php echo $tipo; ?> alert-dismissible fade show" role="alert">
+                        <?php echo $mensaje; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
+            </div> -->

@@ -1,0 +1,12 @@
+[2024-09-22 04:01:20] Error al insertar el código 24010211: SQLSTATE[22021]: Character not in repertoire: 7 ERROR:  secuencia de bytes no válida para codificación «UTF8»: 0xc14c
+[2024-09-22 04:01:20] Error al insertar el código 24010212: SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «id» viola la restricción not null
+[2024-09-22 04:01:20] Error al insertar el código 24010213: SQLSTATE[22021]: Character not in repertoire: 7 ERROR:  secuencia de bytes no válida para codificación «UTF8»: 0xcd53
+[2024-09-22 04:01:20] Error al insertar el código 24010221: SQLSTATE[22021]: Character not in repertoire: 7 ERROR:  secuencia de bytes no válida para codificación «UTF8»: 0xd34e
+[2024-09-22 04:06:08] Error al insertar el código 24010211: SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «id» viola la restricción not null
+[2024-09-22 04:06:08] Error al insertar el código 24010212: SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «id» viola la restricción not null
+[2024-09-22 04:06:08] Error al insertar el código 24010213: SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «id» viola la restricción not null
+[2024-09-22 04:06:08] Error al insertar el código 24010221: SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «id» viola la restricción not null
+[2024-09-22 04:54:35] Error al insertar el código 24010211: Codigo Asignatura Duplicado
+[2024-09-22 04:54:35] Error al insertar el código 24010212: Codigo Asignatura Duplicado
+[2024-09-22 04:54:35] Error al insertar el código 24010213: Codigo Asignatura Duplicado
+[2024-09-22 04:54:35] Error al insertar el código 24010221: Codigo Asignatura Duplicado

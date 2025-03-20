@@ -1,0 +1,118 @@
+pg_dump: leyendo esquemas
+pg_dump: leyendo las tablas definidas por el usuario
+pg_dump: leyendo las extensiones
+pg_dump: leyendo las funciones definidas por el usuario
+pg_dump: leyendo los tipos definidos por el usuario
+pg_dump: leyendo los lenguajes procedurales
+pg_dump: leyendo las funciones de agregación definidas por el usuario
+pg_dump: leyendo los operadores definidos por el usuario
+pg_dump: leyendo las clases de operadores definidos por el usuario
+pg_dump: leyendo las familias de operadores definidas por el usuario
+pg_dump: leyendo los procesadores (parsers) de búsqueda en texto definidos
+por el usuario
+pg_dump: leyendo las plantillas de búsqueda en texto definidas por el usuario
+pg_dump: leyendo los diccionarios de búsqueda en texto definidos por el usuario
+pg_dump: leyendo las configuraciones de búsqueda en texto definidas por el usuario
+pg_dump: leyendo los conectores de datos externos definidos por el usuario
+pg_dump: leyendo los servidores foráneos definidas por el usuario
+pg_dump: leyendo los privilegios por omisión
+pg_dump: leyendo los ordenamientos definidos por el usuario
+pg_dump: leyendo las conversiones definidas por el usuario
+pg_dump: leyendo conversiones de tipo
+pg_dump: leyendo la información de herencia de las tablas
+pg_dump: buscando miembros de extensión
+pg_dump: buscando relaciones de herencia
+pg_dump: leyendo la información de columnas para las tablas interesantes
+pg_dump: buscando las columnas y tipos de la tabla «asignaturas»
+pg_dump: buscando expresiones por omisión de la tabla «asignaturas»
+pg_dump: buscando las columnas y tipos de la tabla «auditoria_sw»
+pg_dump: buscando expresiones por omisión de la tabla «auditoria_sw»
+pg_dump: buscando las columnas y tipos de la tabla «estrategias_met»
+pg_dump: buscando las columnas y tipos de la tabla «evaluacion»
+pg_dump: buscando expresiones por omisión de la tabla «evaluacion»
+pg_dump: buscando las columnas y tipos de la tabla «facultades»
+pg_dump: buscando las columnas y tipos de la tabla «m1»
+pg_dump: buscando expresiones por omisión de la tabla «m1»
+pg_dump: buscando las columnas y tipos de la tabla «m2»
+pg_dump: buscando expresiones por omisión de la tabla «m2»
+pg_dump: buscando las columnas y tipos de la tabla «m3»
+pg_dump: buscando expresiones por omisión de la tabla «m3»
+pg_dump: buscando las columnas y tipos de la tabla «met_evaluacion»
+pg_dump: buscando las columnas y tipos de la tabla «nivel»
+pg_dump: buscando expresiones por omisión de la tabla «nivel»
+pg_dump: buscando las columnas y tipos de la tabla «password_resets»
+pg_dump: buscando expresiones por omisión de la tabla «password_resets»
+pg_dump: buscando las columnas y tipos de la tabla «periodos»
+pg_dump: buscando las columnas y tipos de la tabla «permisos»
+pg_dump: buscando expresiones por omisión de la tabla «permisos»
+pg_dump: buscando las columnas y tipos de la tabla «prerequisitos»
+pg_dump: buscando las columnas y tipos de la tabla «programas»
+pg_dump: buscando las columnas y tipos de la tabla «roles»
+pg_dump: buscando expresiones por omisión de la tabla «roles»
+pg_dump: buscando las columnas y tipos de la tabla «sedes»
+pg_dump: buscando las columnas y tipos de la tabla «temporal»
+pg_dump: buscando las columnas y tipos de la tabla «usuarios»
+pg_dump: buscando expresiones por omisión de la tabla «usuarios»
+pg_dump: buscando las columnas y tipos de la tabla «vdatam3»
+pg_dump: buscando las columnas y tipos de la tabla «version_formato»
+pg_dump: buscando las columnas y tipos de la tabla «usuarios_1»
+pg_dump: buscando expresiones por omisión de la tabla «usuarios_1»
+pg_dump: buscando las columnas y tipos de la tabla «asignaturas_1»
+pg_dump: buscando expresiones por omisión de la tabla «asignaturas_1»
+pg_dump: buscando las columnas y tipos de la tabla «m3_pruebas»
+pg_dump: buscando expresiones por omisión de la tabla «m3_pruebas»
+pg_dump: buscando las columnas y tipos de la tabla «m2_pruebas»
+pg_dump: buscando expresiones por omisión de la tabla «m2_pruebas»
+pg_dump: marcando las columnas heredadas en las subtablas
+pg_dump: leyendo los índices
+pg_dump: extrayendo los índices para la tabla «asignaturas»
+pg_dump: extrayendo los índices para la tabla «estrategias_met»
+pg_dump: extrayendo los índices para la tabla «evaluacion»
+pg_dump: extrayendo los índices para la tabla «facultades»
+pg_dump: extrayendo los índices para la tabla «m1»
+pg_dump: extrayendo los índices para la tabla «m2»
+pg_dump: extrayendo los índices para la tabla «m3»
+pg_dump: extrayendo los índices para la tabla «nivel»
+pg_dump: extrayendo los índices para la tabla «periodos»
+pg_dump: extrayendo los índices para la tabla «permisos»
+pg_dump: extrayendo los índices para la tabla «programas»
+pg_dump: extrayendo los índices para la tabla «roles»
+pg_dump: extrayendo los índices para la tabla «sedes»
+pg_dump: extrayendo los índices para la tabla «usuarios»
+pg_dump: extrayendo los índices para la tabla «usuarios_1»
+pg_dump: extrayendo los índices para la tabla «asignaturas_1»
+pg_dump: leyendo las restricciones
+pg_dump: extrayendo restricciones de llave foránea para la tabla «programas»
+pg_dump: extrayendo restricciones de llave foránea para la tabla «sedes»
+pg_dump: leyendo los disparadores (triggers)
+pg_dump: extrayendo los disparadores (triggers) para la tabla «programas»
+pg_dump: extrayendo los disparadores (triggers) para la tabla «sedes»
+pg_dump: leyendo las reglas de reescritura
+pg_dump: leyendo objetos grandes
+pg_dump: obteniendo datos de dependencias
+pg_dump: salvando codificaciones = UTF8
+pg_dump: salvando standard_conforming_strings = on
+pg_dump: extrayendo el contenido de la tabla asignaturas
+pg_dump: extrayendo el contenido de la tabla asignaturas_1
+pg_dump: extrayendo el contenido de la tabla auditoria_sw
+pg_dump: extrayendo el contenido de la tabla estrategias_met
+pg_dump: extrayendo el contenido de la tabla evaluacion
+pg_dump: extrayendo el contenido de la tabla facultades
+pg_dump: extrayendo el contenido de la tabla m1
+pg_dump: extrayendo el contenido de la tabla m2
+pg_dump: extrayendo el contenido de la tabla m2_pruebas
+pg_dump: extrayendo el contenido de la tabla m3
+pg_dump: extrayendo el contenido de la tabla m3_pruebas
+pg_dump: extrayendo el contenido de la tabla met_evaluacion
+pg_dump: extrayendo el contenido de la tabla nivel
+pg_dump: extrayendo el contenido de la tabla password_resets
+pg_dump: extrayendo el contenido de la tabla periodos
+pg_dump: extrayendo el contenido de la tabla permisos
+pg_dump: extrayendo el contenido de la tabla prerequisitos
+pg_dump: extrayendo el contenido de la tabla programas
+pg_dump: extrayendo el contenido de la tabla roles
+pg_dump: extrayendo el contenido de la tabla sedes
+pg_dump: extrayendo el contenido de la tabla temporal
+pg_dump: extrayendo el contenido de la tabla usuarios
+pg_dump: extrayendo el contenido de la tabla usuarios_1
+pg_dump: extrayendo el contenido de la tabla version_formato

@@ -1,0 +1,664 @@
+pg_restore: conectando a la base de datos para reestablecimiento
+pg_restore: creando TABLE asignaturas
+pg_restore: [archivador (bd)] Error durante PROCESAMIENTO DE TABLA DE CONTENIDOS:
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 368; 1259 379179 TABLE asignaturas postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´asignaturas¬ª ya existe
+    Command was: CREATE TABLE asignaturas (
+    codigo_asignatura character varying(15) NOT NULL,
+    nom_asignatura character varying(100) N...
+pg_restore: creando TABLE auditoria_sw
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 369; 1259 379185 TABLE auditoria_sw postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´auditoria_sw¬ª ya existe
+    Command was: CREATE TABLE auditoria_sw (
+    fecha date,
+    hora time without time zone,
+    usuario numeric(25,0),
+    nombrecompleto c...
+pg_restore: creando SEQUENCE auditoria_sw_id_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 370; 1259 379188 SEQUENCE auditoria_sw_id_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´auditoria_sw_id_seq¬ª ya existe
+    Command was: CREATE SEQUENCE auditoria_sw_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY auditoria_sw_id_seq
+pg_restore: creando TABLE estrategias_met
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 371; 1259 379190 TABLE estrategias_met postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´estrategias_met¬ª ya existe
+    Command was: CREATE TABLE estrategias_met (
+    codigo_estrategia character varying(8) NOT NULL,
+    nombre_estrategia character varying(...
+pg_restore: creando TABLE evaluacion
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 372; 1259 379193 TABLE evaluacion postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´evaluacion¬ª ya existe
+    Command was: CREATE TABLE evaluacion (
+    momento character varying(60),
+    por_actividades character varying(5),
+    por_actfinal char...
+pg_restore: creando SEQUENCE evaluacion_id_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 373; 1259 379196 SEQUENCE evaluacion_id_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´evaluacion_id_seq¬ª ya existe
+    Command was: CREATE SEQUENCE evaluacion_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY evaluacion_id_seq
+pg_restore: creando TABLE facultades
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 374; 1259 379198 TABLE facultades postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´facultades¬ª ya existe
+    Command was: CREATE TABLE facultades (
+    codigo_facultad integer NOT NULL,
+    nombre_facultad character varying(70),
+    estado charac...
+pg_restore: creando TABLE m1
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 375; 1259 379201 TABLE m1 postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´m1¬ª ya existe
+    Command was: CREATE TABLE m1 (
+    codigo_asignaturacurso character varying(15) NOT NULL,
+    nombre_asignatura character varying(160) NO...
+pg_restore: creando SEQUENCE m1_id_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 376; 1259 379260 SEQUENCE m1_id_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´m1_id_seq¬ª ya existe
+    Command was: CREATE SEQUENCE m1_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY m1_id_seq
+pg_restore: creando TABLE m2
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 377; 1259 379262 TABLE m2 postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´m2¬ª ya existe
+    Command was: CREATE TABLE m2 (
+    codigo_asignatura character varying(15) NOT NULL,
+    nombre_asignatura character varying(60) NOT NULL...
+pg_restore: creando SEQUENCE m2_id_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 378; 1259 379411 SEQUENCE m2_id_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´m2_id_seq¬ª ya existe
+    Command was: CREATE SEQUENCE m2_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY m2_id_seq
+pg_restore: creando SEQUENCE m2_num_consignacion_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 379; 1259 379413 SEQUENCE m2_num_consignacion_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´m2_num_consignacion_seq¬ª ya existe
+    Command was: CREATE SEQUENCE m2_num_consignacion_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY m2_num_consignacion_seq
+pg_restore: creando TABLE m3
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 380; 1259 379415 TABLE m3 postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´m3¬ª ya existe
+    Command was: CREATE TABLE m3 (
+    codigo_asignatura character varying(15) NOT NULL,
+    nombre_asignatura character varying(60) NOT NULL...
+pg_restore: creando SEQUENCE m3_id_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 381; 1259 379605 SEQUENCE m3_id_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´m3_id_seq¬ª ya existe
+    Command was: CREATE SEQUENCE m3_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY m3_id_seq
+pg_restore: creando TABLE met_evaluacion
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 382; 1259 379760 TABLE met_evaluacion postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´met_evaluacion¬ª ya existe
+    Command was: CREATE TABLE met_evaluacion (
+    codigo_metodo character varying(8),
+    nombre_metodo character varying(50)
+);
+
+
+
+pg_restore: creando TABLE nivel
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 383; 1259 379763 TABLE nivel postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´nivel¬ª ya existe
+    Command was: CREATE TABLE nivel (
+    id integer NOT NULL,
+    nivel1 character varying,
+    nivel2 character varying,
+    nivel3 charact...
+pg_restore: creando SEQUENCE nivel_id_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 384; 1259 379769 SEQUENCE nivel_id_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´nivel_id_seq¬ª ya existe
+    Command was: CREATE SEQUENCE nivel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY nivel_id_seq
+pg_restore: creando TABLE password_resets
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 385; 1259 379771 TABLE password_resets postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´password_resets¬ª ya existe
+    Command was: CREATE TABLE password_resets (
+    id integer NOT NULL,
+    email character varying(255) NOT NULL,
+    token character varyi...
+pg_restore: creando SEQUENCE password_resets_id_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 386; 1259 379777 SEQUENCE password_resets_id_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´password_resets_id_seq¬ª ya existe
+    Command was: CREATE SEQUENCE password_resets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY password_resets_id_seq
+pg_restore: creando TABLE periodos
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 387; 1259 379779 TABLE periodos postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´periodos¬ª ya existe
+    Command was: CREATE TABLE periodos (
+    codigo_periodo character varying(8) NOT NULL,
+    nombre_periodo character varying(30) NOT NULL,...
+pg_restore: creando TABLE permisos
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 388; 1259 379782 TABLE permisos postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´permisos¬ª ya existe
+    Command was: CREATE TABLE permisos (
+    codigo_permiso integer NOT NULL,
+    nombre character varying(25) NOT NULL
+);
+
+
+
+pg_restore: creando SEQUENCE permisos_codigo_permiso_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 389; 1259 379785 SEQUENCE permisos_codigo_permiso_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´permisos_codigo_permiso_seq¬ª ya existe
+    Command was: CREATE SEQUENCE permisos_codigo_permiso_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY permisos_codigo_permiso_seq
+pg_restore: creando TABLE prerequisitos
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 390; 1259 379787 TABLE prerequisitos postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´prerequisitos¬ª ya existe
+    Command was: CREATE TABLE prerequisitos (
+    codigo_prerequisito character varying(15),
+    nombre_prerequisito character varying(100),
+...
+pg_restore: creando TABLE programas
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 391; 1259 379790 TABLE programas postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´programas¬ª ya existe
+    Command was: CREATE TABLE programas (
+    codigo_programa character varying(8) NOT NULL,
+    nombre_programa character varying(90) NOT NU...
+pg_restore: creando TABLE roles
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 392; 1259 379793 TABLE roles postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´roles¬ª ya existe
+    Command was: CREATE TABLE roles (
+    codigo_rol integer NOT NULL,
+    nombre_rol character varying(25) NOT NULL,
+    estado character va...
+pg_restore: creando SEQUENCE roles_codigo_rol_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 393; 1259 379796 SEQUENCE roles_codigo_rol_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´roles_codigo_rol_seq¬ª ya existe
+    Command was: CREATE SEQUENCE roles_codigo_rol_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY roles_codigo_rol_seq
+pg_restore: creando TABLE sedes
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 394; 1259 379798 TABLE sedes postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´sedes¬ª ya existe
+    Command was: CREATE TABLE sedes (
+    codigo_sede character varying(8) NOT NULL,
+    nombre_sede character varying(20) NOT NULL,
+    dire...
+pg_restore: creando TABLE temporal
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 395; 1259 379801 TABLE temporal postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´temporal¬ª ya existe
+    Command was: CREATE TABLE temporal (
+    valor1 character varying(2),
+    id character varying(1),
+    valor2 character varying(15),
+    ...
+pg_restore: creando TABLE usuarios
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 396; 1259 379804 TABLE usuarios postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´usuarios¬ª ya existe
+    Command was: CREATE TABLE usuarios (
+    codigo_usuario numeric(25,0) NOT NULL,
+    usuario character varying(20),
+    password character...
+pg_restore: creando TABLE usuarios_1
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 401; 1259 386408 TABLE usuarios_1 postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´usuarios_1¬ª ya existe
+    Command was: CREATE TABLE usuarios_1 (
+    codigo_usuario numeric(25,0) NOT NULL,
+    usuario character varying(20),
+    password charact...
+pg_restore: creando SEQUENCE usuarios_1_id_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 400; 1259 386406 SEQUENCE usuarios_1_id_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´usuarios_1_id_seq¬ª ya existe
+    Command was: CREATE SEQUENCE usuarios_1_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY usuarios_1_id_seq
+pg_restore: creando SEQUENCE usuarios_id_seq
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 397; 1259 379810 SEQUENCE usuarios_id_seq postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´usuarios_id_seq¬ª ya existe
+    Command was: CREATE SEQUENCE usuarios_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+pg_restore: creando SEQUENCE OWNED BY usuarios_id_seq
+pg_restore: creando VIEW vdatam3
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 398; 1259 379812 VIEW vdatam3 postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´vdatam3¬ª ya existe
+    Command was: CREATE VIEW vdatam3 AS
+    SELECT v3.codigo_asignatura, v3.nombre_asignatura, v3.codigo_periodo, v3.nombre_periodo, v3.codig...
+pg_restore: creando TABLE version_formato
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 399; 1259 379817 TABLE version_formato postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´version_formato¬ª ya existe
+    Command was: CREATE TABLE version_formato (
+    codigo_formato character varying(3),
+    nombre_formato character varying(3),
+    codigo ...
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT num_consignacion
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT codigo_permiso
+pg_restore: creando DEFAULT codigo_rol
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: reestableciendo datos de la tabla ´asignaturasª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3210; 0 379179 TABLE DATA asignaturas postgres
+pg_restore: [archivador (bd)] COPY failed for table "asignaturas": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´asignaturas_pk¬ª
+DETALLE:  Ya existe la llave (codigo_asignatura, grupo, periodo)=(28010313, 1, 20222).
+CONTEXTO:  COPY asignaturas, l√≠nea 1: ¬´28010313	FACTOR DE RIESGO AGROINDUSTRIAL	28	3	1	3	3	7642376	DEDE BADILLO JESUS DAVID	20222	312	{"280...¬ª
+pg_restore: reestableciendo datos de la tabla ´auditoria_swª
+pg_restore: ejecutando SEQUENCE SET auditoria_sw_id_seq
+pg_restore: reestableciendo datos de la tabla ´estrategias_metª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3213; 0 379190 TABLE DATA estrategias_met postgres
+pg_restore: [archivador (bd)] COPY failed for table "estrategias_met": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´estrategias_met_pk¬ª
+DETALLE:  Ya existe la llave (codigo_estrategia)=(01).
+CONTEXTO:  COPY estrategias_met, l√≠nea 1: ¬´01	Clase Magistral¬ª
+pg_restore: reestableciendo datos de la tabla ´evaluacionª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3214; 0 379193 TABLE DATA evaluacion postgres
+pg_restore: [archivador (bd)] COPY failed for table "evaluacion": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´evaluacion_pkey¬ª
+DETALLE:  Ya existe la llave (id)=(1).
+CONTEXTO:  COPY evaluacion, l√≠nea 1: ¬´Primer Corte	15%	15%	30%	1¬ª
+pg_restore: ejecutando SEQUENCE SET evaluacion_id_seq
+pg_restore: reestableciendo datos de la tabla ´facultadesª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3216; 0 379198 TABLE DATA facultades postgres
+pg_restore: [archivador (bd)] COPY failed for table "facultades": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´facultades_pkey¬ª
+DETALLE:  Ya existe la llave (codigo_facultad)=(2).
+CONTEXTO:  COPY facultades, l√≠nea 1: ¬´2	FACULTAD DE CIENCIAS EMPRESARIALES, ECONOMICAS Y AFINES	ACTIVO¬ª
+pg_restore: reestableciendo datos de la tabla ´m1ª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3217; 0 379201 TABLE DATA m1 postgres
+pg_restore: [archivador (bd)] COPY failed for table "m1": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´m1_pk¬ª
+DETALLE:  Ya existe la llave (codigo_asignaturacurso, grupo, codigo_docente, ano_micro)=(28010614, 1, , 2023).
+CONTEXTO:  COPY m1, l√≠nea 1: ¬´28010614	HIGIENE:TEMPERATURA-BIOLOGICO	1	2023		 	2023-03-23	1	FACULTAD DE CIENCIAS DE LA SALUD	6	28	...¬ª
+pg_restore: ejecutando SEQUENCE SET m1_id_seq
+pg_restore: reestableciendo datos de la tabla ´m2ª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3219; 0 379262 TABLE DATA m2 postgres
+pg_restore: [archivador (bd)] COPY failed for table "m2": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´m2_pk1¬ª
+DETALLE:  Ya existe la llave (codigo_asignatura, grupo, codigo_periodo)=(29020221, 1, 20242).
+CONTEXTO:  COPY m2, l√≠nea 1: ¬´29020221	BIOESTADISTICA	20242	PERIODO 2024-2	29	TECNOLOGIA EN RADIOLOGIA E IMAGENES DIAGNOSTICAS	195...¬ª
+pg_restore: ejecutando SEQUENCE SET m2_id_seq
+pg_restore: ejecutando SEQUENCE SET m2_num_consignacion_seq
+pg_restore: reestableciendo datos de la tabla ´m3ª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3222; 0 379415 TABLE DATA m3 postgres
+pg_restore: [archivador (bd)] COPY failed for table "m3": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´m3_pkey¬ª
+DETALLE:  Ya existe la llave (codigo_asignatura, grupo, codigo_periodo)=(24010746, 1, 20242).
+CONTEXTO:  COPY m3, l√≠nea 1: ¬´24010746	PROYECTO INTEGRADOR III	20242	PERIODO 2024-2	24	INGENIER A INDUSTRIAL	2026-05-07	7	1	114344...¬ª
+pg_restore: ejecutando SEQUENCE SET m3_id_seq
+pg_restore: reestableciendo datos de la tabla ´met_evaluacionª
+pg_restore: reestableciendo datos de la tabla ´nivelª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3225; 0 379763 TABLE DATA nivel postgres
+pg_restore: [archivador (bd)] COPY failed for table "nivel": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´nivel_pk¬ª
+DETALLE:  Ya existe la llave (id)=(1).
+CONTEXTO:  COPY nivel, l√≠nea 1: ¬´1	1.0-2.9	3.0-3.7	3.8-4.5	4.6-5.0¬ª
+pg_restore: ejecutando SEQUENCE SET nivel_id_seq
+pg_restore: reestableciendo datos de la tabla ´password_resetsª
+pg_restore: ejecutando SEQUENCE SET password_resets_id_seq
+pg_restore: reestableciendo datos de la tabla ´periodosª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3229; 0 379779 TABLE DATA periodos postgres
+pg_restore: [archivador (bd)] COPY failed for table "periodos": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´periodos_pk¬ª
+DETALLE:  Ya existe la llave (codigo_periodo)=(20222).
+CONTEXTO:  COPY periodos, l√≠nea 1: ¬´20222	PERIODO PRUEBAS 2022-2	18	2022-08-15	2022-12-10	INACTIVO	2022	2022-2¬ª
+pg_restore: reestableciendo datos de la tabla ´permisosª
+pg_restore: ejecutando SEQUENCE SET permisos_codigo_permiso_seq
+pg_restore: reestableciendo datos de la tabla ´prerequisitosª
+pg_restore: reestableciendo datos de la tabla ´programasª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3233; 0 379790 TABLE DATA programas postgres
+pg_restore: [archivador (bd)] COPY failed for table "programas": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´programas_pk¬ª
+DETALLE:  Ya existe la llave (codigo_programa)=(24).
+CONTEXTO:  COPY programas, l√≠nea 1: ¬´24	INGENIER√çA INDUSTRIAL	8001	764237624	JESUS DAVID DEDE BADILLO	3¬ª
+pg_restore: reestableciendo datos de la tabla ´rolesª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3234; 0 379793 TABLE DATA roles postgres
+pg_restore: [archivador (bd)] COPY failed for table "roles": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´roles_pk¬ª
+DETALLE:  Ya existe la llave (codigo_rol)=(1).
+CONTEXTO:  COPY roles, l√≠nea 1: ¬´1	ADMINISTRADOR SISTEMA	ACTIVO¬ª
+pg_restore: ejecutando SEQUENCE SET roles_codigo_rol_seq
+pg_restore: reestableciendo datos de la tabla ´sedesª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3236; 0 379798 TABLE DATA sedes postgres
+pg_restore: [archivador (bd)] COPY failed for table "sedes": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´sedes_pk¬ª
+DETALLE:  Ya existe la llave (codigo_sede)=(23001).
+CONTEXTO:  COPY sedes, l√≠nea 1: ¬´23001	Monteria	\N	\N¬ª
+pg_restore: reestableciendo datos de la tabla ´temporalª
+pg_restore: reestableciendo datos de la tabla ´usuariosª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3238; 0 379804 TABLE DATA usuarios postgres
+pg_restore: [archivador (bd)] COPY failed for table "usuarios": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´usuarios_pk¬ª
+DETALLE:  Ya existe la llave (id)=(1).
+CONTEXTO:  COPY usuarios, l√≠nea 1: ¬´22477626		0f0d67e214f9fef69b278e3d08114da9		NADYA EDILMA	MONTA√ëO MONTA√ëO	NADYA EDILMA MONTA√ëO MON...¬ª
+pg_restore: reestableciendo datos de la tabla ´usuarios_1ª
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3242; 0 386408 TABLE DATA usuarios_1 postgres
+pg_restore: [archivador (bd)] COPY failed for table "usuarios_1": ERROR:  llave duplicada viola restricci√≥n de unicidad ¬´usuarios_pk_1¬ª
+DETALLE:  Ya existe la llave (id)=(13).
+CONTEXTO:  COPY usuarios_1, l√≠nea 1: ¬´22477626	\N	\N	\N	NADYA EDILMA	MONTANO MONTANO	\N	\N	\N	\N	\N	\N	\N	\N	\N	13	\N¬ª
+pg_restore: ejecutando SEQUENCE SET usuarios_1_id_seq
+pg_restore: ejecutando SEQUENCE SET usuarios_id_seq
+pg_restore: reestableciendo datos de la tabla ´version_formatoª
+pg_restore: creando CONSTRAINT asignaturas_pk
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3010; 2606 385961 CONSTRAINT asignaturas_pk postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´asignaturas¬ª
+    Command was: ALTER TABLE ONLY asignaturas
+    ADD CONSTRAINT asignaturas_pk PRIMARY KEY (codigo_asignatura, grupo, periodo);
+
+
+
+pg_restore: creando CONSTRAINT estrategias_met_pk
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3012; 2606 385963 CONSTRAINT estrategias_met_pk postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´estrategias_met¬ª
+    Command was: ALTER TABLE ONLY estrategias_met
+    ADD CONSTRAINT estrategias_met_pk PRIMARY KEY (codigo_estrategia);
+
+
+
+pg_restore: creando CONSTRAINT evaluacion_pkey
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3014; 2606 385965 CONSTRAINT evaluacion_pkey postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´evaluacion¬ª
+    Command was: ALTER TABLE ONLY evaluacion
+    ADD CONSTRAINT evaluacion_pkey PRIMARY KEY (id);
+
+
+
+pg_restore: creando CONSTRAINT facultades_pkey
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3016; 2606 385967 CONSTRAINT facultades_pkey postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´facultades¬ª
+    Command was: ALTER TABLE ONLY facultades
+    ADD CONSTRAINT facultades_pkey PRIMARY KEY (codigo_facultad);
+
+
+
+pg_restore: creando CONSTRAINT m1_pk
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3018; 2606 385969 CONSTRAINT m1_pk postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´m1¬ª
+    Command was: ALTER TABLE ONLY m1
+    ADD CONSTRAINT m1_pk PRIMARY KEY (codigo_asignaturacurso, grupo, codigo_docente, ano_micro);
+
+
+
+pg_restore: creando CONSTRAINT m2_pk1
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3020; 2606 385971 CONSTRAINT m2_pk1 postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´m2¬ª
+    Command was: ALTER TABLE ONLY m2
+    ADD CONSTRAINT m2_pk1 PRIMARY KEY (codigo_asignatura, grupo, codigo_periodo);
+
+
+
+pg_restore: creando CONSTRAINT m3_pkey
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3022; 2606 385973 CONSTRAINT m3_pkey postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´m3¬ª
+    Command was: ALTER TABLE ONLY m3
+    ADD CONSTRAINT m3_pkey PRIMARY KEY (codigo_asignatura, grupo, codigo_periodo);
+
+
+
+pg_restore: creando CONSTRAINT nivel_pk
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3024; 2606 385975 CONSTRAINT nivel_pk postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´nivel¬ª
+    Command was: ALTER TABLE ONLY nivel
+    ADD CONSTRAINT nivel_pk PRIMARY KEY (id);
+
+
+
+pg_restore: creando CONSTRAINT periodos_pk
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3026; 2606 385977 CONSTRAINT periodos_pk postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´periodos¬ª
+    Command was: ALTER TABLE ONLY periodos
+    ADD CONSTRAINT periodos_pk PRIMARY KEY (codigo_periodo);
+
+
+
+pg_restore: creando CONSTRAINT permisos_pk
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3028; 2606 385979 CONSTRAINT permisos_pk postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´permisos¬ª
+    Command was: ALTER TABLE ONLY permisos
+    ADD CONSTRAINT permisos_pk PRIMARY KEY (codigo_permiso);
+
+
+
+pg_restore: creando CONSTRAINT programas_pk
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3030; 2606 385981 CONSTRAINT programas_pk postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´programas¬ª
+    Command was: ALTER TABLE ONLY programas
+    ADD CONSTRAINT programas_pk PRIMARY KEY (codigo_programa);
+
+
+
+pg_restore: creando CONSTRAINT roles_pk
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3032; 2606 385983 CONSTRAINT roles_pk postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´roles¬ª
+    Command was: ALTER TABLE ONLY roles
+    ADD CONSTRAINT roles_pk PRIMARY KEY (codigo_rol);
+
+
+
+pg_restore: creando CONSTRAINT sedes_pk
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3034; 2606 385985 CONSTRAINT sedes_pk postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´sedes¬ª
+    Command was: ALTER TABLE ONLY sedes
+    ADD CONSTRAINT sedes_pk PRIMARY KEY (codigo_sede);
+
+
+
+pg_restore: creando CONSTRAINT usuarios_pk
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3036; 2606 385987 CONSTRAINT usuarios_pk postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´usuarios¬ª
+    Command was: ALTER TABLE ONLY usuarios
+    ADD CONSTRAINT usuarios_pk PRIMARY KEY (id);
+
+
+
+pg_restore: creando CONSTRAINT usuarios_pk_1
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3040; 2606 386416 CONSTRAINT usuarios_pk_1 postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  no se permiten m√∫ltiples llaves primarias para la tabla ¬´usuarios_1¬ª
+    Command was: ALTER TABLE ONLY usuarios_1
+    ADD CONSTRAINT usuarios_pk_1 PRIMARY KEY (id);
+
+
+
+pg_restore: creando CONSTRAINT usuarios_un
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3038; 2606 385989 CONSTRAINT usuarios_un postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´usuarios_un¬ª ya existe
+    Command was: ALTER TABLE ONLY usuarios
+    ADD CONSTRAINT usuarios_un UNIQUE (codigo_usuario);
+
+
+
+pg_restore: creando CONSTRAINT usuarios_un_1
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3042; 2606 386418 CONSTRAINT usuarios_un_1 postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la relaci√≥n ¬´usuarios_un_1¬ª ya existe
+    Command was: ALTER TABLE ONLY usuarios_1
+    ADD CONSTRAINT usuarios_un_1 UNIQUE (codigo_usuario);
+
+
+
+pg_restore: creando FK CONSTRAINT sedes_programas
+pg_restore: [archivador (bd)] Error en entrada de la tabla de contenidos 3043; 2606 385990 FK CONSTRAINT sedes_programas postgres
+pg_restore: [archivador (bd)] could not execute query: ERROR:  la restricci√≥n ¬´sedes_programas¬ª para la relaci√≥n ¬´sedes¬ª ya existe
+    Command was: ALTER TABLE ONLY sedes
+    ADD CONSTRAINT sedes_programas FOREIGN KEY (programas_codigo_programa) REFERENCES programas(codig...
+pg_restore: estableciendo dueÒo y privilegios para TABLE asignaturas
+pg_restore: estableciendo dueÒo y privilegios para TABLE auditoria_sw
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE auditoria_sw_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY auditoria_sw_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE estrategias_met
+pg_restore: estableciendo dueÒo y privilegios para TABLE evaluacion
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE evaluacion_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY evaluacion_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE facultades
+pg_restore: estableciendo dueÒo y privilegios para TABLE m1
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE m1_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY m1_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE m2
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE m2_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY m2_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE m2_num_consignacion_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY m2_num_consignacion_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE m3
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE m3_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY m3_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE met_evaluacion
+pg_restore: estableciendo dueÒo y privilegios para TABLE nivel
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE nivel_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY nivel_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE password_resets
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE password_resets_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY password_resets_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE periodos
+pg_restore: estableciendo dueÒo y privilegios para TABLE permisos
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE permisos_codigo_permiso_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY permisos_codigo_permiso_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE prerequisitos
+pg_restore: estableciendo dueÒo y privilegios para TABLE programas
+pg_restore: estableciendo dueÒo y privilegios para TABLE roles
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE roles_codigo_rol_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY roles_codigo_rol_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE sedes
+pg_restore: estableciendo dueÒo y privilegios para TABLE temporal
+pg_restore: estableciendo dueÒo y privilegios para TABLE usuarios
+pg_restore: estableciendo dueÒo y privilegios para TABLE usuarios_1
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE usuarios_1_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY usuarios_1_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE usuarios_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE OWNED BY usuarios_id_seq
+pg_restore: estableciendo dueÒo y privilegios para VIEW vdatam3
+pg_restore: estableciendo dueÒo y privilegios para TABLE version_formato
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT id
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT id
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT id
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT num_consignacion
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT id
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT id
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT id
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT id
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT codigo_permiso
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT codigo_rol
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT id
+pg_restore: estableciendo dueÒo y privilegios para DEFAULT id
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA asignaturas
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA auditoria_sw
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET auditoria_sw_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA estrategias_met
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA evaluacion
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET evaluacion_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA facultades
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA m1
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET m1_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA m2
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET m2_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET m2_num_consignacion_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA m3
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET m3_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA met_evaluacion
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA nivel
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET nivel_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA password_resets
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET password_resets_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA periodos
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA permisos
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET permisos_codigo_permiso_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA prerequisitos
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA programas
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA roles
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET roles_codigo_rol_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA sedes
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA temporal
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA usuarios
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA usuarios_1
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET usuarios_1_id_seq
+pg_restore: estableciendo dueÒo y privilegios para SEQUENCE SET usuarios_id_seq
+pg_restore: estableciendo dueÒo y privilegios para TABLE DATA version_formato
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT asignaturas_pk
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT estrategias_met_pk
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT evaluacion_pkey
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT facultades_pkey
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT m1_pk
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT m2_pk1
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT m3_pkey
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT nivel_pk
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT periodos_pk
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT permisos_pk
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT programas_pk
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT roles_pk
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT sedes_pk
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT usuarios_pk
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT usuarios_pk_1
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT usuarios_un
+pg_restore: estableciendo dueÒo y privilegios para CONSTRAINT usuarios_un_1
+pg_restore: estableciendo dueÒo y privilegios para FK CONSTRAINT sedes_programas
+PRECAUCI”N: errores ignorados durante la recuperaciÛn: 66

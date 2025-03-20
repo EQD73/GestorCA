@@ -1,0 +1,219 @@
+pg_restore: conectando a la base de datos para reestablecimiento
+pg_restore: creando TABLE asignaturas
+pg_restore: creando TABLE auditoria_sw
+pg_restore: creando SEQUENCE auditoria_sw_id_seq
+pg_restore: creando SEQUENCE OWNED BY auditoria_sw_id_seq
+pg_restore: creando TABLE estrategias_met
+pg_restore: creando TABLE evaluacion
+pg_restore: creando SEQUENCE evaluacion_id_seq
+pg_restore: creando SEQUENCE OWNED BY evaluacion_id_seq
+pg_restore: creando TABLE facultades
+pg_restore: creando TABLE m1
+pg_restore: creando SEQUENCE m1_id_seq
+pg_restore: creando SEQUENCE OWNED BY m1_id_seq
+pg_restore: creando TABLE m2
+pg_restore: creando SEQUENCE m2_id_seq
+pg_restore: creando SEQUENCE OWNED BY m2_id_seq
+pg_restore: creando SEQUENCE m2_num_consignacion_seq
+pg_restore: creando SEQUENCE OWNED BY m2_num_consignacion_seq
+pg_restore: creando TABLE m3
+pg_restore: creando SEQUENCE m3_id_seq
+pg_restore: creando SEQUENCE OWNED BY m3_id_seq
+pg_restore: creando TABLE met_evaluacion
+pg_restore: creando TABLE nivel
+pg_restore: creando SEQUENCE nivel_id_seq
+pg_restore: creando SEQUENCE OWNED BY nivel_id_seq
+pg_restore: creando TABLE password_resets
+pg_restore: creando SEQUENCE password_resets_id_seq
+pg_restore: creando SEQUENCE OWNED BY password_resets_id_seq
+pg_restore: creando TABLE periodos
+pg_restore: creando TABLE permisos
+pg_restore: creando SEQUENCE permisos_codigo_permiso_seq
+pg_restore: creando SEQUENCE OWNED BY permisos_codigo_permiso_seq
+pg_restore: creando TABLE prerequisitos
+pg_restore: creando TABLE programas
+pg_restore: creando TABLE roles
+pg_restore: creando SEQUENCE roles_codigo_rol_seq
+pg_restore: creando SEQUENCE OWNED BY roles_codigo_rol_seq
+pg_restore: creando TABLE sedes
+pg_restore: creando TABLE temporal
+pg_restore: creando TABLE usuarios
+pg_restore: creando TABLE usuarios_1
+pg_restore: creando SEQUENCE usuarios_1_id_seq
+pg_restore: creando SEQUENCE OWNED BY usuarios_1_id_seq
+pg_restore: creando SEQUENCE usuarios_id_seq
+pg_restore: creando SEQUENCE OWNED BY usuarios_id_seq
+pg_restore: creando VIEW vdatam3
+pg_restore: creando TABLE version_formato
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT num_consignacion
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT codigo_permiso
+pg_restore: creando DEFAULT codigo_rol
+pg_restore: creando DEFAULT id
+pg_restore: creando DEFAULT id
+pg_restore: reestableciendo datos de la tabla «asignaturas»
+pg_restore: reestableciendo datos de la tabla «auditoria_sw»
+pg_restore: ejecutando SEQUENCE SET auditoria_sw_id_seq
+pg_restore: reestableciendo datos de la tabla «estrategias_met»
+pg_restore: reestableciendo datos de la tabla «evaluacion»
+pg_restore: ejecutando SEQUENCE SET evaluacion_id_seq
+pg_restore: reestableciendo datos de la tabla «facultades»
+pg_restore: reestableciendo datos de la tabla «m1»
+pg_restore: ejecutando SEQUENCE SET m1_id_seq
+pg_restore: reestableciendo datos de la tabla «m2»
+pg_restore: ejecutando SEQUENCE SET m2_id_seq
+pg_restore: ejecutando SEQUENCE SET m2_num_consignacion_seq
+pg_restore: reestableciendo datos de la tabla «m3»
+pg_restore: ejecutando SEQUENCE SET m3_id_seq
+pg_restore: reestableciendo datos de la tabla «met_evaluacion»
+pg_restore: reestableciendo datos de la tabla «nivel»
+pg_restore: ejecutando SEQUENCE SET nivel_id_seq
+pg_restore: reestableciendo datos de la tabla «password_resets»
+pg_restore: ejecutando SEQUENCE SET password_resets_id_seq
+pg_restore: reestableciendo datos de la tabla «periodos»
+pg_restore: reestableciendo datos de la tabla «permisos»
+pg_restore: ejecutando SEQUENCE SET permisos_codigo_permiso_seq
+pg_restore: reestableciendo datos de la tabla «prerequisitos»
+pg_restore: reestableciendo datos de la tabla «programas»
+pg_restore: reestableciendo datos de la tabla «roles»
+pg_restore: ejecutando SEQUENCE SET roles_codigo_rol_seq
+pg_restore: reestableciendo datos de la tabla «sedes»
+pg_restore: reestableciendo datos de la tabla «temporal»
+pg_restore: reestableciendo datos de la tabla «usuarios»
+pg_restore: reestableciendo datos de la tabla «usuarios_1»
+pg_restore: ejecutando SEQUENCE SET usuarios_1_id_seq
+pg_restore: ejecutando SEQUENCE SET usuarios_id_seq
+pg_restore: reestableciendo datos de la tabla «version_formato»
+pg_restore: creando CONSTRAINT asignaturas_pk
+pg_restore: creando CONSTRAINT estrategias_met_pk
+pg_restore: creando CONSTRAINT evaluacion_pkey
+pg_restore: creando CONSTRAINT facultades_pkey
+pg_restore: creando CONSTRAINT m1_pk
+pg_restore: creando CONSTRAINT m2_pk1
+pg_restore: creando CONSTRAINT m3_pkey
+pg_restore: creando CONSTRAINT nivel_pk
+pg_restore: creando CONSTRAINT periodos_pk
+pg_restore: creando CONSTRAINT permisos_pk
+pg_restore: creando CONSTRAINT programas_pk
+pg_restore: creando CONSTRAINT roles_pk
+pg_restore: creando CONSTRAINT sedes_pk
+pg_restore: creando CONSTRAINT usuarios_pk
+pg_restore: creando CONSTRAINT usuarios_pk_1
+pg_restore: creando CONSTRAINT usuarios_un
+pg_restore: creando CONSTRAINT usuarios_un_1
+pg_restore: creando FK CONSTRAINT sedes_programas
+pg_restore: estableciendo dueño y privilegios para TABLE asignaturas
+pg_restore: estableciendo dueño y privilegios para TABLE auditoria_sw
+pg_restore: estableciendo dueño y privilegios para SEQUENCE auditoria_sw_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY auditoria_sw_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE estrategias_met
+pg_restore: estableciendo dueño y privilegios para TABLE evaluacion
+pg_restore: estableciendo dueño y privilegios para SEQUENCE evaluacion_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY evaluacion_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE facultades
+pg_restore: estableciendo dueño y privilegios para TABLE m1
+pg_restore: estableciendo dueño y privilegios para SEQUENCE m1_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY m1_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE m2
+pg_restore: estableciendo dueño y privilegios para SEQUENCE m2_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY m2_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE m2_num_consignacion_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY m2_num_consignacion_seq
+pg_restore: estableciendo dueño y privilegios para TABLE m3
+pg_restore: estableciendo dueño y privilegios para SEQUENCE m3_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY m3_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE met_evaluacion
+pg_restore: estableciendo dueño y privilegios para TABLE nivel
+pg_restore: estableciendo dueño y privilegios para SEQUENCE nivel_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY nivel_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE password_resets
+pg_restore: estableciendo dueño y privilegios para SEQUENCE password_resets_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY password_resets_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE periodos
+pg_restore: estableciendo dueño y privilegios para TABLE permisos
+pg_restore: estableciendo dueño y privilegios para SEQUENCE permisos_codigo_permiso_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY permisos_codigo_permiso_seq
+pg_restore: estableciendo dueño y privilegios para TABLE prerequisitos
+pg_restore: estableciendo dueño y privilegios para TABLE programas
+pg_restore: estableciendo dueño y privilegios para TABLE roles
+pg_restore: estableciendo dueño y privilegios para SEQUENCE roles_codigo_rol_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY roles_codigo_rol_seq
+pg_restore: estableciendo dueño y privilegios para TABLE sedes
+pg_restore: estableciendo dueño y privilegios para TABLE temporal
+pg_restore: estableciendo dueño y privilegios para TABLE usuarios
+pg_restore: estableciendo dueño y privilegios para TABLE usuarios_1
+pg_restore: estableciendo dueño y privilegios para SEQUENCE usuarios_1_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY usuarios_1_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE usuarios_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE OWNED BY usuarios_id_seq
+pg_restore: estableciendo dueño y privilegios para VIEW vdatam3
+pg_restore: estableciendo dueño y privilegios para TABLE version_formato
+pg_restore: estableciendo dueño y privilegios para DEFAULT id
+pg_restore: estableciendo dueño y privilegios para DEFAULT id
+pg_restore: estableciendo dueño y privilegios para DEFAULT id
+pg_restore: estableciendo dueño y privilegios para DEFAULT num_consignacion
+pg_restore: estableciendo dueño y privilegios para DEFAULT id
+pg_restore: estableciendo dueño y privilegios para DEFAULT id
+pg_restore: estableciendo dueño y privilegios para DEFAULT id
+pg_restore: estableciendo dueño y privilegios para DEFAULT id
+pg_restore: estableciendo dueño y privilegios para DEFAULT codigo_permiso
+pg_restore: estableciendo dueño y privilegios para DEFAULT codigo_rol
+pg_restore: estableciendo dueño y privilegios para DEFAULT id
+pg_restore: estableciendo dueño y privilegios para DEFAULT id
+pg_restore: estableciendo dueño y privilegios para TABLE DATA asignaturas
+pg_restore: estableciendo dueño y privilegios para TABLE DATA auditoria_sw
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET auditoria_sw_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE DATA estrategias_met
+pg_restore: estableciendo dueño y privilegios para TABLE DATA evaluacion
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET evaluacion_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE DATA facultades
+pg_restore: estableciendo dueño y privilegios para TABLE DATA m1
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET m1_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE DATA m2
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET m2_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET m2_num_consignacion_seq
+pg_restore: estableciendo dueño y privilegios para TABLE DATA m3
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET m3_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE DATA met_evaluacion
+pg_restore: estableciendo dueño y privilegios para TABLE DATA nivel
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET nivel_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE DATA password_resets
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET password_resets_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE DATA periodos
+pg_restore: estableciendo dueño y privilegios para TABLE DATA permisos
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET permisos_codigo_permiso_seq
+pg_restore: estableciendo dueño y privilegios para TABLE DATA prerequisitos
+pg_restore: estableciendo dueño y privilegios para TABLE DATA programas
+pg_restore: estableciendo dueño y privilegios para TABLE DATA roles
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET roles_codigo_rol_seq
+pg_restore: estableciendo dueño y privilegios para TABLE DATA sedes
+pg_restore: estableciendo dueño y privilegios para TABLE DATA temporal
+pg_restore: estableciendo dueño y privilegios para TABLE DATA usuarios
+pg_restore: estableciendo dueño y privilegios para TABLE DATA usuarios_1
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET usuarios_1_id_seq
+pg_restore: estableciendo dueño y privilegios para SEQUENCE SET usuarios_id_seq
+pg_restore: estableciendo dueño y privilegios para TABLE DATA version_formato
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT asignaturas_pk
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT estrategias_met_pk
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT evaluacion_pkey
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT facultades_pkey
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT m1_pk
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT m2_pk1
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT m3_pkey
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT nivel_pk
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT periodos_pk
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT permisos_pk
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT programas_pk
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT roles_pk
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT sedes_pk
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT usuarios_pk
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT usuarios_pk_1
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT usuarios_un
+pg_restore: estableciendo dueño y privilegios para CONSTRAINT usuarios_un_1
+pg_restore: estableciendo dueño y privilegios para FK CONSTRAINT sedes_programas

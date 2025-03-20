@@ -1,0 +1,144 @@
+[2024-09-21 05:20:02] Error al insertar el código 22477626: 
+[2024-09-21 05:20:02] Error al insertar el código 871221627: 
+[2024-09-21 05:20:02] Error al insertar el código 32773466: 
+[2024-09-21 05:22:36] Error al insertar el código 22477626: .'Codigo_Usuario Duplicado'
+[2024-09-21 05:22:36] Error al insertar el código 871221627: .'Codigo_Usuario Duplicado'
+[2024-09-21 05:22:36] Error al insertar el código 32773466: .'Codigo_Usuario Duplicado'
+[2024-09-21 05:25:34] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-21 05:25:34] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-21 05:25:34] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-21 23:17:45] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-21 23:17:45] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-21 23:17:45] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-21 23:31:45] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-21 23:31:45] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-21 23:31:45] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-21 23:45:41] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-21 23:45:41] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-21 23:45:41] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 00:15:15] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 00:15:15] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 00:15:15] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 00:21:56] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 00:21:56] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 00:21:56] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 00:35:30] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 00:35:30] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 00:35:30] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 00:41:32] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 00:41:32] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 00:41:32] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 00:47:48] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 00:47:48] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 00:47:48] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 00:50:02] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 00:50:02] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 00:50:02] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 00:51:30] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 00:51:30] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 00:51:30] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 00:52:49] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 00:52:49] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 00:52:49] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 00:54:55] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 00:54:55] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 00:54:55] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 00:57:18] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 00:57:18] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 00:57:18] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 01:26:55] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 01:26:55] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 01:26:55] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 01:29:31] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 01:29:31] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 01:29:31] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 01:34:30] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 01:34:30] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 01:34:30] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 01:37:13] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 01:37:13] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 01:37:13] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 01:40:27] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 01:40:27] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 01:40:27] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 01:54:53] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 01:54:53] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 01:54:53] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:03:38] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:03:38] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:03:38] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:05:13] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:05:13] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:05:13] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:09:25] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:09:25] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:09:25] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:10:41] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:10:41] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:10:41] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:16:58] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:16:58] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:16:58] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:20:49] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:20:49] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:20:49] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:21:18] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:21:18] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:21:18] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:25:38] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:25:38] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:25:38] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:31:32] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:31:32] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:31:32] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:37:59] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:37:59] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:37:59] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:38:59] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:38:59] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:38:59] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:41:24] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:41:24] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:41:24] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:43:27] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:43:27] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:43:27] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:49:42] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:49:42] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:49:42] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-22 02:57:10] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-22 02:57:10] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-22 02:57:10] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2024-09-23 00:51:35] Error al insertar el código 22477626: Codigo_Usuario Duplicado
+[2024-09-23 00:51:35] Error al insertar el código 871221627: Codigo_Usuario Duplicado
+[2024-09-23 00:51:35] Error al insertar el código 32773466: Codigo_Usuario Duplicado
+[2025-03-24 03:34:56] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:35:33] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:35:33] Error al insertar el código : SQLSTATE[HY093]: Invalid parameter number: :pass
+[2025-03-24 03:38:19] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:40:33] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:40:43] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:40:43] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:41:49] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:41:49] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:42:19] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:42:31] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:42:31] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:42:32] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:42:32] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:42:33] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:42:33] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:42:33] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:42:33] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:42:33] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:42:33] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:42:33] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:42:33] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:42:33] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:42:33] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:44:33] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:44:33] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:45:44] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:45:44] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-03-24 03:46:08] Error al insertar el código 224776261: Codigo_Usuario Duplicado
+[2025-03-24 03:46:08] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null

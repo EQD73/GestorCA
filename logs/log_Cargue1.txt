@@ -1,0 +1,200 @@
+[2024-09-15 23:14:56] Conexión a la base de datos exitosa.
+[2024-09-15 23:14:56] Datos insertados: 22477626, NADYA EDILMA, MONTANO MONTANO
+[2024-09-15 23:14:56] Datos insertados: 871221627, CESAR DARIO, CASTILLO JIMENEZ
+[2024-09-15 23:14:56] Datos insertados: 32773466, SANDRA, ACOSTA OCHOA
+[2024-09-15 23:14:56] Archivo CSV procesado correctamente.
+[2024-09-21 02:53:10] Conexión a la base de datos exitosa.
+[2024-09-21 02:55:36] Conexión a la base de datos exitosa.
+[2024-09-21 02:59:55] Conexión a la base de datos exitosa.
+[2024-09-21 03:01:03] Conexión a la base de datos exitosa.
+[2024-09-21 03:14:31] Conexión a la base de datos exitosa.
+[2024-09-21 03:16:13] Conexión a la base de datos exitosa.
+[2024-09-21 03:17:50] Conexión a la base de datos exitosa.
+[2024-09-21 03:22:41] Conexión a la base de datos exitosa.
+[2024-09-21 03:29:48] Conexión a la base de datos exitosa.
+[2024-09-21 03:36:50] Conexión a la base de datos exitosa.
+[2024-09-21 03:36:50] Archivo CSV procesado correctamente.
+[2024-09-21 03:42:05] Conexión a la base de datos exitosa.
+[2024-09-21 03:42:05] Archivo CSV procesado correctamente.
+[2024-09-21 03:46:25] Conexión a la base de datos exitosa.
+[2024-09-21 03:46:25] Archivo CSV procesado correctamente.
+[2024-09-21 03:50:05] Conexión a la base de datos exitosa.
+[2024-09-21 03:50:05] Archivo CSV procesado correctamente.
+[2024-09-21 04:02:09] Conexión a la base de datos exitosa.
+[2024-09-21 04:02:09] Archivo CSV procesado correctamente.
+[2024-09-21 04:04:01] Conexión a la base de datos exitosa.
+[2024-09-21 04:04:01] Error al subir el archivo CSV.
+[2024-09-21 04:07:58] Conexión a la base de datos exitosa.
+[2024-09-21 04:07:58] Error al subir el archivo CSV.
+[2024-09-21 04:11:39] Conexión a la base de datos exitosa.
+[2024-09-21 04:11:39] Error al subir el archivo CSV.
+[2024-09-21 04:25:58] Conexión a la base de datos exitosa.
+[2024-09-21 04:30:56] Conexión a la base de datos exitosa.
+[2024-09-21 04:33:05] Conexión a la base de datos exitosa.
+[2024-09-21 04:33:05] POST
+[2024-09-21 04:37:59] Conexión a la base de datos exitosa.
+[2024-09-21 04:37:59] POST
+[2024-09-21 04:42:38] Conexión a la base de datos exitosa.
+[2024-09-21 04:48:22] Conexión a la base de datos exitosa.
+[2024-09-21 04:54:13] Conexión a la base de datos exitosa.
+[2024-09-21 04:56:15] Conexión a la base de datos exitosa.
+[2024-09-21 04:57:24] Conexión a la base de datos exitosa.
+[2024-09-21 05:03:58] Conexión a la base de datos exitosa.
+[2024-09-21 05:07:39] Conexión a la base de datos exitosa.
+[2024-09-21 05:08:28] Conexión a la base de datos exitosa.
+[2024-09-21 05:10:01] Conexión a la base de datos exitosa.
+[2024-09-21 05:14:12] Conexión a la base de datos exitosa.
+[2024-09-21 05:20:02] Conexión a la base de datos exitosa.
+[2024-09-21 05:22:36] Conexión a la base de datos exitosa.
+[2024-09-21 05:25:34] Conexión a la base de datos exitosa.
+[2024-09-21 23:17:45] Conexión a la base de datos exitosa.
+[2024-09-21 23:17:45] Archivo CSV procesado correctamente.
+[2024-09-21 23:31:45] Conexión a la base de datos exitosa.
+[2024-09-21 23:31:45] Error al subir el archivo CSV.
+[2024-09-21 23:45:41] Conexión a la base de datos exitosa.
+[2024-09-21 23:45:41] Error al subir el archivo CSV.
+[2024-09-22 00:15:15] Conexión a la base de datos exitosa.
+[2024-09-22 00:15:15] 3
+[2024-09-22 00:15:15] Error al subir el archivo CSV.
+[2024-09-22 00:21:56] Conexión a la base de datos exitosa.
+[2024-09-22 00:21:56] 3
+[2024-09-22 00:21:56] Error al subir el archivo CSV.
+[2024-09-22 00:35:30] Conexión a la base de datos exitosa.
+[2024-09-22 00:35:30] 3
+[2024-09-22 00:41:32] Conexión a la base de datos exitosa.
+[2024-09-22 00:41:32] 3
+[2024-09-22 00:41:32] Error al subir el archivo CSV.
+[2024-09-22 00:47:48] Conexión a la base de datos exitosa.
+[2024-09-22 00:47:48] 3
+[2024-09-22 00:47:48] Error al subir el archivo CSV.
+[2024-09-22 00:50:02] Conexión a la base de datos exitosa.
+[2024-09-22 00:50:02] 3
+[2024-09-22 00:50:02] Error al subir el archivo CSV.
+[2024-09-22 00:51:30] Conexión a la base de datos exitosa.
+[2024-09-22 00:51:30] 3
+[2024-09-22 00:51:30] Error al subir el archivo CSV.
+[2024-09-22 00:52:49] Conexión a la base de datos exitosa.
+[2024-09-22 00:52:49] 3
+[2024-09-22 00:52:49] Error al subir el archivo CSV.
+[2024-09-22 00:54:55] Conexión a la base de datos exitosa.
+[2024-09-22 00:54:55] 3
+[2024-09-22 00:54:55] Error al subir el archivo CSV.
+[2024-09-22 00:57:18] Conexión a la base de datos exitosa.
+[2024-09-22 00:57:18] 3
+[2024-09-22 00:57:18] Error al subir el archivo CSV.
+[2024-09-22 01:26:55] Conexión a la base de datos exitosa.
+[2024-09-22 01:26:55] 3
+[2024-09-22 01:26:55] Error al subir el archivo CSV.
+[2024-09-22 01:29:31] Conexión a la base de datos exitosa.
+[2024-09-22 01:29:31] 3
+[2024-09-22 01:29:31] Error al subir el archivo CSV.
+[2024-09-22 01:34:30] Conexión a la base de datos exitosa.
+[2024-09-22 01:34:30] 3
+[2024-09-22 01:34:30] Error al subir el archivo CSV.
+[2024-09-22 01:37:13] Conexión a la base de datos exitosa.
+[2024-09-22 01:37:13] 3
+[2024-09-22 01:37:13] Error al subir el archivo CSV.
+[2024-09-22 01:40:27] Conexión a la base de datos exitosa.
+[2024-09-22 01:40:27] 3
+[2024-09-22 01:40:27] Error al subir el archivo CSV.
+[2024-09-22 01:54:53] Conexión a la base de datos exitosa.
+[2024-09-22 01:54:53] 3
+[2024-09-22 01:54:53] Error al subir el archivo CSV.
+[2024-09-22 02:03:38] Conexión a la base de datos exitosa.
+[2024-09-22 02:03:38] 3
+[2024-09-22 02:03:38] Error al subir el archivo CSV.
+[2024-09-22 02:05:13] Conexión a la base de datos exitosa.
+[2024-09-22 02:05:13] 3
+[2024-09-22 02:05:13] Error al subir el archivo CSV.
+[2024-09-22 02:09:25] Conexión a la base de datos exitosa.
+[2024-09-22 02:09:25] 3
+[2024-09-22 02:09:25] Error al subir el archivo CSV.
+[2024-09-22 02:10:41] Conexión a la base de datos exitosa.
+[2024-09-22 02:10:41] 3
+[2024-09-22 02:10:41] Error al subir el archivo CSV.
+[2024-09-22 02:16:58] Conexión a la base de datos exitosa.
+[2024-09-22 02:16:58] 3
+[2024-09-22 02:16:58] Error al subir el archivo CSV.
+[2024-09-22 02:20:49] Conexión a la base de datos exitosa.
+[2024-09-22 02:20:49] 3
+[2024-09-22 02:20:49] Error al subir el archivo CSV.
+[2024-09-22 02:21:18] Conexión a la base de datos exitosa.
+[2024-09-22 02:21:18] 3
+[2024-09-22 02:21:18] Error al subir el archivo CSV.
+[2024-09-22 02:25:38] Conexión a la base de datos exitosa.
+[2024-09-22 02:25:38] 3
+[2024-09-22 02:25:38] Error al subir el archivo CSV.
+[2024-09-22 02:31:32] Conexión a la base de datos exitosa.
+[2024-09-22 02:31:32] Error al subir el archivo CSV.
+[2024-09-22 02:37:59] Conexión a la base de datos exitosa.
+[2024-09-22 02:37:59] Error al subir el archivo CSV.
+[2024-09-22 02:38:59] Conexión a la base de datos exitosa.
+[2024-09-22 02:38:59] Error al subir el archivo CSV.
+[2024-09-22 02:41:24] Conexión a la base de datos exitosa.
+[2024-09-22 02:41:24] Error al subir el archivo CSV.
+[2024-09-22 02:43:06] Conexión a la base de datos exitosa.
+[2024-09-22 02:43:06] Datos insertados: :codigo, :nombres, :apellidos
+[2024-09-22 02:43:06] Datos insertados: :codigo, :nombres, :apellidos
+[2024-09-22 02:43:06] Datos insertados: :codigo, :nombres, :apellidos
+[2024-09-22 02:43:06] Archivo CSV procesado correctamente.
+[2024-09-22 02:43:27] Conexión a la base de datos exitosa.
+[2024-09-22 02:43:27] Error al subir el archivo CSV.
+[2024-09-22 02:48:22] Conexión a la base de datos exitosa.
+[2024-09-22 02:48:22] Datos insertados: 22477626, NADYA EDILMA. MONTANO MONTANO
+[2024-09-22 02:48:22] Datos insertados: 871221627, CESAR DARIO. CASTILLO JIMENEZ
+[2024-09-22 02:48:22] Datos insertados: 32773466, SANDRA. ACOSTA OCHOA
+[2024-09-22 02:48:22] Archivo CSV procesado correctamente.
+[2024-09-22 02:49:42] Conexión a la base de datos exitosa.
+[2024-09-22 02:49:42] Error al subir el archivo CSV.
+[2024-09-22 02:53:41] Error al conectar a la base de datos.
+[2024-09-22 02:56:55] Conexión a la base de datos exitosa.
+[2024-09-22 02:56:55] Datos insertados: 22477626, NADYA EDILMA. MONTANO MONTANO
+[2024-09-22 02:56:55] Datos insertados: 871221627, CESAR DARIO. CASTILLO JIMENEZ
+[2024-09-22 02:56:55] Datos insertados: 32773466, SANDRA. ACOSTA OCHOA
+[2024-09-22 02:56:55] Archivo CSV procesado correctamente.
+[2024-09-22 02:57:10] Conexión a la base de datos exitosa.
+[2024-09-22 02:57:10] Error al subir el archivo CSV.
+[2024-09-23 00:51:35] Conexión a la base de datos exitosa.
+[2024-09-23 00:51:35] Error al subir el archivo CSV.
+[2025-03-24 03:23:14] Conexión a la base de datos exitosa.
+[2025-03-24 03:24:04] Conexión a la base de datos exitosa.
+[2025-03-24 03:27:28] Conexión a la base de datos exitosa.
+[2025-03-24 03:27:48] Conexión a la base de datos exitosa.
+[2025-03-24 03:34:56] Conexión a la base de datos exitosa.
+[2025-03-24 03:34:56] Datos insertados: 224776261, NADYA EDILMA. MONTANO MONTANO
+[2025-03-24 03:34:56] Archivo CSV procesado correctamente.
+[2025-03-24 03:35:33] Conexión a la base de datos exitosa.
+[2025-03-24 03:35:33] Error al subir el archivo CSV.
+[2025-03-24 03:38:19] Conexión a la base de datos exitosa.
+[2025-03-24 03:38:19] Datos insertados: 224776261, NADYA EDILMA. MONTANO MONTANO
+[2025-03-24 03:38:19] Archivo CSV procesado correctamente.
+[2025-03-24 03:40:33] Conexión a la base de datos exitosa.
+[2025-03-24 03:40:33] Datos insertados: 224776261, NADYA EDILMA. MONTANO MONTANO
+[2025-03-24 03:40:33] Archivo CSV procesado correctamente.
+[2025-03-24 03:40:43] Conexión a la base de datos exitosa.
+[2025-03-24 03:40:43] Error al subir el archivo CSV.
+[2025-03-24 03:41:49] Conexión a la base de datos exitosa.
+[2025-03-24 03:41:49] Error al subir el archivo CSV.
+[2025-03-24 03:42:19] Conexión a la base de datos exitosa.
+[2025-03-24 03:42:19] Datos insertados: 224776261, NADYA EDILMA. MONTANO MONTANO
+[2025-03-24 03:42:19] Archivo CSV procesado correctamente.
+[2025-03-24 03:42:31] Conexión a la base de datos exitosa.
+[2025-03-24 03:42:31] Error al subir el archivo CSV.
+[2025-03-24 03:42:32] Conexión a la base de datos exitosa.
+[2025-03-24 03:42:32] Error al subir el archivo CSV.
+[2025-03-24 03:42:33] Conexión a la base de datos exitosa.
+[2025-03-24 03:42:33] Error al subir el archivo CSV.
+[2025-03-24 03:42:33] Conexión a la base de datos exitosa.
+[2025-03-24 03:42:33] Error al subir el archivo CSV.
+[2025-03-24 03:42:33] Conexión a la base de datos exitosa.
+[2025-03-24 03:42:33] Error al subir el archivo CSV.
+[2025-03-24 03:42:33] Conexión a la base de datos exitosa.
+[2025-03-24 03:42:33] Error al subir el archivo CSV.
+[2025-03-24 03:42:33] Conexión a la base de datos exitosa.
+[2025-03-24 03:42:33] Error al subir el archivo CSV.
+[2025-03-24 03:44:33] Conexión a la base de datos exitosa.
+[2025-03-24 03:44:33] Error al subir el archivo CSV.
+[2025-03-24 03:45:44] Conexión a la base de datos exitosa.
+[2025-03-24 03:45:44] Error al subir el archivo CSV.
+[2025-03-24 03:46:08] Conexión a la base de datos exitosa.
+[2025-03-24 03:46:08] Error al subir el archivo CSV.
