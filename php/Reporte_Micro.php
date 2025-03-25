@@ -18,8 +18,8 @@ $resultado_qp = pg_query($conexion, $query_periodo);
 $query_roles = "SELECT * FROM sistema.roles WHERE codigo_rol='$codigo_rol'";
 $resultado_qr = pg_query($conexion, $query_roles);
 $objroles = pg_fetch_object($resultado_qr);
-$nombre_rol=$objroles->nombre_rol;
-$_SESSION['nombre_rol']=$nombre_rol;
+$nombre_rol = $objroles->nombre_rol;
+$_SESSION['nombre_rol'] = $nombre_rol;
 
 ?>
 
@@ -31,10 +31,7 @@ $_SESSION['nombre_rol']=$nombre_rol;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Contenidos Académicos - UniCorsalud</title>
 
-    <link rel="stylesheet" href="../assets/css/bootstrap.css">
-
-
-    <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/app.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
@@ -69,20 +66,20 @@ $_SESSION['nombre_rol']=$nombre_rol;
                                         <div>
                                             <h6 class='text-bold'>Aviso</h6>
                                             <p class='text-xs'>
-                                                No hay información 
+                                                No hay información
                                             </p>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        
+
                         <li class="dropdown">
                             <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                                 <div class="avatar me-1">
                                     <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
                                 </div>
-                                <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br> 
+                                <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
                                 <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
@@ -97,7 +94,7 @@ $_SESSION['nombre_rol']=$nombre_rol;
 
             <div class="main-content container-fluid">
                 <div class="container">
-                <h4 class="text-center" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Periodo Académico: <?php echo $_SESSION['descripcion']; ?></h4>
+                    <h4 class="text-center" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Periodo Académico: <?php echo $_SESSION['descripcion']; ?></h4>
                     <hr>
                 </div>
 
@@ -106,7 +103,7 @@ $_SESSION['nombre_rol']=$nombre_rol;
                     <!-- <p class="text-subtitle text-muted">Algunas estadisticas importantes</p> -->
                 </div>
                 <section class="section">
-                   
+
                 </section>
 
             </div>
@@ -123,17 +120,12 @@ $_SESSION['nombre_rol']=$nombre_rol;
             </footer>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="../assets/js/feather-icons/feather.min.js"></script>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/app.js"></script>
-
-    <!-- <script src="../assets/vendors/chartjs/Chart.min.js"></script>
-    <script src="../assets/vendors/apexcharts/apexcharts.min.js"></script>
-    <script src="../assets/js/pages/dashboard.js"></script> -->
-
     <script src="../assets/js/main.js"></script>
-    <!-- <script src="../modal.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
     <script type="text/javascript">
         //asignacion de nombre de periodo para titulo
         document.getElementById('CodigoPeriodo').onchange = function() {
