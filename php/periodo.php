@@ -30,20 +30,19 @@ $num1 = pg_num_rows($resultado_qp);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Contenidos Académicos - UniCorsalud</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!--   <link rel="stylesheet" href="../assets/vendors/chartjs/Chart.min.css"> -->
     <!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="../assets/css/app.css">
-
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
-    <!-- <link rel="stylesheet" type="text/css" href="plugins/sweetAlert2/sweetalert2.min.css" /> -->
+
     <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.css" integrity="sha512-us/9of/cEp3FrrmLUpCcWUAzm2gE7EOPnfEAWBMwdWR1Lpxw0orMoVvLyyoGSD9iMGAUlEd8XHzt5+SDwmdGLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.css" integrity="sha512-us/9of/cEp3FrrmLUpCcWUAzm2gE7EOPnfEAWBMwdWR1Lpxw0orMoVvLyyoGSD9iMGAUlEd8XHzt5+SDwmdGLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.js" integrity="sha512-vgklhe3vcXaOdX0on3diSDRNRFlqWR9sLH6mMT4gm8ZzSMG0OxE8S1Tm8LHUOfEdZICn45OO2eluLLt81oHvtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"> -->
 
     <style>
         table tr th {
@@ -91,278 +90,8 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
 ?>
 
     <body>
-        <div class="cargando">
-            <div class="loader-outter"></div>
-            <div class="loader-inner"></div>
-        </div>
-
-
-
-
-
         <div id="app">
-            <div id="sidebar" class='active'>
-                <div class="sidebar-wrapper active">
-                    <div class="sidebar-header">
-                        <img src="../assets/images/logo.png" width="220" height="300">
-                    </div>
-                    <div class="sidebar-menu">
-                        <ul class="menu">
-
-
-                            <li class='sidebar-title'>Menu Principal</li>
-
-                            <li class="sidebar-item active ">
-
-                                <a href="#" class='sidebar-link'>
-                                    <i data-feather="home" width="20"></i>
-                                    <span>Inicio</span>
-                                </a>
-                            </li>
-
-
-
-                            <li class="sidebar-item  has-sub">
-
-                                <a href="#" class='sidebar-link'>
-                                    <i data-feather="layers" width="20"></i>
-                                    <span>Módulos</span>
-                                </a>
-                                <ul class="submenu ">
-                                    <li>
-                                        <a href="Microcurriculo.php">Microcurriculo</a>
-                                    </li>
-                                    <li>
-                                        <a href="Consignador.php">Consignador Acádemico</a>
-                                    </li>
-                                    <li>
-                                        <a href="Registro.php">Registro de Actividades</a>
-                                    </li>
-                                </ul>
-
-                            <li class='sidebar-title'>Formularios/Tablas</li>
-
-
-
-                            <li class="sidebar-item  has-sub">
-
-                                <a href="#" class='sidebar-link'>
-                                    <i data-feather="database" width="20"></i>
-                                    <span>Tablas Básicas</span>
-                                </a>
-
-
-                                <ul class="submenu ">
-                                    <li>
-                                        <a href="periodo.php">Periodos Académicos</a>
-                                    </li>
-                                    <li>
-                                        <a href="asignaturas.php">Asignaturas</a>
-                                    </li>
-                                    <li>
-                                        <a href="facultades.php">Facultades</a>
-                                    </li>
-                                    <li>
-                                        <a href="programas.php">Programas</a>
-                                    </li>
-                                    <li>
-                                        <a href="usuarios.php">Control de Usuarios</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="roles.php">Roles Usuarios</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="permisos.php">Permisos Roles</a>
-                                    </li>
-
-                                </ul>
-
-                            </li>
-
-
-
-                            <!-- <li class="sidebar-item  ">
-
-                    <a href="form-layout.html" class='sidebar-link'>
-                        <i data-feather="layout" width="20"></i> 
-                        <span>Form Layout</span>
-                    </a>
-
-                    
-                </li>
-                
-            
-                
-                <li class="sidebar-item  ">
-
-                    <a href="form-editor.html" class='sidebar-link'>
-                        <i data-feather="layers" width="20"></i> 
-                        <span>Form Editor</span>
-                    </a>
-
-                    
-                </li>
-                
-            
-                
-                <li class="sidebar-item  ">
-
-                    <a href="table.html" class='sidebar-link'>
-                        <i data-feather="grid" width="20"></i> 
-                        <span>Table</span>
-                    </a>
-
-                    
-                </li> -->
-
-                            <!-- 
-                
-                <li class="sidebar-item  ">
-
-                    <a href="table-datatable.html" class='sidebar-link'>
-                        <i data-feather="file-plus" width="20"></i> 
-                        <span>Datatable</span>
-                    </a>
-
-                    
-                </li> -->
-
-
-
-                            <li class='sidebar-title'>Herramientas</li>
-
-
-
-                            <li class="sidebar-item  has-sub">
-
-                                <a href="#" class='sidebar-link'>
-                                    <i data-feather="tool" width="20"></i>
-                                    <span>Utilidades</span>
-                                </a>
-
-
-                                <ul class="submenu ">
-
-                                    <li>
-                                        <a href="config.php">Configuraciones</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="cargamasiva.php">Cargue Masivo</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="copiasoporte">Copias de Soporte</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="restauradatos.php">Restaurar Datos</a>
-                                    </li>
-                                    <li>
-                                        <a href="otro.php">Otro...</a>
-                                    </li>
-                                </ul>
-
-                            </li>
-
-
-
-                            <li class="sidebar-item  has-sub">
-
-                                <a href="#" class='sidebar-link'>
-                                    <i data-feather="pie-chart" width="20"></i>
-                                    <span>Graficas/Estadisticas</span>
-                                </a>
-
-
-                                <ul class="submenu ">
-
-                                    <li>
-                                        <a href="est_asignaturas.php">Asignaturas</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="est_estudiantes.php">Estudiantes</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="est_docentes.php">Docentes</a>
-                                    </li>
-                                </ul>
-
-                            </li>
-
-
-
-                            <li class='sidebar-title'>Reportes/Informes</li>
-
-
-
-                            <li class="sidebar-item  has-sub">
-
-                                <a href="#" class='sidebar-link'>
-                                    <i data-feather="file-text" width="20"></i>
-                                    <span>Informes</span>
-                                </a>
-
-
-                                <ul class="submenu ">
-
-                                    <li>
-                                        <a href="#">Microcurriculo</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">Consignador</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">Registro Actividades</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="ImprimirUsuarios.php" target="_blank">Usuarios</a>
-                                    </li>
-                                </ul>
-
-                            </li>
-
-
-
-                            <li class="sidebar-item  has-sub">
-
-                                <a href="#" class='sidebar-link'>
-                                    <i data-feather="alert-circle" width="20"></i>
-                                    <span>-----</span>
-                                </a>
-
-
-                                <!-- <ul class="submenu ">
-                        
-                        <li>
-                            <a href="error-403.html">403</a>
-                        </li>
-                        
-                        <li>
-                            <a href="error-404.html">404</a>
-                        </li>
-                        
-                        <li>
-                            <a href="error-500.html">500</a>
-                        </li>
-                        
-                    </ul> -->
-
-                            </li>
-
-
-                        </ul>
-                    </div>
-                    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
-                </div>
-            </div>
+            <?php include("cargue_menul.html"); ?>
             <div id="main">
                 <nav class="navbar navbar-header navbar-expand navbar-light">
                     <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
@@ -430,12 +159,9 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
 
                 <div class="main-content container-fluid">
                     <div class="container">
-
                         <h4 class="text-center">CRUD Tabla de Periodos Académicos</h4>
                         <hr>
-
                     </div>
-
                     <div class="row text-center" style="background-color: #cecece">
                         <div class="col-md-6">
                             <strong>Registrar Nuevo Periodo</strong>
@@ -449,15 +175,10 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="body">
                                 <div class="row clearfix">
-
                                     <div class="col-sm-5">
                                         <!--- Formulario para registrar Periodo --->
                                         <?php include('GuardarPeriodo.php');  ?>
-
                                     </div>
-
-
-
                                     <div class="col-sm-7">
                                         <div class="row">
                                             <div class="col-md-12 p-2">
@@ -469,6 +190,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                                             <tr>
                                                                 <th style="color:black" scope="col">Código</th>
                                                                 <th style="color:black" scope="col">Nombre </th>
+                                                                <th style="color:black" scope="col">Estado </th>
                                                                 <th style="color:black" scope="col">Acción</th>
                                                             </tr>
                                                         </thead>
@@ -478,8 +200,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                                                 <tr>
                                                                     <td><?php echo $dataPeriodo['codigo_periodo']; ?></td>
                                                                     <td><?php echo $dataPeriodo['nombre_periodo']; ?></td>
-
-
+                                                                    <td><?php echo $dataPeriodo['estado']; ?></td>
                                                                     <td>
                                                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteChildresn<?php echo $dataPeriodo['codigo_periodo']; ?>" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                                             <i data-feather="trash-2" width="20"></i>
@@ -518,7 +239,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                     <footer>
                         <div class="footer clearfix mb-0 text-muted">
                             <div class="float-start">
-                                <p>2022 &copy; UniCorsalud </p>
+                                <p>2024 &copy; UniCorsalud </p>
                             </div>
                             <!--  <div class="float-end">
                         <p>Crafted with <span class='text-danger'><i data-feather=""></i></span> by <a href="#">Eqd</a></p>
@@ -529,23 +250,39 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
             </div>
         <?php
     } ?>
+        <!-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="../assets/js/feather-icons/feather.min.js"></script>
+        <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script src="../assets/js/app.js"></script>
+
+        <script src="../assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="../assets/vendors/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets/js/pages/dashboard.js"></script> -->
+
+        <!-- <script src="../assets/js/main.js"></script>
+        <script src="modal.js"></script>
+        <script src="../js/jquery.min.js"></script>
+<script src="../js/popper.min.js"></script>
+<script src="../js/bootstrap.min.js"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+        <script src="plugins/sweetAlert2/sweetalert2.all.min.js"></script>  -->
+
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="../assets/js/feather-icons/feather.min.js"></script>
         <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script src="../assets/js/app.js"></script>
 
-        <!--   <script src="../assets/vendors/chartjs/Chart.min.js"></script>
-    <script src="../assets/vendors/apexcharts/apexcharts.min.js"></script>
-    <script src="../assets/js/pages/dashboard.js"></script> -->
+        <script src="../assets/vendors/chartjs/Chart.min.js"></script>
+        <script src="../assets/vendors/apexcharts/apexcharts.min.js"></script>
+        <script src="../assets/js/pages/dashboard.js"></script>
 
         <script src="../assets/js/main.js"></script>
-        <!-- <script src="modal.js"></script> -->
-        <!--  <script src="../js/jquery.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<script src="../js/bootstrap.min.js"></script> -->
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-        <script src="plugins/sweetAlert2/sweetalert2.all.min.js"></script>
+        <script src="modal.js"></script>
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/popper.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+
 
 
         <script type="text/javascript">

@@ -156,6 +156,10 @@ $result = pg_query($conexion, $sql);
         </table>
     </div>
 
+
+
+
+
     <script>
         $(document).ready(function() {
             function cargarAsignaturas() {

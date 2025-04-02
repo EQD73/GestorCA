@@ -863,24 +863,6 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     $x1 = $pdf->GetX();
     $y1 = $pdf->GetY();
     //semana 1 postgrado
-    /*   $pdf->SetFont("Arial", "", 6);
-    $y = $pdf->GetY();
-    $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s1_titulo_p . " (" . $obj->s1_rangoi_p . " al " . $obj->s1_rangof_p . ")", 'ISO-8859-1'), 0, 'J', 0, 4);
-    $pdf->SetXY(50, $y);
-    $pdf->MultiCell(80, 3, mb_convert_encoding($obj->s1_contenidos_p, 'ISO-8859-1'), 0, 'J', 0, 4);
-    $pdf->SetXY(130, $y);
-    $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s1_estrategia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
-    $pdf->SetXY(170, $y);
-    $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s1_metodologia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
-    if ($obj->resultados_aprendizaje == " " || $obj->resultados_aprendizaje == null) {
-        $inc = 6;
-        $pdf->rect(10, 170 - $inc, 200, 11);
-    } else {
-        $pdf->rect(10, 170, 200, 11);
-    }
-    $pdf->Ln(8); */
-    ////
-    //semana 1
     $pdf->SetFont("Arial", "", 6);
     $y = $pdf->GetY();
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s1_titulo_p . " (" . $obj->s1_rangoi_p . " al " . $obj->s1_rangof_p . ")", 'ISO-8859-1'), 0, 'J', 0, 4);
@@ -903,117 +885,134 @@ if ($obj->codigo_programa <> "26" && $obj->codigo_programa <> "30" && $obj->codi
     if ($yFin < 250) {
         realizarSalto($ylines, $pdf);
     }
-    /////
+
     //semana 2 postgrados
+    $x2 = $pdf->GetX();
+    $y2 = $pdf->GetY();
     $pdf->SetFont("Arial", "", 6);
     $y = $pdf->GetY();
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s2_titulo_p . " (" . $obj->s2_rangoi_p . " al " . $obj->s2_rangof_p . ")", 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->SetXY(50, $y);
-    $pdf->MultiCell(80, 3, mb_convert_encoding($obj->s2_contenidos_p, 'ISO-8859-1'), 0, 'J', 0, 4);
+    // Contenido original con líneas en blanco
+    $cont2 = $obj->s2_contenidos_p;
+    // Eliminar líneas en blanco
+    $cleanedCont2 = preg_replace("/\n\s*\n/", "\n", trim($cont2));
+    $startY = $pdf->GetY();
+    $pdf->MultiCell(80, 3, mb_convert_encoding($cleanedCont2, 'ISO-8859-1'), 0, 'J', 0, 4);
+    $endY = $pdf->GetY();
+    $ylines = $endY - $startY;
     $pdf->SetXY(130, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s2_estrategia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s2_metodologia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
-    if ($obj->resultados_aprendizaje == " " || $obj->resultados_aprendizaje == null) {
-        $inc = 6;
-        $pdf->rect(10, 107 - $inc, 200, 11);
-    } else {
-        $pdf->rect(10, 107, 200, 11);
+    $pdf->rect($x2, $y2, 200, $ylines);
+    $yFin = $endY;
+    $pdf->checkPageBreak($bottomMargin, $yFin);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
-    $pdf->Ln(8);
     //semana 3 postgrados
+    $x3 = $pdf->GetX();
+    $y3 = $pdf->GetY();
     $pdf->SetFont("Arial", "", 6);
     $y = $pdf->GetY();
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s3_titulo_p . " (" . $obj->s3_rangoi_p . " al " . $obj->s3_rangof_p . ")", 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->SetXY(50, $y);
-    $pdf->MultiCell(80, 3, mb_convert_encoding($obj->s3_contenidos_p, 'ISO-8859-1'), 0, 'J', 0, 4);
+    // Contenido original con líneas en blanco
+    $cont3 = $obj->s3_contenidos_p;
+    // Eliminar líneas en blanco
+    $cleanedCont3 = preg_replace("/\n\s*\n/", "\n", trim($cont3));
+    $startY = $pdf->GetY();
+    $pdf->MultiCell(80, 3, mb_convert_encoding($cleanedCont3, 'ISO-8859-1'), 0, 'J', 0, 4);
+    $endY = $pdf->GetY();
+    $ylines = $endY - $startY;
     $pdf->SetXY(130, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s3_estrategia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s3_metodologia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
-    if ($obj->resultados_aprendizaje == " " || $obj->resultados_aprendizaje == null) {
-        $inc = 6;
-        $pdf->rect(10, 118 - $inc, 200, 11);
-    } else {
-        $pdf->rect(10, 118, 200, 11);
+    $pdf->rect($x3, $y3, 200, $ylines);
+    $yFin = $endY;
+    $pdf->checkPageBreak($bottomMargin, $yFin);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
-    $pdf->Ln(8);
-    //semana 4
+    //semana 4 postgrados
+    $x4 = $pdf->GetX();
+    $y4 = $pdf->GetY();
     $pdf->SetFont("Arial", "", 6);
     $y = $pdf->GetY();
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s4_titulo_p . " (" . $obj->s4_rangoi_p . " al " . $obj->s4_rangof_p . ")", 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->SetXY(50, $y);
-    $pdf->MultiCell(80, 3, mb_convert_encoding($obj->s4_contenidos_p, 'ISO-8859-1'), 0, 'J', 0, 4);
+    // Contenido original con líneas en blanco
+    $cont4 = $obj->s4_contenidos_p;
+    // Eliminar líneas en blanco
+    $cleanedCont4 = preg_replace("/\n\s*\n/", "\n", trim($cont4));
+    $startY = $pdf->GetY();
+    $pdf->MultiCell(80, 3, mb_convert_encoding($cleanedCont4, 'ISO-8859-1'), 0, 'J', 0, 4);
+    $endY = $pdf->GetY();
+    $ylines = $endY - $startY;
     $pdf->SetXY(130, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s4_estrategia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s4_metodologia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
-    if ($obj->resultados_aprendizaje == " " || $obj->resultados_aprendizaje == null) {
-        $inc = 6;
-        $pdf->rect(10, 129 - $inc, 200, 11);
-    } else {
-        $pdf->rect(10, 129, 200, 11);
+    $pdf->rect($x4, $y4, 200, $ylines);
+    $yFin = $endY;
+    $pdf->checkPageBreak($bottomMargin, $yFin);
+    if ($yFin < 250) {
+        realizarSalto($ylines, $pdf);
     }
-    $pdf->Ln(8);
-    //semana 5
+    //semana 5 postgrados
+    // Contenido original con líneas en blanco
+    $cont5 = $obj->s5_contenidos_p;
+    // Eliminar líneas en blanco
+    $cleanedCont5 = preg_replace("/\n\s*\n/", "\n", trim($cont5));
+    $lineas = explode("\n", $cont5);
+    $cantidadLineas = count($lineas);
+    if ($yFin + $cantidadLineas > 250) {
+        $yFin = ($yFin + $cantidadLineas);
+        $pdf->checkPageBreak($bottomMargin, $yFin);
+    }
+    $x5 = $pdf->GetX();
+    $y5 = $pdf->GetY();
     $pdf->SetFont("Arial", "", 6);
     $y = $pdf->GetY();
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s5_titulo_p . " (" . $obj->s5_rangoi_p . " al " . $obj->s5_rangof_p . ")", 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->SetXY(50, $y);
-    $pdf->MultiCell(80, 3, mb_convert_encoding($obj->s5_contenidos_p, 'ISO-8859-1'), 0, 'J', 0, 4);
+    $startY = $pdf->GetY();
+    $pdf->MultiCell(80, 3, mb_convert_encoding($cleanedCont5, 'ISO-8859-1'), 0, 'J', 0, 4);
+    $endY = $pdf->GetY();
+    $ylines = $endY - $startY;
     $pdf->SetXY(130, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s5_estrategia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
     $pdf->SetXY(170, $y);
     $pdf->MultiCell(40, 3, mb_convert_encoding($obj->s5_metodologia_p, 'ISO-8859-1'), 0, 'J', 0, 4);
-    if ($obj->resultados_aprendizaje == " " || $obj->resultados_aprendizaje == null) {
-        $inc = 6;
-        $pdf->rect(10, 140 - $inc, 200, 11);
-    } else {
-        $pdf->rect(10, 140, 200, 11);
+    $pdf->rect($x5, $y5, 200, $ylines);
+    if ($endY > 240) {
+        $pdf->AddPage();
     }
-    $pdf->Ln(8);
-    // paginas
-    $pdf->AliasNbPages();
     //validacion
     $pdf->SetFillColor(181, 178, 178);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont("Arial", "B", 9);
     $pdf->Cell(200, 5, mb_convert_encoding("RESPONSABLES CONSIGNACION ACADÉMICA", 'ISO-8859-1'), 1, 1, "C", true);
+    $X1 = $pdf->GetX();
+    $Y1 = $pdf->GetY();
     $pdf->SetFont("Arial", "", 6);
-    $pdf->rect(10, 150, 65, 17);
-    $pdf->rect(75, 150, 70, 17);
-    $pdf->rect(145, 150, 65, 17);
-    $pdf->Ln(5);
+    $pdf->rect($X1, $Y1, 65, 23);
+    $pdf->rect(75, $Y1, 70, 23);
+    $pdf->rect(145, $Y1, 65, 23);
+    $pdf->Ln(14);
     $pdf->Cell(65, 3, mb_convert_encoding($obj->nombre_docente, 'ISO-8859-1'), 0, 0, "C");
     $pdf->Cell(70, 3, mb_convert_encoding($obj->validador1, 'ISO-8859-1'), 0, 0, "C");
     $pdf->Cell(65, 3, mb_convert_encoding($obj->validador2, 'ISO-8859-1'), 0, 1, "C");
-    $y = $pdf->GetY();
     $pdf->SetFont("Arial", "", 5);
-    $pdf->MultiCell(65, 2, mb_convert_encoding($obj->nombre_programa, 'ISO-8859-1'), 0, "C", 0);
-    $pdf->SetXY(75, $y);
-    $pdf->MultiCell(70, 2, mb_convert_encoding("COORDINADOR " . $obj->nombre_programa, 'ISO-8859-1'), 0, "C", 0);
-    $pdf->SetXY(145, $y);
+    $pdf->Cell(65, 2, mb_convert_encoding($obj->nombre_programa, 'ISO-8859-1'), 0, 0, "C");
+    $pdf->Cell(70, 2, mb_convert_encoding("COORDINADOR " . $obj->nombre_programa, 'ISO-8859-1'), 0, 0, "C");
     $pdf->Cell(65, 2, mb_convert_encoding("VICERECTORIA ACADEMICA", 'ISO-8859-1'), 0, 1, "C");
-    $pdf->Ln(2);
-    $y = $pdf->GetY();
     $pdf->SetFont("Arial", "", 6);
     $pdf->Cell(65, 2, mb_convert_encoding("ELABORÓ", 'ISO-8859-1'), 0, 0, "C");
-    $pdf->SetXY(75, $y);
     $pdf->Cell(70, 2, mb_convert_encoding("REVISÓ", 'ISO-8859-1'), 0, 0, "C");
-    $pdf->SetXY(145, $y);
     $pdf->Cell(65, 2, mb_convert_encoding("APROBÓ", 'ISO-8859-1'), 0, 1, "C");
-    $pdf->Ln(6);
-    //pie de pagina 
-    $pdf->SetFont("Arial", "", 6);
-    $pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-    $pdf->Cell(5);
-    $pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-    $pdf->Cell(5);
-    date_default_timezone_set("America/Bogota");
-    $pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-    $pdf->Cell(5);
-    $pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-    $pdf->Cell(0, 5, mb_convert_encoding('Página ', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
 }
 
 $pdf->Output('I', 'reporte_consignador_academico.pdf');

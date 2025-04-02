@@ -27,8 +27,8 @@
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Codigo Sede:</label>
-            <input type="text" name="nombre" class="form-control" value="<?php echo $dataPrograma['codigo_sede']; ?>" required="true"> 
-           
+            <input type="text" name="sede" class="form-control" value="<?php echo $dataPrograma['codigo_sede']; ?>" required="true">
+
           </div>
 
         </div>

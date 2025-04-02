@@ -10,12 +10,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-
       <form method="POST" action="recib_UpdatePeriodo.php">
         <input type="hidden" name="codigo" value="<?php echo $dataPeriodo['codigo_periodo']; ?>">
 
         <div class="modal-body" id="cont_modal">
-
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Codigo Periodo:</label>
             <input type="text" name="codigo" class="form-control" value="<?php echo $dataPeriodo['codigo_periodo']; ?>" required="true">
@@ -41,13 +39,13 @@
             <select class="form-select form-select-sm" id="estado" name="estado">
               <option value="<?php echo $dataPeriodo['estado']; ?>" selected><?php echo $dataPeriodo['estado']; ?></option>
               <?php
-              if ($dataPeriodo=="INACTIVO"){ ?>
-                            <option value="ACTIVO">INACTIVO</option>
+              if ($dataPeriodo['estado'] == "INACTIVO") { ?>
+                <option value="ACTIVO">ACTIVO</option>
               <?php
-              }else{ ?>
-                 <option value="INACTIVO">INACTIVO</option>
+              } else { ?>
+                <option value="INACTIVO">INACTIVO</option>
+              <?php } ?>
             </select>
-            <?php }?>
           </div>
         </div>
         <div class="modal-footer">
