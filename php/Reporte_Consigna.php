@@ -5,16 +5,13 @@ if (!isset($_SESSION['codigo_usuario'])) {
     header("Location: ../index.php");
 }
 
-
 $nombre = $_SESSION['nombres'];
 $codigo_rol = $_SESSION['codigo_rol'];
 
 require "conexion.php";
 
-
 $query_periodo = "SELECT codigo_periodo, nombre_periodo, estado, descripcion FROM sistema.periodos WHERE estado='ACTIVO'";
 $resultado_qp = pg_query($conexion, $query_periodo);
-
 $query_roles = "SELECT * FROM sistema.roles WHERE codigo_rol='$codigo_rol'";
 $resultado_qr = pg_query($conexion, $query_roles);
 $objroles = pg_fetch_object($resultado_qr);
@@ -34,9 +31,8 @@ $_SESSION['nombre_rol'] = $nombre_rol;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/app.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
+    <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
 </head>
 
 <body>
@@ -100,7 +96,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                 </div>
 
                 <div class="page-title">
-                    <h3 class="text-center">Reporte de Microcurriculo</h3>
+                    <h3 class="text-center">Reporte de Consignador Academico</h3>
                     <!-- <p class="text-subtitle text-muted">Algunas estadisticas importantes</p> -->
                 </div>
                 <?php
@@ -118,11 +114,11 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                 }
 
                 // Obtener opciones para los filtros
-                $periodos = getOptions($conexion, "ano_micro", "ano_micro", "ano_micro", "sistema.m1");
-                $programas = getOptions($conexion, "codigo_programa", "nombre_programa", "codigo_programa", "sistema.m1");
-                $docentes = getOptions($conexion, "codigo_docente", "nombre_docente", "nombre_docente", "sistema.m1");
-                $semestres = getOptions($conexion, "semestre", "semestre", "semestre", "sistema.m1");
-                $grupos = getOptions($conexion, "grupo", "grupo", "grupo", "sistema.m1");
+                $periodos = getOptions($conexion, "codigo_periodo", "nombre_periodo", "codigo_periodo", "sistema.m2");
+                $programas = getOptions($conexion, "codigo_programa", "nombre_programa", "codigo_programa", "sistema.m2");
+                $docentes = getOptions($conexion, "codigo_docente", "nombre_docente", "nombre_docente", "sistema.m2");
+                $semestres = getOptions($conexion, "semestre", "semestre", "semestre", "sistema.m2");
+                $grupos = getOptions($conexion, "grupo", "grupo", "grupo", "sistema.m2");
                 //nombre_docente
 
                 // Capturar valores del formulario
@@ -134,44 +130,30 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                 $grupo = $_GET['grupo'] ?? '';
 
                 // Consulta dinámica
-                $sql = "SELECT * FROM sistema.m1 WHERE 1=1";
-                if (!empty($periodo)) $sql .= " AND ano_micro = '$periodo'";
+                $sql = "SELECT * FROM sistema.m2 WHERE 1=1";
+                if (!empty($periodo)) $sql .= " AND codigo_periodo = '$periodo'";
                 if (!empty($programa)) $sql .= " AND codigo_programa = '$programa'";
-                if (!empty($asignatura)) $sql .= " AND codigo_asignaturacurso = '$asignatura'";
+                if (!empty($asignatura)) $sql .= " AND codigo_asignatura = '$asignatura'";
                 if (!empty($docente)) $sql .= " AND codigo_docente = '$docente'";
                 if (!empty($semestre)) $sql .= " AND semestre = $semestre";
                 if (!empty($grupo)) $sql .= " AND grupo = $grupo";
-                $sql .= " ORDER BY codigo_asignaturacurso ASC, grupo ASC";
-
+                $sql .= " ORDER BY codigo_asignatura ASC, grupo ASC";
 
                 $result = pg_query($conexion, $sql);
                 ?>
 
-                <!DOCTYPE html>
-                <html lang="es">
-
-                <!--            <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Generador de Reportes por filtros</title>
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-                    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
-                </head>
-
-                <body> -->
                 <div class="container mt-4">
                     <h4 class="text-center">Generador de Reportes por filtros</h4>
 
                     <!-- Formulario de Filtros -->
                     <form method="GET" class="row g-3">
                         <div class="col-md-2">
-                            <label class="form-label">Año</label>
+                            <label class="form-label">Periodo</label>
                             <select name="periodo" id="periodo" class="form-select">
                                 <option value="">Todos</option>
                                 <?php foreach ($periodos as $p): ?>
-                                    <option value="<?= $p['ano_micro'] ?>" <?= $p['ano_micro'] == $periodo ? 'selected' : '' ?>>
-                                        <?= $p['ano_micro'] ?>
+                                    <option value="<?= $p['codigo_periodo'] ?>" <?= $p['codigo_periodo'] == $periodo ? 'selected' : '' ?>>
+                                        <?= $p['codigo_periodo'] . " - " . $p['nombre_periodo'] ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -233,7 +215,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                     </form>
 
                     <div class="d-flex justify-content-center mt-3 gap-2">
-                        <form method="GET" target="_blank" action="generar_pdf_rmicro.php">
+                        <form method="GET" target="_blank" action="generar_pdf_rconsigna.php">
                             <input type="hidden" name="periodo" value="<?= $periodo ?>">
                             <input type="hidden" name="programa" value="<?= $programa ?>">
                             <input type="hidden" name="asignatura" value="<?= $asignatura ?>">
@@ -250,7 +232,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                                 <th>#</th>
                                 <th>Código Asignatura</th>
                                 <th>Nombre Asignatura</th>
-                                <th>Año</th>
+                                <th>Periodo</th>
                                 <th>Docente</th>
                                 <th>Programa</th>
                                 <th>Semestre</th>
@@ -262,9 +244,9 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                             <?php while ($row = pg_fetch_assoc($result)): ?>
                                 <tr>
                                     <td><?= $contador++ ?></td>
-                                    <td><?= htmlspecialchars($row['codigo_asignaturacurso']) ?></td>
+                                    <td><?= htmlspecialchars($row['codigo_asignatura']) ?></td>
                                     <td><?= htmlspecialchars($row['nombre_asignatura']) ?></td>
-                                    <td><?= htmlspecialchars($row['ano_micro']) ?></td>
+                                    <td><?= htmlspecialchars($row['codigo_periodo']) ?></td>
                                     <td><?= htmlspecialchars($row['nombre_docente']) ?></td>
                                     <td><?= htmlspecialchars($row['nombre_programa']) ?></td>
                                     <td><?= htmlspecialchars($row['semestre']) ?></td>
@@ -281,9 +263,6 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                     <div class="float-start">
                         <p class="text-center">2024 &copy; UniCorsalud </p>
                     </div>
-                    <!--  <div class="float-end">
-                        <p>Crafted with <span class='text-danger'><i data-feather=""></i></span> by <a href="#">Eqd</a></p>
-                    </div> -->
                 </div>
             </footer>
         </div>
@@ -293,8 +272,10 @@ $_SESSION['nombre_rol'] = $nombre_rol;
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
-    <script type="text/javascript">
+
+    <!-- <script type="text/javascript">
         //asignacion de nombre de periodo para titulo
         document.getElementById('CodigoPeriodo').onchange = function() {
             /* Referencia a los atributos data de la opción seleccionada */
@@ -312,7 +293,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
             elEst.value = mData.estado;
             elDesc.value = mData.desc;
         };
-    </script>
+    </script> -->
 
     <script type="text/javascript">
         function cerrarsession() {
@@ -326,7 +307,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                 var programa_id = $("#programa").val();
                 var valor = $("#periodo").val();
                 $.ajax({
-                    url: "get_asignaturas_rmicro.php",
+                    url: "get_asignaturas_rconsigna.php",
                     type: "POST",
                     data: {
                         programa: programa_id,

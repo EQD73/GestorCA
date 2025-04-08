@@ -52,6 +52,7 @@ $result = pg_query($conexion, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte de Asignaturas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -122,15 +123,28 @@ $result = pg_query($conexion, $sql);
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="col-md-2 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+            <div class="d-flex justify-content-center mt-3 gap-2">
+                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Filtrar"><i class="fa-solid fa-filter"></i> Filtrar</button>
+
             </div>
         </form>
 
+        <div class="d-flex justify-content-center mt-3 gap-2">
+            <form method="GET" target="_blank" action="generar_pdf_rmicro.php">
+                <input type="hidden" name="periodo" value="<?= $periodo ?>">
+                <input type="hidden" name="programa" value="<?= $programa ?>">
+                <input type="hidden" name="asignatura" value="<?= $asignatura ?>">
+                <input type="hidden" name="docente" value="<?= $docente ?>">
+                <input type="hidden" name="semestre" value="<?= $semestre ?>">
+                <input type="hidden" name="grupo" value="<?= $grupo ?>">
+                <button type="submit" class="btn btn-danger btn-ms" id="BtnGenerar" type="button" data-toggle="tooltip" data-placement="top" title="Generar PDF"><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>
+            </form>
+        </div>
         <!-- Tabla de Resultados -->
         <table class="table table-bordered table-striped mt-4">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Código Asignatura</th>
                     <th>Nombre Asignatura</th>
                     <th>Año</th>
@@ -141,8 +155,10 @@ $result = pg_query($conexion, $sql);
                 </tr>
             </thead>
             <tbody>
+                <?php $contador = 1; ?>
                 <?php while ($row = pg_fetch_assoc($result)): ?>
                     <tr>
+                        <td><?= $contador++ ?></td>
                         <td><?= htmlspecialchars($row['codigo_asignaturacurso']) ?></td>
                         <td><?= htmlspecialchars($row['nombre_asignatura']) ?></td>
                         <td><?= htmlspecialchars($row['ano_micro']) ?></td>
@@ -155,11 +171,6 @@ $result = pg_query($conexion, $sql);
             </tbody>
         </table>
     </div>
-
-
-
-
-
     <script>
         $(document).ready(function() {
             function cargarAsignaturas() {

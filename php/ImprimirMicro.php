@@ -3,7 +3,6 @@
 session_start();
 
 require "conexion.php";
-
 require '../fpdf/fpdf.php';
 
 $tablam1 = isset($_SESSION['tablam1']) ? $_SESSION['tablam1'] : null;
@@ -19,7 +18,7 @@ $m = "m1";
 $sql2 = "SELECT * FROM version_formato WHERE nombre_formato = $1";
 $result2 = pg_query_params($conexion, $sql2, [$m]);
 if (!$result2 || pg_num_rows($result2) === 0) {
-    die("Error: No se pudo encontrar el formato especificado.");
+  die("Error: No se pudo encontrar el formato especificado.");
 }
 $obj2 = pg_fetch_object($result2);
 
@@ -27,7 +26,7 @@ $obj2 = pg_fetch_object($result2);
 $sql1 = "SELECT * FROM $tablam1 WHERE id = $1";
 $resultado = pg_query_params($conexion, $sql1, [$codigoConsulta]);
 if (!$resultado || pg_num_rows($resultado) === 0) {
-    die("Error: No se encontraron datos para el ID especificado.");
+  die("Error: No se encontraron datos para el ID especificado.");
 }
 $obj = pg_fetch_object($resultado);
 
@@ -47,7 +46,7 @@ $pdf->Cell(160);
 $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
 $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
-$pdf->SetFillColor(181,178,178);
+$pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->Cell(200, 10, mb_convert_encoding("I. Identificación del Curso", 'ISO-8859-1'), 1, 1, "C", true);
 $pdf->SetFont("Arial", "", 9);
@@ -72,9 +71,9 @@ $pdf->SetFont("Arial", "B", 9);
 $y = $pdf->GetY();
 $pdf->Cell(60, 15, "Programa a los que tributa el Curso:", 1, 0, "L");
 $pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(90, 5, mb_convert_encoding($obj->nombre_programa, 'ISO-8859-1'), 0, 'FJ',0);
+$pdf->MultiCell(90, 5, mb_convert_encoding($obj->nombre_programa, 'ISO-8859-1'), 0, 'FJ', 0);
 $pdf->SetFont("Arial", "B", 9);
-$pdf->SetXY(160,$y);
+$pdf->SetXY(160, $y);
 $pdf->Cell(20, 5, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
 $pdf->SetFont("Arial", "", 9);
 $pdf->Cell(30, 5, "$obj->codigo_asignaturacurso", 1, 1, "C");
@@ -93,13 +92,13 @@ if ($obj->requisitos == '{}') {
   $text_array = '';
 } else {
   $array = $obj->requisitos;
-  $array = str_replace('{',' ',  $array);
-  $array = str_replace('}',' ',  $array);    
-  $valor = explode(",", $array); 
-    foreach ($valor as $t) {
-        $t = str_replace('"',' ',  $t);
-        $result[] = $t;
-    }
+  $array = str_replace('{', ' ',  $array);
+  $array = str_replace('}', ' ',  $array);
+  $valor = explode(",", $array);
+  foreach ($valor as $t) {
+    $t = str_replace('"', ' ',  $t);
+    $result[] = $t;
+  }
   $text_array = '';
   foreach ($result as $val) {
     $text_array .= $val . " | ";
@@ -110,7 +109,7 @@ $y = $pdf->GetY();
 $pdf->MultiCell(30, 14, "Requisitos:", 1, 'FJ', 0);
 $pdf->SetFont("Arial", "", 9);
 
-$pdf->SetXY(40,$y);
+$pdf->SetXY(40, $y);
 $pdf->MultiCell(170, 7, mb_convert_encoding($text_array, 'ISO-8859-1'), 0, 'FJ', 0);
 $pdf->Rect(40, 70, 170, 14);
 $pdf->Ln(7);
@@ -232,7 +231,7 @@ $pdf->Cell(25, 7, "$obj->thtp", 1, 1, "C");
 //$pdf->Cell(200, 5, "", 0, 1);
 //descripcion
 $pdf->SetFont("Arial", "B", 12);
-$pdf->SetFillColor(181,178,178);
+$pdf->SetFillColor(181, 178, 178);
 //$pdf->SetFillColor(255, 0, 0);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->Cell(200, 12, mb_convert_encoding("II. Descripción", 'ISO-8859-1'), 1, 1, "C", true);
@@ -275,7 +274,7 @@ $pdf->Cell(160);
 $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
 $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
-$pdf->SetFillColor(181,178,178);
+$pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(200, 12, mb_convert_encoding("2.3. Metodología", 'ISO-8859-1'), 1, 1, "L", true);
@@ -326,7 +325,7 @@ $pdf->Cell($widthCell1, $rowHeight, mb_convert_encoding($contentCell1, 'ISO-8859
 // MultiCell en la misma fila
 $xMultiCell = $pdf->GetX(); // Posición X actual
 $pdf->SetXY($xMultiCell, $y); // Restablecer la posición en la misma fila
-$pdf->MultiCell($widthMultiCell, $rowHeight-15, mb_convert_encoding($contentMultiCell, 'ISO-8859-1'),  1, 'C');
+$pdf->MultiCell($widthMultiCell, $rowHeight - 15, mb_convert_encoding($contentMultiCell, 'ISO-8859-1'),  1, 'C');
 
 // Ajustar posición para las celdas restantes
 $yNextRow = $pdf->GetY(); // Obtener la posición Y después de MultiCell
@@ -342,29 +341,29 @@ $pdf->Cell($widthCell3, $rowHeight, mb_convert_encoding($contentCell3, 'ISO-8859
 $pdf->SetY(max($yNextRow, $pdf->GetY())); // Tomar la posición más baja
 
 if ($pdf->GetY() > 240) { // Por ejemplo, si el cursor está a 240 mm o más
-    $pdf->SetFont("Arial", "", 6);
-    $pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-    $pdf->Cell(5);
-    $pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-    $pdf->Cell(5);
-    date_default_timezone_set("America/Bogota");
-    $pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-    $pdf->Cell(5);
-    $pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-    $pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
-    $pdf->AddPage("P", "Letter"); // Agrega una nueva página
-    $pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-    $pdf->SetFont("Arial", "B", 12);
-    $pdf->Cell(100, 21, "Microcurriculo", 1, 0, "C");
-    $pdf->SetFont("Arial", "", 9);
-    $pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-    $pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-    $pdf->Cell(160);
-    $pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-    $pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-    $pdf->Cell(160);
-    $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-    $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");        
+  $pdf->SetFont("Arial", "", 6);
+  $pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
+  $pdf->Cell(5);
+  $pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
+  $pdf->Cell(5);
+  date_default_timezone_set("America/Bogota");
+  $pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
+  $pdf->Cell(5);
+  $pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
+  $pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
+  $pdf->AddPage("P", "Letter"); // Agrega una nueva página
+  $pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
+  $pdf->SetFont("Arial", "B", 12);
+  $pdf->Cell(100, 21, "Microcurriculo", 1, 0, "C");
+  $pdf->SetFont("Arial", "", 9);
+  $pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
+  $pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
+  $pdf->Cell(160);
+  $pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
+  $pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
+  $pdf->Cell(160);
+  $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
+  $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 }
 
 //$pdf->Cell(40, 20,$pdf->GetY(), 1, 0, 'C');
@@ -376,29 +375,29 @@ $pdf->Cell(60, 9, mb_convert_encoding("15%", 'ISO-8859-1'), 1, 0, "C");
 $pdf->Cell(40, 9, mb_convert_encoding("30%", 'ISO-8859-1'), 1, 1, "C");
 
 if ($pdf->GetY() > 240) { // Por ejemplo, si el cursor está a 240 mm o más
-    $pdf->SetFont("Arial", "", 6);
-    $pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-    $pdf->Cell(5);
-    $pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-    $pdf->Cell(5);
-    date_default_timezone_set("America/Bogota");
-    $pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-    $pdf->Cell(5);
-    $pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-    $pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
-    $pdf->AddPage("P", "Letter"); // Agrega una nueva página
-    $pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-    $pdf->SetFont("Arial", "B", 12);
-    $pdf->Cell(100, 21, "Microcurriculo", 1, 0, "C");
-    $pdf->SetFont("Arial", "", 9);
-    $pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-    $pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-    $pdf->Cell(160);
-    $pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-    $pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-    $pdf->Cell(160);
-    $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-    $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
+  $pdf->SetFont("Arial", "", 6);
+  $pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
+  $pdf->Cell(5);
+  $pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
+  $pdf->Cell(5);
+  date_default_timezone_set("America/Bogota");
+  $pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
+  $pdf->Cell(5);
+  $pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
+  $pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
+  $pdf->AddPage("P", "Letter"); // Agrega una nueva página
+  $pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
+  $pdf->SetFont("Arial", "B", 12);
+  $pdf->Cell(100, 21, "Microcurriculo", 1, 0, "C");
+  $pdf->SetFont("Arial", "", 9);
+  $pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
+  $pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
+  $pdf->Cell(160);
+  $pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
+  $pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
+  $pdf->Cell(160);
+  $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
+  $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 }
 $pdf->SetFont("Arial", "", 9);
 $pdf->Cell(40, 9, mb_convert_encoding("Segundo Corte", 'ISO-8859-1'), 1, 0, "L");
@@ -455,7 +454,7 @@ $pdf->Cell(220);
 $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
 $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
-$pdf->SetFillColor(181,178,178);
+$pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 12);
 $pdf->Cell(260, 8, mb_convert_encoding("III. Unidades de formación", 'ISO-8859-1'), 1, 1, "L", true);
@@ -537,7 +536,7 @@ $pdf->Cell(220);
 $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
 $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
-$pdf->SetFillColor(181,178,178);
+$pdf->SetFillColor(181, 178, 178);
 //$pdf->SetFillColor(255, 0, 0);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetTextColor(0, 0, 0);
@@ -619,7 +618,7 @@ $pdf->Cell(220);
 $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
 $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
-$pdf->SetFillColor(181,178,178);
+$pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 14);
 $pdf->Cell(65, 12, mb_convert_encoding("Unidad 3", 'ISO-8859-1'), 1, 0, "C");
@@ -697,7 +696,7 @@ $pdf->Cell(220);
 $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
 $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
-$pdf->SetFillColor(181,178,178);
+$pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 14);
 $pdf->Cell(65, 12, mb_convert_encoding("Unidad 4", 'ISO-8859-1'), 1, 0, "C");
@@ -776,7 +775,7 @@ $pdf->Cell(220);
 $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
 $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
-$pdf->SetFillColor(181,178,178);
+$pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 14);
 $pdf->Cell(65, 12, mb_convert_encoding("Unidad 5", 'ISO-8859-1'), 1, 0, "C");
@@ -855,7 +854,7 @@ $pdf->Cell(220);
 $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
 $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
-$pdf->SetFillColor(181,178,178);
+$pdf->SetFillColor(181, 178, 178);
 //$pdf->SetFillColor(255, 0, 0);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 12);
@@ -934,8 +933,8 @@ $pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 5, mb_convert_encoding("RESPONSABLES MICROCURRICULO", 'ISO-8859-1'), 1, 1, "C", true);
-$X1=$pdf->GetX();
-$Y1=$pdf->GetY();
+$X1 = $pdf->GetX();
+$Y1 = $pdf->GetY();
 
 $pdf->SetFont("Arial", "", 6);
 $pdf->rect($X1, $Y1, 85, 25);
@@ -966,7 +965,7 @@ $pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
 $pdf->Cell(5);
 $pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
 $pdf->Cell(22, 5, mb_convert_encoding("Fecha actualización:", 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(25, 5,date("d/m/Y", strtotime($obj->fecha_actualizacion)), 0, 0, "L");
+$pdf->Cell(25, 5, date("d/m/Y", strtotime($obj->fecha_actualizacion)), 0, 0, "L");
 //mb_convert_encoding($obj->fecha_actualizacion, 'ISO-8859-1'), 0, 0, "L");
 $pdf->Cell(0, 5, mb_convert_encoding('Página ', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
 
