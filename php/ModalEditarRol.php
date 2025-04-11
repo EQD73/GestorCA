@@ -25,10 +25,19 @@
             <label for="recipient-name" class="col-form-label">Nombre Rol:</label>
             <input type="text" name="nombre" class="form-control" value="<?php echo $dataRol['nombre_rol']; ?>" required="true">
           </div>
+
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Estado:</label>
-            <input type="text" name="estado" class="form-control" value="<?php echo $dataRol['estado']; ?>" required="true"> 
-           
+            <label for="estado" class="form-label">Estado</label>
+            <select class="form-select form-select-sm" id="estado" name="estado">
+              <option value="<?php echo $dataRol['estado']; ?>" selected><?php echo $dataRol['estado']; ?></option>
+              <?php
+              if ($dataRol['estado'] == "INACTIVO") { ?>
+                <option value="ACTIVO">ACTIVO</option>
+              <?php
+              } else { ?>
+                <option value="INACTIVO">INACTIVO</option>
+              <?php } ?>
+            </select>
           </div>
 
         </div>

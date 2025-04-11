@@ -159,20 +159,7 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
                                     </ul>
                                 </div>
                             </li>
-                            <!-- <li class="dropdown nav-icon me-2">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="d-lg-inline-block">
-                                    <i data-feather="mail"></i>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end" >
-                                <a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
-                                <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>
-                                <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"><i data-feather="log-out"></i> Logout</a>
-                            </div>
-                        </li> -->
+
                             <li class="dropdown">
                                 <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                                     <div class="avatar me-1">

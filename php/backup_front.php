@@ -49,9 +49,9 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
 ?>
 
 
-<body>
+    <body>
 
-<div id="app">
+        <div id="app">
             <?php include("cargue_menul.html"); ?>
 
             <div id="main">
@@ -90,7 +90,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                     <div class="avatar me-1">
                                         <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
                                     </div>
-                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br> 
+                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
                                     <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
@@ -103,22 +103,36 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                     </div>
                 </nav>
 
-    <div class="container mt-5">
-        <h1 class="text-center">Generar Backup de Base de Datos PostgreSQL</h1>
-        <div class="text-center mt-3">
-            <button id="backupBtn" class="btn btn-primary">Generar Backup</button>
-        </div>
-        <div id="responseMsg" class="text-center mt-3"></div>
-    </div>
-
-    <footer>
-            <div class="footer clearfix mb-0 text-muted">
-                <div class="float-start">
-                    <p>2024 &copy; UniCorsalud </p>
+                <!-- <div class="container mt-5">
+                    <h1 class="text-center">Generar Backup de Base de Datos PostgreSQL</h1>
+                    div class="text-center mt-3">
+                        <button id="backupBtn" class="btn btn-primary">Generar Backup</button>
+                    </div><
+                    <div id="responseMsg" class="text-center mt-3"></div>
+                </div> -->
+                <div class="container mt-5">
+                    <h1 class="text-center">Generar Backup de Base de Datos PostgreSQL</h1>
+                    <div class="text-center mt-3">
+                        <button id="backupBtn" class="btn btn-primary">Generar Backup</button>
+                    </div>
+                    <div id="progressContainer" class="text-center mt-3" style="display: none;">
+                        <div class="progress" style="height: 25px; width: 50%; margin: 0 auto;">
+                            <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-danger text-white"
+                                role="progressbar" style="width: 0%;">0%</div>
+                        </div>
+                    </div>
+                    <div id="responseMsg" class="text-center mt-3"></div>
                 </div>
+
+
+                <footer>
+                    <div class="footer clearfix mb-0 text-muted">
+                        <div class="float-start">
+                            <p>2024 &copy; UniCorsalud </p>
+                        </div>
+                    </div>
+                </footer>
             </div>
-        </footer>
-        </div>
         </div>
     <?php
 }
@@ -133,7 +147,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
+    <!--     <script>
         $(document).ready(function () {
             $('#backupBtn').click(function () {
                 // Deshabilitar el botón mientras se realiza el backup
@@ -154,6 +168,116 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                 });
             });
         });
+    </script> -->
+    <!-- <script>
+        $(document).ready(function() {
+            $('#backupBtn').click(function() {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Este proceso es irreversible. Se generará una copia de seguridad de la base de datos.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, generar backup',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Deshabilitar el botón mientras se realiza el backup
+                        $('#backupBtn').attr('disabled', true).text('Generando Backup...');
+
+                        // Realizar la solicitud AJAX
+                        $.ajax({
+                            url: 'backup.php',
+                            method: 'POST',
+                            success: function(response) {
+                                $('#backupBtn').attr('disabled', false).text('Generar Backup');
+                                $('#responseMsg').html(response);
+                            },
+                            error: function() {
+                                $('#backupBtn').attr('disabled', false).text('Generar Backup');
+                                $('#responseMsg').html('<div class="alert alert-danger">Error al generar el backup.</div>');
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script> -->
+    <script>
+        $(document).ready(function() {
+            $('#backupBtn').click(function() {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Este proceso es irreversible. Se generará una copia de seguridad de la base de datos.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, generar backup',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#backupBtn').attr('disabled', true).text('Generando Backup...');
+                        $('#progressContainer').show();
+                        $('#responseMsg').html('').removeClass().hide();
+
+                        let progress = 0;
+                        let progressBar = $('#progressBar');
+
+                        // Simular progreso lento
+                        const interval = setInterval(() => {
+                            if (progress < 95) {
+                                progress += Math.floor(Math.random() * 3) + 1; // suma 1 a 3%
+                                progress = Math.min(progress, 95); // no pasar de 95%
+                                progressBar.css('width', progress + '%').text(progress + '%');
+                            }
+                        }, 200); // cada 300ms
+
+                        // Hacer el AJAX
+                        $.ajax({
+                            url: 'backup.php',
+                            method: 'POST',
+                            success: function(response) {
+                                clearInterval(interval);
+                                progressBar.css('width', '100%').text('100%');
+
+                                setTimeout(() => {
+                                    $('#progressContainer').hide();
+                                    $('#backupBtn').attr('disabled', false).text('Generar Backup');
+
+                                    $('#responseMsg')
+                                        .html(response)
+                                        // .removeClass()
+                                        // .addClass('alert bg-danger text-white text-center mt-3')
+                                        .show();
+
+                                    progressBar.css('width', '0%').text('0%');
+                                }, 2200);
+                            },
+                            error: function() {
+                                clearInterval(interval);
+                                progressBar.css('width', '100%').text('Error');
+
+                                setTimeout(() => {
+                                    $('#progressContainer').hide();
+                                    $('#backupBtn').attr('disabled', false).text('Generar Backup');
+
+                                    $('#responseMsg')
+                                        .html('<strong>Error:</strong> No se pudo generar el backup.')
+                                        .removeClass()
+                                        .addClass('alert bg-danger text-white text-center mt-3')
+                                        .show();
+
+                                    progressBar.css('width', '0%').text('0%');
+                                }, 1500);
+                            }
+                        });
+                    }
+                });
+            });
+        });
     </script>
-</body>
+    </body>
+
 </html>

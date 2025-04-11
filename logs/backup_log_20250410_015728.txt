@@ -1,0 +1,7 @@
+pg_dump: [archivador (bd)] falló la conexión a la base de datos «postgres»: no se pudo conectar con el servidor: Connection refused (0x0000274D/10061)
+	¿Está el servidor en ejecución en el servidor «localhost» (::1) y aceptando
+	conexiones TCP/IP en el puerto 5434?
+no se pudo conectar con el servidor: Connection refused (0x0000274D/10061)
+	¿Está el servidor en ejecución en el servidor «localhost» (127.0.0.1) y aceptando
+	conexiones TCP/IP en el puerto 5434?
+pg_dump: *** se abortó a causa de un error

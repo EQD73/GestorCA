@@ -129,14 +129,13 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                     <div class="avatar me-1">
                                         <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
                                     </div>
-                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div>
+                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
+                                    <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a class="dropdown-item" href="#"><i data-feather="user"></i> Cuenta/Perfil</a>
-                                    <!-- <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a> -->
-                                    <!-- <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a> -->
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"></i> Logout</a>
+                                    <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"><i data-feather="log-out"></i>Salir</a>
                                 </div>
                             </li>
                         </ul>
@@ -236,23 +235,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
             </div>
         <?php
     } ?>
-        <!-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-        <script src="../assets/js/feather-icons/feather.min.js"></script>
-        <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-        <script src="../assets/js/app.js"></script>
 
-        <script src="../assets/vendors/chartjs/Chart.min.js"></script>
-    <script src="../assets/vendors/apexcharts/apexcharts.min.js"></script>
-    <script src="../assets/js/pages/dashboard.js"></script> -->
-
-        <!-- <script src="../assets/js/main.js"></script>
-        <script src="modal.js"></script>
-        <script src="../js/jquery.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<script src="../js/bootstrap.min.js"></script> 
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-        <script src="plugins/sweetAlert2/sweetalert2.all.min.js"></script>  -->
 
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="../assets/js/feather-icons/feather.min.js"></script>

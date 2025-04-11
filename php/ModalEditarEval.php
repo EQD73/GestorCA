@@ -1,4 +1,4 @@
-v<!--ventana para Update--->
+<!--ventana para Update--->
 <div class="modal fade" id="editChildresn<?php echo $dataEval['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -27,13 +27,13 @@ v<!--ventana para Update--->
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">% act. final:</label>
-            <input type="text" name="poractfinal" class="form-control" value="<?php echo $dataEval['por_actfinal']; ?>" required="true"> 
-           
+            <input type="text" name="poractfinal" class="form-control" value="<?php echo $dataEval['por_actfinal']; ?>" required="true">
+
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">% corte:</label>
-            <input type="text" name="porcorte" class="form-control" value="<?php echo $dataEval['por_corte']; ?>" required="true"> 
-           
+            <input type="text" name="porcorte" class="form-control" value="<?php echo $dataEval['por_corte']; ?>" required="true">
+
           </div>
 
         </div>

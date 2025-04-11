@@ -133,7 +133,7 @@ if ($value <> "26" && $value <> "30" && $value <> "31" && $value <> "32") { ?>
                 </div>
             </div>
         <?php } ?>
-      <!--Semana2-->
+        <!--Semana2-->
         <?php
         $fechai2 = strtotime($objfechas->s2_rangoi);
         $fechaf2 = date("d-m-Y", strtotime($objfechas->s2_rangof . "+ 1 days"));
@@ -917,557 +917,556 @@ if ($value <> "26" && $value <> "30" && $value <> "31" && $value <> "32") { ?>
             </div>
         <?php } ?>
 
-<!-- Semana12 -->
-<?php
-       $fechai12 = strtotime($objfechas->s12_rangoi);
-       $fechaf12 = date("d-m-Y", strtotime($objfechas->s12_rangof . "+ 1 days"));
-       $fechaf12 = strtotime($fechaf12);
+        <!-- Semana12 -->
+        <?php
+        $fechai12 = strtotime($objfechas->s12_rangoi);
+        $fechaf12 = date("d-m-Y", strtotime($objfechas->s12_rangof . "+ 1 days"));
+        $fechaf12 = strtotime($fechaf12);
 
-       if ($fechahoy > $fechaf12 && ($objfechas->s12_tipoactividad == " " || $objfechas->s12_tipoactividad == null)) { ?>
-           <div class="row border border-danger rounded">
-               <div class="row">
-                   <div class="col-md-8 mt-2">
-                       <input type="text" class="inputClass col-md-2" id="titulosem12" name="titulosem12" value="Semana 12" readonly>
+        if ($fechahoy > $fechaf12 && ($objfechas->s12_tipoactividad == " " || $objfechas->s12_tipoactividad == null)) { ?>
+            <div class="row border border-danger rounded">
+                <div class="row">
+                    <div class="col-md-8 mt-2">
+                        <input type="text" class="inputClass col-md-2" id="titulosem12" name="titulosem12" value="Semana 12" readonly>
 
-                       <label class="col-md-1" for="rangoinicio12">Del:</label>
-                       <input type="text" class="col-md-2" id="rangoinicio12" name="rangoinicio12" value="<?php echo $objfechas->s12_rangoi; ?>" readonly>
+                        <label class="col-md-1" for="rangoinicio12">Del:</label>
+                        <input type="text" class="col-md-2" id="rangoinicio12" name="rangoinicio12" value="<?php echo $objfechas->s12_rangoi; ?>" readonly>
 
-                       <label for="rangofinal12" class="col-md-1">Al:</label>
-                       <input type="text" class="col-md-2" id="rangofinal12" name="rangofinal12" value="<?php echo $objfechas->s12_rangof; ?>" readonly>
-                   </div>
-                   <div class="col-md-4 mt-2">
-                       <input type="text" class="form-control form-control sm" id="TipoActividad12" name="TipoActividad12" value="Novedad" readonly>
-                   </div>
-               </div>
-               <div class="row" id="s12divopt1">
-                   <div class="col-md-12 mt-2">
-                       <h6><span class="badge bg-danger">Descripción</span></h6>
-                       <textarea class="form-control" id="DescripcionActSem12" name="DescripcionActSem12" placeholder="Descripcion" rows="6" required></textarea>
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
-                   </div>
-               </div>
-               <div class="row" id="s12divopt2">
-                   <div class="col-md-4 mt-2">
-                       <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
-                       <select class="form-select form-select-sm" id="TipoNovedad12" name="TipoNovedad12" onchange="showopt2s12()" required>
-                           <option value="" selected></option>
-                           <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
-                           <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
-                           <div class="valid-feedback">Campo Validado.</div>
-                           <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
-                       </select>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-8 mt-2" id="s12divopt3" style="display: none">
-                       <h6><span class="badge bg-danger">Justificación</span></h6>
-                       <textarea class="form-control" id="justificasem12" name="justificasem12" placeholder="Justificación" rows="2"></textarea>
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-                   </div>
-                   <div class="col-md-4 mt-2" id="s12divopt4" style="display: none">
-                       <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
-                       <input type="date" class="form-control form-control sm" id="fechanov12" name="fechanov12">
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-6 mt-2" id="s12divopt7" style="display: none">
-                       <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
-                       <textarea class="form-control" id="justificarsem12" name="justificarsem12" placeholder="Justificación" rows="2"></textarea>
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-                   </div>
-                   <div class="col-md-3 mt-2" id="s12divopt5" style="display: none">
-                       <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
-                       <input type="date" class="form-control form-control sm" id="s12fecharep1" name="s12fecharep1">
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
-                   </div>
-                   <div class="col-md-3 mt-2" id="s12divopt6" style="display: none">
-                       <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
-                       <input type="date" class="form-control form-control sm" id="s12fecharep2" name="s12fecharep2">
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
-                   </div>
-               </div>
-           </div>
-       <?php } ?>
-       <!-- Semana13 -->
-       <?php
-       $fechai13 = strtotime($objfechas->s13_rangoi);
-       $fechaf13 = date("d-m-Y", strtotime($objfechas->s13_rangof . "+ 1 days"));
-       $fechaf13 = strtotime($fechaf13);
+                        <label for="rangofinal12" class="col-md-1">Al:</label>
+                        <input type="text" class="col-md-2" id="rangofinal12" name="rangofinal12" value="<?php echo $objfechas->s12_rangof; ?>" readonly>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <input type="text" class="form-control form-control sm" id="TipoActividad12" name="TipoActividad12" value="Novedad" readonly>
+                    </div>
+                </div>
+                <div class="row" id="s12divopt1">
+                    <div class="col-md-12 mt-2">
+                        <h6><span class="badge bg-danger">Descripción</span></h6>
+                        <textarea class="form-control" id="DescripcionActSem12" name="DescripcionActSem12" placeholder="Descripcion" rows="6" required></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
+                    </div>
+                </div>
+                <div class="row" id="s12divopt2">
+                    <div class="col-md-4 mt-2">
+                        <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
+                        <select class="form-select form-select-sm" id="TipoNovedad12" name="TipoNovedad12" onchange="showopt2s12()" required>
+                            <option value="" selected></option>
+                            <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
+                            <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
+                            <div class="valid-feedback">Campo Validado.</div>
+                            <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mt-2" id="s12divopt3" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación</span></h6>
+                        <textarea class="form-control" id="justificasem12" name="justificasem12" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-4 mt-2" id="s12divopt4" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
+                        <input type="date" class="form-control form-control sm" id="fechanov12" name="fechanov12">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-2" id="s12divopt7" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
+                        <textarea class="form-control" id="justificarsem12" name="justificarsem12" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s12divopt5" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s12fecharep1" name="s12fecharep1">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s12divopt6" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s12fecharep2" name="s12fecharep2">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+        <!-- Semana13 -->
+        <?php
+        $fechai13 = strtotime($objfechas->s13_rangoi);
+        $fechaf13 = date("d-m-Y", strtotime($objfechas->s13_rangof . "+ 1 days"));
+        $fechaf13 = strtotime($fechaf13);
 
-       if ($fechahoy > $fechaf13 && ($objfechas->s13_tipoactividad == " " || $objfechas->s13_tipoactividad == null)) { ?>
-           <div class="row border border-danger rounded">
-               <div class="row">
-                   <div class="col-md-8 mt-2">
-                       <input type="text" class="inputClass col-md-2" id="titulosem13" name="titulosem13" value="Semana 13" readonly>
+        if ($fechahoy > $fechaf13 && ($objfechas->s13_tipoactividad == " " || $objfechas->s13_tipoactividad == null)) { ?>
+            <div class="row border border-danger rounded">
+                <div class="row">
+                    <div class="col-md-8 mt-2">
+                        <input type="text" class="inputClass col-md-2" id="titulosem13" name="titulosem13" value="Semana 13" readonly>
 
-                       <label class="col-md-1" for="rangoinicio13">Del:</label>
-                       <input type="text" class="col-md-2" id="rangoinicio13" name="rangoinicio13" value="<?php echo $objfechas->s13_rangoi; ?>" readonly>
+                        <label class="col-md-1" for="rangoinicio13">Del:</label>
+                        <input type="text" class="col-md-2" id="rangoinicio13" name="rangoinicio13" value="<?php echo $objfechas->s13_rangoi; ?>" readonly>
 
-                       <label for="rangofinal13" class="col-md-1">Al:</label>
-                       <input type="text" class="col-md-2" id="rangofinal13" name="rangofinal13" value="<?php echo $objfechas->s13_rangof; ?>" readonly>
-                   </div>
-                   <div class="col-md-4 mt-2">
-                       <input type="text" class="form-control form-control sm" id="TipoActividad13" name="TipoActividad13" value="Novedad" readonly>
-                   </div>
-               </div>
-               <div class="row" id="s13divopt1">
-                   <div class="col-md-12 mt-2">
-                       <h6><span class="badge bg-danger">Descripción</span></h6>
-                       <textarea class="form-control" id="DescripcionActSem13" name="DescripcionActSem13" placeholder="Descripcion" rows="6" required></textarea>
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
-                   </div>
-               </div>
-               <div class="row" id="s13divopt2">
-                   <div class="col-md-4 mt-2">
-                       <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
-                       <select class="form-select form-select-sm" id="TipoNovedad13" name="TipoNovedad13" onchange="showopt2s13()" required>
-                           <option value="" selected></option>
-                           <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
-                           <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
-                           <div class="valid-feedback">Campo Validado.</div>
-                           <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
-                       </select>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-8 mt-2" id="s13divopt3" style="display: none">
-                       <h6><span class="badge bg-danger">Justificación</span></h6>
-                       <textarea class="form-control" id="justificasem13" name="justificasem13" placeholder="Justificación" rows="2"></textarea>
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-                   </div>
-                   <div class="col-md-4 mt-2" id="s13divopt4" style="display: none">
-                       <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
-                       <input type="date" class="form-control form-control sm" id="fechanov13" name="fechanov13">
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-6 mt-2" id="s13divopt7" style="display: none">
-                       <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
-                       <textarea class="form-control" id="justificarsem13" name="justificarsem13" placeholder="Justificación" rows="2"></textarea>
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-                   </div>
-                   <div class="col-md-3 mt-2" id="s13divopt5" style="display: none">
-                       <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
-                       <input type="date" class="form-control form-control sm" id="s13fecharep1" name="s13fecharep1">
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
-                   </div>
-                   <div class="col-md-3 mt-2" id="s13divopt6" style="display: none">
-                       <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
-                       <input type="date" class="form-control form-control sm" id="s13fecharep2" name="s13fecharep2">
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
-                   </div>
-               </div>
-           </div>
-       <?php } ?>
-       <!-- Semana14 -->
-       <?php
-       $fechai14 = strtotime($objfechas->s14_rangoi);
-       $fechaf14 = date("d-m-Y", strtotime($objfechas->s14_rangof . "+ 1 days"));
-       $fechaf14 = strtotime($fechaf14);
+                        <label for="rangofinal13" class="col-md-1">Al:</label>
+                        <input type="text" class="col-md-2" id="rangofinal13" name="rangofinal13" value="<?php echo $objfechas->s13_rangof; ?>" readonly>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <input type="text" class="form-control form-control sm" id="TipoActividad13" name="TipoActividad13" value="Novedad" readonly>
+                    </div>
+                </div>
+                <div class="row" id="s13divopt1">
+                    <div class="col-md-12 mt-2">
+                        <h6><span class="badge bg-danger">Descripción</span></h6>
+                        <textarea class="form-control" id="DescripcionActSem13" name="DescripcionActSem13" placeholder="Descripcion" rows="6" required></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
+                    </div>
+                </div>
+                <div class="row" id="s13divopt2">
+                    <div class="col-md-4 mt-2">
+                        <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
+                        <select class="form-select form-select-sm" id="TipoNovedad13" name="TipoNovedad13" onchange="showopt2s13()" required>
+                            <option value="" selected></option>
+                            <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
+                            <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
+                            <div class="valid-feedback">Campo Validado.</div>
+                            <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mt-2" id="s13divopt3" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación</span></h6>
+                        <textarea class="form-control" id="justificasem13" name="justificasem13" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-4 mt-2" id="s13divopt4" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
+                        <input type="date" class="form-control form-control sm" id="fechanov13" name="fechanov13">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-2" id="s13divopt7" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
+                        <textarea class="form-control" id="justificarsem13" name="justificarsem13" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s13divopt5" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s13fecharep1" name="s13fecharep1">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s13divopt6" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s13fecharep2" name="s13fecharep2">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+        <!-- Semana14 -->
+        <?php
+        $fechai14 = strtotime($objfechas->s14_rangoi);
+        $fechaf14 = date("d-m-Y", strtotime($objfechas->s14_rangof . "+ 1 days"));
+        $fechaf14 = strtotime($fechaf14);
 
-       if ($fechahoy > $fechaf14 && ($objfechas->s14_tipoactividad == " " || $objfechas->s14_tipoactividad == null)) { ?>
-           <div class="row border border-danger rounded">
-               <div class="row">
-                   <div class="col-md-8 mt-2">
-                       <input type="text" class="inputClass col-md-2" id="titulosem14" name="titulosem14" value="Semana 14" readonly>
+        if ($fechahoy > $fechaf14 && ($objfechas->s14_tipoactividad == " " || $objfechas->s14_tipoactividad == null)) { ?>
+            <div class="row border border-danger rounded">
+                <div class="row">
+                    <div class="col-md-8 mt-2">
+                        <input type="text" class="inputClass col-md-2" id="titulosem14" name="titulosem14" value="Semana 14" readonly>
 
-                       <label class="col-md-1" for="rangoinicio14">Del:</label>
-                       <input type="text" class="col-md-2" id="rangoinicio14" name="rangoinicio14" value="<?php echo $objfechas->s14_rangoi; ?>" readonly>
+                        <label class="col-md-1" for="rangoinicio14">Del:</label>
+                        <input type="text" class="col-md-2" id="rangoinicio14" name="rangoinicio14" value="<?php echo $objfechas->s14_rangoi; ?>" readonly>
 
-                       <label for="rangofinal14" class="col-md-1">Al:</label>
-                       <input type="text" class="col-md-2" id="rangofinal14" name="rangofinal14" value="<?php echo $objfechas->s14_rangof; ?>" readonly>
-                   </div>
-                   <div class="col-md-4 mt-2">
-                       <input type="text" class="form-control form-control sm" id="TipoActividad14" name="TipoActividad14" value="Novedad" readonly>
-                   </div>
-               </div>
-               <div class="row" id="s14divopt1">
-                   <div class="col-md-12 mt-2">
-                       <h6><span class="badge bg-danger">Descripción</span></h6>
-                       <textarea class="form-control" id="DescripcionActSem14" name="DescripcionActSem14" placeholder="Descripcion" rows="6" required></textarea>
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
-                   </div>
-               </div>
-               <div class="row" id="s14divopt2">
-                   <div class="col-md-4 mt-2">
-                       <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
-                       <select class="form-select form-select-sm" id="TipoNovedad14" name="TipoNovedad14" onchange="showopt2s14()" required>
-                           <option value="" selected></option>
-                           <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
-                           <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
-                           <div class="valid-feedback">Campo Validado.</div>
-                           <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
-                       </select>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-8 mt-2" id="s14divopt3" style="display: none">
-                       <h6><span class="badge bg-danger">Justificación</span></h6>
-                       <textarea class="form-control" id="justificasem14" name="justificasem14" placeholder="Justificación" rows="2"></textarea>
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-                   </div>
-                   <div class="col-md-4 mt-2" id="s14divopt4" style="display: none">
-                       <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
-                       <input type="date" class="form-control form-control sm" id="fechanov14" name="fechanov14">
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-md-6 mt-2" id="s14divopt7" style="display: none">
-                       <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
-                       <textarea class="form-control" id="justificarsem14" name="justificarsem14" placeholder="Justificación" rows="2"></textarea>
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-                   </div>
-                   <div class="col-md-3 mt-2" id="s14divopt5" style="display: none">
-                       <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
-                       <input type="date" class="form-control form-control sm" id="s14fecharep1" name="s14fecharep1">
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
-                   </div>
-                   <div class="col-md-3 mt-2" id="s14divopt6" style="display: none">
-                       <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
-                       <input type="date" class="form-control form-control sm" id="s14fecharep2" name="s14fecharep2">
-                       <div class="valid-feedback">Campo Validado.</div>
-                       <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
-                   </div>
-               </div>
-           </div>
-       <?php } ?>
+                        <label for="rangofinal14" class="col-md-1">Al:</label>
+                        <input type="text" class="col-md-2" id="rangofinal14" name="rangofinal14" value="<?php echo $objfechas->s14_rangof; ?>" readonly>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <input type="text" class="form-control form-control sm" id="TipoActividad14" name="TipoActividad14" value="Novedad" readonly>
+                    </div>
+                </div>
+                <div class="row" id="s14divopt1">
+                    <div class="col-md-12 mt-2">
+                        <h6><span class="badge bg-danger">Descripción</span></h6>
+                        <textarea class="form-control" id="DescripcionActSem14" name="DescripcionActSem14" placeholder="Descripcion" rows="6" required></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
+                    </div>
+                </div>
+                <div class="row" id="s14divopt2">
+                    <div class="col-md-4 mt-2">
+                        <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
+                        <select class="form-select form-select-sm" id="TipoNovedad14" name="TipoNovedad14" onchange="showopt2s14()" required>
+                            <option value="" selected></option>
+                            <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
+                            <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
+                            <div class="valid-feedback">Campo Validado.</div>
+                            <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mt-2" id="s14divopt3" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación</span></h6>
+                        <textarea class="form-control" id="justificasem14" name="justificasem14" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-4 mt-2" id="s14divopt4" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
+                        <input type="date" class="form-control form-control sm" id="fechanov14" name="fechanov14">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-2" id="s14divopt7" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
+                        <textarea class="form-control" id="justificarsem14" name="justificarsem14" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s14divopt5" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s14fecharep1" name="s14fecharep1">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s14divopt6" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s14fecharep2" name="s14fecharep2">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
 
-       
-<!-- Semana15 -->
-<?php
-$fechai15 = strtotime($objfechas->s15_rangoi);
-$fechaf15 = date("d-m-Y", strtotime($objfechas->s15_rangof . "+ 1 days"));
-$fechaf15 = strtotime($fechaf15);
 
-if ($fechahoy > $fechaf15 && ($objfechas->s15_tipoactividad == " " || $objfechas->s15_tipoactividad == null)) { ?>
-    <div class="row border border-danger rounded">
-        <div class="row">
-            <div class="col-md-8 mt-2">
-                <input type="text" class="inputClass col-md-2" id="titulosem15" name="titulosem15" value="Semana 15" readonly>
+        <!-- Semana15 -->
+        <?php
+        $fechai15 = strtotime($objfechas->s15_rangoi);
+        $fechaf15 = date("d-m-Y", strtotime($objfechas->s15_rangof . "+ 1 days"));
+        $fechaf15 = strtotime($fechaf15);
 
-                <label class="col-md-1" for="rangoinicio15">Del:</label>
-                <input type="text" class="col-md-2" id="rangoinicio15" name="rangoinicio15" value="<?php echo $objfechas->s15_rangoi; ?>" readonly>
+        if ($fechahoy > $fechaf15 && ($objfechas->s15_tipoactividad == " " || $objfechas->s15_tipoactividad == null)) { ?>
+            <div class="row border border-danger rounded">
+                <div class="row">
+                    <div class="col-md-8 mt-2">
+                        <input type="text" class="inputClass col-md-2" id="titulosem15" name="titulosem15" value="Semana 15" readonly>
 
-                <label for="rangofinal15" class="col-md-1">Al:</label>
-                <input type="text" class="col-md-2" id="rangofinal15" name="rangofinal15" value="<?php echo $objfechas->s15_rangof; ?>" readonly>
-            </div>
-            <div class="col-md-4 mt-2">
-                <input type="text" class="form-control form-control sm" id="TipoActividad15" name="TipoActividad15" value="Novedad" readonly>
-            </div>
-        </div>
-        <div class="row" id="s15divopt1">
-            <div class="col-md-12 mt-2">
-                <h6><span class="badge bg-danger">Descripción</span></h6>
-                <textarea class="form-control" id="DescripcionActSem15" name="DescripcionActSem15" placeholder="Descripcion" rows="6" required></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
-            </div>
-        </div>
-        <div class="row" id="s15divopt2">
-            <div class="col-md-4 mt-2">
-                <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
-                <select class="form-select form-select-sm" id="TipoNovedad15" name="TipoNovedad15" onchange="showopt2s15()" required>
-                    <option value="" selected></option>
-                    <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
-                    <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
-                    <div class="valid-feedback">Campo Validado.</div>
-                    <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 mt-2" id="s15divopt3" style="display: none">
-                <h6><span class="badge bg-danger">Justificación</span></h6>
-                <textarea class="form-control" id="justificasem15" name="justificasem15" placeholder="Justificación" rows="2"></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-            </div>
-            <div class="col-md-4 mt-2" id="s15divopt4" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
-                <input type="date" class="form-control form-control sm" id="fechanov15" name="fechanov15">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mt-2" id="s15divopt7" style="display: none">
-                <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
-                <textarea class="form-control" id="justificarsem15" name="justificarsem15" placeholder="Justificación" rows="2"></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-            </div>
-            <div class="col-md-3 mt-2" id="s15divopt5" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
-                <input type="date" class="form-control form-control sm" id="s15fecharep1" name="s15fecharep1">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
-            </div>
-            <div class="col-md-3 mt-2" id="s15divopt6" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
-                <input type="date" class="form-control form-control sm" id="s15fecharep2" name="s15fecharep2">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
-            </div>
-        </div>
-    </div>
-<?php } ?>
-<!-- Semana16 -->
-<?php
-$fechai16 = strtotime($objfechas->s16_rangoi);
-$fechaf16 = date("d-m-Y", strtotime($objfechas->s16_rangof . "+ 1 days"));
-$fechaf16 = strtotime($fechaf16);
+                        <label class="col-md-1" for="rangoinicio15">Del:</label>
+                        <input type="text" class="col-md-2" id="rangoinicio15" name="rangoinicio15" value="<?php echo $objfechas->s15_rangoi; ?>" readonly>
 
-if ($fechahoy > $fechaf16 && ($objfechas->s16_tipoactividad == " " || $objfechas->s16_tipoactividad == null)) { ?>
-    <div class="row border border-danger rounded">
-        <div class="row">
-            <div class="col-md-8 mt-2">
-                <input type="text" class="inputClass col-md-2" id="titulosem16" name="titulosem16" value="Semana 16" readonly>
+                        <label for="rangofinal15" class="col-md-1">Al:</label>
+                        <input type="text" class="col-md-2" id="rangofinal15" name="rangofinal15" value="<?php echo $objfechas->s15_rangof; ?>" readonly>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <input type="text" class="form-control form-control sm" id="TipoActividad15" name="TipoActividad15" value="Novedad" readonly>
+                    </div>
+                </div>
+                <div class="row" id="s15divopt1">
+                    <div class="col-md-12 mt-2">
+                        <h6><span class="badge bg-danger">Descripción</span></h6>
+                        <textarea class="form-control" id="DescripcionActSem15" name="DescripcionActSem15" placeholder="Descripcion" rows="6" required></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
+                    </div>
+                </div>
+                <div class="row" id="s15divopt2">
+                    <div class="col-md-4 mt-2">
+                        <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
+                        <select class="form-select form-select-sm" id="TipoNovedad15" name="TipoNovedad15" onchange="showopt2s15()" required>
+                            <option value="" selected></option>
+                            <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
+                            <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
+                            <div class="valid-feedback">Campo Validado.</div>
+                            <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mt-2" id="s15divopt3" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación</span></h6>
+                        <textarea class="form-control" id="justificasem15" name="justificasem15" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-4 mt-2" id="s15divopt4" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
+                        <input type="date" class="form-control form-control sm" id="fechanov15" name="fechanov15">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-2" id="s15divopt7" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
+                        <textarea class="form-control" id="justificarsem15" name="justificarsem15" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s15divopt5" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s15fecharep1" name="s15fecharep1">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s15divopt6" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s15fecharep2" name="s15fecharep2">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+        <!-- Semana16 -->
+        <?php
+        $fechai16 = strtotime($objfechas->s16_rangoi);
+        $fechaf16 = date("d-m-Y", strtotime($objfechas->s16_rangof . "+ 1 days"));
+        $fechaf16 = strtotime($fechaf16);
 
-                <label class="col-md-1" for="rangoinicio16">Del:</label>
-                <input type="text" class="col-md-2" id="rangoinicio16" name="rangoinicio16" value="<?php echo $objfechas->s16_rangoi; ?>" readonly>
+        if ($fechahoy > $fechaf16 && ($objfechas->s16_tipoactividad == " " || $objfechas->s16_tipoactividad == null)) { ?>
+            <div class="row border border-danger rounded">
+                <div class="row">
+                    <div class="col-md-8 mt-2">
+                        <input type="text" class="inputClass col-md-2" id="titulosem16" name="titulosem16" value="Semana 16" readonly>
 
-                <label for="rangofinal16" class="col-md-1">Al:</label>
-                <input type="text" class="col-md-2" id="rangofinal16" name="rangofinal16" value="<?php echo $objfechas->s16_rangof; ?>" readonly>
-            </div>
-            <div class="col-md-4 mt-2">
-                <input type="text" class="form-control form-control sm" id="TipoActividad16" name="TipoActividad16" value="Novedad" readonly>
-            </div>
-        </div>
-        <div class="row" id="s16divopt1">
-            <div class="col-md-12 mt-2">
-                <h6><span class="badge bg-danger">Descripción</span></h6>
-                <textarea class="form-control" id="DescripcionActSem16" name="DescripcionActSem16" placeholder="Descripcion" rows="6" required></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
-            </div>
-        </div>
-        <div class="row" id="s16divopt2">
-            <div class="col-md-4 mt-2">
-                <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
-                <select class="form-select form-select-sm" id="TipoNovedad16" name="TipoNovedad16" onchange="showopt2s16()" required>
-                    <option value="" selected></option>
-                    <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
-                    <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
-                    <div class="valid-feedback">Campo Validado.</div>
-                    <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 mt-2" id="s16divopt3" style="display: none">
-                <h6><span class="badge bg-danger">Justificación</span></h6>
-                <textarea class="form-control" id="justificasem16" name="justificasem16" placeholder="Justificación" rows="2"></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-            </div>
-            <div class="col-md-4 mt-2" id="s16divopt4" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
-                <input type="date" class="form-control form-control sm" id="fechanov16" name="fechanov16">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mt-2" id="s16divopt7" style="display: none">
-                <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
-                <textarea class="form-control" id="justificarsem16" name="justificarsem16" placeholder="Justificación" rows="2"></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-            </div>
-            <div class="col-md-3 mt-2" id="s16divopt5" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
-                <input type="date" class="form-control form-control sm" id="s16fecharep1" name="s16fecharep1">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
-            </div>
-            <div class="col-md-3 mt-2" id="s16divopt6" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
-                <input type="date" class="form-control form-control sm" id="s16fecharep2" name="s16fecharep2">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
-            </div>
-        </div>
-    </div>
-<?php } ?>
+                        <label class="col-md-1" for="rangoinicio16">Del:</label>
+                        <input type="text" class="col-md-2" id="rangoinicio16" name="rangoinicio16" value="<?php echo $objfechas->s16_rangoi; ?>" readonly>
 
-<!-- Semana17 -->
-<?php
-$fechai17 = strtotime($objfechas->s17_rangoi);
-$fechaf17 = date("d-m-Y", strtotime($objfechas->s17_rangof . "+ 1 days"));
-$fechaf17 = strtotime($fechaf17);
+                        <label for="rangofinal16" class="col-md-1">Al:</label>
+                        <input type="text" class="col-md-2" id="rangofinal16" name="rangofinal16" value="<?php echo $objfechas->s16_rangof; ?>" readonly>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <input type="text" class="form-control form-control sm" id="TipoActividad16" name="TipoActividad16" value="Novedad" readonly>
+                    </div>
+                </div>
+                <div class="row" id="s16divopt1">
+                    <div class="col-md-12 mt-2">
+                        <h6><span class="badge bg-danger">Descripción</span></h6>
+                        <textarea class="form-control" id="DescripcionActSem16" name="DescripcionActSem16" placeholder="Descripcion" rows="6" required></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
+                    </div>
+                </div>
+                <div class="row" id="s16divopt2">
+                    <div class="col-md-4 mt-2">
+                        <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
+                        <select class="form-select form-select-sm" id="TipoNovedad16" name="TipoNovedad16" onchange="showopt2s16()" required>
+                            <option value="" selected></option>
+                            <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
+                            <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
+                            <div class="valid-feedback">Campo Validado.</div>
+                            <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mt-2" id="s16divopt3" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación</span></h6>
+                        <textarea class="form-control" id="justificasem16" name="justificasem16" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-4 mt-2" id="s16divopt4" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
+                        <input type="date" class="form-control form-control sm" id="fechanov16" name="fechanov16">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-2" id="s16divopt7" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
+                        <textarea class="form-control" id="justificarsem16" name="justificarsem16" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s16divopt5" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s16fecharep1" name="s16fecharep1">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s16divopt6" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s16fecharep2" name="s16fecharep2">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
 
-if ($fechahoy > $fechaf17 && ($objfechas->s17_tipoactividad == " " || $objfechas->s17_tipoactividad == null)) { ?>
-    <div class="row border border-danger rounded">
-        <div class="row">
-            <div class="col-md-8 mt-2">
-                <input type="text" class="inputClass col-md-2" id="titulosem17" name="titulosem17" value="Semana 17" readonly>
+        <!-- Semana17 -->
+        <?php
+        $fechai17 = strtotime($objfechas->s17_rangoi);
+        $fechaf17 = date("d-m-Y", strtotime($objfechas->s17_rangof . "+ 1 days"));
+        $fechaf17 = strtotime($fechaf17);
 
-                <label class="col-md-1" for="rangoinicio17">Del:</label>
-                <input type="text" class="col-md-2" id="rangoinicio17" name="rangoinicio17" value="<?php echo $objfechas->s17_rangoi; ?>" readonly>
+        if ($fechahoy > $fechaf17 && ($objfechas->s17_tipoactividad == " " || $objfechas->s17_tipoactividad == null)) { ?>
+            <div class="row border border-danger rounded">
+                <div class="row">
+                    <div class="col-md-8 mt-2">
+                        <input type="text" class="inputClass col-md-2" id="titulosem17" name="titulosem17" value="Semana 17" readonly>
 
-                <label for="rangofinal17" class="col-md-1">Al:</label>
-                <input type="text" class="col-md-2" id="rangofinal17" name="rangofinal17" value="<?php echo $objfechas->s17_rangof; ?>" readonly>
-            </div>
-            <div class="col-md-4 mt-2">
-                <input type="text" class="form-control form-control sm" id="TipoActividad17" name="TipoActividad17" value="Novedad" readonly>
-            </div>
-        </div>
-        <div class="row" id="s17divopt1">
-            <div class="col-md-12 mt-2">
-                <h6><span class="badge bg-danger">Descripción</span></h6>
-                <textarea class="form-control" id="DescripcionActSem17" name="DescripcionActSem17" placeholder="Descripcion" rows="6" required></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
-            </div>
-        </div>
-        <div class="row" id="s17divopt2">
-            <div class="col-md-4 mt-2">
-                <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
-                <select class="form-select form-select-sm" id="TipoNovedad17" name="TipoNovedad17" onchange="showopt2s17()" required>
-                    <option value="" selected></option>
-                    <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
-                    <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
-                    <div class="valid-feedback">Campo Validado.</div>
-                    <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 mt-2" id="s17divopt3" style="display: none">
-                <h6><span class="badge bg-danger">Justificación</span></h6>
-                <textarea class="form-control" id="justificasem17" name="justificasem17" placeholder="Justificación" rows="2"></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-            </div>
-            <div class="col-md-4 mt-2" id="s17divopt4" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
-                <input type="date" class="form-control form-control sm" id="fechanov17" name="fechanov17">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mt-2" id="s17divopt7" style="display: none">
-                <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
-                <textarea class="form-control" id="justificarsem17" name="justificarsem17" placeholder="Justificación" rows="2"></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-            </div>
-            <div class="col-md-3 mt-2" id="s17divopt5" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
-                <input type="date" class="form-control form-control sm" id="s17fecharep1" name="s17fecharep1">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
-            </div>
-            <div class="col-md-3 mt-2" id="s17divopt6" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
-                <input type="date" class="form-control form-control sm" id="s17fecharep2" name="s17fecharep2">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
-            </div>
-        </div>
-    </div>
-<?php } ?>
+                        <label class="col-md-1" for="rangoinicio17">Del:</label>
+                        <input type="text" class="col-md-2" id="rangoinicio17" name="rangoinicio17" value="<?php echo $objfechas->s17_rangoi; ?>" readonly>
 
-<!-- Semana18 -->
-<?php
-$fechai18 = strtotime($objfechas->s18_rangoi);
-$fechaf18 = date("d-m-Y", strtotime($objfechas->s18_rangof . "+ 1 days"));
-$fechaf18 = strtotime($fechaf18);
+                        <label for="rangofinal17" class="col-md-1">Al:</label>
+                        <input type="text" class="col-md-2" id="rangofinal17" name="rangofinal17" value="<?php echo $objfechas->s17_rangof; ?>" readonly>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <input type="text" class="form-control form-control sm" id="TipoActividad17" name="TipoActividad17" value="Novedad" readonly>
+                    </div>
+                </div>
+                <div class="row" id="s17divopt1">
+                    <div class="col-md-12 mt-2">
+                        <h6><span class="badge bg-danger">Descripción</span></h6>
+                        <textarea class="form-control" id="DescripcionActSem17" name="DescripcionActSem17" placeholder="Descripcion" rows="6" required></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
+                    </div>
+                </div>
+                <div class="row" id="s17divopt2">
+                    <div class="col-md-4 mt-2">
+                        <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
+                        <select class="form-select form-select-sm" id="TipoNovedad17" name="TipoNovedad17" onchange="showopt2s17()" required>
+                            <option value="" selected></option>
+                            <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
+                            <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
+                            <div class="valid-feedback">Campo Validado.</div>
+                            <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mt-2" id="s17divopt3" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación</span></h6>
+                        <textarea class="form-control" id="justificasem17" name="justificasem17" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-4 mt-2" id="s17divopt4" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
+                        <input type="date" class="form-control form-control sm" id="fechanov17" name="fechanov17">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-2" id="s17divopt7" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
+                        <textarea class="form-control" id="justificarsem17" name="justificarsem17" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s17divopt5" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s17fecharep1" name="s17fecharep1">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s17divopt6" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s17fecharep2" name="s17fecharep2">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
 
-if ($fechahoy > $fechaf18 && ($objfechas->s18_tipoactividad == " " || $objfechas->s18_tipoactividad == null)) { ?>
-    <div class="row border border-danger rounded">
-        <div class="row">
-            <div class="col-md-8 mt-2">
-                <input type="text" class="inputClass col-md-2" id="titulosem18" name="titulosem18" value="Semana 18" readonly>
+        <!-- Semana18 -->
+        <?php
+        $fechai18 = strtotime($objfechas->s18_rangoi);
+        $fechaf18 = date("d-m-Y", strtotime($objfechas->s18_rangof . "+ 1 days"));
+        $fechaf18 = strtotime($fechaf18);
 
-                <label class="col-md-1" for="rangoinicio18">Del:</label>
-                <input type="text" class="col-md-2" id="rangoinicio18" name="rangoinicio18" value="<?php echo $objfechas->s18_rangoi; ?>" readonly>
+        if ($fechahoy > $fechaf18 && ($objfechas->s18_tipoactividad == " " || $objfechas->s18_tipoactividad == null)) { ?>
+            <div class="row border border-danger rounded">
+                <div class="row">
+                    <div class="col-md-8 mt-2">
+                        <input type="text" class="inputClass col-md-2" id="titulosem18" name="titulosem18" value="Semana 18" readonly>
 
-                <label for="rangofinal18" class="col-md-1">Al:</label>
-                <input type="text" class="col-md-2" id="rangofinal18" name="rangofinal18" value="<?php echo $objfechas->s18_rangof; ?>" readonly>
+                        <label class="col-md-1" for="rangoinicio18">Del:</label>
+                        <input type="text" class="col-md-2" id="rangoinicio18" name="rangoinicio18" value="<?php echo $objfechas->s18_rangoi; ?>" readonly>
+
+                        <label for="rangofinal18" class="col-md-1">Al:</label>
+                        <input type="text" class="col-md-2" id="rangofinal18" name="rangofinal18" value="<?php echo $objfechas->s18_rangof; ?>" readonly>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <input type="text" class="form-control form-control sm" id="TipoActividad18" name="TipoActividad18" value="Novedad" readonly>
+                    </div>
+                </div>
+                <div class="row" id="s18divopt1">
+                    <div class="col-md-12 mt-2">
+                        <h6><span class="badge bg-danger">Descripción</span></h6>
+                        <textarea class="form-control" id="DescripcionActSem18" name="DescripcionActSem18" placeholder="Descripcion" rows="6" required></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
+                    </div>
+                </div>
+                <div class="row" id="s18divopt2">
+                    <div class="col-md-4 mt-2">
+                        <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
+                        <select class="form-select form-select-sm" id="TipoNovedad18" name="TipoNovedad18" onchange="showopt2s18()" required>
+                            <option value="" selected></option>
+                            <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
+                            <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
+                            <div class="valid-feedback">Campo Validado.</div>
+                            <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mt-2" id="s18divopt3" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación</span></h6>
+                        <textarea class="form-control" id="justificasem18" name="justificasem18" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-4 mt-2" id="s18divopt4" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
+                        <input type="date" class="form-control form-control sm" id="fechanov18" name="fechanov18">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-2" id="s18divopt7" style="display: none">
+                        <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
+                        <textarea class="form-control" id="justificarsem18" name="justificarsem18" placeholder="Justificación" rows="2"></textarea>
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Justificación.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s18divopt5" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s18fecharep1" name="s18fecharep1">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
+                    </div>
+                    <div class="col-md-3 mt-2" id="s18divopt6" style="display: none">
+                        <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
+                        <input type="date" class="form-control form-control sm" id="s18fecharep2" name="s18fecharep2">
+                        <div class="valid-feedback">Campo Validado.</div>
+                        <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 mt-2">
-                <input type="text" class="form-control form-control sm" id="TipoActividad18" name="TipoActividad18" value="Novedad" readonly>
-            </div>
-        </div>
-        <div class="row" id="s18divopt1">
-            <div class="col-md-12 mt-2">
-                <h6><span class="badge bg-danger">Descripción</span></h6>
-                <textarea class="form-control" id="DescripcionActSem18" name="DescripcionActSem18" placeholder="Descripcion" rows="6" required></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
-            </div>
-        </div>
-        <div class="row" id="s18divopt2">
-            <div class="col-md-4 mt-2">
-                <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
-                <select class="form-select form-select-sm" id="TipoNovedad18" name="TipoNovedad18" onchange="showopt2s18()" required>
-                    <option value="" selected></option>
-                    <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
-                    <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
-                    <div class="valid-feedback">Campo Validado.</div>
-                    <div class="invalid-feedback">Por favor ingresar Tipo de Novedad.</div>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 mt-2" id="s18divopt3" style="display: none">
-                <h6><span class="badge bg-danger">Justificación</span></h6>
-                <textarea class="form-control" id="justificasem18" name="justificasem18" placeholder="Justificación" rows="2"></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-            </div>
-            <div class="col-md-4 mt-2" id="s18divopt4" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
-                <input type="date" class="form-control form-control sm" id="fechanov18" name="fechanov18">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mt-2" id="s18divopt7" style="display: none">
-                <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
-                <textarea class="form-control" id="justificarsem18" name="justificarsem18" placeholder="Justificación" rows="2"></textarea>
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Justificación.</div>
-            </div>
-            <div class="col-md-3 mt-2" id="s18divopt5" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
-                <input type="date" class="form-control form-control sm" id="s18fecharep1" name="s18fecharep1">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
-            </div>
-            <div class="col-md-3 mt-2" id="s18divopt6" style="display: none">
-                <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
-                <input type="date" class="form-control form-control sm" id="s18fecharep2" name="s18fecharep2">
-                <div class="valid-feedback">Campo Validado.</div>
-                <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
-            </div>
-        </div>
-    </div>
-<?php }
-       
+        <?php }
     } else { ?>
         <div class="container">
             <div class="row">
@@ -1488,21 +1487,21 @@ if ($fechahoy > $fechaf18 && ($objfechas->s18_tipoactividad == " " || $objfechas
 
             <!-- Semana1p -->
             <?php
-            $fechai1p = strtotime($objfechas->s1p_rangoi);
-            $fechaf1p = date("d-m-Y", strtotime($objfechas->s1p_rangof . "+ 1 days"));
+            $fechai1p = strtotime($objfechas->s1_rangoi_p);
+            $fechaf1p = date("d-m-Y", strtotime($objfechas->s1_rangof_p . "+ 1 days"));
             $fechaf1p = strtotime($fechaf1p);
 
-            if ($fechahoy > $fechaf1p && ($objfechas->s1p_tipoactividad == " " || $objfechas->s1p_tipoactividad == null)) { ?>
+            if ($fechahoy > $fechaf1p && ($objfechas->s1_tipoactividad_p == " " || $objfechas->s1_tipoactividad_p == null)) { ?>
                 <div class="row border border-danger rounded">
                     <div class="row">
                         <div class="col-md-8 mt-2">
                             <input type="text" class="inputClass col-md-2" id="titulosem1p" name="titulosem1p" value="Semana 1p" readonly>
 
                             <label class="col-md-1" for="rangoinicio1p">Del:</label>
-                            <input type="text" class="col-md-2" id="rangoinicio1p" name="rangoinicio1p" value="<?php echo $objfechas->s1p_rangoi; ?>" readonly>
+                            <input type="text" class="col-md-2" id="rangoinicio1p" name="rangoinicio1p" value="<?php echo $objfechas->s1_rangoi_p; ?>" readonly>
 
                             <label for="rangofinal1p" class="col-md-1">Al:</label>
-                            <input type="text" class="col-md-2" id="rangofinal1p" name="rangofinal1p" value="<?php echo $objfechas->s1p_rangof; ?>" readonly>
+                            <input type="text" class="col-md-2" id="rangofinal1p" name="rangofinal1p" value="<?php echo $objfechas->s1_rangof_p; ?>" readonly>
                         </div>
                         <div class="col-md-4 mt-2">
                             <input type="text" class="form-control form-control sm" id="TipoActividad1p" name="TipoActividad1p" value="Novedad" readonly>
@@ -1565,22 +1564,23 @@ if ($fechahoy > $fechaf18 && ($objfechas->s18_tipoactividad == " " || $objfechas
                 </div>
             <?php } ?>
             <!-- Semana2p -->
+            <!-- Semana2p -->
             <?php
-            $fechai2p = strtotime($objfechas->s2p_rangoi);
-            $fechaf2p = date("d-m-Y", strtotime($objfechas->s2p_rangof . "+ 1 days"));
+            $fechai2p = strtotime($objfechas->s2_rangoi_p);
+            $fechaf2p = date("d-m-Y", strtotime($objfechas->s2_rangof_p . "+ 1 days"));
             $fechaf2p = strtotime($fechaf2p);
 
-            if ($fechahoy > $fechaf2p && ($objfechas->s2p_tipoactividad == " " || $objfechas->s2p_tipoactividad == null)) { ?>
+            if ($fechahoy > $fechaf2p && ($objfechas->s2_tipoactividad_p == " " || $objfechas->s2_tipoactividad_p == null)) { ?>
                 <div class="row border border-danger rounded">
                     <div class="row">
                         <div class="col-md-8 mt-2">
                             <input type="text" class="inputClass col-md-2" id="titulosem2p" name="titulosem2p" value="Semana 2p" readonly>
 
                             <label class="col-md-1" for="rangoinicio2p">Del:</label>
-                            <input type="text" class="col-md-2" id="rangoinicio2p" name="rangoinicio2p" value="<?php echo $objfechas->s2p_rangoi; ?>" readonly>
+                            <input type="text" class="col-md-2" id="rangoinicio2p" name="rangoinicio2p" value="<?php echo $objfechas->s2_rangoi_p; ?>" readonly>
 
                             <label for="rangofinal2p" class="col-md-1">Al:</label>
-                            <input type="text" class="col-md-2" id="rangofinal2p" name="rangofinal2p" value="<?php echo $objfechas->s2p_rangof; ?>" readonly>
+                            <input type="text" class="col-md-2" id="rangofinal2p" name="rangofinal2p" value="<?php echo $objfechas->s2_rangof_p; ?>" readonly>
                         </div>
                         <div class="col-md-4 mt-2">
                             <input type="text" class="form-control form-control sm" id="TipoActividad2p" name="TipoActividad2p" value="Novedad" readonly>
@@ -1642,40 +1642,40 @@ if ($fechahoy > $fechaf18 && ($objfechas->s18_tipoactividad == " " || $objfechas
                     </div>
                 </div>
             <?php } ?>
-            <!-- Semana4p -->
+            <!-- Semana3p -->
             <?php
-            $fechai4p = strtotime($objfechas->s4p_rangoi);
-            $fechaf4p = date("d-m-Y", strtotime($objfechas->s4p_rangof . "+ 1 days"));
-            $fechaf4p = strtotime($fechaf4p);
+            $fechai3p = strtotime($objfechas->s3_rangoi_p);
+            $fechaf3p = date("d-m-Y", strtotime($objfechas->s3_rangof_p . "+ 1 days"));
+            $fechaf3p = strtotime($fechaf3p);
 
-            if ($fechahoy > $fechaf4p && ($objfechas->s4p_tipoactividad == " " || $objfechas->s4p_tipoactividad == null)) { ?>
+            if ($fechahoy > $fechaf3p && ($objfechas->s3_tipoactividad_p == " " || $objfechas->s3_tipoactividad_p == null)) { ?>
                 <div class="row border border-danger rounded">
                     <div class="row">
                         <div class="col-md-8 mt-2">
-                            <input type="text" class="inputClass col-md-2" id="titulosem4p" name="titulosem4p" value="Semana 4p" readonly>
+                            <input type="text" class="inputClass col-md-2" id="titulosem3p" name="titulosem3p" value="Semana 3p" readonly>
 
-                            <label class="col-md-1" for="rangoinicio4p">Del:</label>
-                            <input type="text" class="col-md-2" id="rangoinicio4p" name="rangoinicio4p" value="<?php echo $objfechas->s4p_rangoi; ?>" readonly>
+                            <label class="col-md-1" for="rangoinicio3p">Del:</label>
+                            <input type="text" class="col-md-2" id="rangoinicio3p" name="rangoinicio3p" value="<?php echo $objfechas->s3_rangoi_p; ?>" readonly>
 
-                            <label for="rangofinal4p" class="col-md-1">Al:</label>
-                            <input type="text" class="col-md-2" id="rangofinal4p" name="rangofinal4p" value="<?php echo $objfechas->s4p_rangof; ?>" readonly>
+                            <label for="rangofinal3p" class="col-md-1">Al:</label>
+                            <input type="text" class="col-md-2" id="rangofinal3p" name="rangofinal3p" value="<?php echo $objfechas->s3_rangof_p; ?>" readonly>
                         </div>
                         <div class="col-md-4 mt-2">
-                            <input type="text" class="form-control form-control sm" id="TipoActividad4p" name="TipoActividad4p" value="Novedad" readonly>
+                            <input type="text" class="form-control form-control sm" id="TipoActividad3p" name="TipoActividad3p" value="Novedad" readonly>
                         </div>
                     </div>
-                    <div class="row" id="s4pdivopt1">
+                    <div class="row" id="s3pdivopt1">
                         <div class="col-md-12 mt-2">
                             <h6><span class="badge bg-danger">Descripción</span></h6>
-                            <textarea class="form-control" id="DescripcionActSem4p" name="DescripcionActSem4p" placeholder="Descripcion" rows="6" required></textarea>
+                            <textarea class="form-control" id="DescripcionActSem3p" name="DescripcionActSem3p" placeholder="Descripcion" rows="6" required></textarea>
                             <div class="valid-feedback">Campo Validado.</div>
                             <div class="invalid-feedback">Por favor ingresar Descripción de la actividad.</div>
                         </div>
                     </div>
-                    <div class="row" id="s4pdivopt2">
+                    <div class="row" id="s3pdivopt2">
                         <div class="col-md-4 mt-2">
                             <h6><span class="badge bg-danger">Tipo Novedad</span></h6>
-                            <select class="form-select form-select-sm" id="TipoNovedad4p" name="TipoNovedad4p" onchange="showopt2s4p()" required>
+                            <select class="form-select form-select-sm" id="TipoNovedad3p" name="TipoNovedad3p" onchange="showopt2s3p()" required>
                                 <option value="" selected></option>
                                 <option value="Fueradefecha">Registro de Actividad fuera de fecha</option>
                                 <option value="Reprogramacion">Reprogramación de Actividad Académica</option>
@@ -1685,35 +1685,35 @@ if ($fechahoy > $fechaf18 && ($objfechas->s18_tipoactividad == " " || $objfechas
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-8 mt-2" id="s4pdivopt3" style="display: none">
+                        <div class="col-md-8 mt-2" id="s3pdivopt3" style="display: none">
                             <h6><span class="badge bg-danger">Justificación</span></h6>
-                            <textarea class="form-control" id="justificasem4p" name="justificasem4p" placeholder="Justificación" rows="2"></textarea>
+                            <textarea class="form-control" id="justificasem3p" name="justificasem3p" placeholder="Justificación" rows="2"></textarea>
                             <div class="valid-feedback">Campo Validado.</div>
                             <div class="invalid-feedback">Por favor ingresar Justificación.</div>
                         </div>
-                        <div class="col-md-4 mt-2" id="s4pdivopt4" style="display: none">
+                        <div class="col-md-4 mt-2" id="s3pdivopt4" style="display: none">
                             <h6><span class="badge bg-danger">Fecha Desarrollo Actividad Novedad</span></h6>
-                            <input type="date" class="form-control form-control sm" id="fechanov4p" name="fechanov4p">
+                            <input type="date" class="form-control form-control sm" id="fechanov3p" name="fechanov3p">
                             <div class="valid-feedback">Campo Validado.</div>
                             <div class="invalid-feedback">Por favor ingresar Fecha Actividad Novedad.</div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 mt-2" id="s4pdivopt7" style="display: none">
+                        <div class="col-md-6 mt-2" id="s3pdivopt7" style="display: none">
                             <h6><span class="badge bg-danger">Justificación Reprogramación</span></h6>
-                            <textarea class="form-control" id="justificarsem4p" name="justificarsem4p" placeholder="Justificación" rows="2"></textarea>
+                            <textarea class="form-control" id="justificarsem3p" name="justificarsem3p" placeholder="Justificación" rows="2"></textarea>
                             <div class="valid-feedback">Campo Validado.</div>
                             <div class="invalid-feedback">Por favor ingresar Justificación.</div>
                         </div>
-                        <div class="col-md-3 mt-2" id="s4pdivopt5" style="display: none">
+                        <div class="col-md-3 mt-2" id="s3pdivopt5" style="display: none">
                             <h6><span class="badge bg-danger">Fecha Reprogramación 1</span></h6>
-                            <input type="date" class="form-control form-control sm" id="s4pfecharep1" name="s4pfecharep1">
+                            <input type="date" class="form-control form-control sm" id="s3pfecharep1" name="s3pfecharep1">
                             <div class="valid-feedback">Campo Validado.</div>
                             <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 1.</div>
                         </div>
-                        <div class="col-md-3 mt-2" id="s4pdivopt6" style="display: none">
+                        <div class="col-md-3 mt-2" id="s3pdivopt6" style="display: none">
                             <h6><span class="badge bg-danger">Fecha Reprogramación 2</span></h6>
-                            <input type="date" class="form-control form-control sm" id="s4pfecharep2" name="s4pfecharep2">
+                            <input type="date" class="form-control form-control sm" id="s3pfecharep2" name="s3pfecharep2">
                             <div class="valid-feedback">Campo Validado.</div>
                             <div class="invalid-feedback">Por favor ingresar Fecha reprogramación 2.</div>
                         </div>
@@ -1722,21 +1722,21 @@ if ($fechahoy > $fechaf18 && ($objfechas->s18_tipoactividad == " " || $objfechas
             <?php } ?>
             <!-- Semana4p -->
             <?php
-            $fechai4p = strtotime($objfechas->s4p_rangoi);
-            $fechaf4p = date("d-m-Y", strtotime($objfechas->s4p_rangof . "+ 1 days"));
+            $fechai4p = strtotime($objfechas->s4_rangoi_p);
+            $fechaf4p = date("d-m-Y", strtotime($objfechas->s4_rangof_p . "+ 1 days"));
             $fechaf4p = strtotime($fechaf4p);
 
-            if ($fechahoy > $fechaf4p && ($objfechas->s4p_tipoactividad == " " || $objfechas->s4p_tipoactividad == null)) { ?>
+            if ($fechahoy > $fechaf4p && ($objfechas->s4_tipoactividad_p == " " || $objfechas->s4_tipoactividad_p == null)) { ?>
                 <div class="row border border-danger rounded">
                     <div class="row">
                         <div class="col-md-8 mt-2">
                             <input type="text" class="inputClass col-md-2" id="titulosem4p" name="titulosem4p" value="Semana 4p" readonly>
 
                             <label class="col-md-1" for="rangoinicio4p">Del:</label>
-                            <input type="text" class="col-md-2" id="rangoinicio4p" name="rangoinicio4p" value="<?php echo $objfechas->s4p_rangoi; ?>" readonly>
+                            <input type="text" class="col-md-2" id="rangoinicio4p" name="rangoinicio4p" value="<?php echo $objfechas->s4_rangoi_p; ?>" readonly>
 
                             <label for="rangofinal4p" class="col-md-1">Al:</label>
-                            <input type="text" class="col-md-2" id="rangofinal4p" name="rangofinal4p" value="<?php echo $objfechas->s4p_rangof; ?>" readonly>
+                            <input type="text" class="col-md-2" id="rangofinal4p" name="rangofinal4p" value="<?php echo $objfechas->s4_rangof_p; ?>" readonly>
                         </div>
                         <div class="col-md-4 mt-2">
                             <input type="text" class="form-control form-control sm" id="TipoActividad4p" name="TipoActividad4p" value="Novedad" readonly>
@@ -1800,21 +1800,21 @@ if ($fechahoy > $fechaf18 && ($objfechas->s18_tipoactividad == " " || $objfechas
             <?php } ?>
             <!-- Semana5p -->
             <?php
-            $fechai5p = strtotime($objfechas->s5p_rangoi);
-            $fechaf5p = date("d-m-Y", strtotime($objfechas->s5p_rangof . "+ 1 days"));
+            $fechai5p = strtotime($objfechas->s5_rangoi_p);
+            $fechaf5p = date("d-m-Y", strtotime($objfechas->s5_rangof_p . "+ 1 days"));
             $fechaf5p = strtotime($fechaf5p);
 
-            if ($fechahoy > $fechaf5p && ($objfechas->s5p_tipoactividad == " " || $objfechas->s5p_tipoactividad == null)) { ?>
+            if ($fechahoy > $fechaf5p && ($objfechas->s5_tipoactividad_p == " " || $objfechas->s5_tipoactividad_p == null)) { ?>
                 <div class="row border border-danger rounded">
                     <div class="row">
                         <div class="col-md-8 mt-2">
                             <input type="text" class="inputClass col-md-2" id="titulosem5p" name="titulosem5p" value="Semana 5p" readonly>
 
                             <label class="col-md-1" for="rangoinicio5p">Del:</label>
-                            <input type="text" class="col-md-2" id="rangoinicio5p" name="rangoinicio5p" value="<?php echo $objfechas->s5p_rangoi; ?>" readonly>
+                            <input type="text" class="col-md-2" id="rangoinicio5p" name="rangoinicio5p" value="<?php echo $objfechas->s5_rangoi_p; ?>" readonly>
 
                             <label for="rangofinal5p" class="col-md-1">Al:</label>
-                            <input type="text" class="col-md-2" id="rangofinal5p" name="rangofinal5p" value="<?php echo $objfechas->s5p_rangof; ?>" readonly>
+                            <input type="text" class="col-md-2" id="rangofinal5p" name="rangofinal5p" value="<?php echo $objfechas->s5_rangof_p; ?>" readonly>
                         </div>
                         <div class="col-md-4 mt-2">
                             <input type="text" class="form-control form-control sm" id="TipoActividad5p" name="TipoActividad5p" value="Novedad" readonly>

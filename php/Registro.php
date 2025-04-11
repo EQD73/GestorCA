@@ -20,12 +20,6 @@ $resultado_qf = pg_query($conexion, $query_facultad);
 $num1 = pg_num_rows($resultado_qf);
 
 
-// select de tabla sedes //
-//$query_sedes = "SELECT * FROM sistema.sedes ORDER BY codigo_sede ASC ";
-//$resultado_qs = pg_query($conexion, $query_sedes);
-//$num2= pg_num_rows($resultado_qs);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -58,11 +52,6 @@ $num1 = pg_num_rows($resultado_qf);
 </script> -->
 
 <body>
-    <!-- <div class="cargando">
-        <div class="loader-outter"></div>
-        <div class="loader-inner"></div>
-    </div> -->
-
 
     <div id="app">
         <?php include("cargue_menul.html"); ?>
@@ -109,8 +98,6 @@ $num1 = pg_num_rows($resultado_qf);
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="#"><i data-feather="user"></i> Cuenta/Perfil</a>
-                                <!-- <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a> -->
-                                <!-- <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a> -->
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"><i data-feather="log-out"></i>Salir</a>
                             </div>

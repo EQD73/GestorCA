@@ -1,51 +1,54 @@
 <?php
 date_default_timezone_set('America/Bogota');
+
 // Configuración de la base de datos
 $PGUSER = "postgres";
-$PGPASSWORD = "Killa2022";
+$PGPASSWORD = "postgres";
 $PGHOST = "localhost";
-$PGPORT = "5434";
+$PGPORT = "5432";
 $PGDATABASE = "postgres";
 $PGSCHEMA = "sistema";
 $RESTORE_DIR = "../backups/";
 $LOG_DIR = "../logs/";
 $LOG_FILE = $LOG_DIR . 'restore_log_' . date('Ymd_His') . '.txt';
 
-// Verificar si el directorio de logs existe, si no, crearlo
+// Rutas completas a herramientas
+$PSQL_PATH = '"C:\\Program Files\\PostgreSQL\\9.1\\bin\\psql.exe"';
+$PGRESTORE_PATH = '"C:\\Program Files\\PostgreSQL\\9.1\\bin\\pg_restore.exe"';
+
+// Verificar si el directorio de logs existe
 if (!file_exists($LOG_DIR)) {
     mkdir($LOG_DIR, 0777, true);
 }
 
-// Verificar si el archivo fue subido correctamente
 if (isset($_FILES['backupFile']) && $_FILES['backupFile']['error'] === UPLOAD_ERR_OK) {
     $uploadedFile = $_FILES['backupFile']['tmp_name'];
     $filename = basename($_FILES['backupFile']['name']);
     $destination = $RESTORE_DIR . $filename;
 
-    // Mover el archivo subido al directorio de restauración
     if (move_uploaded_file($uploadedFile, $destination)) {
-        // Ruta a pg_restore (ajusta según la instalación)
-        $PGRESTORE_PATH = '"C:\\Program Files\\PostgreSQL\\9.1\\bin\\pg_restore.exe"';
-
-        // Comando para restaurar la base de datos
-        $command = "$PGRESTORE_PATH -U $PGUSER -h $PGHOST -p $PGPORT -d $PGDATABASE --schema $PGSCHEMA -v $destination > $LOG_FILE 2>&1";
-
-        // Necesario para que `pg_restore` funcione correctamente
+        // Establecer variable de entorno para la contraseña
         putenv("PGPASSWORD=$PGPASSWORD");
 
-        // Ejecutar el comando
-        shell_exec($command);
+        // Borrar y recrear el esquema
+        $dropSchemaCmd = "$PSQL_PATH -U $PGUSER -h $PGHOST -p $PGPORT -d $PGDATABASE -c \"DROP SCHEMA IF EXISTS $PGSCHEMA CASCADE; CREATE SCHEMA $PGSCHEMA;\"";
+        $outputDrop = shell_exec($dropSchemaCmd);
 
-        // Verificar si hubo algún error
+        file_put_contents($LOG_FILE, "Resultado DROP SCHEMA:\n" . $outputDrop . "\n", FILE_APPEND);
+
+        // Restaurar el esquema
+        $restoreCmd = "$PGRESTORE_PATH -U $PGUSER -h $PGHOST -p $PGPORT -d $PGDATABASE --schema=$PGSCHEMA -v \"$destination\"";
+        $outputRestore = shell_exec("$restoreCmd >> \"$LOG_FILE\" 2>&1");
+
+        // Verificar el log para errores
         if (strpos(file_get_contents($LOG_FILE), 'error') === false) {
-            echo '<div class="alert alert-success">Restauración completada con éxito. Revisa los <a href="' . $LOG_FILE . '" target="_blank">logs</a> para más detalles.</div>';
+            echo '<div class="alert alert-danger text-white text-center mt-3">Restauración completada con éxito. Revisa los <a href="' . $LOG_FILE . '" target="_blank">logs</a> para más detalles.</div>';
         } else {
-            echo '<div class="alert alert-danger">Error durante la restauración. Revisa los <a href="' . $LOG_FILE . '" target="_blank">logs</a> para más detalles.</div>';
+            echo '<div class="alert alert-danger text-white text-center mt-3">Error durante la restauración. Revisa los <a href="' . $LOG_FILE . '" target="_blank">logs</a> para más detalles.</div>';
         }
     } else {
-        echo '<div class="alert alert-danger">Error al subir el archivo de backup.</div>';
+        echo '<div class="alert alert-danger text-white text-center mt-3">Error al subir el archivo de backup.</div>';
     }
 } else {
-    echo '<div class="alert alert-danger">Error al procesar el archivo de backup. Intenta nuevamente.</div>';
+    echo '<div class="alert alert-danger text-white text-center mt-3">Error al procesar el archivo de backup. Intenta nuevamente.</div>';
 }
-?>

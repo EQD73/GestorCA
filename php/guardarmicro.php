@@ -12,6 +12,8 @@ $tablam1 = $_SESSION['tablam1'];
 $codigo_usuario = $_SESSION['codigo_usuario'];
 $anio = $_SESSION['anio'];
 
+echo $anio;
+
 //conexiones
 
 include('conexion.php');
@@ -44,7 +46,6 @@ if (empty($_REQUEST['requisitos'])) {
             $t = '"' . $t . '"';
         $result[] = $t;
     }
-
     $valor = '{' . implode(",", $result) . '}'; // format
     $requisitos = $valor;
 }
@@ -123,8 +124,6 @@ $resultSelect = pg_query($conexion, $sqlSelect);
 $numrow = pg_num_rows($resultSelect);
 
 if ($numrow == 0) {
-
-
     $QueryInsert = ("INSERT INTO $tablam1 (
     codigo_asignaturacurso,
     nombre_asignatura,

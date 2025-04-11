@@ -28,7 +28,8 @@ $num1 = pg_num_rows($resultado_qp);
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="../assets/css/app.css">
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
@@ -122,14 +123,13 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                     <div class="avatar me-1">
                                         <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
                                     </div>
-                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div>
+                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
+                                    <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a class="dropdown-item" href="#"><i data-feather="user"></i> Cuenta/Perfil</a>
-                                    <!-- <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a> -->
-                                    <!-- <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a> -->
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"><i data-feather="log-out"></i> Logout</a>
+                                    <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"><i data-feather="log-out"></i>Salir</a>
                                 </div>
                             </li>
                         </ul>
@@ -195,7 +195,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Crear Asignatura</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" id="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
                             <form method="POST" id="formulario" enctype="multipart/form-data">
@@ -203,18 +203,18 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <label for="codigo_asigna">Código Asignatura</label>
+                                                <label for="codigo_asigna">Código Asignatura <span style="color: red">*</span></label>
                                                 <input type="text" name="codigo_asigna" id="codigo_asigna" class="form-control">
                                             </div>
 
                                             <div class="col-sm-9">
-                                                <label for="nom_asigna">Nombre Asignatura</label>
+                                                <label for="nom_asigna">Nombre Asignatura <span style="color: red">*</span></label>
                                                 <input type="text" name="nom_asigna" id="nom_asigna" class="form-control" style="text-transform: uppercase">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <label for="formGroup" class="form-label">Programa</label>
+                                                <label for="formGroup" class="form-label">Programa <span style="color: red">*</span></label>
                                                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="CodigoPrograma" name="CodigoPrograma">
                                                     <option value="" data-codigo="" data-nombre="" selected>Escoger Opción</option>
                                                     <?php
@@ -231,18 +231,18 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                             <input type="hidden" class="form-control form-control" id="CodProg" name="CodProg">
 
                                             <div class="col-sm-8">
-                                                <label for="formGroup" class="form-label">Nombre del Programa</label>
+                                                <label for="formGroup" class="form-label">Nombre del Programa <span style="color: red">*</span></label>
                                                 <input type="text" class="form-control form-control" id="NombreProg" name="NombreProg" readonly>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-2">
-                                                <label for="semestre">Semestre</label>
+                                                <label for="semestre">Semestre <span style="color: red">*</span></label>
                                                 <input type="text" name="semestre" id="semestre" class="form-control">
                                             </div>
 
                                             <div class="col-sm-2">
-                                                <label for="grupo">Grupo</label>
+                                                <label for="grupo">Grupo <span style="color: red">*</span></label>
                                                 <input type="text" name="grupo" id="grupo" class="form-control">
                                             </div>
                                             <div class="col-sm-4">
@@ -250,12 +250,12 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                                 <input type="text" name="periodo" id="periodo" class="form-control" value="<?php echo $periodo; ?>" readonly>
                                             </div>
                                             <div class="col-sm-2">
-                                                <label for="ihs">Int.Hor.Sem</label>
+                                                <label for="ihs">Int.Hor.Sem<span style="color: red">*</span></label>
                                                 <input type="text" name="ihs" id="ihs" class="form-control">
                                             </div>
 
                                             <div class="col-sm-2">
-                                                <label for="Créditos">Créditos</label>
+                                                <label for="Créditos">Créditos<span style="color: red">*</span></label>
                                                 <input type="text" name="creditos" id="creditos" class="form-control">
                                             </div>
                                         </div>
@@ -267,7 +267,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
 
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <label for="cod_docente">Codigo Docente</label>
+                                                <label for="cod_docente">Codigo Docente <span style="color: red">*</span></label>
                                                 <input type="text" name="cod_docente" id="cod_docente" class="form-control">
                                             </div>
                                             <div class="col-sm-8">
@@ -307,14 +307,14 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../assets/js/feather-icons/feather.min.js"></script>
+    <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
     <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/feather-icons/feather.min.js"></script>
-    <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- Botones exportación -->
@@ -381,8 +381,6 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                         }
                     }
                 ],
-
-
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
                 },
@@ -443,9 +441,9 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
             });
 
 
-            //Aquí código inserción
             $(document).on('submit', '#formulario', function(event) {
                 event.preventDefault();
+
                 var codigo_asigna = $('#codigo_asigna').val();
                 var nombre_asigna = $('#nom_asigna').val();
                 var semestre = $('#semestre').val();
@@ -453,8 +451,22 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                 var periodo = $('#periodo').val();
                 var cod_docente = $('#cod_docente').val();
                 var nom_docente = $('#nom_docente').val();
+                var ihs = $('#ihs').val();
+                var creditos = $('#creditos').val();
 
-                if (codigo_asigna != '' && nombre_asigna != '' && semestre != '' && grupo != '') {
+                if (codigo_asigna != '' && nombre_asigna != '' && semestre != '' && grupo != '' && ihs != '' && creditos != '') {
+
+                    // ✅ Mostrar spinner de carga
+                    Swal.fire({
+                        title: 'Guardando...',
+                        html: 'Por favor espera...',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
                     $.ajax({
                         url: "crearAsignatura.php",
                         method: 'POST',
@@ -462,36 +474,60 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                         contentType: false,
                         processData: false,
                         success: function(data) {
+                            // ✅ Cerrar spinner
+                            Swal.close();
+
+                            // ✅ Mostrar mensaje de éxito
                             Swal.fire({
                                 icon: "success",
-                                title: "Exito!",
+                                title: "¡Éxito!",
                                 text: data,
-                                showConfirmButton: true,
                                 confirmButtonText: "Ok"
-                            })
+                            }).then(() => {
+                                // ✅ Cerrar modal
+                                const modalEl = document.getElementById('modalAsignatura');
+                                const modal = bootstrap.Modal.getInstance(modalEl);
+                                if (modal) modal.hide();
+
+                                // ✅ Limpiar backdrop si quedó
+                                document.body.classList.remove('modal-open');
+                                document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+
+                                // ✅ Limpiar formulario
+                                $('#formulario')[0].reset();
+
+                                // ✅ Recargar contenido y tabla
+                                $('#req1').load('Requisitos.php');
+                                table.ajax.reload();
+                                location.reload();
+                            });
+                        },
+                        error: function() {
+                            Swal.close();
+                            Swal.fire("Error", "Ocurrió un problema al guardar.", "error");
                         }
                     });
-                    $('#formulario')[0].reset();
-                    $('#req1').load('Requisitos.php');
-                    /* $('#modalAsignatura').modal('hide'); */
-                    /* removeModal('#modalAsignatura'); */
-                    dataTable.ajax.reload();
+
                 } else {
-                    /*  */
                     Swal.fire({
                         icon: "info",
-                        title: "Atención!",
+                        title: "Atención",
                         text: "Algunos campos son obligatorios",
-                        showConfirmButton: true,
                         confirmButtonText: "Ok"
-                    })
-
+                    });
                 }
             });
 
             //Funcionalida de editar
             $(document).on('click', '.editar', function() {
                 var id_asigna = $(this).attr("id");
+                // Limpia campos antes de cargar nuevos datos
+                $('#formulario')[0].reset();
+                $('#id_asigna').val('');
+                $('#operacion').val('');
+                $('#action').val('');
+                $('.modal-title').text('Editar');
+
                 $.ajax({
                     url: "obtener_registroAsignatura.php",
                     method: "POST",
@@ -500,8 +536,8 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                     },
                     dataType: "json",
                     success: function(data) {
-
                         $('#modalAsignatura').modal('show');
+
                         $('#codigo_asigna').val(data.codigo_asignatura);
                         $('#nom_asigna').val(data.nombre_asignatura);
                         $('#CodigoPrograma').val(data.codigo_programa);
@@ -512,14 +548,16 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                         $('#periodo').val(data.periodo);
                         $('#ihs').val(data.ihs);
                         $('#creditos').val(data.creditos);
-                        $('#req1').load('Requisitos.php');
                         $('#requisitos').val(data.prerequisito)
                         $('#cod_docente').val(data.codigo_docente);
                         $('#nom_docente').val(data.nombre_docente);
-                        $('.modal-title').text("Editar Usuario");
+
+                        $('.modal-title').text("Editar Asignatura");
+
                         $('#id_asigna').val(id_asigna);
                         $('#action').val("Editar");
                         $('#operacion').val("Editar");
+                        $('#req1').load('Requisitos.php');
 
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -528,7 +566,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                 })
             });
 
-            //Funcionalida de borrar
+            //Funcionalidad de borrar
             $(document).on('click', '.borrar', function() {
                 var id_asigna = $(this).attr("id");
 
@@ -557,9 +595,11 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                     showConfirmButton: true,
                                     confirmButtonText: "Ok"
                                 })
-                                dataTable.ajax.reload();
+                                table.ajax.reload();
                             }
+
                         });
+                        table.ajax.reload();
                     } else {
                         return false;
                     }
@@ -573,6 +613,12 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
             var miModal = document.getElementById('modalAsignatura');
             miModal.addEventListener('shown.bs.modal', function() {
                 document.getElementById('codigo_asigna').focus();
+            });
+        });
+
+        $('#btn-close').on('click', function() {
+            $('#modalAsignatura').on('hidden.bs.modal', function() {
+                location.reload(); // recarga la página cuando el modal se ha cerrado
             });
         });
     </script>
@@ -638,7 +684,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
         };
     </script>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         function removeModal(target) {
             $(target).removeClass('in');
             $('.modal-backdrop').remove();
@@ -646,7 +692,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
             $('body').css('padding-right', '');
             $(target).hide();
         }
-    </script>
+    </script> -->
     <script type="text/javascript">
         function cerrarsession() {
             window.sessionStorage.removeItem("mostrarModal");
@@ -654,7 +700,4 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
     </script>
 
 
-
     </body>
-
-</html>

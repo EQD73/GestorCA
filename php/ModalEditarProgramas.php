@@ -30,6 +30,16 @@
             <input type="text" name="sede" class="form-control" value="<?php echo $dataPrograma['codigo_sede']; ?>" required="true">
 
           </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Codigo Coordinador:</label>
+            <input type="text" name="codigoc" class="form-control" value="<?php echo $dataPrograma['codigo_coordinador']; ?>" required="true">
+
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nombre Coordinador:</label>
+            <input type="text" name="nombrec" class="form-control" value="<?php echo $dataPrograma['nom_coordinador']; ?>" required="true">
+
+          </div>
 
         </div>
         <div class="modal-footer">

@@ -10,13 +10,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-
-
       <form method="POST" action="recib_UpdateNivel.php">
         <input type="hidden" name="codigo" value="<?php echo $dataNivel['id']; ?>">
-
         <div class="modal-body" id="cont_modal">
-
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Id:</label>
             <input type="text" name="codigo" class="form-control" value="<?php echo $dataNivel['id']; ?>" required="true">
@@ -24,27 +20,25 @@
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Nivel1:</label>
             <input type="text" name="nivel1" class="form-control" value="<?php echo $dataNivel['nivel1']; ?>" required="true">
-          </div>    
+          </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Nivel2:</label>
             <input type="text" name="nivel2" class="form-control" value="<?php echo $dataNivel['nivel2']; ?>" required="true">
-          </div>  
+          </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Nivel3:</label>
             <input type="text" name="nivel3" class="form-control" value="<?php echo $dataNivel['nivel3']; ?>" required="true">
-          </div>  
+          </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Nivel4:</label>
             <input type="text" name="nivel4" class="form-control" value="<?php echo $dataNivel['nivel4']; ?>" required="true">
-          </div>  
-
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           <button type="submit" class="btn btn-danger">Guardar Cambios</button>
         </div>
       </form>
-
     </div>
   </div>
 </div>

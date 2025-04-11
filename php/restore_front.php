@@ -24,6 +24,14 @@ $codigo_rol = $_SESSION['codigo_rol'];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.css" integrity="sha512-us/9of/cEp3FrrmLUpCcWUAzm2gE7EOPnfEAWBMwdWR1Lpxw0orMoVvLyyoGSD9iMGAUlEd8XHzt5+SDwmdGLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.js" integrity="sha512-vgklhe3vcXaOdX0on3diSDRNRFlqWR9sLH6mMT4gm8ZzSMG0OxE8S1Tm8LHUOfEdZICn45OO2eluLLt81oHvtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .bg-orange {
+            background-color: #fd7e14 !important;
+        }
+    </style>
+
+
 </head>
 
 <?php
@@ -47,8 +55,9 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
 <?php
 } else {
 ?>
-<body>
-<div id="app">
+
+    <body>
+        <div id="app">
             <?php include("cargue_menul.html"); ?>
 
             <div id="main">
@@ -87,7 +96,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                     <div class="avatar me-1">
                                         <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
                                     </div>
-                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br> 
+                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
                                     <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
@@ -104,28 +113,34 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
 
 
 
-    <div class="container mt-5">
-        <h1 class="text-center">Restaurar Base de Datos PostgreSQL</h1>
-        <div class="mt-4">
-            <form id="restoreForm" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="backupFile">Selecciona el archivo de backup (.sql):</label>
-                    <input type="file" id="backupFile" name="backupFile" class="form-control" required>
-                </div>
-                <button type="submit" class="btn btn-primary mt-3" id="restoreBtn">Restaurar Base de Datos</button>
-            </form>
-        </div>
-        <div id="responseMsg" class="mt-4"></div>
-    </div>
+                <div class="container mt-5">
+                    <h1 class="text-center">Restaurar Base de Datos PostgreSQL</h1>
+                    <div class="mt-4">
+                        <form id="restoreForm" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="backupFile">Selecciona el archivo de backup (.sql):</label>
+                                <input type="file" id="backupFile" name="backupFile" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary text-center mt-3" id="restoreBtn">Restaurar Base de Datos</button>
+                        </form>
+                    </div>
+                    <div class="progress mt-4 position-relative" style="height: 30px; display: none;" id="progressContainer">
+                        <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        <span id="progressText" class="position-absolute w-100 text-center text-white" style="line-height: 30px;">0%</span>
+                    </div>
 
-    <footer>
-            <div class="footer clearfix mb-0 text-muted">
-                <div class="float-start">
-                    <p>2024 &copy; UniCorsalud </p>
+
+                    <div id="responseMsg" class="text-center mt-3"></div>
                 </div>
+
+                <footer>
+                    <div class="footer clearfix mb-0 text-muted">
+                        <div class="float-start">
+                            <p>2024 &copy; UniCorsalud </p>
+                        </div>
+                    </div>
+                </footer>
             </div>
-        </footer>
-        </div>
         </div>
     <?php
 }
@@ -140,36 +155,86 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-
     <script>
-        $(document).ready(function () {
-            $('#restoreForm').submit(function (event) {
-                event.preventDefault();
+        $('#restoreForm').submit(function(event) {
+            event.preventDefault();
 
-                // Deshabilitar el botón mientras se restaura
-                $('#restoreBtn').attr('disabled', true).text('Restaurando...');
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Antes de restaurar asegúrese de realizar un backup. Esto restaurará completamente la base de datos desde la copia seleccionada. Puede sufrir pérdida de información.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, restaurar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#restoreBtn').attr('disabled', true).text('Restaurando...');
+                    // $('#responseMsg').hide().html('');
+                    $('#responseMsg').html('').removeClass().hide();
+                    $('#progressBar').css('width', '0%').text('0%');
+                    $('#progressContainer').show();
 
-                // Crear un FormData para enviar el archivo
-                var formData = new FormData(this);
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        // Muy poco incremento: entre 0.2% y 0.5%
+                        progress = Math.min(progress + (0.2 + Math.random() * 0.3), 95);
+                        let percent = Math.floor(progress);
 
-                // Realizar la solicitud AJAX
-                $.ajax({
-                    url: 'restore.php',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        $('#restoreBtn').attr('disabled', false).text('Restaurar Base de Datos');
-                        $('#responseMsg').html(response);
-                    },
-                    error: function () {
-                        $('#restoreBtn').attr('disabled', false).text('Restaurar Base de Datos');
-                        $('#responseMsg').html('<div class="alert alert-danger">Error durante la restauración.</div>');
-                    }
-                });
+                        $('#progressBar').css('width', percent + '%');
+                        $('#progressText').text(percent + '%');
+
+                        // Cambios de color más notorios
+                        let colorClass = 'bg-danger'; // rojo por defecto
+
+                        if (percent >= 80) {
+                            colorClass = 'bg-success'; // verde
+                        } else if (percent >= 60) {
+                            colorClass = 'bg-warning'; // amarillo
+                        } else if (percent >= 30) {
+                            colorClass = 'bg-orange'; // naranja (debes definirla si no existe en Bootstrap)
+                        }
+
+                        $('#progressBar')
+                            .removeClass('bg-danger bg-warning bg-success bg-orange')
+                            .addClass(colorClass);
+                    }, 300); // tiempo más lento entre actualizaciones
+
+
+
+
+
+                    const formData = new FormData($('#restoreForm')[0]);
+
+                    $.ajax({
+                        url: 'restore.php',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            clearInterval(interval);
+                            $('#progressBar').css('width', '100%');
+                            $('#progressText').text('100%');
+                            $('#restoreBtn').attr('disabled', false).text('Restaurar Base de Datos');
+                            $('#responseMsg').html(response).fadeIn();
+                            Swal.fire('¡Restauración completada!', '', 'success');
+                        },
+                        error: function() {
+                            clearInterval(interval);
+                            $('#progressBar').css('width', '100%');
+                            $('#progressText').text('100%');
+                            $('#restoreBtn').attr('disabled', false).text('Restaurar Base de Datos');
+                            $('#responseMsg').html('<strong>Error durante la restauración.</strong>').fadeIn();
+                            Swal.fire('Error', 'Ocurrió un error durante la restauración.', 'error');
+                        }
+                    });
+                }
             });
         });
     </script>
-</body>
+
+    </body>
+
 </html>

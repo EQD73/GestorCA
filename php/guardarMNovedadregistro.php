@@ -22,8 +22,8 @@ $codregistro       = $_REQUEST['id_registro'];
 //fecha registro //
 if (isset($_POST['titulosem1'])) {
     //semana 1
-    $s1fecharegistro =date("d-m-Y");
-    $s1horaregistro  =date('H:i:s');
+    $s1fecharegistro = date("d-m-Y");
+    $s1horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad1'])) {
         $tipoactividad1    = strval($_REQUEST['TipoActividad1']);
     } else {
@@ -55,19 +55,19 @@ if (isset($_POST['titulosem1'])) {
         $justificarsem1 = "";
     }
     if (isset($_POST['s1fecharep1'])) {
-        $s1fecharep1= $_REQUEST['s1fecharep1'];
+        $s1fecharep1 = $_REQUEST['s1fecharep1'];
     } else {
-        $s1fecharep1= "";
+        $s1fecharep1 = "";
     }
     if (isset($_POST['s1fecharep2'])) {
-        $s1fecharep2= $_REQUEST['s1fecharep2'];
+        $s1fecharep2 = $_REQUEST['s1fecharep2'];
     } else {
-        $s1fecharep2= "";
+        $s1fecharep2 = "";
     }
-    if($tiponov1 =="Reprogramacion" || $tiponov1 =="Fueradefecha"){
-        $estadoreg1="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg1="SIN DEFINIR";
+    if ($tiponov1 == "Reprogramacion" || $tiponov1 == "Fueradefecha") {
+        $estadoreg1 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg1 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -92,8 +92,8 @@ WHERE id='" . $codregistro . "'
 
 if (isset($_POST['titulosem2'])) {
     //semana 2
-    $s2fecharegistro =date("d-m-Y");
-    $s2horaregistro  =date('H:i:s');
+    $s2fecharegistro = date("d-m-Y");
+    $s2horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad2'])) {
         $tipoactividad2    = strval($_REQUEST['TipoActividad2']);
     } else {
@@ -125,19 +125,19 @@ if (isset($_POST['titulosem2'])) {
         $justificarsem2 = "";
     }
     if (isset($_POST['s2fecharep1'])) {
-        $s2fecharep1= $_REQUEST['s2fecharep1'];
+        $s2fecharep1 = $_REQUEST['s2fecharep1'];
     } else {
-        $s2fecharep1= "";
+        $s2fecharep1 = "";
     }
     if (isset($_POST['s2fecharep2'])) {
-        $s2fecharep2= $_REQUEST['s2fecharep2'];
+        $s2fecharep2 = $_REQUEST['s2fecharep2'];
     } else {
-        $s2fecharep2= "";
+        $s2fecharep2 = "";
     }
-    if($tiponov2 =="Reprogramacion" || $tiponov2 =="Fueradefecha"){
-        $estadoreg2="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg2="SIN DEFINIR";
+    if ($tiponov2 == "Reprogramacion" || $tiponov2 == "Fueradefecha") {
+        $estadoreg2 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg2 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -162,8 +162,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem3'])) {
     //semana 3
-    $s3fecharegistro =date("d-m-Y");
-    $s3horaregistro  =date('H:i:s');
+    $s3fecharegistro = date("d-m-Y");
+    $s3horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad3'])) {
         $tipoactividad3    = strval($_REQUEST['TipoActividad3']);
     } else {
@@ -195,19 +195,19 @@ if (isset($_POST['titulosem3'])) {
         $justificarsem3 = "";
     }
     if (isset($_POST['s3fecharep1'])) {
-        $s3fecharep1= $_REQUEST['s3fecharep1'];
+        $s3fecharep1 = $_REQUEST['s3fecharep1'];
     } else {
-        $s3fecharep1= "";
+        $s3fecharep1 = "";
     }
     if (isset($_POST['s3fecharep2'])) {
-        $s3fecharep2= $_REQUEST['s3fecharep2'];
+        $s3fecharep2 = $_REQUEST['s3fecharep2'];
     } else {
-        $s3fecharep2= "";
+        $s3fecharep2 = "";
     }
-    if($tiponov3 =="Reprogramacion" || $tiponov3 =="Fueradefecha"){
-        $estadoreg3="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg3="SIN DEFINIR";
+    if ($tiponov3 == "Reprogramacion" || $tiponov3 == "Fueradefecha") {
+        $estadoreg3 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg3 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -232,8 +232,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem4'])) {
     //semana 4
-    $s4fecharegistro =date("d-m-Y");
-    $s4horaregistro  =date('H:i:s');
+    $s4fecharegistro = date("d-m-Y");
+    $s4horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad4'])) {
         $tipoactividad4    = strval($_REQUEST['TipoActividad4']);
     } else {
@@ -265,19 +265,19 @@ if (isset($_POST['titulosem4'])) {
         $justificarsem4 = "";
     }
     if (isset($_POST['s4fecharep1'])) {
-        $s4fecharep1= $_REQUEST['s4fecharep1'];
+        $s4fecharep1 = $_REQUEST['s4fecharep1'];
     } else {
-        $s4fecharep1= "";
+        $s4fecharep1 = "";
     }
     if (isset($_POST['s4fecharep2'])) {
-        $s4fecharep2= $_REQUEST['s4fecharep2'];
+        $s4fecharep2 = $_REQUEST['s4fecharep2'];
     } else {
-        $s4fecharep2= "";
+        $s4fecharep2 = "";
     }
-    if($tiponov4 =="Reprogramacion" || $tiponov4 =="Fueradefecha"){
-        $estadoreg4="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg4="SIN DEFINIR";
+    if ($tiponov4 == "Reprogramacion" || $tiponov4 == "Fueradefecha") {
+        $estadoreg4 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg4 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -302,8 +302,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem5'])) {
     //semana 5
-    $s5fecharegistro =date("d-m-Y");
-    $s5horaregistro  =date('H:i:s');
+    $s5fecharegistro = date("d-m-Y");
+    $s5horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad5'])) {
         $tipoactividad5    = strval($_REQUEST['TipoActividad5']);
     } else {
@@ -335,19 +335,19 @@ if (isset($_POST['titulosem5'])) {
         $justificarsem5 = "";
     }
     if (isset($_POST['s5fecharep1'])) {
-        $s5fecharep1= $_REQUEST['s5fecharep1'];
+        $s5fecharep1 = $_REQUEST['s5fecharep1'];
     } else {
-        $s5fecharep1= "";
+        $s5fecharep1 = "";
     }
     if (isset($_POST['s5fecharep2'])) {
-        $s5fecharep2= $_REQUEST['s5fecharep2'];
+        $s5fecharep2 = $_REQUEST['s5fecharep2'];
     } else {
-        $s5fecharep2= "";
+        $s5fecharep2 = "";
     }
-    if($tiponov5 =="Reprogramacion" || $tiponov5 =="Fueradefecha"){
-        $estadoreg5="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg5="SIN DEFINIR";
+    if ($tiponov5 == "Reprogramacion" || $tiponov5 == "Fueradefecha") {
+        $estadoreg5 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg5 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -372,8 +372,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem6'])) {
     //semana 6
-    $s6fecharegistro =date("d-m-Y");
-    $s6horaregistro  =date('H:i:s');
+    $s6fecharegistro = date("d-m-Y");
+    $s6horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad6'])) {
         $tipoactividad6    = strval($_REQUEST['TipoActividad6']);
     } else {
@@ -405,19 +405,19 @@ if (isset($_POST['titulosem6'])) {
         $justificarsem6 = "";
     }
     if (isset($_POST['s6fecharep1'])) {
-        $s6fecharep1= $_REQUEST['s6fecharep1'];
+        $s6fecharep1 = $_REQUEST['s6fecharep1'];
     } else {
-        $s6fecharep1= "";
+        $s6fecharep1 = "";
     }
     if (isset($_POST['s6fecharep2'])) {
-        $s6fecharep2= $_REQUEST['s6fecharep2'];
+        $s6fecharep2 = $_REQUEST['s6fecharep2'];
     } else {
-        $s6fecharep2= "";
+        $s6fecharep2 = "";
     }
-    if($tiponov6 =="Reprogramacion" || $tiponov6 =="Fueradefecha"){
-        $estadoreg6="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg6="SIN DEFINIR";
+    if ($tiponov6 == "Reprogramacion" || $tiponov6 == "Fueradefecha") {
+        $estadoreg6 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg6 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -442,8 +442,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem7'])) {
     //semana 7
-    $s7fecharegistro =date("d-m-Y");
-    $s7horaregistro  =date('H:i:s');
+    $s7fecharegistro = date("d-m-Y");
+    $s7horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad7'])) {
         $tipoactividad7    = strval($_REQUEST['TipoActividad7']);
     } else {
@@ -475,19 +475,19 @@ if (isset($_POST['titulosem7'])) {
         $justificarsem7 = "";
     }
     if (isset($_POST['s7fecharep1'])) {
-        $s7fecharep1= $_REQUEST['s7fecharep1'];
+        $s7fecharep1 = $_REQUEST['s7fecharep1'];
     } else {
-        $s7fecharep1= "";
+        $s7fecharep1 = "";
     }
     if (isset($_POST['s7fecharep2'])) {
-        $s7fecharep2= $_REQUEST['s7fecharep2'];
+        $s7fecharep2 = $_REQUEST['s7fecharep2'];
     } else {
-        $s7fecharep2= "";
+        $s7fecharep2 = "";
     }
-    if($tiponov7 =="Reprogramacion" || $tiponov7 =="Fueradefecha"){
-        $estadoreg7="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg7="SIN DEFINIR";
+    if ($tiponov7 == "Reprogramacion" || $tiponov7 == "Fueradefecha") {
+        $estadoreg7 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg7 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -512,8 +512,8 @@ WHERE id='" . $codregistro . "'
 
 if (isset($_POST['titulosem8'])) {
     //semana 8
-    $s8fecharegistro =date("d-m-Y");
-    $s8horaregistro  =date('H:i:s');
+    $s8fecharegistro = date("d-m-Y");
+    $s8horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad8'])) {
         $tipoactividad8    = strval($_REQUEST['TipoActividad8']);
     } else {
@@ -545,19 +545,19 @@ if (isset($_POST['titulosem8'])) {
         $justificarsem8 = "";
     }
     if (isset($_POST['s8fecharep1'])) {
-        $s8fecharep1= $_REQUEST['s8fecharep1'];
+        $s8fecharep1 = $_REQUEST['s8fecharep1'];
     } else {
-        $s8fecharep1= "";
+        $s8fecharep1 = "";
     }
     if (isset($_POST['s8fecharep2'])) {
-        $s8fecharep2= $_REQUEST['s8fecharep2'];
+        $s8fecharep2 = $_REQUEST['s8fecharep2'];
     } else {
-        $s8fecharep2= "";
+        $s8fecharep2 = "";
     }
-    if($tiponov8 =="Reprogramacion" || $tiponov8 =="Fueradefecha"){
-        $estadoreg8="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg8="SIN DEFINIR";
+    if ($tiponov8 == "Reprogramacion" || $tiponov8 == "Fueradefecha") {
+        $estadoreg8 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg8 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -582,8 +582,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem9'])) {
     //semana 9
-    $s9fecharegistro =date("d-m-Y");
-    $s9horaregistro  =date('H:i:s');
+    $s9fecharegistro = date("d-m-Y");
+    $s9horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad9'])) {
         $tipoactividad9    = strval($_REQUEST['TipoActividad9']);
     } else {
@@ -615,19 +615,19 @@ if (isset($_POST['titulosem9'])) {
         $justificarsem9 = "";
     }
     if (isset($_POST['s9fecharep1'])) {
-        $s9fecharep1= $_REQUEST['s9fecharep1'];
+        $s9fecharep1 = $_REQUEST['s9fecharep1'];
     } else {
-        $s9fecharep1= "";
+        $s9fecharep1 = "";
     }
     if (isset($_POST['s9fecharep2'])) {
-        $s9fecharep2= $_REQUEST['s9fecharep2'];
+        $s9fecharep2 = $_REQUEST['s9fecharep2'];
     } else {
-        $s9fecharep2= "";
+        $s9fecharep2 = "";
     }
-    if($tiponov9 =="Reprogramacion" || $tiponov9 =="Fueradefecha"){
-        $estadoreg9="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg9="SIN DEFINIR";
+    if ($tiponov9 == "Reprogramacion" || $tiponov9 == "Fueradefecha") {
+        $estadoreg9 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg9 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -652,8 +652,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem10'])) {
     //semana 10
-    $s10fecharegistro =date("d-m-Y");
-    $s10horaregistro  =date('H:i:s');
+    $s10fecharegistro = date("d-m-Y");
+    $s10horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad10'])) {
         $tipoactividad10    = strval($_REQUEST['TipoActividad10']);
     } else {
@@ -685,19 +685,19 @@ if (isset($_POST['titulosem10'])) {
         $justificarsem10 = "";
     }
     if (isset($_POST['s10fecharep1'])) {
-        $s10fecharep1= $_REQUEST['s10fecharep1'];
+        $s10fecharep1 = $_REQUEST['s10fecharep1'];
     } else {
-        $s10fecharep1= "";
+        $s10fecharep1 = "";
     }
     if (isset($_POST['s10fecharep2'])) {
-        $s10fecharep2= $_REQUEST['s10fecharep2'];
+        $s10fecharep2 = $_REQUEST['s10fecharep2'];
     } else {
-        $s10fecharep2= "";
+        $s10fecharep2 = "";
     }
-    if($tiponov10 =="Reprogramacion" || $tiponov10 =="Fueradefecha"){
-        $estadoreg10="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg10="SIN DEFINIR";
+    if ($tiponov10 == "Reprogramacion" || $tiponov10 == "Fueradefecha") {
+        $estadoreg10 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg10 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -722,8 +722,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem11'])) {
     //semana 11
-    $s11fecharegistro =date("d-m-Y");
-    $s11horaregistro  =date('H:i:s');
+    $s11fecharegistro = date("d-m-Y");
+    $s11horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad11'])) {
         $tipoactividad11    = strval($_REQUEST['TipoActividad11']);
     } else {
@@ -755,19 +755,19 @@ if (isset($_POST['titulosem11'])) {
         $justificarsem11 = "";
     }
     if (isset($_POST['s11fecharep1'])) {
-        $s11fecharep1= $_REQUEST['s11fecharep1'];
+        $s11fecharep1 = $_REQUEST['s11fecharep1'];
     } else {
-        $s11fecharep1= "";
+        $s11fecharep1 = "";
     }
     if (isset($_POST['s11fecharep2'])) {
-        $s11fecharep2= $_REQUEST['s11fecharep2'];
+        $s11fecharep2 = $_REQUEST['s11fecharep2'];
     } else {
-        $s11fecharep2= "";
+        $s11fecharep2 = "";
     }
-    if($tiponov11 =="Reprogramacion" || $tiponov11 =="Fueradefecha"){
-        $estadoreg11="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg11="SIN DEFINIR";
+    if ($tiponov11 == "Reprogramacion" || $tiponov11 == "Fueradefecha") {
+        $estadoreg11 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg11 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -792,8 +792,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem12'])) {
     //semana 12
-    $s12fecharegistro =date("d-m-Y");
-    $s12horaregistro  =date('H:i:s');
+    $s12fecharegistro = date("d-m-Y");
+    $s12horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad12'])) {
         $tipoactividad12    = strval($_REQUEST['TipoActividad12']);
     } else {
@@ -825,19 +825,19 @@ if (isset($_POST['titulosem12'])) {
         $justificarsem12 = "";
     }
     if (isset($_POST['s12fecharep1'])) {
-        $s12fecharep1= $_REQUEST['s12fecharep1'];
+        $s12fecharep1 = $_REQUEST['s12fecharep1'];
     } else {
-        $s12fecharep1= "";
+        $s12fecharep1 = "";
     }
     if (isset($_POST['s12fecharep2'])) {
-        $s12fecharep2= $_REQUEST['s12fecharep2'];
+        $s12fecharep2 = $_REQUEST['s12fecharep2'];
     } else {
-        $s12fecharep2= "";
+        $s12fecharep2 = "";
     }
-    if($tiponov12 =="Reprogramacion" || $tiponov12 =="Fueradefecha"){
-        $estadoreg12="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg12="SIN DEFINIR";
+    if ($tiponov12 == "Reprogramacion" || $tiponov12 == "Fueradefecha") {
+        $estadoreg12 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg12 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -862,8 +862,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem13'])) {
     //semana 13
-    $s13fecharegistro =date("d-m-Y");
-    $s13horaregistro  =date('H:i:s');
+    $s13fecharegistro = date("d-m-Y");
+    $s13horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad13'])) {
         $tipoactividad13    = strval($_REQUEST['TipoActividad13']);
     } else {
@@ -895,19 +895,19 @@ if (isset($_POST['titulosem13'])) {
         $justificarsem13 = "";
     }
     if (isset($_POST['s13fecharep1'])) {
-        $s13fecharep1= $_REQUEST['s13fecharep1'];
+        $s13fecharep1 = $_REQUEST['s13fecharep1'];
     } else {
-        $s13fecharep1= "";
+        $s13fecharep1 = "";
     }
     if (isset($_POST['s13fecharep2'])) {
-        $s13fecharep2= $_REQUEST['s13fecharep2'];
+        $s13fecharep2 = $_REQUEST['s13fecharep2'];
     } else {
-        $s13fecharep2= "";
+        $s13fecharep2 = "";
     }
-    if($tiponov13 =="Reprogramacion" || $tiponov13 =="Fueradefecha"){
-        $estadoreg13="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg13="SIN DEFINIR";
+    if ($tiponov13 == "Reprogramacion" || $tiponov13 == "Fueradefecha") {
+        $estadoreg13 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg13 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -932,8 +932,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem14'])) {
     //semana 14
-    $s14fecharegistro =date("d-m-Y");
-    $s14horaregistro  =date('H:i:s');
+    $s14fecharegistro = date("d-m-Y");
+    $s14horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad14'])) {
         $tipoactividad14    = strval($_REQUEST['TipoActividad14']);
     } else {
@@ -965,19 +965,19 @@ if (isset($_POST['titulosem14'])) {
         $justificarsem14 = "";
     }
     if (isset($_POST['s14fecharep1'])) {
-        $s14fecharep1= $_REQUEST['s14fecharep1'];
+        $s14fecharep1 = $_REQUEST['s14fecharep1'];
     } else {
-        $s14fecharep1= "";
+        $s14fecharep1 = "";
     }
     if (isset($_POST['s14fecharep2'])) {
-        $s14fecharep2= $_REQUEST['s14fecharep2'];
+        $s14fecharep2 = $_REQUEST['s14fecharep2'];
     } else {
-        $s14fecharep2= "";
+        $s14fecharep2 = "";
     }
-    if($tiponov14 =="Reprogramacion" || $tiponov14 =="Fueradefecha"){
-        $estadoreg14="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg14="SIN DEFINIR";
+    if ($tiponov14 == "Reprogramacion" || $tiponov14 == "Fueradefecha") {
+        $estadoreg14 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg14 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -1002,8 +1002,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem15'])) {
     //semana 15
-    $s15fecharegistro =date("d-m-Y");
-    $s15horaregistro  =date('H:i:s');
+    $s15fecharegistro = date("d-m-Y");
+    $s15horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad15'])) {
         $tipoactividad15    = strval($_REQUEST['TipoActividad15']);
     } else {
@@ -1035,19 +1035,19 @@ if (isset($_POST['titulosem15'])) {
         $justificarsem15 = "";
     }
     if (isset($_POST['s15fecharep1'])) {
-        $s15fecharep1= $_REQUEST['s15fecharep1'];
+        $s15fecharep1 = $_REQUEST['s15fecharep1'];
     } else {
-        $s15fecharep1= "";
+        $s15fecharep1 = "";
     }
     if (isset($_POST['s15fecharep2'])) {
-        $s15fecharep2= $_REQUEST['s15fecharep2'];
+        $s15fecharep2 = $_REQUEST['s15fecharep2'];
     } else {
-        $s15fecharep2= "";
+        $s15fecharep2 = "";
     }
-    if($tiponov15 =="Reprogramacion" || $tiponov15 =="Fueradefecha"){
-        $estadoreg15="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg15="SIN DEFINIR";
+    if ($tiponov15 == "Reprogramacion" || $tiponov15 == "Fueradefecha") {
+        $estadoreg15 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg15 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -1072,8 +1072,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem16'])) {
     //semana 16
-    $s16fecharegistro =date("d-m-Y");
-    $s16horaregistro  =date('H:i:s');
+    $s16fecharegistro = date("d-m-Y");
+    $s16horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad16'])) {
         $tipoactividad16    = strval($_REQUEST['TipoActividad16']);
     } else {
@@ -1105,19 +1105,19 @@ if (isset($_POST['titulosem16'])) {
         $justificarsem16 = "";
     }
     if (isset($_POST['s16fecharep1'])) {
-        $s16fecharep1= $_REQUEST['s16fecharep1'];
+        $s16fecharep1 = $_REQUEST['s16fecharep1'];
     } else {
-        $s16fecharep1= "";
+        $s16fecharep1 = "";
     }
     if (isset($_POST['s16fecharep2'])) {
-        $s16fecharep2= $_REQUEST['s16fecharep2'];
+        $s16fecharep2 = $_REQUEST['s16fecharep2'];
     } else {
-        $s16fecharep2= "";
+        $s16fecharep2 = "";
     }
-    if($tiponov16 =="Reprogramacion" || $tiponov16 =="Fueradefecha"){
-        $estadoreg16="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg16="SIN DEFINIR";
+    if ($tiponov16 == "Reprogramacion" || $tiponov16 == "Fueradefecha") {
+        $estadoreg16 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg16 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -1142,8 +1142,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem17'])) {
     //semana 17
-    $s17fecharegistro =date("d-m-Y");
-    $s17horaregistro  =date('H:i:s');
+    $s17fecharegistro = date("d-m-Y");
+    $s17horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad17'])) {
         $tipoactividad17    = strval($_REQUEST['TipoActividad17']);
     } else {
@@ -1175,19 +1175,19 @@ if (isset($_POST['titulosem17'])) {
         $justificarsem17 = "";
     }
     if (isset($_POST['s17fecharep1'])) {
-        $s17fecharep1= $_REQUEST['s17fecharep1'];
+        $s17fecharep1 = $_REQUEST['s17fecharep1'];
     } else {
-        $s17fecharep1= "";
+        $s17fecharep1 = "";
     }
     if (isset($_POST['s17fecharep2'])) {
-        $s17fecharep2= $_REQUEST['s17fecharep2'];
+        $s17fecharep2 = $_REQUEST['s17fecharep2'];
     } else {
-        $s17fecharep2= "";
+        $s17fecharep2 = "";
     }
-    if($tiponov17 =="Reprogramacion" || $tiponov17 =="Fueradefecha"){
-        $estadoreg17="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg17="SIN DEFINIR";
+    if ($tiponov17 == "Reprogramacion" || $tiponov17 == "Fueradefecha") {
+        $estadoreg17 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg17 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -1212,8 +1212,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem18'])) {
     //semana 18
-    $s18fecharegistro =date("d-m-Y");
-    $s18horaregistro  =date('H:i:s');
+    $s18fecharegistro = date("d-m-Y");
+    $s18horaregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad18'])) {
         $tipoactividad18    = strval($_REQUEST['TipoActividad18']);
     } else {
@@ -1245,19 +1245,19 @@ if (isset($_POST['titulosem18'])) {
         $justificarsem18 = "";
     }
     if (isset($_POST['s18fecharep1'])) {
-        $s18fecharep1= $_REQUEST['s18fecharep1'];
+        $s18fecharep1 = $_REQUEST['s18fecharep1'];
     } else {
-        $s18fecharep1= "";
+        $s18fecharep1 = "";
     }
     if (isset($_POST['s18fecharep2'])) {
-        $s18fecharep2= $_REQUEST['s18fecharep2'];
+        $s18fecharep2 = $_REQUEST['s18fecharep2'];
     } else {
-        $s18fecharep2= "";
+        $s18fecharep2 = "";
     }
-    if($tiponov18 =="Reprogramacion" || $tiponov18 =="Fueradefecha"){
-        $estadoreg18="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg18="SIN DEFINIR";
+    if ($tiponov18 == "Reprogramacion" || $tiponov18 == "Fueradefecha") {
+        $estadoreg18 = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg18 = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
@@ -1282,8 +1282,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem1p'])) {
     //semana 1 postgrado
-    $s1pfecharegistro =date("d-m-Y");
-    $s1phoraregistro  =date('H:i:s');
+    $s1pfecharegistro = date("d-m-Y");
+    $s1phoraregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad1p'])) {
         $tipoactividad1p    = strval($_REQUEST['TipoActividad1p']);
     } else {
@@ -1315,34 +1315,34 @@ if (isset($_POST['titulosem1p'])) {
         $justificarsem1p = "";
     }
     if (isset($_POST['s1pfecharep1'])) {
-        $s1pfecharep1= $_REQUEST['s1pfecharep1'];
+        $s1pfecharep1 = $_REQUEST['s1pfecharep1'];
     } else {
-        $s1pfecharep1= "";
+        $s1pfecharep1 = "";
     }
     if (isset($_POST['s1pfecharep2'])) {
-        $s1pfecharep2= $_REQUEST['s1pfecharep2'];
+        $s1pfecharep2 = $_REQUEST['s1pfecharep2'];
     } else {
-        $s1pfecharep2= "";
+        $s1pfecharep2 = "";
     }
-    if($tiponov1p =="Reprogramacion" || $tiponov1p =="Fueradefecha"){
-        $estadoreg1p="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg1p="SIN DEFINIR";
+    if ($tiponov1p == "Reprogramacion" || $tiponov1p == "Fueradefecha") {
+        $estadoreg1p = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg1p = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
  SET   
-    s1p_fecharegistro= '" . $s1pfecharegistro . "',
-	s1p_horaregistro= '" . $s1phoraregistro . "', 
-    s1p_tipoactividad= '" . $tipoactividad1p . "',
-    s1p_descripcion= '" . $DescripcionActSem1p . "',
-    s1p_justifica_nov= '" . $justificasem1p . "',
-    s1p_fechanovedad= '" . $fechanov1p . "',
-    s1p_tiponovedad= '" . $tiponov1p . "', 
-    s1p_justifica_reprog= '" . $justificarsem1p . "',
-    s1p_fechareprog1= '" . $s1pfecharep1 . "',
-    s1p_fechareprog2= '" . $s1pfecharep2 . "',
-    s1p_estadoregistro= '" . $estadoreg1p . "'
+    s1_fecharegistro_p= '" . $s1pfecharegistro . "',
+	s1_horaregistro_p= '" . $s1phoraregistro . "', 
+    s1_tipoactividad_p= '" . $tipoactividad1p . "',
+    s1_descripcion_p= '" . $DescripcionActSem1p . "',
+    s1_justifica_nov_p= '" . $justificasem1p . "',
+    s1_fechanovedad_p= '" . $fechanov1p . "',
+    s1_tiponovedad_p= '" . $tiponov1p . "', 
+    s1_justifica_reprog_p= '" . $justificarsem1p . "',
+    s1_fechareprog1_p= '" . $s1pfecharep1 . "',
+    s1_fechareprog2_p= '" . $s1pfecharep2 . "',
+    s1_estadoregistro_p= '" . $estadoreg1p . "'
     
 WHERE id='" . $codregistro . "' 
 ");
@@ -1352,8 +1352,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem2p'])) {
     //semana 2p
-    $s2pfecharegistro =date("d-m-Y");
-    $s2phoraregistro  =date('H:i:s');
+    $s2pfecharegistro = date("d-m-Y");
+    $s2phoraregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad2p'])) {
         $tipoactividad2p    = strval($_REQUEST['TipoActividad2p']);
     } else {
@@ -1385,34 +1385,34 @@ if (isset($_POST['titulosem2p'])) {
         $justificarsem2p = "";
     }
     if (isset($_POST['s2pfecharep1'])) {
-        $s2pfecharep1= $_REQUEST['s2pfecharep1'];
+        $s2pfecharep1 = $_REQUEST['s2pfecharep1'];
     } else {
-        $s2pfecharep1= "";
+        $s2pfecharep1 = "";
     }
     if (isset($_POST['s2pfecharep2'])) {
-        $s2pfecharep2= $_REQUEST['s2pfecharep2'];
+        $s2pfecharep2 = $_REQUEST['s2pfecharep2'];
     } else {
-        $s2pfecharep2= "";
+        $s2pfecharep2 = "";
     }
-    if($tiponov2p =="Reprogramacion" || $tiponov2p =="Fueradefecha"){
-        $estadoreg2p="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg2p="SIN DEFINIR";
+    if ($tiponov2p == "Reprogramacion" || $tiponov2p == "Fueradefecha") {
+        $estadoreg2p = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg2p = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
  SET   
-    s2p_fecharegistro= '" . $s2pfecharegistro . "',
-	s2p_horaregistro= '" . $s2phoraregistro . "', 
-    s2p_tipoactividad= '" . $tipoactividad2p . "',
-    s2p_descripcion= '" . $DescripcionActSem2p . "',
-    s2p_justifica_nov= '" . $justificasem2p . "',
-    s2p_fechanovedad= '" . $fechanov2p . "',
-    s2p_tiponovedad= '" . $tiponov2p . "', 
-    s2p_justifica_reprog= '" . $justificarsem2p . "',
-    s2p_fechareprog1= '" . $s2pfecharep1 . "',
-    s2p_fechareprog2= '" . $s2pfecharep2 . "',
-    s2p_estadoregistro= '" . $estadoreg2p . "'
+    s2_fecharegistro_p= '" . $s2pfecharegistro . "',
+	s2_horaregistro_p= '" . $s2phoraregistro . "', 
+    s2_tipoactividad_p= '" . $tipoactividad2p . "',
+    s2_descripcion_p= '" . $DescripcionActSem2p . "',
+    s2_justifica_nov_p= '" . $justificasem2p . "',
+    s2_fechanovedad_p= '" . $fechanov2p . "',
+    s2_tiponovedad_p= '" . $tiponov2p . "', 
+    s2_justifica_reprog_p= '" . $justificarsem2p . "',
+    s2_fechareprog1_p= '" . $s2pfecharep1 . "',
+    s2_fechareprog2_p= '" . $s2pfecharep2 . "',
+    s2_estadoregistro_p= '" . $estadoreg2p . "'
     
 WHERE id='" . $codregistro . "' 
 ");
@@ -1422,8 +1422,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem3p'])) {
     //semana 3p
-    $s3pfecharegistro =date("d-m-Y");
-    $s3phoraregistro  =date('H:i:s');
+    $s3pfecharegistro = date("d-m-Y");
+    $s3phoraregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad3p'])) {
         $tipoactividad3p    = strval($_REQUEST['TipoActividad3p']);
     } else {
@@ -1455,34 +1455,34 @@ if (isset($_POST['titulosem3p'])) {
         $justificarsem3p = "";
     }
     if (isset($_POST['s3pfecharep1'])) {
-        $s3pfecharep1= $_REQUEST['s3pfecharep1'];
+        $s3pfecharep1 = $_REQUEST['s3pfecharep1'];
     } else {
-        $s3pfecharep1= "";
+        $s3pfecharep1 = "";
     }
     if (isset($_POST['s3pfecharep2'])) {
-        $s3pfecharep2= $_REQUEST['s3pfecharep2'];
+        $s3pfecharep2 = $_REQUEST['s3pfecharep2'];
     } else {
-        $s3pfecharep2= "";
+        $s3pfecharep2 = "";
     }
-    if($tiponov3p =="Reprogramacion" || $tiponov3p =="Fueradefecha"){
-        $estadoreg3p="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg3p="SIN DEFINIR";
+    if ($tiponov3p == "Reprogramacion" || $tiponov3p == "Fueradefecha") {
+        $estadoreg3p = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg3p = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
  SET   
-    s3p_fecharegistro= '" . $s3pfecharegistro . "',
-	s3p_horaregistro= '" . $s3phoraregistro . "', 
-    s3p_tipoactividad= '" . $tipoactividad3p . "',
-    s3p_descripcion= '" . $DescripcionActSem3p . "',
-    s3p_justifica_nov= '" . $justificasem3p . "',
-    s3p_fechanovedad= '" . $fechanov3p . "',
-    s3p_tiponovedad= '" . $tiponov3p . "', 
-    s3p_justifica_reprog= '" . $justificarsem3p . "',
-    s3p_fechareprog1= '" . $s3pfecharep1 . "',
-    s3p_fechareprog2= '" . $s3pfecharep2 . "',
-    s3p_estadoregistro= '" . $estadoreg3p . "'
+    s3_fecharegistro_p= '" . $s3pfecharegistro . "',
+	s3_horaregistro_p= '" . $s3phoraregistro . "', 
+    s3_tipoactividad_p= '" . $tipoactividad3p . "',
+    s3_descripcion_p= '" . $DescripcionActSem3p . "',
+    s3_justifica_nov_p= '" . $justificasem3p . "',
+    s3_fechanovedad_p= '" . $fechanov3p . "',
+    s3_tiponovedad_p= '" . $tiponov3p . "', 
+    s3_justifica_reprog_p= '" . $justificarsem3p . "',
+    s3_fechareprog1_p= '" . $s3pfecharep1 . "',
+    s3_fechareprog2_p= '" . $s3pfecharep2 . "',
+    s3_estadoregistro_p= '" . $estadoreg3p . "'
     
 WHERE id='" . $codregistro . "' 
 ");
@@ -1492,8 +1492,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem4p'])) {
     //semana 4p
-    $s4pfecharegistro =date("d-m-Y");
-    $s4phoraregistro  =date('H:i:s');
+    $s4pfecharegistro = date("d-m-Y");
+    $s4phoraregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad4p'])) {
         $tipoactividad4p    = strval($_REQUEST['TipoActividad4p']);
     } else {
@@ -1525,34 +1525,34 @@ if (isset($_POST['titulosem4p'])) {
         $justificarsem4p = "";
     }
     if (isset($_POST['s4pfecharep1'])) {
-        $s4pfecharep1= $_REQUEST['s4pfecharep1'];
+        $s4pfecharep1 = $_REQUEST['s4pfecharep1'];
     } else {
-        $s4pfecharep1= "";
+        $s4pfecharep1 = "";
     }
     if (isset($_POST['s4pfecharep2'])) {
-        $s4pfecharep2= $_REQUEST['s4pfecharep2'];
+        $s4pfecharep2 = $_REQUEST['s4pfecharep2'];
     } else {
-        $s4pfecharep2= "";
+        $s4pfecharep2 = "";
     }
-    if($tiponov4p =="Reprogramacion" || $tiponov4p =="Fueradefecha"){
-        $estadoreg4p="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg4p="SIN DEFINIR";
+    if ($tiponov4p == "Reprogramacion" || $tiponov4p == "Fueradefecha") {
+        $estadoreg4p = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg4p = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
  SET   
-    s4p_fecharegistro= '" . $s4pfecharegistro . "',
-	s4p_horaregistro= '" . $s4phoraregistro . "', 
-    s4p_tipoactividad= '" . $tipoactividad4p . "',
-    s4p_descripcion= '" . $DescripcionActSem4p . "',
-    s4p_justifica_nov= '" . $justificasem4p . "',
-    s4p_fechanovedad= '" . $fechanov4p . "',
-    s4p_tiponovedad= '" . $tiponov4p . "', 
-    s4p_justifica_reprog= '" . $justificarsem4p . "',
-    s4p_fechareprog1= '" . $s4pfecharep1 . "',
-    s4p_fechareprog2= '" . $s4pfecharep2 . "',
-    s4p_estadoregistro= '" . $estadoreg4p . "'
+    s4_fecharegistro_p= '" . $s4pfecharegistro . "',
+	s4_horaregistro_p= '" . $s4phoraregistro . "', 
+    s4_tipoactividad_p= '" . $tipoactividad4p . "',
+    s4_descripcion_p= '" . $DescripcionActSem4p . "',
+    s4_justifica_nov_p= '" . $justificasem4p . "',
+    s4_fechanovedad_p= '" . $fechanov4p . "',
+    s4_tiponovedad_p= '" . $tiponov4p . "', 
+    s4_justifica_reprog_p= '" . $justificarsem4p . "',
+    s4_fechareprog1_p= '" . $s4pfecharep1 . "',
+    s4_fechareprog2_p= '" . $s4pfecharep2 . "',
+    s4_estadoregistro_p= '" . $estadoreg4p . "'
     
 WHERE id='" . $codregistro . "' 
 ");
@@ -1562,8 +1562,8 @@ WHERE id='" . $codregistro . "'
 //
 if (isset($_POST['titulosem5p'])) {
     //semana 5p
-    $s5pfecharegistro =date("d-m-Y");
-    $s5phoraregistro  =date('H:i:s');
+    $s5pfecharegistro = date("d-m-Y");
+    $s5phoraregistro  = date('H:i:s');
     if (isset($_POST['TipoActividad5p'])) {
         $tipoactividad5p    = strval($_REQUEST['TipoActividad5p']);
     } else {
@@ -1595,34 +1595,34 @@ if (isset($_POST['titulosem5p'])) {
         $justificarsem5p = "";
     }
     if (isset($_POST['s5pfecharep1'])) {
-        $s5pfecharep1= $_REQUEST['s5pfecharep1'];
+        $s5pfecharep1 = $_REQUEST['s5pfecharep1'];
     } else {
-        $s5pfecharep1= "";
+        $s5pfecharep1 = "";
     }
     if (isset($_POST['s5pfecharep2'])) {
-        $s5pfecharep2= $_REQUEST['s5pfecharep2'];
+        $s5pfecharep2 = $_REQUEST['s5pfecharep2'];
     } else {
-        $s5pfecharep2= "";
+        $s5pfecharep2 = "";
     }
-    if($tiponov5p =="Reprogramacion" || $tiponov5p =="Fueradefecha"){
-        $estadoreg5p="REGISTRO CON NOVEDAD";
-    }else{
-        $estadoreg5p="SIN DEFINIR";
+    if ($tiponov5p == "Reprogramacion" || $tiponov5p == "Fueradefecha") {
+        $estadoreg5p = "REGISTRO CON NOVEDAD";
+    } else {
+        $estadoreg5p = "SIN DEFINIR";
     }
 
     $QueryUpdate = ("UPDATE $tablam3
  SET   
-    s5p_fecharegistro= '" . $s5pfecharegistro . "',
-	s5p_horaregistro= '" . $s5phoraregistro . "', 
-    s5p_tipoactividad= '" . $tipoactividad5p . "',
-    s5p_descripcion= '" . $DescripcionActSem5p . "',
-    s5p_justifica_nov= '" . $justificasem5p . "',
-    s5p_fechanovedad= '" . $fechanov5p . "',
-    s5p_tiponovedad= '" . $tiponov5p . "', 
-    s5p_justifica_reprog= '" . $justificarsem5p . "',
-    s5p_fechareprog1= '" . $s5pfecharep1 . "',
-    s5p_fechareprog2= '" . $s5pfecharep2 . "',
-    s5p_estadoregistro= '" . $estadoreg5p . "'
+    s5_fecharegistro_p= '" . $s5pfecharegistro . "',
+	s5_horaregistro_p= '" . $s5phoraregistro . "', 
+    s5_tipoactividad_p= '" . $tipoactividad5p . "',
+    s5_descripcion_p= '" . $DescripcionActSem5p . "',
+    s5_justifica_nov_p= '" . $justificasem5p . "',
+    s5_fechanovedad_p= '" . $fechanov5p . "',
+    s5_tiponovedad_p= '" . $tiponov5p . "', 
+    s5_justifica_reprog_p= '" . $justificarsem5p . "',
+    s5_fechareprog1_p= '" . $s5pfecharep1 . "',
+    s5_fechareprog2_p= '" . $s5pfecharep2 . "',
+    s5_estadoregistro_p= '" . $estadoreg5p . "'
     
 WHERE id='" . $codregistro . "' 
 ");

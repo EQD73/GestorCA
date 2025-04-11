@@ -2,9 +2,9 @@
 date_default_timezone_set('America/Bogota');
 // Configuración de las variables para el backup
 $PGUSER = "postgres";
-$PGPASSWORD = "Killa2022";
+$PGPASSWORD = "postgres";
 $PGHOST = "localhost";
-$PGPORT = "5434";
+$PGPORT = "5432";
 $PGDATABASE = "postgres";
 $PGSCHEMA = "sistema";
 $BACKUP_DIR = "../backups/";
@@ -36,9 +36,8 @@ $output = shell_exec($command);
 // Verificar si el archivo de backup fue generado
 if (file_exists($BACKUP_FILE)) {
     // Si el backup se genera correctamente, ofrecer el enlace de descarga
-    echo '<div class="alert alert-success">Backup generado con éxito. <a href="' . $BACKUP_FILE . '" download>Descargar backup</a></div>';
+    echo '<div class="alert alert-danger text-white text-center mt-3">Backup generado con éxito. <a href="' . $BACKUP_FILE . '" download>Descargar backup</a></div>';
 } else {
     // Si falla el backup, mostrar un mensaje de error y enlace al log
-    echo '<div class="alert alert-danger">Error al generar el backup. Revisa los <a href="' . $LOG_FILE . '" target="_blank">logs</a> para más detalles.</div>';
+    echo '<div class="alert alert-danger text-white text-center mt-3">Error al generar el backup. Revisa los <a href="' . $LOG_FILE . '" target="_blank">logs</a> para más detalles.</div>';
 }
-?>
