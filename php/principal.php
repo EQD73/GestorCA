@@ -39,6 +39,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
     <link rel="stylesheet" href="../assets/css/app.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <!-- <script>
     $(document).ready(function() {
@@ -50,13 +51,10 @@ $_SESSION['nombre_rol'] = $nombre_rol;
 <script type="text/javascript">
     $(document).ready(function() {
         if (!window.sessionStorage.getItem("mostrarModal")) {
-
             window.sessionStorage.setItem("mostrarModal", "no");
-
             $('#ventana-modal').modal("show");
         }
-
-    })
+    });
 </script>
 
 
@@ -69,15 +67,19 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                     <h5 class="modal-title">Seleccionar Periodo</h5>
                     <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
-                <form method="POST" action="#datos-periodo">
+                <form id="form" method="POST" action="#datos-periodo">
                     <div class="modal-body">
                         <select class="form-select form-select-sm" id="CodigoPeriodo">
-                            <option value="" data-codigo="" data-nombre="" selected>Escoger Opción</option>
+                            <option value="" data-codigo="" data-nombre="" data-estado="" data-desc="" selected>Escoger Opción</option>
                             <?php
                             while ($obj = pg_fetch_object($resultado_qp)) { ?>
-                                <option value="" data-codigo="<?php echo $obj->codigo_periodo; ?>" data-nombre="<?php echo $obj->nombre_periodo; ?>" data-estado="<?php echo $obj->estado; ?>" data-desc="<?php echo $obj->descripcion; ?>"><?php echo $obj->codigo_periodo;
-                                                                                                                                                                                                                                            echo "  |  ";
-                                                                                                                                                                                                                                            echo $obj->nombre_periodo; ?></option>
+                                <option value="<?php echo $obj->codigo_periodo; ?>"
+                                    data-codigo="<?php echo $obj->codigo_periodo; ?>"
+                                    data-nombre="<?php echo $obj->nombre_periodo; ?>"
+                                    data-estado="<?php echo $obj->estado; ?>"
+                                    data-desc="<?php echo $obj->descripcion; ?>">
+                                    <?php echo $obj->codigo_periodo . "  |  " . $obj->nombre_periodo; ?>
+                                </option>
                             <?php
                             }
                             ?>
@@ -88,8 +90,8 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                     <input type="hidden" class="form-control form-control sm" id="EstadoPer" name="EstadoPer">
                     <input type="hidden" class="form-control form-control sm" id="DescPer" name="DescPer">
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Aceptar</button>
-                        <!-- <button type="button" class="btn btn-danger">Aceptar</button> -->
+                        <button type="submit" class="btn btn-danger">Aceptar</button>
+                        <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Aceptar</button> -->
                     </div>
                     <div class="row" id="datos-periodo" style="display:none">
                         <div class="col-md-12 mt-2">
@@ -114,10 +116,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
     $m2 = ".m2";
     $m3 = ".m3";
     $Codperiod = strval($_SESSION['codigo_periodo']);
-    //$tabla1 = $Codperiod . $m1;
-    //$tabla1="periodo2023_1_m1";
-    //$tabla2 = $Codperiod . $m2;
-    //$tabla3 = $Codperiod . $m3;
+
     $tabla1 = $m1;
     $tabla2 = $m2;
     $tabla3 = $m3;
@@ -125,46 +124,6 @@ $_SESSION['nombre_rol'] = $nombre_rol;
     $_SESSION['tablam1'] = $schema . $tabla1;
     $_SESSION['tablam2'] = $schema . $tabla2;
     $_SESSION['tablam3'] = $schema . $tabla3;
-
-    //si existe tabla1
-    /* $consulta_t1 = "SELECT * FROM pg_tables WHERE tablename='$tabla1' AND schemaname='$schema'";
-    $resultado_ct1 = pg_query($conexion, $consulta_t1);
-    $nt1 = pg_num_rows($resultado_ct1);
-    if ($nt1 > 0) { 
-        $_SESSION['tablam1'] = "sistema." . $tabla1;
-     } else { // sino existe tabla1
-        $_SESSION['tablam1'] = $tabla1;
-        $tm1 = $_SESSION['tablam1'];
-        $torigen1 = "m1";
-        $consulta1 = "CREATE TABLE " . $tm1 . " (LIKE $torigen1 INCLUDING DEFAULTS INCLUDING CONSTRAINTS INCLUDING INDEXES);";
-        $resultado_c1 = pg_query($conexion, $consulta1);
-    } */
-    //si existe tabla2
-    /*  $consulta_t2 = "SELECT * FROM pg_tables WHERE tablename='$tabla2' AND schemaname='$schema'";
-    $resultado_ct2 = pg_query($conexion, $consulta_t2);
-    $nt2 = pg_num_rows($resultado_ct2);
-    if ($nt2 > 0) {
-        $_SESSION['tablam2'] = "sistema." . $tabla2;
-    } else { // sino existe tabla1
-        $_SESSION['tablam2'] = $tabla2;
-        $tm2 = $_SESSION['tablam2'];
-        $torigen2 = "m2";
-        $consulta2 = "CREATE TABLE " . $tm2 . " (LIKE $torigen2 INCLUDING DEFAULTS INCLUDING CONSTRAINTS INCLUDING INDEXES);";
-        $resultado_c2 = pg_query($conexion, $consulta2);
-    } */
-    //si existe tabla3
-    /* $consulta_t3 = "SELECT * FROM pg_tables WHERE tablename='$tabla2' AND schemaname='$schema'";
-    $resultado_ct3 = pg_query($conexion, $consulta_t3);
-    $nt3 = pg_num_rows($resultado_ct3);
-    if ($nt3 > 0) {
-        $_SESSION['tablam3'] = "sistema." . $tabla3;
-    } else { // sino existe tabla1
-        $_SESSION['tablam3'] = $tabla3;
-        $tm3 = $_SESSION['tablam3'];
-        $torigen3 = "m3";
-        $consulta3 = "CREATE TABLE " . $tm3 . " (LIKE $torigen3 INCLUDING DEFAULTS INCLUDING CONSTRAINTS INCLUDING INDEXES);";
-        $resultado_c3 = pg_query($conexion, $consulta3);
-    } */
     ?>
 
     <div id="app">
@@ -259,7 +218,43 @@ $_SESSION['nombre_rol'] = $nombre_rol;
 
     <script src="../assets/js/main.js"></script>
     <!-- <script src="../modal.js"></script> -->
+
     <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                // Obtenemos el valor seleccionado del select
+                var selectedValue = $('#CodigoPeriodo').val();
+                //alert(selectedValue);
+
+                // Verificamos si no se ha seleccionado ningún periodo
+                if (selectedValue === "" || selectedValue === null) {
+                    e.preventDefault(); // Prevenimos el envío del formulario
+
+                    // Mostrar la alerta SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Por favor, selecciona un periodo antes de continuar.',
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        // Enfocamos el select para que el usuario lo corrija
+                        $('#CodigoPeriodo').focus().css('border', '2px solid red'); // Opcionalmente, cambiamos el borde a rojo para resaltar
+                    });
+                } else {
+                    // Si se ha seleccionado un periodo, procedemos a asignar los valores a los inputs ocultos
+                    var mData = $('#CodigoPeriodo').find(':selected').data();
+
+                    $('#CodPer').val(mData.codigo);
+                    $('#NomPer').val(mData.nombre);
+                    $('#EstadoPer').val(mData.estado);
+                    $('#DescPer').val(mData.desc);
+
+                    // Ahora enviamos el formulario
+                    $(this).off('submit').submit(); // Elimino la prevención del submit y lo envío ahora
+                }
+            });
+        });
+
         //asignacion de nombre de periodo para titulo
         document.getElementById('CodigoPeriodo').onchange = function() {
             /* Referencia a los atributos data de la opción seleccionada */

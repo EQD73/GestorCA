@@ -1,11 +1,8 @@
 <?php
 /*
-
-
 ================================
 Este archivo se encarga de conectar a la base de datos
 y traer un objeto PDO
-
 ================================
  */
 $contraseña = "postgres";

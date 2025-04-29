@@ -1,6 +1,6 @@
 <?php
 // File: send_reset_link.php
- 
+
 // Conexión a la base de datos
 require 'db_connection.php';
 include('scriptsweet.php');
@@ -47,24 +47,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $mail->Password   = 'higtmnifzshjjqid';                               //SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
             $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-        
+
             //Recipients
             $mail->setFrom('gestorca.unicorsalud@gmail.com', '');
             $mail->addAddress($email);     //Add a recipient
-            
+
             //Attachments
             //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
             //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
-        
+
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = mb_convert_encoding("Confirmacion de correo - Cambio de contraseña", 'ISO-8859-1');
-            $mail->Body     = '<img src="http://190.242.60.213:89/GestorCA/images/Logo2.png"/>'. "<br>";
+            $mail->Body     = '<img src="http://190.242.60.213:89/GestorCA/images/Logo2.png"/>' . "<br>";
             $mail->Body    .= 'Click en el siguiente link para restablecer su contraseña: ';
             $mail->Body    .= 'http://http://190.242.60.213:89/GestorCA/php/reset_password.php?token=' . $token . "<br>";
             $mail->Body    .= 'Este link estará vigente por 30 minutos, transcurrido este tiempo no será válido';
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-        
+
             $mail->send();
             //echo 'Mensaje enviado con exito';
         } catch (Exception $e) {
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
 
-        
+
         //echo 'Un link para restablecer contraseña a sido enviado a su correo.';
         echo '<script>
             Swal.fire({
@@ -87,9 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
              }
             });
             </script>';
-    
     } else {
-        
+
         //echo 'No existe cuenta asociada a este correo.';
         echo '<script>
         Swal.fire({

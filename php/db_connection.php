@@ -3,8 +3,8 @@
 $host = 'localhost';
 $db = 'postgres';
 $user = 'postgres';
-$pass = 'Killa2022';
-$puerto = "5434";
+$pass = 'postgres';
+$puerto = "5432";
 //$charset = 'utf8mb4';
 
 //$dsn = "mysql:host=$host;dbname=$db;";
