@@ -275,26 +275,6 @@ $_SESSION['nombre_rol'] = $nombre_rol;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 
-    <!-- <script type="text/javascript">
-        //asignacion de nombre de periodo para titulo
-        document.getElementById('CodigoPeriodo').onchange = function() {
-            /* Referencia a los atributos data de la opción seleccionada */
-            var mData = this.options[this.selectedIndex].dataset;
-
-            /* Referencia a los input */
-            var elCode = document.getElementById('CodPer');
-            var elName = document.getElementById('NomPer');
-            var elEst = document.getElementById('EstadoPer');
-            var elDesc = document.getElementById('DescPer');
-
-            /* Asignamos cada dato a su input*/
-            elCode.value = mData.codigo;
-            elName.value = mData.nombre;
-            elEst.value = mData.estado;
-            elDesc.value = mData.desc;
-        };
-    </script> -->
-
     <script type="text/javascript">
         function cerrarsession() {
             window.sessionStorage.removeItem("mostrarModal");

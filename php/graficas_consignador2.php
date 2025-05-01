@@ -91,7 +91,7 @@ include 'conexion6.php';
                 </div>
             </nav>
             <div class="container mt-4">
-                <h2 class="text-center mb-4 fw-bold">Microcurriculo</h2>
+                <h2 class="text-center mb-4 fw-bold">Consignador Académico</h2>
                 <h2 class="text-center">📊 Gráfico/Estadística de Avance por Docente</h2>
 
                 <div class="d-flex justify-content-end gap-2">
@@ -115,13 +115,13 @@ include 'conexion6.php';
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label for="ano_micro" class="form-label">Seleccionar Año:</label>
-                        <select id="ano_micro" name="ano_micro" class="form-select">
+                        <label for="periodo" class="form-label">Seleccionar Periodo:</label>
+                        <select id="periodo" name="periodo" class="form-select">
                             <option value="">Seleccione...</option>
                             <?php
-                            $stmt = $conn->query("SELECT DISTINCT ano_micro FROM sistema.m1 WHERE ano_micro ~ '^\d{4}$' AND ano_micro::int >= 2024 ORDER BY ano_micro DESC");
+                            $stmt = $conn->query("SELECT DISTINCT codigo_periodo, nombre_periodo, descripcion FROM sistema.periodos WHERE estado= 'ACTIVO' ORDER BY codigo_periodo DESC");
                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                echo "<option value='{$row['ano_micro']}'>{$row['ano_micro']}</option>";
+                                echo "<option value='{$row['codigo_periodo']}'>{$row['descripcion']} | {$row['nombre_periodo']}</option>";
                             }
                             ?>
                         </select>
@@ -145,12 +145,12 @@ include 'conexion6.php';
                             <th>Grupo</th>
                             <th>Programa</th>
                             <th>Avance (%)</th>
-                            <th>Última Actualización</th>
+                            <th>Fecha Consignación</th>
                         </tr>
                     </thead>
                     <tbody id="tabla-datos">
                         <tr>
-                            <td colspan="7" class="text-center">Seleccione un docente y año para ver los datos</td>
+                            <td colspan="7" class="text-center">Seleccione un docente y periodo para ver los datos</td>
                         </tr>
                     </tbody>
                 </table>
@@ -172,39 +172,41 @@ include 'conexion6.php';
                 $(document).ready(function() {
                     $("#filtrar-btn").click(function() {
                         let docente = $("#docente").val();
-                        let ano_micro = $("#ano_micro").val();
+                        let periodo = $("#periodo").val();
 
-                        if (!docente || !ano_micro) {
-                            alert("Seleccione un docente y un año");
+                        if (!docente || !periodo) {
+                            alert("Seleccione un docente y un periodo");
                             return;
                         }
 
                         $.ajax({
-                            url: "get_datos_g3.php",
+                            url: "get_datosc_g2.php",
                             type: "POST",
                             data: {
                                 docente,
-                                ano_micro
+                                periodo
                             },
                             dataType: "json",
                             success: function(response) {
                                 let tablaHtml = "";
                                 let labels = [];
                                 let data = [];
+                                let semanas = []; // Define la variable semanas aquí
 
                                 response.forEach(item => {
                                     tablaHtml += `<tr>
-                                <td>${item.codigo_asignaturacurso}</td>
+                                <td>${item.codigo_asignatura}</td>
                                 <td>${item.nombre_asignatura}</td>
                                 <td>${item.semestre}</td>
                                 <td>${item.grupo}</td>
                                 <td>${item.nombre_programa}</td>
                                 <td>${item.avance}%</td>
-                                <td>${item.fecha_actualizacion}</td>
+                                <td>${item.fecha_consigna}</td>
                             </tr>`;
 
                                     labels.push(item.nombre_asignatura);
                                     data.push(item.avance);
+                                    semanas.push(item.total_semanas); // Agregar el total de semanas al array
                                 });
 
                                 $("#tabla-datos").html(tablaHtml);
@@ -233,9 +235,23 @@ include 'conexion6.php';
                                                 beginAtZero: true,
                                                 max: 100
                                             }
+                                        },
+                                        plugins: {
+                                            tooltip: {
+                                                callbacks: {
+                                                    // Modificar el tooltip para incluir el total de semanas
+                                                    afterLabel: function(tooltipItem) {
+                                                        // Obtén el índice de la etiqueta actual en el gráfico
+                                                        var index = tooltipItem.dataIndex;
+                                                        // Retorna el texto del tooltip
+                                                        return `Total de semanas: ${semanas[index]}`;
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 });
+
                             }
                         });
                     });
@@ -246,8 +262,8 @@ include 'conexion6.php';
                 $(document).ready(function() {
                     $("#exportExcel").click(function() {
                         let docente = $("#docente").val();
-                        let ano_micro = $("#ano_micro").val();
-                        window.location.href = "export_excel_micro_g3.php?docente=" + docente + "&ano_micro=" + ano_micro; // Redirige a exportar_excel.php
+                        let periodo = $("#periodo").val();
+                        window.location.href = "export_excel_consigna_g2.php?docente=" + docente + "&periodo=" + periodo; // Redirige a exportar_excel.php
                     });
 
                     $("#exportPDF").click(function() {
@@ -255,22 +271,22 @@ include 'conexion6.php';
                         let imageData = canvas.toDataURL("image/png"); // Convierte el gráfico a una imagen Base64
 
                         let docente = $("#docente").val();
-                        let ano_micro = $("#ano_micro").val();
+                        let periodo = $("#periodo").val();
 
-                        if (!docente || !ano_micro) {
+                        if (!docente || !periodo) {
                             alert("Seleccione un docente y un año antes de exportar a PDF");
                             return;
                         }
 
                         $.ajax({
-                            url: "guardar_grafico_micro3.php",
+                            url: "guardar_grafico_consigna2.php",
                             type: "POST",
                             data: {
                                 image: imageData
                             },
                             success: function(response) {
                                 if (response == "success") {
-                                    window.open("export_pdf_micro_g3.php?docente=" + docente + "&ano_micro=" + ano_micro, "_blank"); // Redirige a exportar_pdf.php; // Ejecuta la exportación a PDF después de guardar el gráfico
+                                    window.open("export_pdf_consigna_g2.php?docente=" + docente + "&periodo=" + periodo, "_blank"); // Redirige a exportar_pdf.php; // Ejecuta la exportación a PDF después de guardar el gráfico
 
                                 } else {
                                     alert("Error al guardar el gráfico");

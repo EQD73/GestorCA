@@ -2,30 +2,47 @@
 date_default_timezone_set("America/Bogota");
 require('../fpdf/fpdf.php');
 
-$docente = $_GET['docente'] ?? null;
-$ano_micro = $_GET['ano_micro'] ?? null;
+include 'conexion.php';
 
-include 'conexion6.php';
+// Obtener los filtros desde la URL
+$ano_micro = isset($_GET['ano_micro']) ? pg_escape_string($conexion, $_GET['ano_micro']) : '';
+$codigo_programa = isset($_GET['codigo_programa']) ? pg_escape_string($conexion, $_GET['codigo_programa']) : '';
+$codigo_asignaturacurso = isset($_GET['codigo_asignaturacurso']) ? pg_escape_string($conexion, $_GET['codigo_asignaturacurso']) : '';
+$semestre = isset($_GET['semestre']) ? pg_escape_string($conexion, $_GET['semestre']) : '';
 
-// Validar
-if (!$docente || !$ano_micro) {
+
+
+// Validar  || !$codigo_asignaturacurso || !$semestre
+if (!$ano_micro || !$codigo_programa) {
     die("Faltan parámetros para generar el PDF.");
 }
 
-// Obtener nombre del docente
-$stmtDoc = $conn->prepare("SELECT nomcompleto FROM sistema.usuarios WHERE codigo_usuario = :codigo");
-$stmtDoc->execute(['codigo' => $docente]);
-$nombreDocente = $stmtDoc->fetchColumn() ?: "No encontrado";
+// Obtener nombre del programa
+$consulta_programa = "SELECT nombre_programa FROM sistema.programas WHERE codigo_programa = '$codigo_programa' LIMIT 1";
+$resultado_programa = pg_query($conexion, $consulta_programa);
+$nombre_programa = "Programa desconocido";
+
+if ($resultado_programa && pg_num_rows($resultado_programa) > 0) {
+    $fila = pg_fetch_assoc($resultado_programa);
+    $nombre_programa = $fila['nombre_programa'];
+}
 
 class PDF extends FPDF
 {
-    public $nombre_docente;
+    public $codigo_programa;
     public $ano_micro;
+    public $codigo_asignaturacurso;
+    public $semestre;
+    public $nombre_programa;
 
-    function setDatos($nombre_docente, $ano_micro)
+
+    function setDatos($ano_micro, $codigo_programa, $codigo_asignaturacurso, $semestre, $nombre_programa)
     {
-        $this->nombre_docente = $nombre_docente;
+        $this->codigo_programa = $codigo_programa;
         $this->ano_micro = $ano_micro;
+        $this->codigo_asignaturacurso = $codigo_asignaturacurso;
+        $this->semestre = $semestre;
+        $this->nombre_programa = $nombre_programa;
     }
 
     function Header()
@@ -33,14 +50,18 @@ class PDF extends FPDF
         $this->Cell(60, 21, $this->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
         $this->SetFont("Arial", "B", 12);
         $this->rect(10, 10, 260, 21);
-        $this->Cell(200, 14, mb_convert_encoding("MICROCURRICULO GRAFICO AVANCE POR DOCENTE", 'ISO-8859-1'), 0, 1, "C");
+        $this->Cell(200, 14, mb_convert_encoding("MICROCURRICULO GRAFICO AVANCE POR PROGRAMA", 'ISO-8859-1'), 0, 1, "C");
 
         $this->SetFont("Arial", "", 9);
         /* $this->Cell(220); */
         $this->Cell(60);
 
-        $this->SetFont("Arial", "B", 12);
-        $texto = "DOCENTE: " . $this->nombre_docente . "   AÑO: " . $this->ano_micro;
+        // Mostrar PROGRAMA, SEMESTRE y AÑO
+        $this->SetFont("Arial", "B", 11);
+        $texto = "PROGRAMA: " . mb_strtoupper($this->nombre_programa, 'UTF-8') .
+            "   |   SEMESTRE: " . $this->semestre .
+            "   |   AÑO: " . $this->ano_micro;
+
         $this->Cell(200, 7, mb_convert_encoding($texto, 'ISO-8859-1'), 0, 0, "C");
 
         $this->SetFont("Arial", "B", 9);
@@ -65,28 +86,28 @@ class PDF extends FPDF
 
 $pdf = new PDF();
 $pdf->AliasNbPages(); // Para total de páginas
-$pdf->setDatos($nombreDocente, $ano_micro); // <- pasar nombre y año
+$pdf->setDatos($ano_micro, $codigo_programa, $codigo_asignaturacurso, $semestre, $nombre_programa);
 $pdf->AddPage("L", "Letter");
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Ln(5);
 
 // Verificar si el gráfico existe y agregarlo al PDF
-if (file_exists("../images/graficos/grafico3.png")) {
+if (file_exists("../images/graficos/grafico1.png")) {
     $grafico_y_inicial = 35; // Esto evita que se sobreponga al encabezado
     $pdf->SetY($grafico_y_inicial);
 
     $grafico_ancho = 150;
     $grafico_x = ($pdf->GetPageWidth() - $grafico_ancho) / 2;
 
-    $pdf->Image("../images/graficos/grafico3.png", $grafico_x, $grafico_y_inicial, $grafico_ancho);
+    $pdf->Image("../images/graficos/grafico1.png", $grafico_x, $grafico_y_inicial, $grafico_ancho);
 
     // Mover el cursor más abajo para evitar que la tabla se pegue al gráfico
     $pdf->SetY($grafico_y_inicial + 80);
     $pdf->Ln(5);
 }
 
-// Encabezados de la tabla
-$pdf->SetFont('Arial', 'B', 10);
+//* / Encabezados de la tabla
+/* $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(20, 10, mb_convert_encoding("Código", 'ISO-8859-1'), 1, 0, "L");
 $pdf->Cell(85, 10, 'Asignatura', 1);
 $pdf->Cell(12, 10, 'Sem.', 1);
@@ -98,9 +119,9 @@ $pdf->Ln();
 
 $pdf->SetFont('Arial', '', 10);
 
+ */
 
-
-$query = "SELECT 
+/* $query = "SELECT 
             sistema.m1.codigo_asignaturacurso, 
             sistema.m1.nombre_asignatura, 
             sistema.m1.grupo, 
@@ -118,8 +139,8 @@ $query = "SELECT
             sistema.m1.fecha_actualizacion
           FROM sistema.m1
           WHERE sistema.m1.codigo_docente = '$docente' AND sistema.m1.ano_micro = '$ano_micro' ";
-
-$stmt = $conn->query($query);
+ */
+/*$stmt = $conn->query($query);
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $pdf->Cell(20, 10, $row['codigo_asignaturacurso'], 1);
     $nombre_asig = mb_strimwidth($row['nombre_asignatura'], 0, 35, '...'); // 35 + 3 = 38
@@ -128,12 +149,10 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $pdf->Cell(12, 10, $row['grupo'], 1, 0);
     $nombre_programa = mb_strimwidth($row['nombre_programa'], 0, 38, '...'); // 38 + 3 = 41
     $pdf->Cell(80, 10, mb_convert_encoding($nombre_programa, 'ISO-8859-1'), 1);
-    /* $pdf->Cell(50, 10, mb_convert_encoding($row['nombre_programa'], 'ISO-8859-1'), 1); */
+    /* $pdf->Cell(50, 10, mb_convert_encoding($row['nombre_programa'], 'ISO-8859-1'), 1); 
     $pdf->Cell(22, 10, $row['avance'] . '%', 1);
     $pdf->Cell(25, 10, $row['fecha_actualizacion'], 1);
     $pdf->Ln();
-}
+} */
 
-$pdf->Output("I", "reporte_avance.pdf");
-?>
-/
+$pdf->Output("I", "reporte_avance_programas.pdf");

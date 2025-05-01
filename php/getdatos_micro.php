@@ -1,18 +1,6 @@
 <?php
 header('Content-Type: application/json'); // Respuesta en JSON
 
-// Configuración de la conexión
-// $host = "tu_host";  // Cambia esto por tu host
-// $dbname = "tu_base_de_datos";
-// $user = "tu_usuario";
-// $password = "tu_contraseña";
-
-// // Conectar a PostgreSQL
-// $conn = pg_connect("host=$host dbname=$dbname user=$user password=$password");
-
-// if (!$conn) {
-//     die(json_encode(["error" => "Error de conexión a la base de datos"]));
-// }
 include('conexion.php');
 
 // Obtener los filtros desde la URL
@@ -22,13 +10,13 @@ $codigo_asignaturacurso = isset($_GET['codigo_asignaturacurso']) ? pg_escape_str
 $semestre = isset($_GET['semestre']) ? pg_escape_string($conexion, $_GET['semestre']) : '';
 
 // Construir la consulta base
-$query = "SELECT codigo_docente, nombre_docente, COUNT(*) as total_unidades, 
+$query = "SELECT codigo_docente, nombre_docente, nombre_asignatura, COUNT(*) as total_unidades, 
     SUM(
-        (CASE WHEN u1_resultados != ' ' THEN 1 ELSE 0 END) +
-        (CASE WHEN u2_resultados != ' ' THEN 1 ELSE 0 END) +
-        (CASE WHEN u3_resultados != ' ' THEN 1 ELSE 0 END) +
-        (CASE WHEN u4_resultados != ' ' THEN 1 ELSE 0 END) +
-        (CASE WHEN u5_resultados != ' ' THEN 1 ELSE 0 END)
+        (CASE WHEN TRIM(u1_resultados) != ''  THEN 1 ELSE 0 END) +
+        (CASE WHEN TRIM(u2_resultados) != '' THEN 1 ELSE 0 END) +
+        (CASE WHEN TRIM(u3_resultados) != '' THEN 1 ELSE 0 END) +
+        (CASE WHEN TRIM(u4_resultados) != '' THEN 1 ELSE 0 END) +
+        (CASE WHEN TRIM(u5_resultados) != '' THEN 1 ELSE 0 END)
     ) as unidades_diligenciadas
     FROM sistema.m1 WHERE 1=1";
 
@@ -46,7 +34,7 @@ if (!empty($semestre)) {
     $query .= " AND semestre = '$semestre'";
 }
 
-$query .= " GROUP BY codigo_docente, nombre_docente ORDER BY unidades_diligenciadas DESC";
+$query .= " GROUP BY codigo_docente, nombre_docente, nombre_asignatura ORDER BY unidades_diligenciadas DESC";
 
 $result = pg_query($conexion, $query);
 

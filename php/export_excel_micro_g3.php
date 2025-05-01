@@ -6,8 +6,8 @@ require __DIR__ . '/../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-/* $docente = $_POST['docente'];
-$ano_micro = $_POST['ano_micro']; */
+$docente = $_GET['docente'] ?? null;
+$ano_micro = $_GET['ano_micro'] ?? null;
 
 
 $query = "SELECT 
@@ -52,7 +52,17 @@ foreach ($datos as $dato) {
     $row++;
 }
 
-$writer = new Xlsx($spreadsheet);
+/* $writer = new Xlsx($spreadsheet);
 //header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 //header('Content-Disposition: attachment;filename="reporte.xlsx"');
 $writer->save('reporte_avance.xlsx');
+ */
+// Guardar archivo en el servidor temporalmente
+$nombreArchivo = 'reporte_avance_micro_' . time() . '.xlsx';
+$rutaArchivo = __DIR__ . '/' . $nombreArchivo;
+$writer = new Xlsx($spreadsheet);
+$writer->save($rutaArchivo);
+
+// Redirigir a página con SweetAlert y enlace de descarga
+header("Location: mensaje_descarga_mg3.php?archivo=$nombreArchivo");
+exit;

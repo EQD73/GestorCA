@@ -101,7 +101,6 @@ $_SESSION['nombre_rol'] = $nombre_rol;
 
                 <div class="page-title">
                     <h3 class="text-center">Reporte de Microcurriculo</h3>
-                    <!-- <p class="text-subtitle text-muted">Algunas estadisticas importantes</p> -->
                 </div>
                 <?php
                 // Función para obtener opciones
@@ -147,8 +146,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                 $result = pg_query($conexion, $sql);
                 ?>
 
-                <!DOCTYPE html>
-                <html lang="es">
+
 
                 <!--            <head>
                     <meta charset="UTF-8">
@@ -281,9 +279,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                     <div class="float-start">
                         <p class="text-center">2024 &copy; UniCorsalud </p>
                     </div>
-                    <!--  <div class="float-end">
-                        <p>Crafted with <span class='text-danger'><i data-feather=""></i></span> by <a href="#">Eqd</a></p>
-                    </div> -->
+
                 </div>
             </footer>
         </div>

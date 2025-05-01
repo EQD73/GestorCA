@@ -97,18 +97,21 @@ $_SESSION['nombre_rol'] = $nombre_rol;
             </nav>
 
             <div class="container mt-4">
-                <h2 class="text-center mb-4 fw-bold">Microcurriculo</h2>
+                <h2 class="text-center mb-4 fw-bold">Consignador Académico</h2>
                 <h2 class="text-center mb-4">📊 Gráfico/Estadística Diligenciamiento por Programa</h2>
 
                 <!-- Filtros -->
                 <div class="row g-3">
-                    <div class="col-md-3">
-                        <label for="selectAno" class="form-label">Año:</label>
-                        <select id="selectAno" class="form-select">
+                    <div class="col-md-2">
+                        <label for="selectPeriodo" class="form-label">Periodo:</label>
+                        <select id="selectPeriodo" class="form-select">
                             <option value="">Todos</option>
                             <?php
-                            for ($i = date("Y"); $i >= 2024; $i--) {
-                                echo "<option value='$i'>$i</option>";
+                            include 'conexion.php'; // Asegúrate de incluir tu archivo de conexión
+                            $query = "SELECT codigo_periodo, nombre_periodo FROM sistema.periodos WHERE estado='ACTIVO'";
+                            $result = pg_query($conexion, $query);
+                            while ($row = pg_fetch_assoc($result)) {
+                                echo "<option value='{$row['codigo_periodo']}'>{$row['codigo_periodo']} | {$row['nombre_periodo']}</option>";
                             }
                             ?>
                         </select>
@@ -120,7 +123,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                             <option value="">Todos</option>
                             <?php
                             include 'conexion.php'; // Asegúrate de incluir tu archivo de conexión
-                            $query = "SELECT codigo_programa, nombre_programa FROM programas";
+                            $query = "SELECT codigo_programa, nombre_programa FROM sistema.programas";
                             $result = pg_query($conexion, $query);
                             while ($row = pg_fetch_assoc($result)) {
                                 echo "<option value='{$row['codigo_programa']}'>{$row['codigo_programa']} | {$row['nombre_programa']}</option>";
@@ -161,7 +164,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                     </script>
 
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label for="selectSemestre" class="form-label">Semestre:</label>
                         <select id="selectSemestre" class="form-select">
                             <option value="">Todos</option>
@@ -174,7 +177,24 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                             ?>
                         </select>
                     </div>
+
+
+                    <div class="col-md-2">
+                        <label for="selectGrupo" class="form-label">Grupo:</label>
+                        <select id="selectGrupo" class="form-select">
+                            <option value="">Todos</option>
+                            <?php
+                            $query = "SELECT DISTINCT grupo FROM sistema.asignaturas ORDER BY grupo";
+                            $result = pg_query($conexion, $query);
+                            while ($row = pg_fetch_assoc($result)) {
+                                echo "<option value='{$row['grupo']}'>Grupo {$row['grupo']}</option>";
+                            }
+                            ?>
+                        </select>
+
+                    </div>
                 </div>
+
 
                 <!-- Botón de actualización -->
                 <div class="text-center mt-4">
@@ -182,11 +202,6 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                     <button id="exportPDF" class="btn btn-danger"><i class="fa-solid fa-file-pdf"></i> Exportar a PDF</button>
                 </div>
 
-                <!-- Opciones de Exportación -->
-                <div class="text-center mt-3">
-                    <!--  <a href="exportar_excel_mg1.php" class="btn btn-success">📊 Exportar a Excel</a> -->
-                    <!--  <a href="exportar_pdf_mg1.php" class="btn btn-danger">📄 Exportar a PDF</a> -->
-                </div>
 
                 <h4 class="mt-4"><i class="fa-solid fa-chart-column"></i> Gráfico de Avance <i class="fa-solid fa-chart-column"></i></h4>
 
@@ -210,21 +225,22 @@ $_SESSION['nombre_rol'] = $nombre_rol;
 
                 function cargarDatos() {
 
-                    let ano_micro = document.getElementById('selectAno').value;
+                    let periodos = document.getElementById('selectPeriodo').value;
                     let codigo_programa = document.getElementById('selectPrograma').value;
-                    let codigo_asignaturacurso = document.getElementById('selectAsignatura').value;
+                    let codigo_asignatura = document.getElementById('selectAsignatura').value;
                     let semestre = document.getElementById('selectSemestre').value;
+                    let grupo = document.getElementById('selectGrupo').value;
 
-                    let url = 'getdatos_micro.php?ano_micro=' + ano_micro +
+                    let url = 'getdatos_consigna.php?periodo=' + periodos +
                         '&codigo_programa=' + codigo_programa +
-                        '&codigo_asignaturacurso=' + codigo_asignaturacurso +
-                        '&semestre=' + semestre;
+                        '&codigo_asignatura=' + codigo_asignatura +
+                        '&semestre=' + semestre + '&grupo=' + grupo;
 
                     fetch(url)
                         .then(response => response.json())
                         .then(data => {
                             let nombres = data.map(d => d.nombre_docente);
-                            let avance = data.map(d => d.unidades_diligenciadas);
+                            let avance = data.map(d => d.semanas_diligenciadas);
                             let etiquetas = data.map(d => d.nombre_asignatura); // Nueva línea
 
                             if (chart) {
@@ -237,7 +253,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                                 data: {
                                     labels: nombres,
                                     datasets: [{
-                                        label: 'Unidades Diligenciadas',
+                                        label: 'Semanas Diligenciadas',
                                         data: avance,
                                         backgroundColor: 'rgba(54, 162, 235, 0.6)',
                                         borderColor: 'rgba(54, 162, 235, 1)',
@@ -265,7 +281,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                                                 label: function(context) {
                                                     const index = context.dataIndex;
                                                     const asignatura = context.dataset.asignaturas[index];
-                                                    return 'Unidades: ' + context.formattedValue + ' | ' + asignatura;
+                                                    return 'Semanas: ' + context.formattedValue + ' | ' + asignatura;
                                                 }
                                             }
                                         },
@@ -283,11 +299,11 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                                         y: {
                                             beginAtZero: true,
                                             min: 1,
-                                            max: 5,
+                                            max: 18,
                                             ticks: {
                                                 stepSize: 1,
                                                 callback: function(value) {
-                                                    return 'Unidades: ' + value;
+                                                    return 'Semanas: ' + value;
                                                 }
                                             }
                                         }
@@ -312,31 +328,26 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                         let canvas = document.getElementById("graficoDocentes");
                         let imageData = canvas.toDataURL("image/png"); // Convierte el gráfico a una imagen Base64
 
-                        /* let docente = $("#docente").val();
-                        let ano_micro = $("#ano_micro").val();
 
-                        if (!docente || !ano_micro) {
-                            alert("Seleccione por lo menos un año y un programa antes de exportar a PDF");
-                            return;
-                        } */
-                        let ano_micro = document.getElementById('selectAno').value;
+                        let periodos = document.getElementById('selectPeriodo').value;
                         let codigo_programa = document.getElementById('selectPrograma').value;
-                        let codigo_asignaturacurso = document.getElementById('selectAsignatura').value;
+                        let codigo_asignatura = document.getElementById('selectAsignatura').value;
                         let semestre = document.getElementById('selectSemestre').value;
+                        let grupo = document.getElementById('selectGrupo').value;
 
 
                         $.ajax({
-                            url: "guardar_grafico_micro1.php",
+                            url: "guardar_grafico_consigna1.php",
                             type: "POST",
                             data: {
                                 image: imageData
                             },
                             success: function(response) {
                                 if (response == "success") {
-                                    window.open("export_pdf_micro_g1.php?ano_micro=" + ano_micro +
+                                    window.open("export_pdf_consigna_g1.php?periodo=" + periodos +
                                         '&codigo_programa=' + codigo_programa +
-                                        '&codigo_asignaturacurso=' + codigo_asignaturacurso +
-                                        '&semestre=' + semestre, "_blank"); // Redirige a exportar_pdf.php; // Ejecuta la exportación a PDF después de guardar el gráfico
+                                        '&codigo_asignatura=' + codigo_asignatura +
+                                        '&semestre=' + semestre + '&grupo=' + grupo, "_blank"); // Redirige a exportar_pdf.php; // Ejecuta la exportación a PDF después de guardar el gráfico
 
                                 } else {
                                     alert("Error al guardar el gráfico");
