@@ -120,6 +120,24 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
             color: -internal-light-dark(graytext, rgb(170, 170, 170));
         }
     </style>
+    <style>
+        /* Cambiar el color de la pestaña activa (cuando está seleccionada) */
+        .nav-pills .nav-link.active {
+            background-color: red !important;
+            color: white !important;
+        }
+
+        /* Cambiar el color del texto de las pestañas inactivas */
+        .nav-pills .nav-link {
+            color: red !important;
+        }
+
+        /* Opcional: cambiar color al pasar el cursor */
+        .nav-pills .nav-link:hover {
+            color: darkred !important;
+        }
+    </style>
+
 
     <body>
 
@@ -188,27 +206,6 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
                             <h4 class="text-center" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Módulo MicroCurriculo - Editar registro</h4>
                             <hr>
                         </div>
-                        <!-- <div class="row">
-                            <div class="col-md-4">
-                                // Button trigger modal 
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-consulta">
-                                    Consultar Registro
-                                </button>
-                                <?php /* include("Modal_ConsultarMicro.php"); */ ?>
-                            </div>
-                            <div class="col-md-4">
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#" onclick="mostrar();">
-                                    Editar Registro
-                                </button>
-                            </div>
-                            <div class="col-md-4">
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-eliminar">
-                                    Eliminar Registro
-                                </button>
-                                <?php /* include("Modal_EliminarMicro.php");  */ ?>
-                            </div>
-                        </div> -->
-
                     </div>
 
                     <!-- //inicio de nav-tab  -->
