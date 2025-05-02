@@ -100,7 +100,23 @@ $resultado_qper = pg_query($conexion, $query_periodo);
     }
 </style>
 
+<style>
+    /* Cambiar el color de la pestaña activa (cuando está seleccionada) */
+    .nav-pills .nav-link.active {
+        background-color: red !important;
+        color: white !important;
+    }
 
+    /* Cambiar el color del texto de las pestañas inactivas */
+    .nav-pills .nav-link {
+        color: red !important;
+    }
+
+    /* Opcional: cambiar color al pasar el cursor */
+    .nav-pills .nav-link:hover {
+        color: darkred !important;
+    }
+</style>
 
 <body>
 

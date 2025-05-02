@@ -87,8 +87,8 @@ $resultado_qper = pg_query($conexion, $query_periodo);
     <title>Gestor de Contenidos Académicos - UniCorsalud</title>
 
 
-    <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/css/BsMultiSelect.min.css">
-   --> <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"> -->
+    <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/css/BsMultiSelect.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="../assets/vendors/chartjs/Chart.min.css"> -->
     <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="../assets/css/app.css">
@@ -98,7 +98,7 @@ $resultado_qper = pg_query($conexion, $query_periodo);
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
     <!-- <link rel="stylesheet" type="text/css" href="dist/css/virtual-select.min.css"> 
     <script type="text/javascript" src="../js/multiselect-dropdown.js"></script>-->
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <!--  <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"> -->
 
 </head>
 
@@ -138,281 +138,28 @@ if ($estadoper == 'INACTIVO') { ?>
         }
     </style>
 
+    <style>
+        /* Cambiar el color de la pestaña activa (cuando está seleccionada) */
+        .nav-pills .nav-link.active {
+            background-color: red !important;
+            color: white !important;
+        }
 
+        /* Cambiar el color del texto de las pestañas inactivas */
+        .nav-pills .nav-link {
+            color: red !important;
+        }
+
+        /* Opcional: cambiar color al pasar el cursor */
+        .nav-pills .nav-link:hover {
+            color: darkred !important;
+        }
+    </style>
 
     <body>
 
         <div id="app">
-            <div id="sidebar" class='active'>
-                <div class="sidebar-wrapper active">
-                    <div class="sidebar-header">
-                        <img src="../assets/images/logo.png" width="220" height="120">
-                    </div>
-
-                    <?php if ($codigo_rol == '2') { ?>
-                        <div class="sidebar-menu">
-                            <ul class="menu">
-
-                                <li class='sidebar-title'>Menu Principal</li>
-
-                                <li class="sidebar-item active ">
-
-                                    <a href="home.php" class='sidebar-link'>
-                                        <i data-feather="home" width="20"></i>
-                                        <span>Inicio</span>
-                                    </a>
-
-
-                                </li>
-
-                                <li class="sidebar-item  has-sub">
-
-                                    <a href="#" class='sidebar-link'>
-                                        <i data-feather="layers" width="20"></i>
-                                        <span>Módulos</span>
-                                    </a>
-
-
-                                    <ul class="submenu ">
-
-                                        <li>
-                                            <a href="Microcurriculo.php">Microcurriculo</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="Consignador.php">Consignador Acádemico</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="Registro.php">Registro de Actividades</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                            </ul>
-                        </div>
-                    <?php } ?>
-
-                    <?php if ($codigo_rol <> '2') { ?>
-
-                        <div class="sidebar-menu">
-                            <ul class="menu">
-
-
-                                <li class='sidebar-title'>Menu Principal</li>
-
-                                <li class="sidebar-item active ">
-
-                                    <a href="home.php" class='sidebar-link'>
-                                        <i data-feather="home" width="20"></i>
-                                        <span>Inicio</span>
-                                    </a>
-
-
-                                </li>
-
-                                <li class="sidebar-item  has-sub">
-
-                                    <a href="#" class='sidebar-link'>
-                                        <i data-feather="layers" width="20"></i>
-                                        <span>Módulos</span>
-                                    </a>
-
-
-                                    <ul class="submenu ">
-
-                                        <li>
-                                            <a href="Microcurriculo.php">Microcurriculo</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="Consignador.php">Consignador Acádemico</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="Registro.php">Registro de Actividades</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class='sidebar-title'>Formularios/Tablas</li>
-                                <li class="sidebar-item  has-sub">
-
-                                    <a href="#" class='sidebar-link'>
-                                        <i data-feather="database" width="20"></i>
-                                        <span>Tablas Básicas</span>
-                                    </a>
-
-
-                                    <ul class="submenu ">
-                                        <li>
-                                            <a href="periodo.php">Periodos Académicos</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="asignaturas.php">Asignaturas</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="facultades.php">Facultades</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="programas.php">Programas</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="usuarios.php">Control de Usuarios</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="roles.php">Roles Usuarios</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="sedes.php">Sedes</a>
-                                        </li>
-                                        <li>
-                                            <a href="nivel.php">Nivel</a>
-                                        </li>
-                                        <li>
-                                            <a href="revisionf.php">Version Formato</a>
-                                        </li>
-                                        <li>
-                                            <a href="met_evaluacion.php">Metodologia Evaluación</a>
-                                        </li>
-                                        <li>
-                                            <a href="evaluacion.php">Evaluación</a>
-                                        </li>
-
-                                    </ul>
-                                </li>
-
-
-                                <li class='sidebar-title'>Herramientas</li>
-                                <li class="sidebar-item  has-sub">
-
-                                    <a href="#" class='sidebar-link'>
-                                        <i data-feather="tool" width="20"></i>
-                                        <span>Utilidades</span>
-                                    </a>
-                                    <ul class="submenu ">
-
-                                        <li>
-                                            <a href="configuracion.php">Configuraciones</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="cargamasiva.php">Cargue Masivo</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="copiasoporte">Copias de Soporte</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="restauradatos.php">Restaurar Datos</a>
-                                        </li>
-                                        <li>
-                                            <a href="otro.php">Otro...</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="sidebar-item  has-sub">
-
-                                    <a href="#" class='sidebar-link'>
-                                        <i data-feather="pie-chart" width="20"></i>
-                                        <span>Graficas/Estadisticas</span>
-                                    </a>
-
-                                    <ul class="submenu ">
-                                        <li>
-                                            <a href="#">Asignaturas</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">Estudiantes</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="est_docentes.php">Docentes</a>
-                                        </li>
-                                    </ul>
-
-                                </li>
-
-
-
-                                <li class='sidebar-title'>Reportes/Informes</li>
-
-
-
-                                <li class="sidebar-item  has-sub">
-
-                                    <a href="#" class='sidebar-link'>
-                                        <i data-feather="file-text" width="20"></i>
-                                        <span>Informes</span>
-                                    </a>
-
-
-                                    <ul class="submenu ">
-
-                                        <li>
-                                            <a href="#">Microcurriculo</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">Consignador</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">Registro Actividades</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="ImprimirUsuarios.php" target="_blank">Usuarios</a>
-                                        </li>
-
-                                    </ul>
-
-                                </li>
-
-
-
-                                <li class="sidebar-item  has-sub">
-
-                                    <a href="#" class='sidebar-link'>
-                                        <i data-feather="alert-circle" width="20"></i>
-                                        <span>-----</span>
-                                    </a>
-
-
-                                    <!-- <ul class="submenu ">
-                        
-                        <li>
-                            <a href="error-403.html">403</a>
-                        </li>
-                        
-                        <li>
-                            <a href="error-404.html">404</a>
-                        </li>
-                        
-                        <li>
-                            <a href="error-500.html">500</a>
-                        </li>
-                        
-                    </ul> -->
-
-                                </li>
-
-
-                            </ul>
-                        </div>
-                    <?php } ?>
-                    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
-                </div>
-            </div>
+            <?php include("cargue_menul.html"); ?>
             <div id="main">
                 <nav class="navbar navbar-header navbar-expand navbar-light">
                     <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
