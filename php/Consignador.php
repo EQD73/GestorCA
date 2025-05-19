@@ -8,6 +8,7 @@ if (!isset($_SESSION['codigo_usuario'])) {
 
 $nombre = $_SESSION['nombres'];
 $codigo_rol = $_SESSION['codigo_rol'];
+$estadoper = $_SESSION['estado_periodo'];
 
 
 include('conexion.php');
@@ -17,14 +18,6 @@ include('conexion.php');
 $query_facultad = "SELECT * FROM sistema.facultades ORDER BY codigo_facultad ASC ";
 $resultado_qf = pg_query($conexion, $query_facultad);
 $num1 = pg_num_rows($resultado_qf);
-
-
-// select de tabla sedes //
-//$query_sedes = "SELECT * FROM sistema.sedes ORDER BY codigo_sede ASC ";
-//$resultado_qs = pg_query($conexion, $query_sedes);
-//$num2= pg_num_rows($resultado_qs);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -50,20 +43,12 @@ $num1 = pg_num_rows($resultado_qf);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.js" integrity="sha512-vgklhe3vcXaOdX0on3diSDRNRFlqWR9sLH6mMT4gm8ZzSMG0OxE8S1Tm8LHUOfEdZICn45OO2eluLLt81oHvtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"> -->
+    <script>
+        const estadoPeriodo = "<?php echo $estadoper; ?>";
+    </script>
 </head>
-<!-- <script>
-    $(document).ready(function() {
-        $('#ventana-modal').modal('toggle')
-    });
-</script> -->
 
 <body>
-    <!-- <div class="cargando">
-        <div class="loader-outter"></div>
-        <div class="loader-inner"></div>
-    </div> -->
-
-
     <div id="app">
         <?php include("cargue_menul.html"); ?>
         <div id="main">
@@ -312,7 +297,7 @@ $num1 = pg_num_rows($resultado_qf);
             });
 
             //Funcionalida de borrar
-            $(document).on('click', '.borrar', function() {
+            /* $(document).on('click', '.borrar', function() {
                 var id_consigna = $(this).attr("id");
 
                 Swal.fire({
@@ -347,7 +332,56 @@ $num1 = pg_num_rows($resultado_qf);
                         return false;
                     }
                 })
-            })
+            }) */
+            $(document).on('click', '.borrar', function() {
+                // Validación del estado del periodo
+                if (estadoPeriodo === 'BLOQUEADO') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Acción no permitida',
+                        text: 'No puede eliminar Consignador Académico en un periodo cerrado o bloqueado.',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    return; // Detener ejecución
+                }
+
+                var id_consigna = $(this).attr("id");
+
+                Swal.fire({
+                    title: '¿Estás seguro de borrar este registro: ' + id_micro + '?',
+                    text: "No podrás revertir los cambios!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, bórralo!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "borrarConsigna.php",
+                            method: "POST",
+                            data: {
+                                id_consigna: id_consigna
+                            },
+                            success: function(data) {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Atención!",
+                                    text: data,
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Ok"
+                                });
+                                dataTable.ajax.reload();
+                            }
+                        });
+                    } else {
+                        return false;
+                    }
+                });
+            });
+
+
+
         });
     </script>
     <script type="text/javascript">

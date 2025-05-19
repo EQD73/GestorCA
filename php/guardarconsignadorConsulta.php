@@ -12,6 +12,7 @@ $tablam2 = $_SESSION['tablam2'];
 $tablam3 = $_SESSION['tablam3'];
 $codperiodo = $_SESSION['codigo_periodo'];
 $nomperiodo = $_SESSION['nombre_periodo'];
+$estado = $_SESSION['estado_periodo'];
 
 
 include('conexion.php');
@@ -48,7 +49,7 @@ if (!empty($_POST['rangofinal1'])) {
     $rangofinal1         = strval($_REQUEST['rangofinal1']);
 } else {
     $rangofinal1 = "";
-} 
+}
 
 if (!empty($_POST['ContenidoSem1'])) {
     $contenidosem1         = strval($_REQUEST['ContenidoSem1']);
@@ -70,13 +71,13 @@ if (!empty($_POST['titulosem2'])) {
     $titulos2              = strval($_REQUEST['titulosem2']);
 } else {
     $titulos2 = "";
-} 
+}
 if (!empty($_POST['rangoinicio2'])) {
     $rangoinicio2         = strval($_REQUEST['rangoinicio2']);
 } else {
     $rangoinicio2 = "";
 }
- if (!empty($_POST['rangofinal2'])) {
+if (!empty($_POST['rangofinal2'])) {
     $rangofinal2         = strval($_REQUEST['rangofinal2']);
 } else {
     $rangofinal2 = "";
@@ -101,7 +102,7 @@ if (!empty($_POST['titulosem3'])) {
     $titulos3              = strval($_REQUEST['titulosem3']);
 } else {
     $titulos3 = "";
-} 
+}
 if (!empty($_POST['rangoinicio3'])) {
     $rangoinicio3         = strval($_REQUEST['rangoinicio3']);
 } else {
@@ -772,7 +773,8 @@ if (!empty($_POST['Validador2'])) {
     $validador2 = "";
 }
 //$validador2             = strval($_REQUEST['Validador2']);
-
+$updateConsigna = false;
+$updateRegistro = false;
 $QueryUpdate = ("UPDATE $tablam2
  SET     
     resultados_aprendizaje ='" . $resultados . "', 
@@ -884,11 +886,11 @@ $QueryUpdate = ("UPDATE $tablam2
 	validador1='" . $validador1 . "',
 	validador2= '" . $validador2 . "'
 
-WHERE id='" .$codconsigna. "' 
+WHERE id='" . $codconsigna . "' 
 ");
-
-$updateConsigna = pg_query($conexion, $QueryUpdate);
-
+if ($estado == 'ACTIVO') {
+    $updateConsigna = pg_query($conexion, $QueryUpdate);
+}
 //UPDATE tablam3 
 $QueryUpdateR = ("UPDATE $tablam3
  SET 
@@ -985,12 +987,12 @@ $QueryUpdateR = ("UPDATE $tablam3
     s5_rangof_p ='" . $rangofinal5p . "',
     s5_contenidos_p='" . $contenidosem5p . "'
 
-WHERE codigo_asignatura='" .$codigocurso. "' AND grupo='" .$codigogrupo. "' AND codigo_periodo='" .$codperiodo. "' 
+WHERE codigo_asignatura='" . $codigocurso . "' AND grupo='" . $codigogrupo . "' AND codigo_periodo='" . $codperiodo . "' 
 ");
-
-$updateRegistro = pg_query($conexion, $QueryUpdateR);
-
-if ($updateConsigna && $updateRegistro){
+if ($estado == 'ACTIVO') {
+    $updateRegistro = pg_query($conexion, $QueryUpdateR);
+}
+if (($updateConsigna && $updateRegistro) and $estado == 'ACTIVO') {
     //echo "registro insertado";
     echo '<script>
     Swal.fire({
@@ -1005,13 +1007,13 @@ if ($updateConsigna && $updateRegistro){
         }
      });
     </script>';
-}else{
-    
+} else {
+
     echo '<script>
     Swal.fire({
      icon: "error",
      title: "Oops...",
-     text: "¡Ocurrio un error, el registro no se pudo actualizar!",
+     text: "¡Ocurrio un error, el registro no se pudo actualizar! Valide que el periodo académico no está cerrado o bloqueado",
      showConfirmButton: true,
      confirmButtonText: "Cerrar"
      }).then(function(result){
@@ -1020,7 +1022,4 @@ if ($updateConsigna && $updateRegistro){
         }
      });
     </script>';
-    
 }
-
-?>

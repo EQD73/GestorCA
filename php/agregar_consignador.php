@@ -104,13 +104,13 @@ $resultado_qper = pg_query($conexion, $query_periodo);
 
 <?php
 $estadoper = $_SESSION['estado_periodo'];
-if ($estadoper == 'INACTIVO') { ?>
+if ($estadoper == 'BLOQUEADO') { ?>
     <script type="text/javascript">
         $(document).ready(function() {
             Swal.fire({
                 icon: "info",
                 title: "Cuidado!",
-                text: "Usted no puede ingresar Consignación en un periodo Cerrado o no Vigente. Solo puede Editar o Consultar",
+                text: "Usted no puede ingresar Consignación en un periodo Cerrado o Bloqueado. Solo Consultar",
                 showConfirmButton: true,
                 confirmButtonText: "Cerrar"
             }).then(function(result) {

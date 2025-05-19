@@ -3,7 +3,9 @@
 session_start();
 
 require "conexion.php";
-require '../fpdf/fpdf.php';
+//require '../fpdf/fpdf.php';
+require('../fpdf/tfpdf.php');
+
 
 $tablam1 = isset($_SESSION['tablam1']) ? $_SESSION['tablam1'] : null;
 
@@ -30,21 +32,76 @@ if (!$resultado || pg_num_rows($resultado) === 0) {
 }
 $obj = pg_fetch_object($resultado);
 
-$pdf = new FPDF("P", "mm", "Letter");
+class PDFExtend extends tFPDF
+{
+  public $headerData; // Variable para almacenar los datos del encabezado
+  public $footerData; // Variable para almacenar los datos del pie de pagina
+  // Método para establecer los datos del encabezado
+  public function setHeaderData($data)
+  {
+    $this->headerData = $data;
+  }
+  public function setFooterData($data)
+  {
+    $this->footerData = $data;
+  }
+
+  // Encabezado
+  function Header()
+  {
+    if ($this->CurOrientation === 'P') {
+      // Portrait
+      $this->Cell(60, 21, $this->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
+      $this->SetFont("Arial", "B", 12);
+      $this->Cell(100, 21, "Microcurriculo", 1, 0, "C");
+      $this->SetFont("Arial", "", 9);
+      $this->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
+      $this->Cell(25, 7, mb_convert_encoding($this->headerData->codigo, 'ISO-8859-1'), 1, 1, "L");
+      $this->Cell(160);
+      $this->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
+      $this->Cell(25, 7, mb_convert_encoding($this->headerData->version, 'ISO-8859-1'), 1, 1, "L");
+      $this->Cell(160);
+      $this->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
+      $this->Cell(25, 7, mb_convert_encoding($this->headerData->fecha, 'ISO-8859-1'), 1, 1, "L");
+    } else {
+      // Landscape
+      $this->Cell(60, 21, $this->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
+      $this->SetFont("Arial", "B", 12);
+      $this->Cell(160, 21, "Microcurriculo", 1, 0, "C");
+      $this->SetFont("Arial", "", 9);
+      $this->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
+      $this->Cell(25, 7, mb_convert_encoding($this->headerData->codigo, 'ISO-8859-1'), 1, 1, "L");
+      $this->Cell(220);
+      $this->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
+      $this->Cell(25, 7, mb_convert_encoding($this->headerData->version, 'ISO-8859-1'), 1, 1, "L");
+      $this->Cell(220);
+      $this->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
+      $this->Cell(25, 7, mb_convert_encoding($this->headerData->fecha, 'ISO-8859-1'), 1, 1, "L");
+    }
+  }
+  function Footer()
+  {
+    $this->AliasNbPages();
+    $this->SetY(-15);
+    $this->SetFont('Arial', 'I', 8);
+    $this->SetFont("Arial", "", 6);
+    $this->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
+    $this->Cell(5);
+    $this->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
+    $this->Cell(5);
+    date_default_timezone_set("America/Bogota");
+    $this->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
+    $this->Cell(5);
+    $this->Cell(80, 5, mb_convert_encoding($this->footerData->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
+    $this->Cell(0, 5, mb_convert_encoding('Página ', 'ISO-8859-1') . $this->PageNo() . '/{nb}', 0, 1, "R");;
+  }
+}
+
+$pdf = new PDFExtend("P", "mm", "Letter");
+$pdf->setHeaderData($obj2);
+$pdf->setFooterData($obj);
 $pdf->SetTitle('Formato Microcurriculo');
 $pdf->AddPage();
-$pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-$pdf->SetFont("Arial", "B", 12);
-$pdf->Cell(100, 21, "Microcurriculo", 1, 0, "C");
-$pdf->SetFont("Arial", "", 9);
-$pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(160);
-$pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(160);
-$pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
 $pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
@@ -247,37 +304,13 @@ $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "", 9);
 $pdf->MultiCell(200, 5, mb_convert_encoding($obj->resultados_aprendizaje, 'ISO-8859-1'), 1, "J", false);
 $pdf->SetY(250); // Posición desde el final
-$pdf->AliasNbPages();
-$pdf->SetFont("Arial", "", 6);
-$pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(5);
-$pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-$pdf->Cell(5);
-date_default_timezone_set("America/Bogota");
-$pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-$pdf->Cell(5);
-$pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
-$pdf->Ln(2);
 //pagina_2
 $pdf->AddPage("P", "Letter");
-$pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-$pdf->SetFont("Arial", "B", 12);
-$pdf->Cell(100, 21, "Microcurriculo", 1, 0, "C");
-$pdf->SetFont("Arial", "", 9);
-$pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(160);
-$pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(160);
-$pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
 $pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
-$pdf->Cell(200, 12, mb_convert_encoding("2.3. Metodología", 'ISO-8859-1'), 1, 1, "L", true);
+$pdf->Cell(200, 8, mb_convert_encoding("2.3. Metodología", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->Cell(200, 8, mb_convert_encoding("2.3.1. Estrategia Pedagógica y didácticas", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetFont("Arial", "", 9);
 $pdf->SetTextColor(0, 0, 0);
@@ -290,16 +323,11 @@ $pdf->SetTextColor(0, 0, 0);
 $pdf->MultiCell(200, 5, mb_convert_encoding($obj->recursos, 'ISO-8859-1'), 1, "J", false);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
-$pdf->Cell(200, 12, mb_convert_encoding("2.4. Evaluación", 'ISO-8859-1'), 1, 1, "L", true);
+$pdf->Cell(200, 8, mb_convert_encoding("2.4. Evaluación", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->Cell(200, 8, mb_convert_encoding("2.4.1. Momentos de Evaluación", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->Cell(200, 5, "", 0, 1);
 $pdf->SetTextColor(0, 0, 0);
-if ($pdf->GetY() > 260) { // Por ejemplo, si el cursor está a 260 mm o más
-  $pdf->AddPage("P", "Letter"); // Agrega una nueva página
-}
-
 $pdf->Ln(-5);
-
 // Ancho de las columnas
 $widthCell1 = 40;
 $widthMultiCell = 60;
@@ -339,66 +367,11 @@ $pdf->Cell($widthCell3, $rowHeight, mb_convert_encoding($contentCell3, 'ISO-8859
 
 // Asegurarse de que la posición de Y esté correcta para la próxima fila
 $pdf->SetY(max($yNextRow, $pdf->GetY())); // Tomar la posición más baja
-
-if ($pdf->GetY() > 240) { // Por ejemplo, si el cursor está a 240 mm o más
-  $pdf->SetFont("Arial", "", 6);
-  $pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-  $pdf->Cell(5);
-  $pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-  $pdf->Cell(5);
-  date_default_timezone_set("America/Bogota");
-  $pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-  $pdf->Cell(5);
-  $pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-  $pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
-  $pdf->AddPage("P", "Letter"); // Agrega una nueva página
-  $pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-  $pdf->SetFont("Arial", "B", 12);
-  $pdf->Cell(100, 21, "Microcurriculo", 1, 0, "C");
-  $pdf->SetFont("Arial", "", 9);
-  $pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-  $pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-  $pdf->Cell(160);
-  $pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-  $pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-  $pdf->Cell(160);
-  $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-  $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
-}
-
-//$pdf->Cell(40, 20,$pdf->GetY(), 1, 0, 'C');
-
 $pdf->SetFont("Arial", "", 9);
 $pdf->Cell(40, 9, mb_convert_encoding("Primer Corte", 'ISO-8859-1'), 1, 0, "L");
 $pdf->Cell(60, 9, mb_convert_encoding("15%", 'ISO-8859-1'), 1, 0, "C");
 $pdf->Cell(60, 9, mb_convert_encoding("15%", 'ISO-8859-1'), 1, 0, "C");
 $pdf->Cell(40, 9, mb_convert_encoding("30%", 'ISO-8859-1'), 1, 1, "C");
-
-if ($pdf->GetY() > 240) { // Por ejemplo, si el cursor está a 240 mm o más
-  $pdf->SetFont("Arial", "", 6);
-  $pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-  $pdf->Cell(5);
-  $pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-  $pdf->Cell(5);
-  date_default_timezone_set("America/Bogota");
-  $pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-  $pdf->Cell(5);
-  $pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-  $pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
-  $pdf->AddPage("P", "Letter"); // Agrega una nueva página
-  $pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-  $pdf->SetFont("Arial", "B", 12);
-  $pdf->Cell(100, 21, "Microcurriculo", 1, 0, "C");
-  $pdf->SetFont("Arial", "", 9);
-  $pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-  $pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-  $pdf->Cell(160);
-  $pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-  $pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-  $pdf->Cell(160);
-  $pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-  $pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
-}
 $pdf->SetFont("Arial", "", 9);
 $pdf->Cell(40, 9, mb_convert_encoding("Segundo Corte", 'ISO-8859-1'), 1, 0, "L");
 $pdf->Cell(60, 9, mb_convert_encoding("15%", 'ISO-8859-1'), 1, 0, "C");
@@ -425,34 +398,8 @@ $pdf->Cell(50, 9, mb_convert_encoding("1.0 - 2.9", 'ISO-8859-1'), 1, 0, "C");
 $pdf->Cell(50, 9, mb_convert_encoding("3.0 - 3.7", 'ISO-8859-1'), 1, 0, "C");
 $pdf->Cell(50, 9, mb_convert_encoding("3.8 - 4.5", 'ISO-8859-1'), 1, 0, "C");
 $pdf->Cell(50, 9, mb_convert_encoding("4.6 - 5.0", 'ISO-8859-1'), 1, 1, "C");
-//$pdf->Ln(50); 
-$pdf->SetY(250); // Posición desde el final
-$pdf->SetFont("Arial", "", 6);
-$pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(5);
-$pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-$pdf->Cell(5);
-date_default_timezone_set("America/Bogota");
-$pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-$pdf->Cell(5);
-$pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
-
-
 //pagina unidad 1
 $pdf->AddPage("L", "Letter");
-$pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-$pdf->SetFont("Arial", "B", 12);
-$pdf->Cell(160, 21, "Microcurriculo", 1, 0, "C");
-$pdf->SetFont("Arial", "", 9);
-$pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
 $pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
@@ -486,55 +433,36 @@ $content4 = $obj->u1_evaluacion;
 
 // Eliminar líneas en blanco
 $cleanedContent1 = preg_replace("/\n\s*\n/", "\n", trim($content1));
+$cleanedContent1 = str_replace("\t", " ", $cleanedContent1);
 $cleanedContent2 = preg_replace("/\n\s*\n/", "\n", trim($content2));
+$cleanedContent2 = str_replace("\t", " ", $cleanedContent2);
 $cleanedContent3 = preg_replace("/\n\s*\n/", "\n", trim($content3));
+$cleanedContent3 = str_replace("\t", " ", $cleanedContent3);
 $cleanedContent4 = preg_replace("/\n\s*\n/", "\n", trim($content4));
+$cleanedContent4 = str_replace("\t", " ", $cleanedContent4);
+$pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent1, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent1, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Contenidos", 'ISO-8859-1'), 1, 1, "L", true);
-$pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent2, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent2, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Actividades Formativas", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent3, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent3, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Sistema de evaluación", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent4, 'ISO-8859-1'), 1, "J");
-$pdf->SetY(190); // Posición desde el final
-$pdf->SetFont("Arial", "", 6);
-$pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(5);
-$pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-$pdf->Cell(5);
-date_default_timezone_set("America/Bogota");
-$pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-$pdf->Cell(5);
-$pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent4, 1, "J");
 //pagina unidad 2
 $pdf->AddPage("L", "Letter");
-$pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-$pdf->SetFont("Arial", "B", 12);
-$pdf->Cell(160, 21, "Microcurriculo", 1, 0, "C");
-$pdf->SetFont("Arial", "", 9);
-$pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
 $pdf->SetFillColor(181, 178, 178);
 //$pdf->SetFillColor(255, 0, 0);
@@ -564,59 +492,41 @@ $content2 = $obj->u2_contenidos;
 $content3 = $obj->u2_actividades;
 $content4 = $obj->u2_evaluacion;
 
-
+//$cleanedContent2 = str_replace("\t", " ", $cleanedContent2);
+//$cleanedContent2 = preg_replace('/\s+/', ' ', $cleanedContent2);
 // Eliminar líneas en blanco
 $cleanedContent1 = preg_replace("/\n\s*\n/", "\n", trim($content1));
+$cleanedContent1 = str_replace("\t", " ", $cleanedContent1);
 $cleanedContent2 = preg_replace("/\n\s*\n/", "\n", trim($content2));
+$cleanedContent2 = str_replace("\t", " ", $cleanedContent2);
 $cleanedContent3 = preg_replace("/\n\s*\n/", "\n", trim($content3));
+$cleanedContent3 = str_replace("\t", " ", $cleanedContent3);
 $cleanedContent4 = preg_replace("/\n\s*\n/", "\n", trim($content4));
-
+$cleanedContent4 = str_replace("\t", " ", $cleanedContent4);
+$pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent1, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent1, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Contenidos", 'ISO-8859-1'), 1, 1, "L", true);
-$pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent2, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent2, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Actividades Formativas", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent3, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent3, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Sistema de evaluación", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent4, 'ISO-8859-1'), 1, "J");
-$pdf->SetY(190); // Posición desde el final
-$pdf->SetFont("Arial", "", 6);
-$pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(5);
-$pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-$pdf->Cell(5);
-date_default_timezone_set("America/Bogota");
-$pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-$pdf->Cell(5);
-$pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent4, 1, "J");
+
 //pagina unidad 3
 $pdf->AddPage("L", "Letter");
-$pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-$pdf->SetFont("Arial", "B", 12);
-$pdf->Cell(160, 21, "Microcurriculo", 1, 0, "C");
-$pdf->SetFont("Arial", "", 9);
-$pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
 $pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
@@ -643,58 +553,39 @@ $content2 = $obj->u3_contenidos;
 $content3 = $obj->u3_actividades;
 $content4 = $obj->u3_evaluacion;
 
+
 // Eliminar líneas en blanco
 $cleanedContent1 = preg_replace("/\n\s*\n/", "\n", trim($content1));
+$cleanedContent1 = str_replace("\t", " ", $cleanedContent1);
 $cleanedContent2 = preg_replace("/\n\s*\n/", "\n", trim($content2));
+$cleanedContent2 = str_replace("\t", " ", $cleanedContent2);
 $cleanedContent3 = preg_replace("/\n\s*\n/", "\n", trim($content3));
+$cleanedContent3 = str_replace("\t", " ", $cleanedContent3);
 $cleanedContent4 = preg_replace("/\n\s*\n/", "\n", trim($content4));
-
+$cleanedContent4 = str_replace("\t", " ", $cleanedContent4);
+$pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent1, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent1, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Contenidos", 'ISO-8859-1'), 1, 1, "L", true);
-$pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent2, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent2, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Actividades Formativas", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent3, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent3, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Sistema de evaluación", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent4, 'ISO-8859-1'), 1, "J");
-$pdf->SetY(190); // Posición desde el final
-$pdf->SetFont("Arial", "", 6);
-$pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(5);
-$pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-$pdf->Cell(5);
-date_default_timezone_set("America/Bogota");
-$pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-$pdf->Cell(5);
-$pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent4, 1, "J");
 //pagina unidad 4
 $pdf->AddPage("L", "Letter");
-$pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-$pdf->SetFont("Arial", "B", 12);
-$pdf->Cell(160, 21, "Microcurriculo", 1, 0, "C");
-$pdf->SetFont("Arial", "", 9);
-$pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
 $pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
@@ -724,56 +615,36 @@ $content4 = $obj->u4_evaluacion;
 
 // Eliminar líneas en blanco
 $cleanedContent1 = preg_replace("/\n\s*\n/", "\n", trim($content1));
+$cleanedContent1 = str_replace("\t", " ", $cleanedContent1);
 $cleanedContent2 = preg_replace("/\n\s*\n/", "\n", trim($content2));
+$cleanedContent2 = str_replace("\t", " ", $cleanedContent2);
 $cleanedContent3 = preg_replace("/\n\s*\n/", "\n", trim($content3));
+$cleanedContent3 = str_replace("\t", " ", $cleanedContent3);
 $cleanedContent4 = preg_replace("/\n\s*\n/", "\n", trim($content4));
-
+$cleanedContent4 = str_replace("\t", " ", $cleanedContent4);
+$pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent1, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent1, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Contenidos", 'ISO-8859-1'), 1, 1, "L", true);
-$pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent2, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent2, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Actividades Formativas", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent3, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent3, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Sistema de evaluación", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent4, 'ISO-8859-1'), 1, "J");
-$pdf->SetY(190); // Posición desde el final
-$pdf->SetFont("Arial", "", 6);
-$pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(5);
-$pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-$pdf->Cell(5);
-date_default_timezone_set("America/Bogota");
-$pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-$pdf->Cell(5);
-$pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent4, 1, "J");
 //pagina unidad 5
 $pdf->AddPage("L", "Letter");
-$pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-$pdf->SetFont("Arial", "B", 12);
-$pdf->Cell(160, 21, "Microcurriculo", 1, 0, "C");
-$pdf->SetFont("Arial", "", 9);
-$pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
 $pdf->SetFillColor(181, 178, 178);
 $pdf->SetTextColor(0, 0, 0);
@@ -803,59 +674,38 @@ $content4 = $obj->u5_evaluacion;
 
 // Eliminar líneas en blanco
 $cleanedContent1 = preg_replace("/\n\s*\n/", "\n", trim($content1));
+$cleanedContent1 = str_replace("\t", " ", $cleanedContent1);
 $cleanedContent2 = preg_replace("/\n\s*\n/", "\n", trim($content2));
+$cleanedContent2 = str_replace("\t", " ", $cleanedContent2);
 $cleanedContent3 = preg_replace("/\n\s*\n/", "\n", trim($content3));
+$cleanedContent3 = str_replace("\t", " ", $cleanedContent3);
 $cleanedContent4 = preg_replace("/\n\s*\n/", "\n", trim($content4));
-
+$cleanedContent4 = str_replace("\t", " ", $cleanedContent4);
+$pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent1, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent1, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Contenidos", 'ISO-8859-1'), 1, 1, "L", true);
-$pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent2, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent2, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Actividades Formativas", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent3, 'ISO-8859-1'), 1, "J");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent3, 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 8, mb_convert_encoding("Sistema de evaluación", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($cleanedContent4, 'ISO-8859-1'), 1, "J");
-$pdf->SetY(190); // Posición desde el final
-$pdf->SetFont("Arial", "", 6);
-$pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(5);
-$pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-$pdf->Cell(5);
-date_default_timezone_set("America/Bogota");
-$pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-$pdf->Cell(5);
-$pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
+$pdf->SetFont('DejaVu', '', 9);
+$pdf->MultiCell(260, 5, $cleanedContent4, 1, "J");
 //pagina proyecto
 $pdf->AddPage("L", "Letter");
-$pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-$pdf->SetFont("Arial", "B", 12);
-$pdf->Cell(160, 21, "Microcurriculo", 1, 0, "C");
-$pdf->SetFont("Arial", "", 9);
-$pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetFont("Arial", "B", 12);
 $pdf->SetFillColor(181, 178, 178);
-//$pdf->SetFillColor(255, 0, 0);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 12);
 $pdf->Cell(260, 8, mb_convert_encoding("IV. Proyecto Integrador", 'ISO-8859-1'), 1, 1, "L", true);
@@ -876,57 +726,38 @@ $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 6, mb_convert_encoding("Resultados esperados del proyecto:", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetFont("Arial", "", 9);
 $pdf->MultiCell(260, 5, mb_convert_encoding($obj->proy_acciones, 'ISO-8859-1'), 1, "J");
-$pdf->SetFont("Arial", "", 6);
-$pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(5);
-$pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-$pdf->Cell(5);
-date_default_timezone_set("America/Bogota");
-$pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-$pdf->Cell(5);
-$pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(0, 5, mb_convert_encoding('Página', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
 //pagina referencias
 $pdf->AddPage("L", "Letter");
-$pdf->Cell(60, 21, $pdf->Image("../assets/images/logo.png", 12, 12, 50), 1, 0);
-$pdf->SetFont("Arial", "B", 12);
-$pdf->Cell(160, 21, "Microcurriculo", 1, 0, "C");
-$pdf->SetFont("Arial", "", 9);
-$pdf->Cell(15, 7, mb_convert_encoding("Código:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->codigo, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Versión:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->version, 'ISO-8859-1'), 1, 1, "L");
-$pdf->Cell(220);
-$pdf->Cell(15, 7, mb_convert_encoding("Fecha:", 'ISO-8859-1'), 1, 0, "L");
-$pdf->Cell(25, 7, mb_convert_encoding($obj2->fecha, 'ISO-8859-1'), 1, 1, "L");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 12);
 $pdf->Cell(260, 7, mb_convert_encoding("V. Referencias", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 7, mb_convert_encoding("5.1. Bibliografía existente en la biblioteca institucional", 'ISO-8859-1'), 1, 1, "L", true);
+$pdf->Rect(10, 10, 260, 190);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($obj->ref_biblio, 'ISO-8859-1'), 1, "J");
+$pdf->MultiCell(260, 5, mb_convert_encoding($obj->ref_biblio, 'Windows-1252'), 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 7, mb_convert_encoding("5.2. Otra bibliografía", 'ISO-8859-1'), 1, 1, "L", true);
+$pdf->Rect(10, 10, 260, 190);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($obj->ref_otra, 'ISO-8859-1'), 1, "J");
+$pdf->MultiCell(260, 5, mb_convert_encoding($obj->ref_otra, 'Windows-1252'), 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 7, mb_convert_encoding("5.3. Referencias en inglés", 'ISO-8859-1'), 1, 1, "L", true);
+$pdf->Rect(10, 10, 260, 190);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($obj->ref_ingles, 'ISO-8859-1'), 1, "J");
+$pdf->MultiCell(260, 5, mb_convert_encoding($obj->ref_ingles, 'Windows-1252'), 1, "J");
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(260, 7, mb_convert_encoding("5.4. Webgrafía y bases de datos", 'ISO-8859-1'), 1, 1, "L", true);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont("Arial", "", 9);
-$pdf->MultiCell(260, 5, mb_convert_encoding($obj->ref_webgrafia, 'ISO-8859-1'), 1, "J");
+$pdf->MultiCell(260, 5, mb_convert_encoding($obj->ref_webgrafia, 'Windows-1252'), 1, "J");
 $pdf->SetFont("Arial", "", 6);
 //validacion
 $pdf->SetFillColor(181, 178, 178);
@@ -953,20 +784,6 @@ $pdf->Cell(85, 2, mb_convert_encoding("ELABORÓ", 'ISO-8859-1'), 0, 0, "C");
 $pdf->Cell(90, 2, mb_convert_encoding("REVISÓ", 'ISO-8859-1'), 0, 0, "C");
 $pdf->Cell(85, 2, mb_convert_encoding("APROBÓ", 'ISO-8859-1'), 0, 1, "C");
 $pdf->Ln(3);
-//pie de pagina ultima
-$pdf->SetY(190); // Posición desde el final
-$pdf->SetFont("Arial", "", 6);
-$pdf->Cell(25, 5, mb_convert_encoding("Fecha y Hora de impresión", 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(5);
-$pdf->Cell(10, 5, date('d/m/Y'), 0, 0, 'L');
-$pdf->Cell(5);
-date_default_timezone_set("America/Bogota");
-$pdf->Cell(10, 5, date("h:i:sa"), 0, 0, 'L');
-$pdf->Cell(5);
-$pdf->Cell(80, 5, mb_convert_encoding($obj->nombre_asignatura, 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(22, 5, mb_convert_encoding("Fecha actualización:", 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(25, 5, date("d/m/Y", strtotime($obj->fecha_actualizacion)), 0, 0, "L");
-//mb_convert_encoding($obj->fecha_actualizacion, 'ISO-8859-1'), 0, 0, "L");
-$pdf->Cell(0, 5, mb_convert_encoding('Página ', 'ISO-8859-1') . $pdf->PageNo() . '/{nb}', 0, 0, "R");
+
 
 $pdf->Output('I', 'reporte_microcurriculo.pdf');

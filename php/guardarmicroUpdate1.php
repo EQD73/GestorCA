@@ -8,8 +8,9 @@ if (!isset($_SESSION['codigo_usuario'])) {
 
 $nombre = $_SESSION['nombres'];
 $codigo_rol = $_SESSION['codigo_rol'];
-$tablam1=$_SESSION['tablam1'];
-$codigo_usuario=$_SESSION['codigo_usuario'];
+$tablam1 = $_SESSION['tablam1'];
+$codigo_usuario = $_SESSION['codigo_usuario'];
+$estado = $_SESSION['estado_periodo'];
 
 
 include('conexion.php');
@@ -21,8 +22,8 @@ include('scriptsweet.php');
 //$codigogrupo   	 = $_REQUEST['grupo'];
 //$codigodocente   = $codigo_usuario;
 //$nombredocente   = strval($_REQUEST['NomDocente']);
-$codmicro= $_REQUEST['id_micro'];
-$fechaupdate   	 = $_REQUEST['fechaupdate'];
+$codmicro = $_REQUEST['id_micro'];
+$fechaupdate        = $_REQUEST['fechaupdate'];
 //$anomicro        = date("Y",strtotime($_REQUEST['fechaupdate']));
 //$codigofacultad	 = $_REQUEST['CodigoFacultad'];
 //$nombrefacultad	 = $_REQUEST['NombreFacul'];
@@ -37,7 +38,7 @@ $requisitos      = json_encode($_REQUEST['requisitos2']);} */
 if (isset($_POST['NivelRadioOptions'])) {
     $nivel      = $_REQUEST['NivelRadioOptions'];
 } else {
-    $nivel= "";
+    $nivel = "";
 }
 
 //$nivel      	 = $_REQUEST['NivelRadioOptions'];
@@ -62,10 +63,10 @@ if (isset($_POST['ModalRadioOptions'])) {
 $tht             = intval($_REQUEST['tht']);
 $thti             = intval($_REQUEST['thti']);
 $thtp             = intval($_REQUEST['thtp']);
-$descripcion   	 = strval($_REQUEST['DescripcionTextarea1']);
-$resul         	 = strval($_REQUEST['ResultadosTextarea1']); 
+$descripcion        = strval($_REQUEST['DescripcionTextarea1']);
+$resul              = strval($_REQUEST['ResultadosTextarea1']);
 $estrategia      = strval($_REQUEST['EstrategiaTextarea1']);
-$recursos      	 = strval($_REQUEST['RecursosTextarea1']); 
+$recursos           = strval($_REQUEST['RecursosTextarea1']);
 $horaspres1      = intval($_REQUEST['Unidad1HP']);
 $horasindep1     = intval($_REQUEST['Unidad1HI']);
 $cortesem1       = intval($_REQUEST['Unidad1CS']);
@@ -108,87 +109,89 @@ $accionesproy    = strval($_REQUEST['AccionesProy']);
 $referbiblio     = strval($_REQUEST['ReferBiblio']);
 $referotra       = strval($_REQUEST['ReferOtra']);
 $referingles     = strval($_REQUEST['ReferIngles']);
-$referweb        = strval($_REQUEST['ReferWebgrafia']); 
+$referweb        = strval($_REQUEST['ReferWebgrafia']);
 if (isset($_POST['validador1'])) {
     $validador1      = strval($REQUEST['validador1']);
 } else {
-    $validador1= "";
+    $validador1 = "";
 }
 if (isset($_POST['validador2'])) {
     $validador2      = strval($REQUEST['validador2']);
 } else {
-    $validador2= "";
+    $validador2 = "";
 }
 //$validador1      = strval($REQUEST['validador1']);
 //$validador2      = strval($REQUEST['validador2']);  
-
-$QueryUpdate = ("UPDATE $tablam1
+$updateMicro = false; // o también puedes usar: null
+if ($estado == 'ACTIVO') {
+    $QueryUpdate = ("UPDATE $tablam1
  SET
-    fecha_actualizacion ='".$fechaupdate."',
-    nivel_formacion     ='" .$nivel. "',
-    area_formacion      ='" .$area. "', 
-    tipo_curso          ='" .$tipo. "',   
-    modalidad           ='" .$modalidad. "',
-    tht                 ='" .$tht. "',
-    thti                 ='" .$thti. "',
-    thtp                 ='" .$thtp. "',
+    fecha_actualizacion ='" . $fechaupdate . "',
+    nivel_formacion     ='" . $nivel . "',
+    area_formacion      ='" . $area . "', 
+    tipo_curso          ='" . $tipo . "',   
+    modalidad           ='" . $modalidad . "',
+    tht                 ='" . $tht . "',
+    thti                 ='" . $thti . "',
+    thtp                 ='" . $thtp . "',
     
-    descripcion_intension   ='" .$descripcion. "', 
-    resultados_aprendizaje  ='" .$resul. "', 
-    estrategia_pyd          ='" .$estrategia. "',
-    recursos                ='" .$recursos. "', 
-    u1_hp                   ='" .$horaspres1. "',
-    u1_hi                   ='" .$horasindep1. "',
-    u1_cortesemanas         ='" .$cortesem1. "', 
-    u1_resultados           ='" .$u1resultados. "',
-    u1_contenidos           ='" .$u1contenidos. "',
-    u1_actividades          ='" .$u1actividades. "',
-    u1_evaluacion           ='" .$u1sistema. "',
-    u2_hp                   ='" .$horaspres2. "', 
-    u2_hi                   ='" .$horasindep2. "', 
-    u2_cortesemanas         ='" .$cortesem2. "',  
-    u2_resultados           ='" .$u2resultados. "', 
-    u2_contenidos           ='" .$u2contenidos. "',
-    u2_actividades          ='" .$u2actividades. "',  
-    u2_evaluacion           ='" .$u2sistema. "', 
-    u3_hp                   ='" .$horaspres3. "',
-    u3_hi                   ='" .$horasindep3. "',
-    u3_cortesemanas         ='" .$cortesem3. "', 
-    u3_resultados           ='" .$u3resultados. "',
-    u3_contenidos           ='" .$u3contenidos. "', 
-    u3_actividades          ='" .$u3actividades. "',
-    u3_evaluacion           ='" .$u3sistema. "', 
-    u4_hp                   ='" .$horaspres4. "',
-    u4_hi                   ='" .$horasindep4. "',
-    u4_cortesemanas         ='" .$cortesem4. "', 
-    u4_resultados           ='" .$u4resultados. "',
-    u4_contenidos           ='" .$u4contenidos. "', 
-    u4_actividades          ='" .$u4actividades. "',
-    u4_evaluacion           ='" .$u4sistema. "', 
-    u5_hp                   ='" .$horaspres5. "',
-    u5_hi                   ='" .$horasindep5. "',
-    u5_cortesemanas         ='" .$cortesem5. "', 
-    u5_resultados           ='" .$u5resultados. "',
-    u5_contenidos           ='" .$u5contenidos. "', 
-    u5_actividades          ='" .$u5actividades. "',
-    u5_evaluacion           ='" .$u5sistema. "',
-    nombre_proyecto         ='" .$nombreproy. "', 
-    proy_asignaturas        ='" .$asignaproy. "',
-    proy_tematicas          ='" .$tematicasproy. "', 
-    proy_acciones           ='" .$accionesproy. "',
-    ref_biblio              ='" .$referbiblio. "', 
-    ref_otra                ='" .$referotra. "', 
-    ref_ingles              ='" .$referingles. "', 
-    ref_webgrafia           ='" .$referweb. "', 
-    validador1              ='" .$validador1. "',
-    validador2              ='" .$validador2. "'  
-WHERE id='" .$codmicro. "' 
+    descripcion_intension   ='" . $descripcion . "', 
+    resultados_aprendizaje  ='" . $resul . "', 
+    estrategia_pyd          ='" . $estrategia . "',
+    recursos                ='" . $recursos . "', 
+    u1_hp                   ='" . $horaspres1 . "',
+    u1_hi                   ='" . $horasindep1 . "',
+    u1_cortesemanas         ='" . $cortesem1 . "', 
+    u1_resultados           ='" . $u1resultados . "',
+    u1_contenidos           ='" . $u1contenidos . "',
+    u1_actividades          ='" . $u1actividades . "',
+    u1_evaluacion           ='" . $u1sistema . "',
+    u2_hp                   ='" . $horaspres2 . "', 
+    u2_hi                   ='" . $horasindep2 . "', 
+    u2_cortesemanas         ='" . $cortesem2 . "',  
+    u2_resultados           ='" . $u2resultados . "', 
+    u2_contenidos           ='" . $u2contenidos . "',
+    u2_actividades          ='" . $u2actividades . "',  
+    u2_evaluacion           ='" . $u2sistema . "', 
+    u3_hp                   ='" . $horaspres3 . "',
+    u3_hi                   ='" . $horasindep3 . "',
+    u3_cortesemanas         ='" . $cortesem3 . "', 
+    u3_resultados           ='" . $u3resultados . "',
+    u3_contenidos           ='" . $u3contenidos . "', 
+    u3_actividades          ='" . $u3actividades . "',
+    u3_evaluacion           ='" . $u3sistema . "', 
+    u4_hp                   ='" . $horaspres4 . "',
+    u4_hi                   ='" . $horasindep4 . "',
+    u4_cortesemanas         ='" . $cortesem4 . "', 
+    u4_resultados           ='" . $u4resultados . "',
+    u4_contenidos           ='" . $u4contenidos . "', 
+    u4_actividades          ='" . $u4actividades . "',
+    u4_evaluacion           ='" . $u4sistema . "', 
+    u5_hp                   ='" . $horaspres5 . "',
+    u5_hi                   ='" . $horasindep5 . "',
+    u5_cortesemanas         ='" . $cortesem5 . "', 
+    u5_resultados           ='" . $u5resultados . "',
+    u5_contenidos           ='" . $u5contenidos . "', 
+    u5_actividades          ='" . $u5actividades . "',
+    u5_evaluacion           ='" . $u5sistema . "',
+    nombre_proyecto         ='" . $nombreproy . "', 
+    proy_asignaturas        ='" . $asignaproy . "',
+    proy_tematicas          ='" . $tematicasproy . "', 
+    proy_acciones           ='" . $accionesproy . "',
+    ref_biblio              ='" . $referbiblio . "', 
+    ref_otra                ='" . $referotra . "', 
+    ref_ingles              ='" . $referingles . "', 
+    ref_webgrafia           ='" . $referweb . "', 
+    validador1              ='" . $validador1 . "',
+    validador2              ='" . $validador2 . "'  
+WHERE id='" . $codmicro . "' 
 ");
 
-$updateMicro = pg_query($conexion, $QueryUpdate);
 
+    $updateMicro = pg_query($conexion, $QueryUpdate);
+}
 
-if ($updateMicro){
+if (($updateMicro) and $estado == 'ACTIVO') {
     //echo "registro insertado";
     echo '<script>
     Swal.fire({
@@ -203,13 +206,13 @@ if ($updateMicro){
         }
      });
     </script>';
-}else{
-    
+} else {
+
     echo '<script>
     Swal.fire({
      icon: "error",
      title: "Oops...",
-     text: "¡Ocurrio un error, el registro no se pudo actualizar!",
+     text: "¡Ocurrio un error, el registro no se pudo actualizar! Valide si el Periodo Académico esta cerrado o bloqueado",
      showConfirmButton: true,
      confirmButtonText: "Cerrar"
      }).then(function(result){
@@ -218,8 +221,6 @@ if ($updateMicro){
         }
      });
     </script>';
-    
 }
 
 //header("location: consultar_micro.php"); 
-?>

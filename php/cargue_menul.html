@@ -4,7 +4,8 @@
             <img src="../assets/images/logo.png" width="220" height="120">
         </div>
 
-        <?php if ($codigo_rol == '2') { ?>
+        <?php switch ($codigo_rol) {
+             case '2': ?>
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class='sidebar-title'>Menu Principal</li>
@@ -41,7 +42,9 @@
                 </li>
             </ul>
         </div>
-        <?php } else { ?>
+        <?php break;
+        case '5':
+        case '1': ?>
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class='sidebar-title'>Menu Principal</li>
@@ -78,6 +81,17 @@
                         <li><a href="facultades.php">Facultades</a></li>
                         <li><a href="programas.php">Programas</a></li>
                         <li><a href="sedes.php">Sedes</a></li>
+                        <li><a href="pensum.php">Pensum Académico</a></li>
+                        <li><a href="carga.php">Carga Académica</a></li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="list" width="20"></i>
+                        <span>Tablas Complementarias</span>
+                    </a>
+                    <ul class="submenu">
                         <li><a href="nivel.php">Nivel</a></li>
                         <li><a href="revisionf.php">Version Formato</a></li>
                         <li><a href="estrategia.php">Estrategias Metodológicas</a></li>
@@ -85,7 +99,6 @@
                         <li><a href="evaluacion.php">Evaluación</a></li>
                     </ul>
                 </li>
-
 
 
                 <li class="sidebar-item has-sub">
@@ -112,7 +125,7 @@
                         <li><a href="backup_front.php">Copias de Soporte</a></li>
                         <li><a href="restore_front.php">Restaurar Datos</a></li>
                         <li><a href="trasladoMicro.php">Traslados entre Periodos Microcurriculo</a></li>
-                        <li><a href="trasladoConsigna.php">Traslados entre Periodos Consignador Actividades</a></li>
+                        <!-- <li><a href="trasladoConsigna.php">Traslados entre Periodos Consignador Actividades</a></li> -->
                     </ul>
                 </li>
 
@@ -159,7 +172,61 @@
                 </li>
             </ul>
         </div>
-        <?php } ?>
+        <?php break;
+        default: ?>
+        <div class="sidebar-menu">
+            <ul class="menu">
+                <li class='sidebar-title'>Menu Principal</li>
+
+                <li class="sidebar-item active">
+                    <a href="home.php" class='sidebar-link'>
+                        <i data-feather="home" width="20"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="layers" width="20"></i>
+                        <span>Módulos</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="Microcurriculo.php">Microcurriculo</a></li>
+                        <li><a href="Consignador.php">Consignador Acádemico</a></li>
+                        <li><a href="Registro.php">Registro de Actividades</a></li>
+                    </ul>
+                </li>
+
+                <li class='sidebar-title'>Reportes/Informes</li>
+
+                <li class="sidebar-item has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="file-text" width="20"></i>
+                        <span>Informes</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="Reporte_Micro.php">Microcurrículo</a></li>
+                        <li><a href="Reporte_Consigna.php">Consignador</a></li>
+                        <li><a href="Reporte_Registro.php">Registro Actividades</a></li>
+                        <li><a href="ImprimirUsuarios.php" target="_blank">Usuarios</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="help-circle" width="20"></i>
+                        <span>Ayuda</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="../manual/Manual de Usuario.pdf" download="Manual de Usuario GestorCA.pdf">Manual
+                                de
+                                Usuario</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <?php break; } ?>
+
 
         <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
     </div>

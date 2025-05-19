@@ -36,15 +36,11 @@
           </div>
           <div class="form-group">
             <label for="estado" class="form-label">Estado</label>
+
             <select class="form-select form-select-sm" id="estado" name="estado">
-              <option value="<?php echo $dataPeriodo['estado']; ?>" selected><?php echo $dataPeriodo['estado']; ?></option>
-              <?php
-              if ($dataPeriodo['estado'] == "INACTIVO") { ?>
-                <option value="ACTIVO">ACTIVO</option>
-              <?php
-              } else { ?>
-                <option value="INACTIVO">INACTIVO</option>
-              <?php } ?>
+              <option value="ACTIVO" <?php if ($dataPeriodo['estado'] == "ACTIVO") echo "selected"; ?>>ACTIVO</option>
+              <option value="INACTIVO" <?php if ($dataPeriodo['estado'] == "INACTIVO") echo "selected"; ?>>INACTIVO</option>
+              <option value="BLOQUEADO" <?php if ($dataPeriodo['estado'] == "BLOQUEADO") echo "selected"; ?>>BLOQUEADO</option>
             </select>
           </div>
         </div>

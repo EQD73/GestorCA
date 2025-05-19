@@ -13,7 +13,7 @@ $codigo_rol = $_SESSION['codigo_rol'];
 require "conexion.php";
 
 
-$query_periodo = "SELECT codigo_periodo, nombre_periodo, estado, descripcion FROM sistema.periodos WHERE estado='ACTIVO'";
+$query_periodo = "SELECT codigo_periodo, nombre_periodo, estado, descripcion FROM sistema.periodos WHERE estado='ACTIVO' OR estado='BLOQUEADO' ORDER BY codigo_periodo asc";
 $resultado_qp = pg_query($conexion, $query_periodo);
 
 $query_roles = "SELECT * FROM sistema.roles WHERE codigo_rol='$codigo_rol'";
@@ -78,7 +78,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                                     data-nombre="<?php echo $obj->nombre_periodo; ?>"
                                     data-estado="<?php echo $obj->estado; ?>"
                                     data-desc="<?php echo $obj->descripcion; ?>">
-                                    <?php echo $obj->codigo_periodo . "  |  " . $obj->nombre_periodo; ?>
+                                    <?php echo $obj->codigo_periodo . "  |  " . $obj->nombre_periodo . " | " . substr($obj->estado, 0, 1); ?>
                                 </option>
                             <?php
                             }

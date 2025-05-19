@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (!isset($_SESSION['codigo_usuario'])) {
@@ -18,13 +17,10 @@ include('conexion.php');
 $query_periodo = "SELECT * FROM sistema.periodos ORDER BY codigo_periodo DESC ";
 $resultado_qp = pg_query($conexion, $query_periodo);
 $num1 = pg_num_rows($resultado_qp);
-
-
-
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -68,7 +64,7 @@ $num1 = pg_num_rows($resultado_qp);
 </head>
 
 <?php
-if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_rol == '2') { ?>
+if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '2') { ?>
     <script type="text/javascript">
         $(document).ready(function() {
             Swal.fire({
@@ -175,6 +171,8 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                                             <tr>
                                                                 <th style="color:black" scope="col">Código</th>
                                                                 <th style="color:black" scope="col">Nombre </th>
+                                                                <th style="color:black" scope="col">Fecha Inicio</th>
+                                                                <th style="color:black" scope="col">Fecha Fin</th>
                                                                 <th style="color:black" scope="col">Estado </th>
                                                                 <th style="color:black" scope="col">Acción</th>
                                                             </tr>
@@ -185,6 +183,8 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                                                 <tr>
                                                                     <td><?php echo $dataPeriodo['codigo_periodo']; ?></td>
                                                                     <td><?php echo $dataPeriodo['nombre_periodo']; ?></td>
+                                                                    <td><?php echo $dataPeriodo['fecha_inicio']; ?></td>
+                                                                    <td><?php echo $dataPeriodo['fecha_fin']; ?></td>
                                                                     <td><?php echo $dataPeriodo['estado']; ?></td>
                                                                     <td>
                                                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteChildresn<?php echo $dataPeriodo['codigo_periodo']; ?>" data-toggle="tooltip" data-placement="top" title="Eliminar">

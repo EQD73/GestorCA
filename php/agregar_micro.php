@@ -63,18 +63,18 @@ $resultado_qn = pg_query($conexion, $query_nivel);
 $num5 = pg_num_rows($resultado_qn);
 
 ///*****querys usuarios */
-$query_usuarios = "SELECT * FROM sistema.usuarios WHERE codigo_rol='2' ORDER BY codigo_usuario ASC ";
-$resultado_qu = pg_query($conexion, $query_usuarios);
+$query_usuarios1 = "SELECT * FROM sistema.usuarios WHERE codigo_rol='2' ORDER BY codigo_usuario ASC ";
+$resultado_qu = pg_query($conexion, $query_usuarios1);
 
 //select de tabla de usuarios 
 
-$query_usuarios = "SELECT * FROM sistema.usuarios WHERE codigo_rol='4' ORDER BY codigo_usuario ASC ";
-$resultado_qu2 = pg_query($conexion, $query_usuarios);
+$query_usuarios2 = "SELECT * FROM sistema.usuarios WHERE codigo_rol='4' ORDER BY codigo_usuario ASC ";
+$resultado_qu2 = pg_query($conexion, $query_usuarios2);
 
 //select de tabla de usuarios 
 
-$query_usuarios = "SELECT * FROM sistema.usuarios WHERE codigo_rol='5' ORDER BY codigo_usuario ASC ";
-$resultado_qu3 = pg_query($conexion, $query_usuarios);
+$query_usuarios3 = "SELECT * FROM sistema.usuarios WHERE codigo_rol='5' ORDER BY codigo_usuario ASC ";
+$resultado_qu3 = pg_query($conexion, $query_usuarios3);
 
 
 
@@ -93,17 +93,18 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
 
     <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/css/BsMultiSelect.min.css">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="../assets/vendors/chartjs/Chart.min.css"> -->
     <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="../assets/css/app.css">
-    <!-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/js/BsMultiSelect.min.js"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.css" integrity="sha512-us/9of/cEp3FrrmLUpCcWUAzm2gE7EOPnfEAWBMwdWR1Lpxw0orMoVvLyyoGSD9iMGAUlEd8XHzt5+SDwmdGLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.js" integrity="sha512-vgklhe3vcXaOdX0on3diSDRNRFlqWR9sLH6mMT4gm8ZzSMG0OxE8S1Tm8LHUOfEdZICn45OO2eluLLt81oHvtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/js/BsMultiSelect.min.js"></script> -->
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <!-- Or for RTL support -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
-    <link rel="stylesheet" type="text/css" href="plugins/sweetAlert2/sweetalert2.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.js" integrity="sha512-vgklhe3vcXaOdX0on3diSDRNRFlqWR9sLH6mMT4gm8ZzSMG0OxE8S1Tm8LHUOfEdZICn45OO2eluLLt81oHvtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"> -->
 
@@ -115,157 +116,183 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
     }
     
 </style> -->
-<style type="text/css">
-    /* .inputClass {
+<?php
+$estadoper = $_SESSION['estado_periodo'];
+if ($estadoper == 'BLOQUEADO') { ?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            Swal.fire({
+                icon: "info",
+                title: "Cuidado!",
+                text: "Usted no puede ingresar Nuevo Microcurriculo en un periodo Cerrado o Bloqueado. Solo Consultar",
+                showConfirmButton: true,
+                confirmButtonText: "Cerrar"
+            }).then(function(result) {
+                if (result.value) {
+                    window.location.href = "Microcurriculo.php";
+
+                }
+            });
+        });
+    </script>
+<?php
+} else {
+?>
+
+    <style type="text/css">
+        /* .inputClass {
             font-weight: bold;
         } */
 
-    .disabled {
-        pointer-events: none;
-        opacity: 0.7;
-        border-color: rgba(118, 118, 118, 0.3);
-        color: -internal-light-dark(graytext, rgb(170, 170, 170));
-    }
-</style>
-<style>
-    /* Cambiar el color de la pestaña activa (cuando está seleccionada) */
-    .nav-pills .nav-link.active {
-        background-color: red !important;
-        color: white !important;
-    }
+        .disabled {
+            pointer-events: none;
+            opacity: 0.7;
+            border-color: rgba(118, 118, 118, 0.3);
+            color: -internal-light-dark(graytext, rgb(170, 170, 170));
+        }
+    </style>
+    <style>
+        /* Cambiar el color de la pestaña activa (cuando está seleccionada) */
+        .nav-pills .nav-link.active {
+            background-color: red !important;
+            color: white !important;
+        }
 
-    /* Cambiar el color del texto de las pestañas inactivas */
-    .nav-pills .nav-link {
-        color: red !important;
-    }
+        /* Cambiar el color del texto de las pestañas inactivas */
+        .nav-pills .nav-link {
+            color: red !important;
+        }
 
-    /* Opcional: cambiar color al pasar el cursor */
-    .nav-pills .nav-link:hover {
-        color: darkred !important;
-    }
-</style>
+        /* Opcional: cambiar color al pasar el cursor */
+        .nav-pills .nav-link:hover {
+            color: darkred !important;
+        }
+    </style>
 
-<body>
+    <body>
 
-    <div id="app">
-        <?php include("cargue_menul.html"); ?>
-        <div id="main">
-            <nav class="navbar navbar-header navbar-expand navbar-light">
-                <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
-                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <div id="app">
+            <?php include("cargue_menul.html"); ?>
+            <div id="main">
+                <nav class="navbar navbar-header navbar-expand navbar-light">
+                    <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
+                    <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
-                        <li class="dropdown nav-icon">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="d-lg-inline-block">
-                                    <i data-feather="bell"></i>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
+                            <li class="dropdown nav-icon">
+                                <a href="#" data-bs-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
+                                    <div class="d-lg-inline-block">
+                                        <i data-feather="bell"></i>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-large">
+                                    <h6 class='py-2 px-4'>Notificaciones</h6>
+                                    <ul class="list-group rounded-none">
+                                        <li class="list-group-item border-0 align-items-start">
+                                            <div class="avatar bg-success me-3">
+                                                <span class="avatar-content"><i data-feather="alert-circle"></i></span>
+                                            </div>
+                                            <div>
+                                                <h6 class='text-bold'>Aviso</h6>
+                                                <p class='text-xs'>
+                                                    No hay información
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-large">
-                                <h6 class='py-2 px-4'>Notificaciones</h6>
-                                <ul class="list-group rounded-none">
-                                    <li class="list-group-item border-0 align-items-start">
-                                        <div class="avatar bg-success me-3">
-                                            <span class="avatar-content"><i data-feather="alert-circle"></i></span>
-                                        </div>
-                                        <div>
-                                            <h6 class='text-bold'>Aviso</h6>
-                                            <p class='text-xs'>
-                                                No hay información
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                                    <div class="avatar me-1">
+                                        <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
+                                    </div>
+                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
+                                    <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#"><i data-feather="user"></i> Cuenta/Perfil</a>
+                                    <!-- <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a> -->
+                                    <!-- <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a> -->
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"><i data-feather="log-out"></i>Salir</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="main-content container-fluid">
+                    <div class="row">
+                        <h4 class="text-center" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Periodo Académico: <?php echo $_SESSION['descripcion']; ?></h4>
+
+                    </div>
+                    <div class="container p-3">
+                        <h4 class="text-center" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Módulo MicroCurriculo - Agregar registro</h4>
+                        <hr>
+                    </div>
+
+                    <!-- //inicio de nav-tab  -->
+
+                    <ul class="nav nav-pills sm-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-1-tab" data-bs-toggle="pill" data-bs-target="#pills-1" type="button" role="tab" aria-controls="pills-1" aria-selected="true">Identificación</button>
                         </li>
-
-                        <li class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="avatar me-1">
-                                    <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
-                                </div>
-                                <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
-                                <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#"><i data-feather="user"></i> Cuenta/Perfil</a>
-                                <!-- <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a> -->
-                                <!-- <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a> -->
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"><i data-feather="log-out"></i>Salir</a>
-                            </div>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-2-tab" data-bs-toggle="pill" data-bs-target="#pills-2" type="button" role="tab" aria-controls="pills-2" aria-selected="false">Metodología</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-3-tab" data-bs-toggle="pill" data-bs-target="#pills-3" type="button" role="tab" aria-controls="pills-3" aria-selected="false">Unidad 1</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-4-tab" data-bs-toggle="pill" data-bs-target="#pills-4" type="button" role="tab" aria-controls="pills-4" aria-selected="false">Unidad 2</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-5-tab" data-bs-toggle="pill" data-bs-target="#pills-5" type="button" role="tab" aria-controls="pills-5" aria-selected="false">Unidad 3</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-6-tab" data-bs-toggle="pill" data-bs-target="#pills-6" type="button" role="tab" aria-controls="pills-6" aria-selected="false">Unidad 4</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-7-tab" data-bs-toggle="pill" data-bs-target="#pills-7" type="button" role="tab" aria-controls="pills-7" aria-selected="false">Unidad 5</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-8-tab" data-bs-toggle="pill" data-bs-target="#pills-8" type="button" role="tab" aria-controls="pills-8" aria-selected="false">Proy. Integrador</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-9-tab" data-bs-toggle="pill" data-bs-target="#pills-9" type="button" role="tab" aria-controls="pills-9" aria-selected="false">Validación</button>
                         </li>
                     </ul>
-                </div>
-            </nav>
-
-            <div class="main-content container-fluid">
-                <div class="row">
-                    <h4 class="text-center" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Periodo Académico: <?php echo $_SESSION['descripcion']; ?></h4>
-
-                </div>
-                <div class="container p-3">
-                    <h4 class="text-center" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Módulo MicroCurriculo - Agregar registro</h4>
-                    <hr>
-                </div>
-
-                <!-- //inicio de nav-tab  -->
-
-                <ul class="nav nav-pills sm-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-1-tab" data-bs-toggle="pill" data-bs-target="#pills-1" type="button" role="tab" aria-controls="pills-1" aria-selected="true">Identificación</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-2-tab" data-bs-toggle="pill" data-bs-target="#pills-2" type="button" role="tab" aria-controls="pills-2" aria-selected="false">Metodología</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-3-tab" data-bs-toggle="pill" data-bs-target="#pills-3" type="button" role="tab" aria-controls="pills-3" aria-selected="false">Unidad 1</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-4-tab" data-bs-toggle="pill" data-bs-target="#pills-4" type="button" role="tab" aria-controls="pills-4" aria-selected="false">Unidad 2</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-5-tab" data-bs-toggle="pill" data-bs-target="#pills-5" type="button" role="tab" aria-controls="pills-5" aria-selected="false">Unidad 3</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-6-tab" data-bs-toggle="pill" data-bs-target="#pills-6" type="button" role="tab" aria-controls="pills-6" aria-selected="false">Unidad 4</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-7-tab" data-bs-toggle="pill" data-bs-target="#pills-7" type="button" role="tab" aria-controls="pills-7" aria-selected="false">Unidad 5</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-8-tab" data-bs-toggle="pill" data-bs-target="#pills-8" type="button" role="tab" aria-controls="pills-8" aria-selected="false">Proy. Integrador</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-9-tab" data-bs-toggle="pill" data-bs-target="#pills-9" type="button" role="tab" aria-controls="pills-9" aria-selected="false">Validación</button>
-                    </li>
-                </ul>
-                <div class="row">
-                    <div class="col-md-12 mt-2">
-                        <?php include('FormMicro.php'); ?>
+                    <div class="row">
+                        <div class="col-md-12 mt-2">
+                            <?php include('FormMicro.php'); ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
+        </div>
+        </div>
 
-    <footer>
-        <div class="footer clearfix mb-0 text-muted">
-            <div class="float-start">
-                <p>2024 &copy; UniCorsalud </p>
-            </div>
-            <!--  <div class="float-end">
+        <footer>
+            <div class="footer clearfix mb-0 text-muted">
+                <div class="float-start">
+                    <p>2024 &copy; UniCorsalud </p>
+                </div>
+                <!--  <div class="float-end">
                         <p>Crafted with <span class='text-danger'><i data-feather=""></i></span> by <a href="#">Eqd</a></p>
                     </div> -->
+            </div>
+        </footer>
         </div>
-    </footer>
-    </div>
-    </div>
+        </div>
+    <?php
+}
+    ?>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="../assets/js/feather-icons/feather.min.js"></script>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -273,13 +300,15 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
     <script src="../assets/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/sweetAlert2/sweetalert2.all.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/js/BsMultiSelect.min.js"></script> -->
     <!-- <script type="text/javascript" src="dist/js/virtual-select.min.js"></script> -->
     <!-- Scripts -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="plugins/sweetAlert2/sweetalert2.all.min.js"></script>
+
+
 
 
     <!--<script type="text/javascript">
@@ -442,6 +471,6 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
 
         }
     </script>
-</body>
+    </body>
 
 </html>

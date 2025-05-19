@@ -6,12 +6,10 @@ if (!isset($_SESSION['codigo_usuario'])) {
     header("Location: ../index.php");
 }
 
-
 $nombre = $_SESSION['nombres'];
 $codigo_rol = $_SESSION['codigo_rol'];
 
 require "conexion.php";
-
 
 $query_periodo = "SELECT codigo_periodo, nombre_periodo, estado, descripcion FROM sistema.periodos WHERE estado='ACTIVO'";
 $resultado_qp = pg_query($conexion, $query_periodo);
@@ -24,8 +22,8 @@ $_SESSION['nombre_rol'] = $nombre_rol;
 
 ?>
 
-
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
@@ -43,6 +41,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
 
 <body class="bg-light">
 
+    ```
     <div id="app">
         <?php include("cargue_menul.html"); ?>
         <div id="main">
@@ -191,9 +190,9 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                 <h4 class="mt-4"><i class="fa-solid fa-chart-column"></i> Gráfico de Avance <i class="fa-solid fa-chart-column"></i></h4>
 
                 <!-- Gráfica -->
-                <div class="card mt-4">
+                <div class="card-fluid mt-4">
                     <div class="card-body">
-                        <canvas id="graficoDocentes" width="800" height="600"></canvas>
+                        <canvas id="graficoDocentes" width="1200" height="700"></canvas>
                     </div>
                 </div>
             </div>
@@ -246,14 +245,16 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                                     }]
                                 },
                                 options: {
+                                    //indexAxis: 'y',
                                     responsive: true,
                                     plugins: {
                                         datalabels: {
                                             anchor: 'end',
-                                            align: 'start',
-                                            offset: -4,
+                                            align: 'top',
+                                            offset: 12,
+                                            rotation: -45,
                                             font: {
-                                                size: 8
+                                                size: 10
                                             },
                                             color: '#000',
                                             formatter: function(value, context) {
@@ -302,7 +303,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                         .catch(error => console.error('Error cargando los datos:', error));
                 }
 
-                cargarDatos();
+                /* cargarDatos(); */
             </script>
 
             <script>
@@ -352,7 +353,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                     window.sessionStorage.removeItem("mostrarModal");
                 }
             </script>
-
+            ```
 
 </body>
 

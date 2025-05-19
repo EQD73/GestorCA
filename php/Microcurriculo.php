@@ -8,6 +8,7 @@ if (!isset($_SESSION['codigo_usuario'])) {
 
 $nombre = $_SESSION['nombres'];
 $codigo_rol = $_SESSION['codigo_rol'];
+$estadoper = $_SESSION['estado_periodo'];
 
 
 include('conexion.php');
@@ -17,18 +18,10 @@ include('conexion.php');
 $query_facultad = "SELECT * FROM sistema.facultades ORDER BY codigo_facultad ASC ";
 $resultado_qf = pg_query($conexion, $query_facultad);
 $num1 = pg_num_rows($resultado_qf);
-
-
-// select de tabla sedes //
-//$query_sedes = "SELECT * FROM sistema.sedes ORDER BY codigo_sede ASC ";
-//$resultado_qs = pg_query($conexion, $query_sedes);
-//$num2= pg_num_rows($resultado_qs);
-
-
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -40,29 +33,20 @@ $num1 = pg_num_rows($resultado_qf);
     <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.dataTables.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
- --> <!-- <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css"> -->
+    <!-- <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css"> -->
     <link rel="stylesheet" href="../assets/css/app.css">
     <!-- <link rel="stylesheet" href="../css/estilos.css"> -->
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.css" integrity="sha512-us/9of/cEp3FrrmLUpCcWUAzm2gE7EOPnfEAWBMwdWR1Lpxw0orMoVvLyyoGSD9iMGAUlEd8XHzt5+SDwmdGLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.js" integrity="sha512-vgklhe3vcXaOdX0on3diSDRNRFlqWR9sLH6mMT4gm8ZzSMG0OxE8S1Tm8LHUOfEdZICn45OO2eluLLt81oHvtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"> -->
+    <script>
+        const estadoPeriodo = "<?php echo $estadoper; ?>";
+    </script>
 </head>
-<!-- <script>
-    $(document).ready(function() {
-        $('#ventana-modal').modal('toggle')
-    });
-</script> -->
+
 
 <body>
-    <!-- <div class="cargando">
-        <div class="loader-outter"></div>
-        <div class="loader-inner"></div>
-    </div> -->
-
 
     <div id="app">
         <?php include("cargue_menul.html"); ?>
@@ -302,7 +286,7 @@ $num1 = pg_num_rows($resultado_qf);
             });
 
 
-            //Funcionalida de imprimir
+            //Funcionalidad de imprimir
             $(document).on('click', '.imprimir', function() {
 
                 var id_micro = $(this).attr("id");
@@ -313,20 +297,30 @@ $num1 = pg_num_rows($resultado_qf);
                 }
             });
 
-            //Funcionalida de borrar
+            //Funcionalida de borrar            
             $(document).on('click', '.borrar', function() {
+                // Validación del estado del periodo
+                if (estadoPeriodo === 'BLOQUEADO') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Acción no permitida',
+                        text: 'No puede eliminar Microcurriculo en un periodo cerrado o bloqueado.',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    return; // Detener ejecución
+                }
+
                 var id_micro = $(this).attr("id");
 
                 Swal.fire({
-                    title: 'Estás seguro de borrar este registro: ' + id_micro + ' ?',
+                    title: '¿Estás seguro de borrar este registro: ' + id_micro + '?',
                     text: "No podrás revertir los cambios!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si, borralo!'
+                    confirmButtonText: 'Sí, bórralo!'
                 }).then((result) => {
-
                     if (result.isConfirmed) {
                         $.ajax({
                             url: "borrarMicro.php",
@@ -341,15 +335,16 @@ $num1 = pg_num_rows($resultado_qf);
                                     text: data,
                                     showConfirmButton: true,
                                     confirmButtonText: "Ok"
-                                })
+                                });
                                 dataTable.ajax.reload();
                             }
                         });
                     } else {
                         return false;
                     }
-                })
-            })
+                });
+            });
+
         });
     </script>
     <script type="text/javascript">
@@ -357,8 +352,6 @@ $num1 = pg_num_rows($resultado_qf);
             window.sessionStorage.removeItem("mostrarModal");
         }
     </script>
-
-
 </body>
 
 </html>

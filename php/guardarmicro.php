@@ -4,6 +4,7 @@ session_start();
 
 if (!isset($_SESSION['codigo_usuario'])) {
     header("Location: ../index.php");
+    exit;
 }
 
 $nombre = $_SESSION['nombres'];
@@ -11,8 +12,9 @@ $codigo_rol = $_SESSION['codigo_rol'];
 $tablam1 = $_SESSION['tablam1'];
 $codigo_usuario = $_SESSION['codigo_usuario'];
 $anio = $_SESSION['anio'];
+$estado = $_SESSION['estado_periodo'];
 
-echo $anio;
+//echo $anio;
 
 //conexiones
 
@@ -116,7 +118,7 @@ if (isset($_POST['validador2'])) {
 
 //$validador1      = strval($_REQUEST['validador1']);
 //$validador2      = strval($_REQUEST['validador2']);   
-
+$insertMicro = null;
 //consulta si el curso ya existe en microcurriculo
 
 $sqlSelect = "SELECT * FROM $tablam1 WHERE codigo_asignaturacurso='$codigocurso' AND  grupo='$codigogrupo' AND ano_micro='$anio'";
@@ -195,8 +197,7 @@ if ($numrow == 0) {
     ref_webgrafia,
     validador1,
     validador2 
-)   
-VALUES (
+    )VALUES (
     '" . $codigocurso . "',
     '" . $nombrecurso . "',
     '" . $codigogrupo . "',
@@ -266,43 +267,45 @@ VALUES (
     '" . $referingles . "',     
     '" . $referweb . "',
     '" . $validador1 . "',
-    '" . $validador2 . "'  
-    
-)");
-    $insertMicro = pg_query($conexion, $QueryInsert);
+    '" . $validador2 . "'      
+    )");
+    if ($estado == 'ACTIVO') {
+        $insertMicro = pg_query($conexion, $QueryInsert);
+    }
 
-    if ($insertMicro) {
+    if (($insertMicro) and $estado == 'ACTIVO') {
         //echo "registro insertado";
         echo '<script>
-    Swal.fire({
-     icon: "success",
-     title: "Exito...",
-     text: "¡Registro Guardado con Exito!",
-     showConfirmButton: true,
-     confirmButtonText: "Cerrar"
-     }).then(function(result){
-        if(result.value){                   
-         window.location = "Microcurriculo.php";
-        }
-     });
-    </script>';
+            Swal.fire({
+            icon: "success",
+            title: "Exito...",
+            text: "¡Registro Guardado con Exito!",
+            showConfirmButton: true,
+            confirmButtonText: "Cerrar"
+            }).then(function(result){
+                if(result.value){                   
+                window.location = "Microcurriculo.php";
+                }
+            });
+            </script>';
     } else {
-
+        //echo "registro no insertado";
         echo '<script>
-    Swal.fire({
-     icon: "error",
-     title: "Oops...",
-     text: "¡Ocurrio un error, el registro no se guardó!",
-     showConfirmButton: true,
-     confirmButtonText: "Cerrar"
-     }).then(function(result){
-        if(result.value){                   
-         window.location = "Microcurriculo.php";
-        }
-     });
-    </script>';
+            Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "¡Ocurrio un error, el registro no se guardó! Valide si el periodo académico está cerrado o bloqueado",
+            showConfirmButton: true,
+            confirmButtonText: "Cerrar"
+            }).then(function(result){
+                if(result.value){                   
+                window.location = "Microcurriculo.php";
+                }
+            });
+             </script>';
     }
 } else {
+    //echo "el periodo académico esta bloqueado o cerrado";
     echo '<script>
     Swal.fire({
      icon: "error",

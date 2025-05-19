@@ -17,8 +17,19 @@ $query = "SELECT
                     (CASE WHEN LENGTH(TRIM(sistema.m1.u3_resultados)) > 1 THEN 1 ELSE 0 END) +
                     (CASE WHEN LENGTH(TRIM(sistema.m1.u4_resultados)) > 1 THEN 1 ELSE 0 END) +
                     (CASE WHEN LENGTH(TRIM(sistema.m1.u5_resultados)) > 1 THEN 1 ELSE 0 END)
-                ) / 5.0 * 100, 2
+                ) / 3.0 * 100, 2
             ) AS avance,
+            /* SUM(
+                CASE 
+                    WHEN (
+                        (CASE WHEN TRIM(sistema.m1.u1_resultados) <> '' THEN 1 ELSE 0 END) +
+                        (CASE WHEN TRIM(sistema.m1.u2_resultados) <> '' THEN 1 ELSE 0 END) +
+                        (CASE WHEN TRIM(sistema.m1.u3_resultados) <> '' THEN 1 ELSE 0 END) +
+                        (CASE WHEN TRIM(sistema.m1.u4_resultados) <> '' THEN 1 ELSE 0 END) +
+                        (CASE WHEN TRIM(sistema.m1.u5_resultados) <> '' THEN 1 ELSE 0 END)
+                    ) >= 3 THEN 1 ELSE 0 
+                END
+            ) AS avance, */
             sistema.m1.fecha_actualizacion
           FROM sistema.m1
           WHERE sistema.m1.codigo_docente = ? AND sistema.m1.ano_micro = ?";
