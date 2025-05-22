@@ -332,44 +332,7 @@ $codigo_rol = $_SESSION['codigo_rol'];
 
         });
     </script>
-    <!-- <script>
-        document.getElementById('form-periodos').addEventListener('submit', function(e) {
-            e.preventDefault();
 
-            const formData = new FormData(this);
-
-            fetch('vista_previa_traslado_m1.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        document.getElementById('vista_previa').innerHTML = data.html;
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Vista previa generada',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: data.message
-                        });
-                    }
-                })
-                .catch(error => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error de conexión',
-                        text: error.message
-                    });
-                });
-        });
-    </script> -->
 
     <script type="text/javascript">
         function cerrarsession() {

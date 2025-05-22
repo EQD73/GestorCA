@@ -318,7 +318,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                         .catch(error => console.error('Error cargando los datos:', error));
                 }
 
-                cargarDatos();
+                //cargarDatos();
             </script>
 
             <script>

@@ -15,21 +15,23 @@ include('conexion.php');
 
 // select de tabla asignaturas
 $codigousuario = $_SESSION['codigo_usuario'];
-$query_asignaturas = "SELECT
-	a.*,
+$query_carga = "SELECT
+	dap.*,
 	p.nombre_programa,
     p.codigo_coordinador, 
     p.nom_coordinador,
 	u.nomcompleto,
 	p.codigo_facultad,
-	f.nombre_facultad
+	f.nombre_facultad,
+    a.nom_asignatura
 FROM
-	asignaturas a 
-INNER JOIN programas p  ON a.codigo_programa = p.codigo_programa
-INNER JOIN usuarios u  ON a.codigo_docente = u.codigo_usuario::varchar
+	docente_asignaturas_periodo dap 
+INNER JOIN programas p  ON dap.codigo_programa = p.codigo_programa
+INNER JOIN asignaturas a  ON dap.codigo_asignatura = a.codigo_asignatura
+INNER JOIN usuarios u  ON dap.codigo_docente = u.codigo_usuario::varchar
 INNER JOIN facultades f  ON p.codigo_facultad = f.codigo_facultad
-WHERE a.codigo_docente='$codigousuario' AND periodo='$codperiodo'";
-$resultado_qasig = pg_query($conexion, $query_asignaturas);
+WHERE dap.codigo_docente='$codigousuario' AND codigo_periodo='$codperiodo'";
+$resultado_qasig = pg_query($conexion, $query_carga);
 $num2 = pg_num_rows($resultado_qasig);
 //echo $num2;
 //select de tabla de usuarios 

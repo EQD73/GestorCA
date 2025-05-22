@@ -23,20 +23,22 @@ $num1 = pg_num_rows($resultado_qf);
 
 // select de tabla asignaturas
 $codigousuario = $_SESSION['codigo_usuario'];
-$query_asignaturas = "SELECT
-	a.*,
+$query_carga = "SELECT
+	dap.*,
 	p.nombre_programa, 
 	u.nomcompleto,
 	p.codigo_facultad,
-	f.nombre_facultad
+	f.nombre_facultad,
+    a.nom_asignatura
 FROM
-	asignaturas a 
-INNER JOIN programas p  ON a.codigo_programa = p.codigo_programa
-INNER JOIN usuarios u  ON a.codigo_docente = u.codigo_usuario::varchar
+	docente_asignaturas_periodo dap 
+INNER JOIN programas p  ON dap.codigo_programa = p.codigo_programa
+INNER JOIN asignaturas a  ON dap.codigo_asignatura = a.codigo_asignatura
+INNER JOIN usuarios u  ON dap.codigo_docente = u.codigo_usuario::varchar
 INNER JOIN facultades f  ON p.codigo_facultad = f.codigo_facultad
-WHERE a.codigo_docente='$codigousuario' AND periodo='$codperiodo'";
-/* $query_asignaturas = "SELECT * FROM sistema.asignaturas WHERE codigo_docente='$codigousuario' ORDER BY codigo_asignatura ASC, grupo ASC "; */
-$resultado_qa = pg_query($conexion, $query_asignaturas);
+WHERE dap.codigo_docente='$codigousuario' AND codigo_periodo='$codperiodo'";
+// $query_carga = "SELECT * FROM sistema.docente_asignaturas_periodo WHERE codigo_docente='$codigousuario' ORDER BY codigo_asignatura ASC, grupo ASC ";
+$resultado_qa = pg_query($conexion, $query_carga);
 $num2 = pg_num_rows($resultado_qa);
 
 // select de tabla asignaturas
@@ -82,7 +84,7 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios3);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
