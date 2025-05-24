@@ -1,16 +1,22 @@
 <?php
-include 'conexion6.php';
+header('Content-Type: application/json');
+include('conexion2.php');
 
-$docente = $_POST['docente'];
-$periodo = $_POST['periodo'];
+$docente = $_POST['docente'] ?? '';
+$periodo = $_POST['periodo'] ?? '';
+
+$params = [$periodo, $docente, $periodo];
 
 $query = "SELECT 
-  m2.codigo_asignatura, 
-  m2.nombre_asignatura, 
-  m2.grupo, 
-  m2.nombre_programa, 
-  m2.semestre,
-
+  p.codigo_asignatura,
+  p.nom_asignatura,
+  COALESCE(CAST(m2.grupo AS TEXT), 'Sin datos') AS grupo,
+  COALESCE(m2.codigo_programa, p.codigo_programa) AS codigo_programa,
+  COALESCE(m2.semestre, p.semestre) AS semestre,
+  COALESCE(m2.codigo_docente, 'Sin datos') AS codigo_docente,
+  COALESCE(m2.nombre_docente, 'Sin datos') AS nombre_docente,
+  COALESCE(TO_CHAR(m2.fecha_consigna, 'YYYY-MM-DD'), 'Sin datos') AS fecha_consigna,
+  pr.nombre_programa,
   ROUND(
     (
       SELECT COUNT(*) 
@@ -41,17 +47,18 @@ $query = "SELECT
       ]) AS contenido
     ) AS unn
     WHERE LENGTH(TRIM(contenido)) > 1
-  ) AS total_semanas,
+  ) AS total_semanas
 
-  m2.fecha_consigna
+FROM sistema.pensum p
+LEFT JOIN sistema.m2 m2 
+  ON m2.codigo_asignatura = p.codigo_asignatura AND m2.codigo_periodo = ?
+LEFT JOIN sistema.programas pr 
+  ON pr.codigo_programa = COALESCE(m2.codigo_programa, p.codigo_programa)
+WHERE m2.codigo_docente = ? AND m2.codigo_periodo = ?
+";
 
-FROM sistema.m2 m2
-WHERE m2.codigo_docente = ?
-  AND m2.codigo_periodo = ?";
-
-
-$stmt = $conn->prepare($query);
-$stmt->execute([$docente, $periodo]);
+$stmt = $pdo->prepare($query);
+$stmt->execute($params);
 $datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($datos);

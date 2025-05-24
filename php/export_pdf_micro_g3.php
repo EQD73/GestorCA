@@ -72,7 +72,7 @@ $pdf->Ln(5);
 
 // Verificar si el gráfico existe y agregarlo al PDF
 if (file_exists("../images/graficos/grafico3.png")) {
-    $grafico_y_inicial = 35; // Esto evita que se sobreponga al encabezado
+    $grafico_y_inicial = 30; // Esto evita que se sobreponga al encabezado
     $pdf->SetY($grafico_y_inicial);
 
     $grafico_ancho = 150;
@@ -81,7 +81,7 @@ if (file_exists("../images/graficos/grafico3.png")) {
     $pdf->Image("../images/graficos/grafico3.png", $grafico_x, $grafico_y_inicial, $grafico_ancho);
 
     // Mover el cursor más abajo para evitar que la tabla se pegue al gráfico
-    $pdf->SetY($grafico_y_inicial + 80);
+    $pdf->SetY($grafico_y_inicial + 100);
     $pdf->Ln(5);
 }
 

@@ -23,13 +23,14 @@ $query_carga = "SELECT
 	u.nomcompleto,
 	p.codigo_facultad,
 	f.nombre_facultad,
-    a.nom_asignatura
+    a.nom_asignatura,
+    a.requisitos
 FROM
-	docente_asignaturas_periodo dap 
-INNER JOIN programas p  ON dap.codigo_programa = p.codigo_programa
-INNER JOIN asignaturas a  ON dap.codigo_asignatura = a.codigo_asignatura
-INNER JOIN usuarios u  ON dap.codigo_docente = u.codigo_usuario::varchar
-INNER JOIN facultades f  ON p.codigo_facultad = f.codigo_facultad
+	sistema.docente_asignaturas_periodo dap 
+INNER JOIN sistema.programas p  ON dap.codigo_programa = p.codigo_programa
+INNER JOIN sistema.asignaturas a  ON dap.codigo_asignatura = a.codigo_asignatura
+INNER JOIN sistema.usuarios u  ON dap.codigo_docente = u.codigo_usuario::varchar
+INNER JOIN sistema.facultades f  ON p.codigo_facultad = f.codigo_facultad
 WHERE dap.codigo_docente='$codigousuario' AND codigo_periodo='$codperiodo'";
 $resultado_qasig = pg_query($conexion, $query_carga);
 $num2 = pg_num_rows($resultado_qasig);
@@ -81,14 +82,12 @@ $resultado_qper = pg_query($conexion, $query_periodo);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Contenidos Académicos - UniCorsalud</title>
-
-
     <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/css/BsMultiSelect.min.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="../assets/vendors/chartjs/Chart.min.css"> -->
@@ -98,10 +97,6 @@ $resultado_qper = pg_query($conexion, $query_periodo);
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.js" integrity="sha512-vgklhe3vcXaOdX0on3diSDRNRFlqWR9sLH6mMT4gm8ZzSMG0OxE8S1Tm8LHUOfEdZICn45OO2eluLLt81oHvtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
-    <!-- <link rel="stylesheet" type="text/css" href="dist/css/virtual-select.min.css"> 
-    <script type="text/javascript" src="../js/multiselect-dropdown.js"></script>-->
-    <!--  <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"> -->
-
 </head>
 
 <?php

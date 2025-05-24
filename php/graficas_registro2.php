@@ -157,7 +157,9 @@ include 'conexion6.php';
 
                 <h4 class="mt-4"><i class="fa-solid fa-chart-column"></i> Gráfico de Avance <i class="fa-solid fa-chart-column"></i></h4>
 
-                <canvas id="graficoAvance"></canvas>
+                <div style="width: 100%; max-width: 800px; margin: 0 auto;">
+                    <canvas id="graficoAvance" height="600"></canvas>
+                </div>
             </div>
             <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
             <script src="../assets/js/feather-icons/feather.min.js"></script>
@@ -216,7 +218,7 @@ include 'conexion6.php';
                                     chartAvance.destroy();
                                 }
 
-                                let ctx = document.getElementById("graficoAvance").getContext("2d");
+                                /* let ctx = document.getElementById("graficoAvance").getContext("2d");
                                 chartAvance = new Chart(ctx, {
                                     type: "bar",
                                     data: {
@@ -250,7 +252,72 @@ include 'conexion6.php';
                                             }
                                         }
                                     }
+                                }); */
+                                let ctx = document.getElementById("graficoAvance").getContext("2d");
+                                chartAvance = new Chart(ctx, {
+                                    type: "bar",
+                                    data: {
+                                        labels: labels,
+                                        datasets: [{
+                                            label: "Avance (%)",
+                                            data: data,
+                                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                                            borderColor: 'rgba(255, 99, 132, 1)',
+                                            borderWidth: 1,
+                                            barThickness: 35 // Controla el ancho de las barras
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true, // Hace que el gráfico sea responsive
+                                        maintainAspectRatio: false, // Permite controlar la altura/ancho libremente
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true,
+                                                max: 100,
+                                                title: {
+                                                    display: true,
+                                                    text: 'Porcentaje (%)'
+                                                }
+                                            },
+                                            x: {
+                                                ticks: {
+                                                    autoSkip: true,
+                                                    maxRotation: 45,
+                                                    minRotation: 30
+                                                }
+                                            }
+                                        },
+                                        plugins: {
+                                            legend: {
+                                                position: 'top', // Posición de la leyenda
+                                                labels: {
+                                                    boxWidth: 12
+                                                }
+                                            },
+                                            tooltip: {
+                                                callbacks: {
+                                                    // Modificar el tooltip para incluir el total de semanas
+                                                    afterLabel: function(tooltipItem) {
+                                                        // Obtén el índice de la etiqueta actual en el gráfico
+                                                        var index = tooltipItem.dataIndex;
+                                                        // Retorna el texto del tooltip
+                                                        return `Total de semanas: ${semanas[index]}`;
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        // Tamaño del gráfico (se aplica cuando responsive es true)
+                                        layout: {
+                                            padding: {
+                                                top: 20,
+                                                right: 20,
+                                                bottom: 20,
+                                                left: 20
+                                            }
+                                        }
+                                    }
                                 });
+
 
                             }
                         });

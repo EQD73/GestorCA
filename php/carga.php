@@ -31,6 +31,29 @@ $codigo_rol = $_SESSION['codigo_rol'];
     #tabla {
         font-size: 13px;
     }
+
+    .progress-container {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .table-progress {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .status {
+        min-width: 150px;
+        font-size: 0.85rem;
+    }
+
+    .progress {
+        height: 10px;
+    }
+
+    .progress-bar-animated {
+        animation: progress-bar-stripes 1s linear infinite;
+    }
 </style>
 
 <body>

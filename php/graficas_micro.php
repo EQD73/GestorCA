@@ -39,9 +39,14 @@ $_SESSION['nombre_rol'] = $nombre_rol;
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-light">
+<style>
+    .chart-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+</style>
 
-    ```
+<body class="bg-light">
     <div id="app">
         <?php include("cargue_menul.html"); ?>
         <div id="main">
@@ -119,7 +124,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                             <option value="">Todos</option>
                             <?php
                             include 'conexion.php'; // Asegúrate de incluir tu archivo de conexión
-                            $query = "SELECT codigo_programa, nombre_programa FROM programas";
+                            $query = "SELECT codigo_programa, nombre_programa FROM programas ORDER BY codigo_programa";
                             $result = pg_query($conexion, $query);
                             while ($row = pg_fetch_assoc($result)) {
                                 echo "<option value='{$row['codigo_programa']}'>{$row['codigo_programa']} | {$row['nombre_programa']}</option>";
@@ -190,11 +195,43 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                 <h4 class="mt-4"><i class="fa-solid fa-chart-column"></i> Gráfico de Avance <i class="fa-solid fa-chart-column"></i></h4>
 
                 <!-- Gráfica -->
-                <div class="card-fluid mt-4">
+                <!-- <div class="card-fluid mt-4">
                     <div class="card-body">
                         <canvas id="graficoDocentes" width="1200" height="700"></canvas>
                     </div>
+                </div> -->
+
+                <!-- <div class="container mt-5">
+                     <h3 class="mb-4">Unidades Diligenciadas por Docente (Año 2025)</h3> 
+                    <div style="overflow-x: auto;">
+                        <canvas id="graficoDocentes"></canvas>
+                    </div>
+                </div> -->
+
+                <!-- <div class="chart-container" style="width: 100%; height: 600px; overflow-x: auto;">
+                    <canvas id="graficoDocentes"></canvas>
+                </div> -->
+
+                <div class="chart-wrapper" style="width: 100%; overflow-x: auto; background: #f8f9fa; border-radius: 8px; padding: 15px; position: relative;">
+                    <div class="chart-container" style="position: relative; height: 550px;">
+                        <canvas id="graficoDocentes"></canvas>
+                    </div>
+                    <div class="chart-legend" style="text-align: center; margin-top: 10px;">
+                        <span style="display: inline-block; margin: 0 10px;">
+                            <span style="display: inline-block; width: 15px; height: 15px; background-color: rgba(54, 162, 235, 0.7); margin-right: 5px;"></span>
+                            Con unidades
+                        </span>
+                        <span style="display: inline-block; margin: 0 10px;">
+                            <span style="display: inline-block; width: 15px; height: 15px; background-color: rgba(255, 99, 132, 0.7); margin-right: 5px;"></span>
+                            Sin unidades (0)
+                        </span>
+                    </div>
+                    <div class="text-muted text-center mt-2" style="font-size: 12px;">
+                        <i class="fas fa-arrows-alt-h"></i> Desplázate horizontalmente para ver todos los docentes
+                    </div>
                 </div>
+
+
             </div>
             <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
             <script src="../assets/js/feather-icons/feather.min.js"></script>
@@ -205,105 +242,280 @@ $_SESSION['nombre_rol'] = $nombre_rol;
 
 
             <script>
-                let chart;
+                //let chart;
 
                 function cargarDatos() {
+                    const ano_micro = document.getElementById('selectAno').value;
+                    const codigo_programa = document.getElementById('selectPrograma').value;
+                    const codigo_asignaturacurso = document.getElementById('selectAsignatura').value;
+                    const semestre = document.getElementById('selectSemestre').value;
 
-                    let ano_micro = document.getElementById('selectAno').value;
-                    let codigo_programa = document.getElementById('selectPrograma').value;
-                    let codigo_asignaturacurso = document.getElementById('selectAsignatura').value;
-                    let semestre = document.getElementById('selectSemestre').value;
-
-                    let url = 'getdatos_micro.php?ano_micro=' + ano_micro +
-                        '&codigo_programa=' + codigo_programa +
-                        '&codigo_asignaturacurso=' + codigo_asignaturacurso +
-                        '&semestre=' + semestre;
-
-                    fetch(url)
+                    fetch(`getdatos_micro.php?ano_micro=${ano_micro}&codigo_programa=${codigo_programa}&codigo_asignaturacurso=${codigo_asignaturacurso}&semestre=${semestre}`)
                         .then(response => response.json())
-                        .then(data => {
-                            let nombres = data.map(d => d.nombre_docente);
-                            let avance = data.map(d => d.unidades_diligenciadas);
-                            let etiquetas = data.map(d => d.nombre_asignatura); // Nueva línea
+                        .then(datos => {
+                            const canvas = document.getElementById('graficoDocentes');
+                            const ctx = canvas.getContext('2d');
 
-                            if (chart) {
-                                chart.destroy();
+                            if (window.myChart) {
+                                window.myChart.destroy();
                             }
 
-                            const ctx = document.getElementById('graficoDocentes').getContext('2d');
-                            chart = new Chart(ctx, {
+                            const dataLength = datos.length;
+                            let fontSize = 10;
+                            let maxRotation = 90;
+                            let minRotation = 45;
+                            let autoSkip = false;
+                            let barThickness = 30;
+
+                            if (dataLength > 100) {
+                                fontSize = 8;
+                                maxRotation = 90;
+                                minRotation = 45;
+                                autoSkip = true;
+                                barThickness = 20;
+                            } else if (dataLength > 50) {
+                                fontSize = 9;
+                                maxRotation = 90;
+                                minRotation = 60;
+                                autoSkip = false;
+                            }
+
+                            const config = {
                                 type: 'bar',
                                 data: {
-                                    labels: nombres,
+                                    labels: datos.map(d => d.nombre_docente),
                                     datasets: [{
-                                        label: 'Unidades Diligenciadas',
-                                        data: avance,
-                                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        label: 'Unidades diligenciadas',
+                                        data: datos.map(d => Math.max(d.unidades_diligenciadas, 0.1)),
+                                        backgroundColor: function(context) {
+                                            return context.raw <= 0.1 ? 'rgba(255, 99, 132, 0.7)' : 'rgba(54, 162, 235, 0.7)';
+                                        },
+                                        borderColor: function(context) {
+                                            return context.raw <= 0.1 ? 'rgba(255, 99, 132, 1)' : 'rgba(54, 162, 235, 1)';
+                                        },
                                         borderWidth: 1,
-                                        asignaturas: etiquetas
+                                        barThickness: barThickness,
+                                        minBarLength: 5
                                     }]
                                 },
                                 options: {
-                                    //indexAxis: 'y',
-                                    responsive: true,
-                                    plugins: {
-                                        datalabels: {
-                                            anchor: 'end',
-                                            align: 'top',
-                                            offset: 12,
-                                            rotation: -45,
-                                            font: {
-                                                size: 10
-                                            },
-                                            color: '#000',
-                                            formatter: function(value, context) {
-                                                return context.dataset.asignaturas[context.dataIndex];
-                                            }
-                                        },
-                                        tooltip: {
-                                            callbacks: {
-                                                label: function(context) {
-                                                    const index = context.dataIndex;
-                                                    const asignatura = context.dataset.asignaturas[index];
-                                                    return 'Unidades: ' + context.formattedValue + ' | ' + asignatura;
-                                                }
-                                            }
-                                        },
-                                        legend: {
-                                            display: false
-                                        }
-                                    },
+                                    responsive: false,
+                                    maintainAspectRatio: false,
                                     scales: {
                                         x: {
                                             ticks: {
-                                                maxRotation: 45,
-                                                minRotation: 45
+                                                font: {
+                                                    size: fontSize
+                                                },
+                                                maxRotation: maxRotation,
+                                                minRotation: minRotation,
+                                                autoSkip: autoSkip
+                                            },
+                                            grid: {
+                                                display: false
                                             }
                                         },
                                         y: {
-                                            beginAtZero: true,
-                                            min: 1,
-                                            max: 5,
                                             ticks: {
                                                 stepSize: 1,
                                                 callback: function(value) {
-                                                    return 'Unidades: ' + value;
+                                                    if (value < 1) return '0';
+                                                    return value;
                                                 }
+                                            },
+                                            beginAtZero: true,
+                                            suggestedMin: 0,
+                                            suggestedMax: 5,
+                                            title: {
+                                                display: true,
+                                                text: 'Unidades diligenciadas'
+                                            }
+                                        }
+                                    },
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        },
+                                        tooltip: {
+                                            callbacks: {
+                                                title: function(context) {
+                                                    return context[0].label;
+                                                },
+                                                label: function(context) {
+                                                    const dataIndex = context.dataIndex;
+                                                    const asignatura = datos[dataIndex].nom_asignatura;
+                                                    const unidades = datos[dataIndex].unidades_diligenciadas;
+                                                    return [
+                                                        `Asignatura: ${asignatura}`,
+                                                        `Unidades: ${unidades}`
+                                                    ];
+                                                },
+                                                backgroundColor: function(context) {
+                                                    return datos[context.dataIndex].unidades_diligenciadas === 0 ?
+                                                        'rgba(255, 99, 132, 0.9)' : 'rgba(54, 162, 235, 0.9)';
+                                                }
+                                            }
+                                        },
+                                        // NUEVO: Plugin para mostrar nombres de asignatura sobre las barras
+                                        datalabels: {
+                                            align: 'top',
+                                            anchor: 'center',
+                                            rotation: -90, // Rotación de 45 grados (negativo para inclinación hacia la derecha)
+                                            color: '#333',
+                                            font: {
+                                                size: fontSize - 1 // Un poco más pequeño que las otras fuentes
+                                            },
+                                            formatter: function(value, context) {
+                                                return datos[context.dataIndex].nom_asignatura;
                                             }
                                         }
                                     }
                                 },
-                                plugins: [ChartDataLabels] // ACTIVA el plugin
+                                plugins: [ChartDataLabels] // Asegúrate de tener este plugin importado
+                            };
 
-                            });
+                            const requiredWidth = Math.max(
+                                canvas.parentElement.offsetWidth,
+                                dataLength * (barThickness + 10)
+                            );
+                            canvas.width = requiredWidth;
+                            canvas.height = 500;
+                            canvas.style.width = requiredWidth + 'px';
+                            canvas.style.height = '500px';
 
-
-                        })
-                        .catch(error => console.error('Error cargando los datos:', error));
+                            window.myChart = new Chart(ctx, config);
+                            canvas.parentElement.scrollLeft = 0;
+                        });
                 }
+                /* function cargarDatos() {
+                    const ano_micro = document.getElementById('selectAno').value;
+                    const codigo_programa = document.getElementById('selectPrograma').value;
+                    const codigo_asignaturacurso = document.getElementById('selectAsignatura').value;
+                    const semestre = document.getElementById('selectSemestre').value;
 
-                /* cargarDatos(); */
+                    fetch(`getdatos_micro.php?ano_micro=${ano_micro}&codigo_programa=${codigo_programa}&codigo_asignaturacurso=${codigo_asignaturacurso}&semestre=${semestre}`)
+                        .then(response => response.json())
+                        .then(datos => {
+                            const canvas = document.getElementById('graficoDocentes');
+                            const ctx = canvas.getContext('2d');
+
+                            if (window.myChart) {
+                                window.myChart.destroy();
+                            }
+
+                            const dataLength = datos.length;
+                            let fontSize = 10;
+                            let barThickness = 30;
+
+                            if (dataLength > 100) {
+                                fontSize = 8;
+                                barThickness = 20;
+                            } else if (dataLength > 50) {
+                                fontSize = 9;
+                            }
+
+                            const config = {
+                                type: 'bar',
+                                data: {
+                                    labels: datos.map(d => d.nombre_docente),
+                                    datasets: [{
+                                        label: 'Unidades diligenciadas',
+                                        data: datos.map(d => Math.max(d.unidades_diligenciadas, 0.1)),
+                                        backgroundColor: function(context) {
+                                            return context.raw <= 0.1 ? 'rgba(255, 99, 132, 0.7)' : 'rgba(54, 162, 235, 0.7)';
+                                        },
+                                        borderColor: function(context) {
+                                            return context.raw <= 0.1 ? 'rgba(255, 99, 132, 1)' : 'rgba(54, 162, 235, 1)';
+                                        },
+                                        borderWidth: 1,
+                                        barThickness: barThickness,
+                                        minBarLength: 5
+                                    }]
+                                },
+                                options: {
+                                    responsive: false,
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                        x: {
+                                            ticks: {
+                                                display: false // Ocultamos las etiquetas del eje X originales
+                                            },
+                                            grid: {
+                                                display: false
+                                            }
+                                        },
+                                        y: {
+                                            ticks: {
+                                                stepSize: 1,
+                                                callback: function(value) {
+                                                    if (value < 1) return '0';
+                                                    return value;
+                                                }
+                                            },
+                                            beginAtZero: true,
+                                            suggestedMin: 0,
+                                            suggestedMax: 5,
+                                            title: {
+                                                display: true,
+                                                text: 'Unidades diligenciadas'
+                                            }
+                                        }
+                                    },
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        },
+                                        tooltip: {
+                                            callbacks: {
+                                                title: function(context) {
+                                                    return context[0].label;
+                                                },
+                                                label: function(context) {
+                                                    const dataIndex = context.dataIndex;
+                                                    const asignatura = datos[dataIndex].nom_asignatura;
+                                                    const unidades = datos[dataIndex].unidades_diligenciadas;
+                                                    return [
+                                                        `Asignatura: ${asignatura}`,
+                                                        `Unidades: ${unidades}`
+                                                    ];
+                                                },
+                                                backgroundColor: function(context) {
+                                                    return datos[context.dataIndex].unidades_diligenciadas === 0 ?
+                                                        'rgba(255, 99, 132, 0.9)' : 'rgba(54, 162, 235, 0.9)';
+                                                }
+                                            }
+                                        },
+                                        // NUEVO: Plugin para mostrar nombres de asignatura sobre las barras
+                                        datalabels: {
+                                            align: 'end',
+                                            anchor: 'end',
+                                            rotation: -45, // Rotación de 45 grados (negativo para inclinación hacia la derecha)
+                                            color: '#333',
+                                            font: {
+                                                size: fontSize - 1 // Un poco más pequeño que las otras fuentes
+                                            },
+                                            formatter: function(value, context) {
+                                                return datos[context.dataIndex].nom_asignatura;
+                                            }
+                                        }
+                                    }
+                                },
+                                plugins: [ChartDataLabels] // Asegúrate de tener este plugin importado
+                            };
+
+                            const requiredWidth = Math.max(
+                                canvas.parentElement.offsetWidth,
+                                dataLength * (barThickness + 30) // Más espacio para las etiquetas
+                            );
+                            canvas.width = requiredWidth;
+                            canvas.height = 600; // Aumentamos altura para acomodar las etiquetas
+                            canvas.style.width = requiredWidth + 'px';
+                            canvas.style.height = '600px';
+
+                            window.myChart = new Chart(ctx, config);
+                            canvas.parentElement.scrollLeft = 0;
+                        });
+                } */
             </script>
 
             <script>
@@ -313,13 +525,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                         let canvas = document.getElementById("graficoDocentes");
                         let imageData = canvas.toDataURL("image/png"); // Convierte el gráfico a una imagen Base64
 
-                        /* let docente = $("#docente").val();
-                        let ano_micro = $("#ano_micro").val();
 
-                        if (!docente || !ano_micro) {
-                            alert("Seleccione por lo menos un año y un programa antes de exportar a PDF");
-                            return;
-                        } */
                         let ano_micro = document.getElementById('selectAno').value;
                         let codigo_programa = document.getElementById('selectPrograma').value;
                         let codigo_asignaturacurso = document.getElementById('selectAsignatura').value;

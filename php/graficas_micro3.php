@@ -157,7 +157,10 @@ include 'conexion6.php';
 
                 <h4 class="mt-4"><i class="fa-solid fa-chart-column"></i> Gráfico de Avance <i class="fa-solid fa-chart-column"></i></h4>
 
-                <canvas id="graficoAvance"></canvas>
+                <!-- <canvas id="graficoAvance"></canvas> -->
+                <div style="width: 100%; max-width: 800px; margin: 0 auto;">
+                    <canvas id="graficoAvance" height="600"></canvas>
+                </div>
             </div>
             <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
             <script src="../assets/js/feather-icons/feather.min.js"></script>
@@ -195,7 +198,7 @@ include 'conexion6.php';
                                 response.forEach(item => {
                                     tablaHtml += `<tr>
                                 <td>${item.codigo_asignaturacurso}</td>
-                                <td>${item.nombre_asignatura}</td>
+                                <td>${item.nom_asignatura}</td>
                                 <td>${item.semestre}</td>
                                 <td>${item.grupo}</td>
                                 <td>${item.nombre_programa}</td>
@@ -203,7 +206,7 @@ include 'conexion6.php';
                                 <td>${item.fecha_actualizacion}</td>
                             </tr>`;
 
-                                    labels.push(item.nombre_asignatura);
+                                    labels.push(item.nom_asignatura);
                                     data.push(item.avance);
                                 });
 
@@ -222,16 +225,47 @@ include 'conexion6.php';
                                         datasets: [{
                                             label: "Avance (%)",
                                             data: data,
-                                            backgroundColor: "rgba(75, 192, 192, 0.6)",
-                                            borderColor: "rgba(75, 192, 192, 1)",
-                                            borderWidth: 1
+                                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                                            borderColor: 'rgba(255, 99, 132, 1)',
+                                            borderWidth: 1,
+                                            barThickness: 35 // Controla el ancho de las barras
                                         }]
                                     },
                                     options: {
+                                        responsive: true, // Hace que el gráfico sea responsive
+                                        maintainAspectRatio: false, // Permite controlar la altura/ancho libremente
                                         scales: {
                                             y: {
                                                 beginAtZero: true,
-                                                max: 100
+                                                max: 100,
+                                                title: {
+                                                    display: true,
+                                                    text: 'Porcentaje (%)'
+                                                }
+                                            },
+                                            x: {
+                                                ticks: {
+                                                    autoSkip: true,
+                                                    maxRotation: 45,
+                                                    minRotation: 30
+                                                }
+                                            }
+                                        },
+                                        plugins: {
+                                            legend: {
+                                                position: 'top', // Posición de la leyenda
+                                                labels: {
+                                                    boxWidth: 12
+                                                }
+                                            }
+                                        },
+                                        // Tamaño del gráfico (se aplica cuando responsive es true)
+                                        layout: {
+                                            padding: {
+                                                top: 20,
+                                                right: 20,
+                                                bottom: 20,
+                                                left: 20
                                             }
                                         }
                                     }

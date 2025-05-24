@@ -123,7 +123,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                             <option value="">Todos</option>
                             <?php
                             include 'conexion.php'; // Asegúrate de incluir tu archivo de conexión
-                            $query = "SELECT codigo_programa, nombre_programa FROM sistema.programas";
+                            $query = "SELECT codigo_programa, nombre_programa FROM sistema.programas ORDER BY codigo_programa";
                             $result = pg_query($conexion, $query);
                             while ($row = pg_fetch_assoc($result)) {
                                 echo "<option value='{$row['codigo_programa']}'>{$row['codigo_programa']} | {$row['nombre_programa']}</option>";
@@ -206,9 +206,22 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                 <h4 class="mt-4"><i class="fa-solid fa-chart-column"></i> Gráfico de Avance <i class="fa-solid fa-chart-column"></i></h4>
 
                 <!-- Gráfica -->
-                <div class="card mt-4">
-                    <div class="card-body">
-                        <canvas id="graficoDocentes" width="800" height="600"></canvas>
+                <div class="chart-wrapper" style="width: 100%; overflow-x: auto; background: #f8f9fa; border-radius: 8px; padding: 15px; position: relative;">
+                    <div class="chart-container" style="position: relative; height: 550px;">
+                        <canvas id="graficoDocentes"></canvas>
+                    </div>
+                    <div class="chart-legend" style="text-align: center; margin-top: 10px;">
+                        <span style="display: inline-block; margin: 0 10px;">
+                            <span style="display: inline-block; width: 15px; height: 15px; background-color: rgba(54, 162, 235, 0.7); margin-right: 5px;"></span>
+                            Con Semanas
+                        </span>
+                        <span style="display: inline-block; margin: 0 10px;">
+                            <span style="display: inline-block; width: 15px; height: 15px; background-color: rgba(255, 99, 132, 0.7); margin-right: 5px;"></span>
+                            Sin Semanas (0)
+                        </span>
+                    </div>
+                    <div class="text-muted text-center mt-2" style="font-size: 12px;">
+                        <i class="fas fa-arrows-alt-h"></i> Desplázate horizontalmente para ver todos los docentes
                     </div>
                 </div>
             </div>
@@ -221,104 +234,157 @@ $_SESSION['nombre_rol'] = $nombre_rol;
 
 
             <script>
-                let chart;
-
                 function cargarDatos() {
+                    const periodos = document.getElementById('selectPeriodo').value;
+                    const codigo_programa = document.getElementById('selectPrograma').value;
+                    const codigo_asignatura = document.getElementById('selectAsignatura').value;
+                    const semestre = document.getElementById('selectSemestre').value;
+                    const grupo = document.getElementById('selectGrupo').value;
 
-                    let periodos = document.getElementById('selectPeriodo').value;
-                    let codigo_programa = document.getElementById('selectPrograma').value;
-                    let codigo_asignatura = document.getElementById('selectAsignatura').value;
-                    let semestre = document.getElementById('selectSemestre').value;
-                    let grupo = document.getElementById('selectGrupo').value;
-
-                    let url = 'getdatos_registro.php?periodo=' + periodos +
-                        '&codigo_programa=' + codigo_programa +
-                        '&codigo_asignatura=' + codigo_asignatura +
-                        '&semestre=' + semestre + '&grupo=' + grupo;
-
-                    fetch(url)
+                    fetch(`getdatos_consigna.php?periodo=${periodos}&codigo_programa=${codigo_programa}&codigo_asignatura=${codigo_asignatura}&semestre=${semestre}&grupo=${grupo}`)
                         .then(response => response.json())
-                        .then(data => {
-                            let nombres = data.map(d => d.nombre_docente);
-                            let avance = data.map(d => d.semanas_diligenciadas);
-                            let etiquetas = data.map(d => d.nombre_asignatura); // Nueva línea
+                        .then(datos => {
+                            const canvas = document.getElementById('graficoDocentes');
+                            const ctx = canvas.getContext('2d');
 
-                            if (chart) {
-                                chart.destroy();
+                            if (window.myChart) {
+                                window.myChart.destroy();
                             }
 
-                            const ctx = document.getElementById('graficoDocentes').getContext('2d');
-                            chart = new Chart(ctx, {
+                            const dataLength = datos.length;
+                            let fontSize = 10;
+                            let maxRotation = 90;
+                            let minRotation = 45;
+                            let autoSkip = false;
+                            let barThickness = 30;
+
+                            if (dataLength > 100) {
+                                fontSize = 8;
+                                maxRotation = 90;
+                                minRotation = 45;
+                                autoSkip = true;
+                                barThickness = 20;
+                            } else if (dataLength > 50) {
+                                fontSize = 9;
+                                maxRotation = 90;
+                                minRotation = 60;
+                                autoSkip = false;
+                            }
+
+                            const config = {
                                 type: 'bar',
                                 data: {
-                                    labels: nombres,
+                                    labels: datos.map(d => d.nombre_docente),
                                     datasets: [{
-                                        label: 'Semanas Diligenciadas',
-                                        data: avance,
-                                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        label: 'Semanas diligenciadas',
+                                        data: datos.map(d => Math.max(d.semanas_diligenciadas, 0.1)),
+                                        backgroundColor: function(context) {
+                                            return context.raw <= 0.1 ? 'rgba(255, 99, 132, 0.7)' : 'rgba(54, 162, 235, 0.7)';
+                                        },
+                                        borderColor: function(context) {
+                                            return context.raw <= 0.1 ? 'rgba(255, 99, 132, 1)' : 'rgba(54, 162, 235, 1)';
+                                        },
                                         borderWidth: 1,
-                                        asignaturas: etiquetas
+                                        barThickness: barThickness,
+                                        minBarLength: 5
                                     }]
                                 },
                                 options: {
-                                    responsive: true,
-                                    plugins: {
-                                        datalabels: {
-                                            anchor: 'end',
-                                            align: 'start',
-                                            offset: -4,
-                                            font: {
-                                                size: 8
-                                            },
-                                            color: '#000',
-                                            formatter: function(value, context) {
-                                                return context.dataset.asignaturas[context.dataIndex];
-                                            }
-                                        },
-                                        tooltip: {
-                                            callbacks: {
-                                                label: function(context) {
-                                                    const index = context.dataIndex;
-                                                    const asignatura = context.dataset.asignaturas[index];
-                                                    return 'Semanas: ' + context.formattedValue + ' | ' + asignatura;
-                                                }
-                                            }
-                                        },
-                                        legend: {
-                                            display: false
-                                        }
-                                    },
+                                    responsive: false,
+                                    maintainAspectRatio: false,
                                     scales: {
                                         x: {
                                             ticks: {
-                                                maxRotation: 45,
-                                                minRotation: 45
+                                                font: {
+                                                    size: fontSize
+                                                },
+                                                maxRotation: maxRotation,
+                                                minRotation: minRotation,
+                                                autoSkip: autoSkip
+                                            },
+                                            grid: {
+                                                display: false
                                             }
                                         },
                                         y: {
-                                            beginAtZero: true,
-                                            min: 1,
+                                            ticks: {
+                                                stepSize: 1,
+                                                callback: function(value) {
+                                                    if (value < 1) return '0';
+                                                    return 'Semana ' + value;
+                                                }
+                                            },
+                                            /* min: 1,
                                             max: 18,
                                             ticks: {
                                                 stepSize: 1,
                                                 callback: function(value) {
                                                     return 'Semanas: ' + value;
                                                 }
+                                            } */
+                                            beginAtZero: true,
+                                            suggestedMin: 0,
+                                            suggestedMax: 18,
+                                            title: {
+                                                display: true,
+                                                text: 'Semanas diligenciadas'
+                                            }
+                                        }
+                                    },
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        },
+                                        tooltip: {
+                                            callbacks: {
+                                                title: function(context) {
+                                                    return context[0].label;
+                                                },
+                                                label: function(context) {
+                                                    const dataIndex = context.dataIndex;
+                                                    const asignatura = datos[dataIndex].nom_asignatura;
+                                                    const unidades = datos[dataIndex].semanas_diligenciadas;
+                                                    return [
+                                                        `Asignatura: ${asignatura}`,
+                                                        `Unidades: ${unidades}`
+                                                    ];
+                                                },
+                                                backgroundColor: function(context) {
+                                                    return datos[context.dataIndex].semanas_diligenciadas === 0 ?
+                                                        'rgba(255, 99, 132, 0.9)' : 'rgba(54, 162, 235, 0.9)';
+                                                }
+                                            }
+                                        },
+                                        // NUEVO: Plugin para mostrar nombres de asignatura sobre las barras
+                                        datalabels: {
+                                            align: 'top',
+                                            anchor: 'center',
+                                            rotation: -90, // Rotación de 45 grados (negativo para inclinación hacia la derecha)
+                                            color: '#333',
+                                            font: {
+                                                size: fontSize - 1 // Un poco más pequeño que las otras fuentes
+                                            },
+                                            formatter: function(value, context) {
+                                                return datos[context.dataIndex].nom_asignatura;
                                             }
                                         }
                                     }
                                 },
-                                plugins: [ChartDataLabels] // ACTIVA el plugin
+                                plugins: [ChartDataLabels] // Asegúrate de tener este plugin importado
+                            };
+                            const requiredWidth = Math.max(
+                                canvas.parentElement.offsetWidth,
+                                dataLength * (barThickness + 10)
+                            );
+                            canvas.width = requiredWidth;
+                            canvas.height = 500;
+                            canvas.style.width = requiredWidth + 'px';
+                            canvas.style.height = '500px';
 
-                            });
-
-
-                        })
-                        .catch(error => console.error('Error cargando los datos:', error));
+                            window.myChart = new Chart(ctx, config);
+                            canvas.parentElement.scrollLeft = 0;
+                        });
                 }
-
-                cargarDatos();
             </script>
 
             <script>

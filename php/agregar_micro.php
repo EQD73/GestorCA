@@ -29,13 +29,14 @@ $query_carga = "SELECT
 	u.nomcompleto,
 	p.codigo_facultad,
 	f.nombre_facultad,
-    a.nom_asignatura
+    a.nom_asignatura,
+    a.creditos
 FROM
-	docente_asignaturas_periodo dap 
-INNER JOIN programas p  ON dap.codigo_programa = p.codigo_programa
-INNER JOIN asignaturas a  ON dap.codigo_asignatura = a.codigo_asignatura
-INNER JOIN usuarios u  ON dap.codigo_docente = u.codigo_usuario::varchar
-INNER JOIN facultades f  ON p.codigo_facultad = f.codigo_facultad
+	sistema.docente_asignaturas_periodo dap 
+INNER JOIN sistema.programas p  ON dap.codigo_programa = p.codigo_programa
+INNER JOIN sistema.asignaturas a  ON dap.codigo_asignatura = a.codigo_asignatura
+INNER JOIN sistema.usuarios u  ON dap.codigo_docente = u.codigo_usuario::varchar
+INNER JOIN sistema.facultades f  ON p.codigo_facultad = f.codigo_facultad
 WHERE dap.codigo_docente='$codigousuario' AND codigo_periodo='$codperiodo'";
 // $query_carga = "SELECT * FROM sistema.docente_asignaturas_periodo WHERE codigo_docente='$codigousuario' ORDER BY codigo_asignatura ASC, grupo ASC ";
 $resultado_qa = pg_query($conexion, $query_carga);
