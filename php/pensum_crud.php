@@ -10,7 +10,11 @@ $accion = $_POST['accion'] ?? '';
 switch ($accion) {
     case 'listar':
         try {
-            $stmt = $pdo->query("SELECT * FROM sistema.pensum ORDER BY id DESC");
+            $stmt = $pdo->query("SELECT p.*, f.nombre_facultad AS nombre_facultad, pr.nombre_programa AS nombre_programa
+                                 FROM sistema.pensum p
+                                 INNER JOIN sistema.facultades f ON p.codigo_facultad = CAST(f.codigo_facultad AS character varying)
+                                 INNER JOIN sistema.programas pr ON p.codigo_programa = pr.codigo_programa
+                                 ORDER BY p.id ASC");
             $datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo json_encode($datos);
         } catch (PDOException $e) {

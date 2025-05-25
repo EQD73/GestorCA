@@ -14,9 +14,12 @@ $codigo_rol = $_SESSION['codigo_rol'];
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Contenidos Académicos - UniCorsalud</title>
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.5.2/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
     <!-- DataTables CDN -->
     <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- jQuery CDN -->
@@ -33,6 +36,17 @@ $codigo_rol = $_SESSION['codigo_rol'];
     <link rel="stylesheet" href="../assets/css/app.css">
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
 </head>
+
+<style>
+    #tablaPensum {
+        font-size: 13px;
+    }
+
+    div.dataTables_filter {
+        margin-bottom: 5px;
+        /* o la cantidad de espacio que desees */
+    }
+</style>
 
 <body>
     <div id="app">
@@ -87,19 +101,20 @@ $codigo_rol = $_SESSION['codigo_rol'];
                 </div>
             </nav>
             <div class="container mt-4">
-                <h3 class="text-center">CRUD Tabla Pensum Académico</h3>
+                <h3 class="text-center">Gestión - CRUD Tabla Pensum Académico</h3>
                 <div class="d-flex justify-content-end mb-3">
                     <button id="btnNuevo" class="btn btn-success">
                         <i class="bi bi-plus-circle"></i> Nuevo Registro
                     </button>
                 </div>
-
-                <table id="tablaPensum" class="table table-bordered">
-                    <thead>
+                <table id="tablaPensum" class="table table-bordered table-striped table-sm" style="width:100%">
+                    <thead class="table-dark">
                         <tr>
                             <th>ID</th>
                             <th>Programa</th>
+                            <th>N. Programa</th>
                             <th>Facultad</th>
+                            <th>N. Facultad</th>
                             <th>Asignatura</th>
                             <th>Nombre</th>
                             <th>Semestre</th>
@@ -114,86 +129,99 @@ $codigo_rol = $_SESSION['codigo_rol'];
             <!-- Modal -->
             <div class="modal fade" id="modalPensum" tabindex="-1" aria-labelledby="modalPensumLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <form id="formPensum">
-                            <div class="modal-header" id="modalPensumHeader">
-                                <h5 class="modal-title" id="modalPensumLabel">Nuevo Registro</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                            </div>
-
-                            <div class="modal-body row g-3">
-                                <!-- <input type="hidden" id="id" name="id"> -->
-
-                                <div class="col-md-6">
-                                    <label for="codigo_programa" class="form-label">Código Programa</label>
-                                    <input type="text" class="form-control" id="codigo_programa" name="codigo_programa" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="codigo_facultad" class="form-label">Código Facultad</label>
-                                    <input type="text" class="form-control" id="codigo_facultad" name="codigo_facultad" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="codigo_asignatura" class="form-label">Código Asignatura</label>
-                                    <input type="text" class="form-control" id="codigo_asignatura" name="codigo_asignatura" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="nom_asignatura" class="form-label">Nombre Asignatura</label>
-                                    <!-- <input type="text" class="form-control" id="nom_asignatura" name="nom_asignatura" required> -->
-                                    <input type="text" class="form-control" id="nom_asignatura" name="nom_asignatura" requiredstyle="text-transform: uppercase;" oninput="this.value = this.value.toUpperCase();">
-
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="semestre" class="form-label">Semestre</label>
-                                    <input type="number" class="form-control" id="semestre" name="semestre" required min="1">
-                                </div>
-
-                                <div class="col-12">
-                                    <label for="comentarios" class="form-label">Comentarios</label>
-                                    <textarea class="form-control" id="comentarios" name="comentarios" rows="3" maxlength="100"
-                                        placeholder="Ingrese hasta 100 caracteres..." oninput="actualizarContador()"></textarea>
-                                    <div class="form-text text-end">
-                                        <span id="contadorComentarios">0</span>/100 caracteres
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-6">
-                                    <label for="estado" class="form-label">Estado</label>
-                                    <select class="form-select" id="estado" name="estado" required>
-                                        <option value="">Seleccione...</option>
-                                        <option value="ACTIVO">ACTIVO</option>
-                                        <option value="INACTIVO">INACTIVO</option>
-                                    </select>
-                                </div>
-                            </div>
+                    <form id="formPensum" class="modal-content">
+                        <div class="modal-header" id="modalPensumHeader">
+                            <h5 class="modal-title" id="modalPensumLabel">Nuevo Registro</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="id" name="id">
                             <input type="hidden" name="accion" id="accion">
-                            <input type="hidden" name="id" id="id"> <!-- Solo se usa para editar -->
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" id="btnGuardar">
-                                    <i class="bi bi-save"></i> Guardar
-                                </button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                    <i class="bi bi-x-circle"></i> Cancelar
-                                </button>
+                            <!-- Programa -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="codigo_programa">Programa</label>
+                                    <select id="codigo_programa" name="codigo_programa" class="form-select"></select>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="nombre_programa">Nombre Programa</label>
+                                    <input type="text" id="nombre_programa" class="form-control" readonly>
+                                </div>
                             </div>
-                        </form>
-                    </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="codigo_facultad">Facultad</label>
+                                    <select id="codigo_facultad" name="codigo_facultad" class="form-select"></select>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="nombre_facultad">Nombre Facultad</label>
+                                    <input type="text" id="nombre_facultad" class="form-control" readonly>
+                                </div>
+                            </div>
+
+                            <!-- Asignatura -->
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label for="codigo_asignatura">Asignatura</label>
+                                    <select id="codigo_asignatura" name="codigo_asignatura" class="form-select"></select>
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="nombre_asignatura">Nombre Asignatura</label>
+                                    <!-- <input type="text" id="nombre_asignatura" class="form-control" readonly> -->
+                                    <input type="text" id="nombre_asignatura" name="nom_asignatura" class="form-control" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="semestre" class="form-label">Semestre</label>
+                                <input type="number" class="form-control" id="semestre" name="semestre" required min="1">
+                            </div>
+
+                            <div class="col-12">
+                                <label for="comentarios" class="form-label">Comentarios</label>
+                                <textarea class="form-control" id="comentarios" name="comentarios" rows="3" maxlength="100"
+                                    placeholder="Ingrese hasta 100 caracteres..." oninput="actualizarContador()"></textarea>
+                                <div class="form-text text-end">
+                                    <span id="contadorComentarios">0</span>/100 caracteres
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label for="estado" class="form-label">Estado</label>
+                                <select class="form-select" id="estado" name="estado" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="ACTIVO">ACTIVO</option>
+                                    <option value="INACTIVO">INACTIVO</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <input type="hidden" name="accion" id="accion">
+                        <input type="hidden" name="id" id="id">  Solo se usa para editar -->
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="btnGuardar">
+                                <i class="bi bi-save"></i> Guardar
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
     <!-- Script de lógica -->
-    <script src="pensum.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../assets/js/feather-icons/feather.min.js"></script>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <!-- <script src="../assets/js/app.js"></script> -->
     <script src="../assets/js/main.js"></script>
+    <script src="pensum.js"></script>
 
     <script type="text/javascript">
         function cerrarsession() {
