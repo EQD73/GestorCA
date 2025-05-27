@@ -116,7 +116,8 @@ $num1 = pg_num_rows($resultado_qf);
                         <div class="text-center">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalUsuario" style="font-size:0.8em" id="botonCrear">
-                                <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo MicroCurriculo</button>
+                                <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo MicroCurriculo
+                            </button>
                         </div>
                     </div>
                 </div>

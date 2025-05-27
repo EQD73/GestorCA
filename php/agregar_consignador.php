@@ -23,8 +23,8 @@ $query_carga = "SELECT
 	u.nomcompleto,
 	p.codigo_facultad,
 	f.nombre_facultad,
-    a.nom_asignatura,
-    a.requisitos
+    a.nom_asignatura   
+   
 FROM
 	sistema.docente_asignaturas_periodo dap 
 INNER JOIN sistema.programas p  ON dap.codigo_programa = p.codigo_programa
@@ -34,7 +34,7 @@ INNER JOIN sistema.facultades f  ON p.codigo_facultad = f.codigo_facultad
 WHERE dap.codigo_docente='$codigousuario' AND codigo_periodo='$codperiodo'";
 $resultado_qasig = pg_query($conexion, $query_carga);
 $num2 = pg_num_rows($resultado_qasig);
-//echo $num2;
+
 //select de tabla de usuarios 
 
 $query_usuarios = "SELECT * FROM sistema.usuarios WHERE codigo_rol='2' ORDER BY codigo_usuario ASC ";
@@ -56,14 +56,13 @@ $resultado_qf = pg_query($conexion, $query_facultad);
 $num1 = pg_num_rows($resultado_qf);
 
 // select de tabla asignaturas
-
-$query_asignaturas = "SELECT * FROM sistema.asignaturas ORDER BY codigo_asignatura ASC, grupo ASC ";
+$query_asignaturas = "SELECT * FROM sistema.asignaturas ORDER BY codigo_asignatura ASC";
 $resultado_qa = pg_query($conexion, $query_asignaturas);
 $num2 = pg_num_rows($resultado_qa);
 
 // select de tabla asignaturas
 
-$query_asignaturas2 = "SELECT * FROM sistema.asignaturas ORDER BY codigo_asignatura ASC, grupo ASC ";
+$query_asignaturas2 = "SELECT * FROM sistema.asignaturas ORDER BY codigo_asignatura ASC";
 $resultado_qa2 = pg_query($conexion, $query_asignaturas2);
 $num2 = pg_num_rows($resultado_qa2);
 
@@ -88,6 +87,7 @@ $resultado_qper = pg_query($conexion, $query_periodo);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Contenidos Académicos - UniCorsalud</title>
+
     <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/css/BsMultiSelect.min.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="../assets/vendors/chartjs/Chart.min.css"> -->
@@ -335,7 +335,7 @@ if ($estadoper == 'BLOQUEADO') { ?>
             //validar que exista microcurriculo antes de crear consignacion
             var codasig = document.getElementById('CodigoCur').value;
             var codgrup = document.getElementById('grupo').value;
-
+            console.log(codasig + " " + codgrup);
             $.ajax({
                 url: "confirmarMicro.php",
                 method: "POST",
@@ -344,6 +344,7 @@ if ($estadoper == 'BLOQUEADO') { ?>
                     codgrup: codgrup
                 },
                 success: function(data) {
+                    console.log(data);
                     if (data.trim() == "null") {
                         //alert('aqui estoy');
                         return false;

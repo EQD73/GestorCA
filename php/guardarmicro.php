@@ -36,7 +36,7 @@ $codigoprograma     = $_REQUEST['CodProg'];
 $nombreprograma     = $_REQUEST['NombreProg'];
 $creditos           = intval($_REQUEST['creditos']);
 
-if (empty($_REQUEST['requisitos'])) {
+/* if (empty($_REQUEST['requisitos'])) {
     $requisitos = '{}';
 } else {
     $requisitos      = $_REQUEST['requisitos'];
@@ -50,7 +50,7 @@ if (empty($_REQUEST['requisitos'])) {
     }
     $valor = '{' . implode(",", $result) . '}'; // format
     $requisitos = $valor;
-}
+} */
 $nivel           = $_REQUEST['NivelRadioOptions'];
 $area            = $_REQUEST['AreaRadioOptions'];
 $tipo            = $_REQUEST['TipoRadioOptions'];
@@ -140,7 +140,7 @@ if ($numrow == 0) {
     codigo_programa,
     nombre_programa, 
     creditos, 
-    requisitos,
+    -- requisitos,
     nivel_formacion,
     area_formacion, 
     tipo_curso, 
@@ -210,8 +210,7 @@ if ($numrow == 0) {
     '" . $semestre . "',        
     '" . $codigoprograma . "',  
     '" . $nombreprograma . "',
-    '" . $creditos . "',        
-    '" . $requisitos . "',
+    '" . $creditos . "',  
     '" . $nivel . "',
     '" . $area . "',            
     '" . $tipo . "',            

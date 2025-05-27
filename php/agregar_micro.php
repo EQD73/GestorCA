@@ -44,7 +44,7 @@ $num2 = pg_num_rows($resultado_qa);
 
 // select de tabla asignaturas
 
-$query_asignaturas2 = "SELECT * FROM sistema.asignaturas WHERE periodo='$codperiodo'ORDER BY codigo_asignatura ASC, grupo ASC ";
+$query_asignaturas2 = "SELECT * FROM sistema.asignaturas ORDER BY codigo_asignatura ASC";
 $resultado_qa2 = pg_query($conexion, $query_asignaturas2);
 $num2 = pg_num_rows($resultado_qa2);
 
@@ -303,7 +303,7 @@ if ($estadoper == 'BLOQUEADO') { ?>
     <script src="../assets/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="plugins/sweetAlert2/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/js/BsMultiSelect.min.js"></script> -->
     <!-- <script type="text/javascript" src="dist/js/virtual-select.min.js"></script> -->
     <!-- Scripts -->
@@ -359,91 +359,142 @@ if ($estadoper == 'BLOQUEADO') { ?>
 
 
             var codigocurso = document.getElementById('CodigoCur').value;
-            var grupo = document.getElementById('grupo').value;
-            var per = document.getElementById('Codper').value;
+
             $.ajax({
-                    url: "EnviarCurso.php",
-                    type: "POST",
-                    //datatype: 'json',
-                    data: {
-                        codigocurso: codigocurso,
-                        grupo: grupo,
-                        per: per
-                    }
-                })
-                .done(function(data) {
+                url: "EnviarCurso.php",
+                type: "GET",
+                data: {
+                    codigocurso: codigocurso
+                },
+                success: function(response) {
+                    console.log("Respuesta del backend:", response);
 
-                    var newarray = new Array();
-                    datos = data;
+                    const prerequisitos = response?.data?.prerequisitos;
 
-                    if (datos.trim() == '{}') {
-                        newarray = null;
-                    } else {
-                        datos = datos.replace('{', "");
-                        datos = datos.replace('}', "");
-                        datos = datos.replaceAll('"', "");
-                        datos = datos.split(',');
-                        newarray = datos;
+                    const $prerequisitoSelect = $('#requisitos');
+
+                    if ($prerequisitoSelect.hasClass('select2-hidden-accessible')) {
+                        $prerequisitoSelect.select2('destroy');
                     }
 
+                    $prerequisitoSelect.empty().prop('disabled', false);
 
-                    if (newarray != null) {
-                        var len = newarray.length;
-                        //alert(len);
-                        for (i = 0; i < len; i++) {
-                            //alert(datos[i]);
-                            $('#requisitos')
-                                .append($('<option></option>') // Create new <option> element
-                                    .val(newarray[i]) // Set value as "Hello"
-                                    .text(newarray[i]) // Set textContent as "Hello"
-                                    .prop('selected', true) // Mark it selected                            
-                                );
+                    $prerequisitoSelect.select2({
+                        theme: 'bootstrap-5',
+                        placeholder: 'No hay prerrequisitos definidos',
+                        allowClear: false,
+                        width: '100%',
+                        closeOnSelect: false,
+                        templateSelection: function(data) {
+                            var color = obtenerColorPorCodigo(data.id);
+                            return $('<span>')
+                                .text(data.text)
+                                .css('background-color', color)
+                                .css('color', 'black')
+                                .css('padding', '2px 8px')
+                                .css('border-radius', '10px')
+                                .css('margin-right', '4px');
                         }
-                    } else {
-                        $.each($('[name="requisitos[]"] option:selected'), function(index, value) {
-                            $(this).remove();
+                    });
+
+                    if (Array.isArray(prerequisitos) && prerequisitos.length > 0) {
+                        const prereqCodes = [];
+
+                        prerequisitos.forEach(item => {
+                            const codigo = item.codigo_prerequisito;
+                            const nombre = item.nombre_prerequisito;
+
+                            if (codigo && nombre) {
+                                const option = new Option(`${codigo} - ${nombre}`, codigo, false, false);
+                                $prerequisitoSelect.append(option);
+                                prereqCodes.push(codigo);
+                            }
                         });
+
+                        $prerequisitoSelect.val(prereqCodes).trigger('change');
+                    } else {
+                        console.warn("No se recibieron prerrequisitos válidos.");
                     }
-                });
-            document.getElementById("NivelRadio1").focus();
-        };
 
-        document.getElementById('CodigoFacultad').onchange = function() {
-            /* Referencia a los atributos data de la opción seleccionada */
-            var mData = this.options[this.selectedIndex].dataset;
+                    $prerequisitoSelect.prop('disabled', true);
+                    $prerequisitoSelect.next('.select2-container').css('pointer-events', 'none');
+                    $prerequisitoSelect.next('.select2-container').css('opacity', '0.7');
+                },
 
-            /* Referencia a los input */
-            var elCode = document.getElementById('CodFacul');
-            var elName = document.getElementById('NombreFacul');
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudieron cargar los prerrequisitos.'
+                    });
+                },
+                complete: function() {
+                    document.getElementById("NivelRadio1").focus();
+                }
+            });
 
-            /* Asignamos cada dato a su input*/
-            elCode.value = mData.codigo;
-            elName.value = mData.nombre;
 
-        };
+            document.getElementById('CodigoFacultad').onchange = function() {
+                /* Referencia a los atributos data de la opción seleccionada */
+                var mData = this.options[this.selectedIndex].dataset;
 
-        document.getElementById('CodigoPrograma').onchange = function() {
-            /* Referencia a los atributos data de la opción seleccionada */
-            var mData = this.options[this.selectedIndex].dataset;
+                /* Referencia a los input */
+                var elCode = document.getElementById('CodFacul');
+                var elName = document.getElementById('NombreFacul');
 
-            /* Referencia a los input */
-            var elCode = document.getElementById('CodProg');
-            var elName = document.getElementById('NombreProg');
+                /* Asignamos cada dato a su input*/
+                elCode.value = mData.codigo;
+                elName.value = mData.nombre;
 
-            /* Asignamos cada dato a su input*/
-            elCode.value = mData.codigo;
-            elName.value = mData.nombre;
+            };
 
-        };
+            document.getElementById('CodigoPrograma').onchange = function() {
+                /* Referencia a los atributos data de la opción seleccionada */
+                var mData = this.options[this.selectedIndex].dataset;
+
+                /* Referencia a los input */
+                var elCode = document.getElementById('CodProg');
+                var elName = document.getElementById('NombreProg');
+
+                /* Asignamos cada dato a su input*/
+                elCode.value = mData.codigo;
+                elName.value = mData.nombre;
+
+            };
+        }
+        // Agrega esta función al final de tu script para determinar colores
+        function obtenerColorPorCodigo(codigo) {
+            if (!codigo) return '#6c757d'; // Color por defecto
+
+            // Extraer números del código (ej: "MAT101" -> 101)
+            const numeros = codigo.match(/\d+/);
+            const num = numeros ? parseInt(numeros[0]) : 0;
+
+            // Paleta de colores Bootstrap
+            const colores = [
+                '#dc3545', // rojo
+                '#fd7e14', // naranja
+                '#ffc107', // amarillo
+                '#28a745', // verde
+                '#20c997', // verde agua
+                '#17a2b8', // cyan
+                '#007bff', // azul
+                '#6f42c1', // morado
+                '#e83e8c' // rosa
+            ];
+
+            // Asignar color basado en el código
+            return colores[num % colores.length];
+        }
     </script>
-    <script type="text/javascript">
+    <!--  <script type="text/javascript">
         $('#requisitos').select2({
             theme: "bootstrap-5",
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: false,
         });
-    </script>
+    </script> -->
     <script>
         $(document).ready(function() {
             var now = new Date();

@@ -41,13 +41,13 @@ $num1 = pg_num_rows($resultado_qf);
 
 // select de tabla asignaturas
 
-$query_asignaturas = "SELECT * FROM sistema.asignaturas ORDER BY codigo_asignatura ASC, grupo ASC ";
+$query_asignaturas = "SELECT * FROM sistema.asignaturas ORDER BY codigo_asignatura ASC";
 $resultado_qa = pg_query($conexion, $query_asignaturas);
 $num2 = pg_num_rows($resultado_qa);
 
 // select de tabla asignaturas
 
-$query_asignaturas2 = "SELECT * FROM sistema.asignaturas ORDER BY codigo_asignatura ASC, grupo ASC ";
+$query_asignaturas2 = "SELECT * FROM sistema.asignaturas ORDER BY codigo_asignatura ASC";
 $resultado_qa2 = pg_query($conexion, $query_asignaturas2);
 $num2 = pg_num_rows($resultado_qa2);
 

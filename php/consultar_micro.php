@@ -35,7 +35,7 @@ $num1 = pg_num_rows($resultado_qf);
 
 // select de tabla asignaturas
 
-$query_asignaturas2 = "SELECT * FROM sistema.asignaturas WHERE periodo='$codperiodo' ORDER BY codigo_asignatura ASC, grupo ASC ";
+$query_asignaturas2 = "SELECT * FROM sistema.asignaturas ORDER BY codigo_asignatura ASC";
 $resultado_qas2 = pg_query($conexion, $query_asignaturas2);
 $num2 = pg_num_rows($resultado_qas2);
 
@@ -96,6 +96,8 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" /> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <!-- Or for RTL support -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
     <!-- Or for RTL support -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
     <!-- <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"> -->
@@ -277,7 +279,7 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
         <script src="../assets/js/main.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- Scripts -->
         <!--  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
@@ -294,21 +296,6 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
         </script>
 
         <script type="text/javascript">
-            /* document.getElementById('CodigoCurso').onchange = function() {
-            /* Referencia a los atributos data de la opción seleccionada 
-            var mData = this.options[this.selectedIndex].dataset;
-
-            /* Referencia a los in
-            var elCode = document.getElementById('CodigoCur');
-            var elName = document.getElementById('NombreCurso');
-            var elGroup = document.getElementById('grupo');
-
-            /* Asignamos cada dato a su input*
-            elCode.value = mData.codigo;
-            elName.value = mData.nombre;
-            elGroup.value = mData.grupo;
-        };
- */
             document.getElementById('CodigoFacultad').onchange = function() {
                 /* Referencia a los atributos data de la opción seleccionada */
                 var mData = this.options[this.selectedIndex].dataset;
@@ -336,9 +323,109 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
                 elName.value = mData.nombre;
 
             };
+
+            var codigocurso = document.getElementById('CodigoCurso').value;
+
+            $.ajax({
+                url: "EnviarCurso.php",
+                type: "GET",
+                data: {
+                    codigocurso: codigocurso
+                },
+                success: function(response) {
+                    console.log("Respuesta del backend:", response);
+
+                    const prerequisitos = response?.data?.prerequisitos;
+
+                    const $prerequisitoSelect = $('#requisitos2');
+
+                    if ($prerequisitoSelect.hasClass('select2-hidden-accessible')) {
+                        $prerequisitoSelect.select2('destroy');
+                    }
+
+                    $prerequisitoSelect.empty().prop('disabled', false);
+
+                    $prerequisitoSelect.select2({
+                        theme: 'bootstrap-5',
+                        placeholder: 'No hay prerrequisitos definidos',
+                        allowClear: false,
+                        width: '100%',
+                        closeOnSelect: false,
+                        templateSelection: function(data) {
+                            var color = obtenerColorPorCodigo(data.id);
+                            return $('<span>')
+                                .text(data.text)
+                                .css('background-color', color)
+                                .css('color', 'black')
+                                .css('padding', '2px 8px')
+                                .css('border-radius', '10px')
+                                .css('margin-right', '4px');
+                        }
+                    });
+
+                    if (Array.isArray(prerequisitos) && prerequisitos.length > 0) {
+                        const prereqCodes = [];
+
+                        prerequisitos.forEach(item => {
+                            const codigo = item.codigo_prerequisito;
+                            const nombre = item.nombre_prerequisito;
+
+                            if (codigo && nombre) {
+                                const option = new Option(`${codigo} - ${nombre}`, codigo, false, false);
+                                $prerequisitoSelect.append(option);
+                                prereqCodes.push(codigo);
+                            }
+                        });
+
+                        $prerequisitoSelect.val(prereqCodes).trigger('change');
+                    } else {
+                        console.warn("No se recibieron prerrequisitos válidos.");
+                    }
+
+                    $prerequisitoSelect.prop('disabled', true);
+                    $prerequisitoSelect.next('.select2-container').css('pointer-events', 'none');
+                    $prerequisitoSelect.next('.select2-container').css('opacity', '0.7');
+                },
+
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudieron cargar los prerrequisitos.'
+                    });
+                },
+                complete: function() {
+                    document.getElementById("NivelRadio1").focus();
+                }
+            });
+
+            // Agrega esta función al final de tu script para determinar colores
+            function obtenerColorPorCodigo(codigo) {
+                if (!codigo) return '#6c757d'; // Color por defecto
+
+                // Extraer números del código (ej: "MAT101" -> 101)
+                const numeros = codigo.match(/\d+/);
+                const num = numeros ? parseInt(numeros[0]) : 0;
+
+                // Paleta de colores Bootstrap
+                const colores = [
+                    '#dc3545', // rojo
+                    '#fd7e14', // naranja
+                    '#ffc107', // amarillo
+                    '#28a745', // verde
+                    '#20c997', // verde agua
+                    '#17a2b8', // cyan
+                    '#007bff', // azul
+                    '#6f42c1', // morado
+                    '#e83e8c' // rosa
+                ];
+
+                // Asignar color basado en el código
+                return colores[num % colores.length];
+            }
         </script>
 
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
             $('#requisitos2').select2({
                 theme: "bootstrap-5",
                 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
@@ -352,7 +439,7 @@ $resultado_qu3 = pg_query($conexion, $query_usuarios);
                 placeholder: $(this).data('placeholder'),
                 closeOnSelect: false,
             }); */
-        </script>
+        </script> -->
         <script type="text/javascript">
             function cerrarsession() {
                 window.sessionStorage.removeItem("mostrarModal");

@@ -468,6 +468,8 @@ $periodo = $_SESSION['codigo_periodo'];
 
             $('#asignaturaForm')[0].reset();
             $('#id').val('');
+            $('#asignaturaForm input, #asignaturaForm select, #asignaturaForm textarea').prop('disabled', false);
+            $('#asignaturaModal .modal-footer').show();
             $("#codigo_programa").val(null).trigger("change");
 
             // Configurar Select2 para prerrequisitos
@@ -522,6 +524,9 @@ $periodo = $_SESSION['codigo_periodo'];
                 },
                 success: function(response) {
                     if (response.success) {
+
+                        console.log("Respuesta del backend:", response);
+                        const prerequisitos = response?.data?.prerequisitos;
                         const asignatura = response.data;
 
                         // Llenar campos básicos
@@ -565,42 +570,23 @@ $periodo = $_SESSION['codigo_periodo'];
                         });
 
                         // Procesar los prerrequisitos del JSON
-                        if (asignatura.prerequisito && asignatura.prerequisito !== 'null') {
-                            try {
-                                // Parsear el string JSON
-                                const prerequisitosStr = asignatura.prerequisito
-                                    .replace(/[{"}]/g, '') // Eliminar {, }, y "
-                                    .replace(/\\/g, ''); // Eliminar escapes
+                        if (Array.isArray(prerequisitos) && prerequisitos.length > 0) {
+                            const prereqCodes = [];
 
-                                // Separar los prerrequisitos
-                                const prerequisitosArray = prerequisitosStr.split(',');
+                            prerequisitos.forEach(item => {
+                                const codigo = item.codigo_prerequisito;
+                                const nombre = item.nombre_prerequisito;
 
-                                // Crear opciones para cada prerrequisito
-                                prerequisitosArray.forEach(prereq => {
-                                    if (prereq.trim()) {
-                                        const [codigo, nombre] = prereq.split('-');
-                                        if (codigo && nombre) {
-                                            const option = new Option(
-                                                `${codigo.trim()} - ${nombre.trim()}`,
-                                                codigo.trim(),
-                                                false,
-                                                false
-                                            );
-                                            $prerequisitoSelect.append(option);
-                                        }
-                                    }
-                                });
+                                if (codigo && nombre) {
+                                    const option = new Option(`${codigo} - ${nombre}`, codigo, false, false);
+                                    $prerequisitoSelect.append(option);
+                                    prereqCodes.push(codigo);
+                                }
+                            });
 
-                                // Seleccionar todos los prerrequisitos
-                                const prereqCodes = prerequisitosArray.map(prereq => {
-                                    const [codigo] = prereq.split('-');
-                                    return codigo ? codigo.trim() : null;
-                                }).filter(Boolean);
-
-                                $prerequisitoSelect.val(prereqCodes).trigger('change');
-                            } catch (e) {
-                                console.error('Error al procesar prerrequisitos:', e);
-                            }
+                            $prerequisitoSelect.val(prereqCodes).trigger('change');
+                        } else {
+                            console.warn("No se recibieron prerrequisitos válidos.");
                         }
 
                         // Deshabilitar el select después de cargar
@@ -634,6 +620,8 @@ $periodo = $_SESSION['codigo_periodo'];
                 },
                 success: function(response) {
                     if (response.success) {
+                        console.log("Respuesta del backend:", response);
+                        const prerequisitos = response?.data?.prerequisitos;
                         const a = response.data;
 
                         // Configurar el formulario como solo lectura
@@ -680,43 +668,23 @@ $periodo = $_SESSION['codigo_periodo'];
                             }
                         });
 
-                        // Procesar los prerrequisitos del JSON
-                        if (a.prerequisito && a.prerequisito !== 'null') {
-                            try {
-                                // Parsear el string JSON
-                                const prerequisitosStr = a.prerequisito
-                                    .replace(/[{"}]/g, '') // Eliminar {, }, y "
-                                    .replace(/\\/g, ''); // Eliminar escapes
+                        if (Array.isArray(prerequisitos) && prerequisitos.length > 0) {
+                            const prereqCodes = [];
 
-                                // Separar los prerrequisitos
-                                const prerequisitosArray = prerequisitosStr.split(',');
+                            prerequisitos.forEach(item => {
+                                const codigo = item.codigo_prerequisito;
+                                const nombre = item.nombre_prerequisito;
 
-                                // Crear opciones para cada prerrequisito
-                                prerequisitosArray.forEach(prereq => {
-                                    if (prereq.trim()) {
-                                        const [codigo, nombre] = prereq.split('-');
-                                        if (codigo && nombre) {
-                                            const option = new Option(
-                                                `${codigo.trim()} - ${nombre.trim()}`,
-                                                codigo.trim(),
-                                                false,
-                                                false
-                                            );
-                                            $prerequisitoSelect.append(option);
-                                        }
-                                    }
-                                });
+                                if (codigo && nombre) {
+                                    const option = new Option(`${codigo} - ${nombre}`, codigo, false, false);
+                                    $prerequisitoSelect.append(option);
+                                    prereqCodes.push(codigo);
+                                }
+                            });
 
-                                // Seleccionar todos los prerrequisitos
-                                const prereqCodes = prerequisitosArray.map(prereq => {
-                                    const [codigo] = prereq.split('-');
-                                    return codigo ? codigo.trim() : null;
-                                }).filter(Boolean);
-
-                                $prerequisitoSelect.val(prereqCodes).trigger('change');
-                            } catch (e) {
-                                console.error('Error al procesar prerrequisitos:', e);
-                            }
+                            $prerequisitoSelect.val(prereqCodes).trigger('change');
+                        } else {
+                            console.warn("No se recibieron prerrequisitos válidos.");
                         }
 
                         // Deshabilitar el select después de cargar

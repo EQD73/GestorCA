@@ -21,9 +21,9 @@ switch ($action) {
     case 'delete':
         deleteAsignatura();
         break;
-    case 'update_prerequisitos':
+    /*  case 'update_prerequisitos':
         updatePrerequisitos();
-        break;
+        break; */
     case 'get_prerequisitos':
         getPrerequisitosAsignatura();
         break;
@@ -72,7 +72,7 @@ function getAsignatura()
     try {
         // Obtener información básica de la asignatura
         $stmt = $pdo->prepare("
-            SELECT a.*, pr.nombre_programa 
+            SELECT a.codigo_asignatura, a.nom_asignatura, a.codigo_programa, pr.nombre_programa, a.ihs, a.creditos 
             FROM sistema.asignaturas a
             INNER JOIN sistema.programas pr ON pr.codigo_programa = a.codigo_programa
             WHERE a.id = ?
@@ -285,23 +285,10 @@ function deleteAsignatura()
     $id = $_POST['id'];
 
     try {
-        $pdo->beginTransaction();
-
-        // Primero eliminar los prerrequisitos asociados
-        $stmtGetCodigo = $pdo->prepare("SELECT codigo_asignatura FROM sistema.asignaturas WHERE id = ?");
-        $stmtGetCodigo->execute([$id]);
-        $codigo_asignatura = $stmtGetCodigo->fetchColumn();
-
-        if ($codigo_asignatura) {
-            $stmtDeletePrereq = $pdo->prepare("DELETE FROM sistema.prerequisitos WHERE codigo_asignatura = ?");
-            $stmtDeletePrereq->execute([$codigo_asignatura]);
-        }
 
         // Luego eliminar la asignatura
         $stmt = $pdo->prepare("DELETE FROM sistema.asignaturas WHERE id = ?");
         $stmt->execute([$id]);
-
-        $pdo->commit();
 
         if ($stmt->rowCount() > 0) {
             echo json_encode([

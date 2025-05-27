@@ -30,11 +30,10 @@
                             while ($obj = pg_fetch_object($resultado_qasig)) { ?>
 
 
-                                <option value="" data-codigo="<?php echo $obj->codigo_asignatura; ?>" data-nombre="<?php echo $obj->nom_asignatura; ?>" data-grupo="<?php echo $obj->grupo; ?>" data-semestre="<?php echo $obj->semestre; ?>" data-codprog="<?php echo $obj->codigo_programa; ?>" data-nomprog="<?php echo $obj->nombre_programa; ?>" data-cred="<?php echo $obj->creditos; ?>" data-coddocente="<?php echo $obj->codigo_docente; ?>" data-nomdocente="<?php echo $obj->nomcompleto; ?>"><?php echo $codcurso = $obj->codigo_asignatura;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            echo "  |  ";
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            echo $nomasig = $obj->nom_asignatura;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            echo "  |  ";
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            echo $codgrupo = $obj->grupo; ?></option>
+                                <option value="" data-codigo="<?php echo $obj->codigo_asignatura; ?>" data-nombre="<?php echo $obj->nom_asignatura; ?>" data-codprog="<?php echo $obj->codigo_programa; ?>" data-nomprog="<?php echo $obj->nombre_programa; ?>" data-grupo="<?php echo $obj->grupo; ?>" data-semestre="<?php echo $obj->semestre; ?>" data-coddocente="<?php echo $obj->codigo_docente; ?>" data-nomdocente="<?php echo $obj->nomcompleto; ?>"><?php echo $codcurso = $obj->codigo_asignatura;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                echo "  |  ";
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                echo $nomasig = $obj->nom_asignatura;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                ?></option>
                             <?php
                                 echo $obj->codigo_asignatura;
                             }
@@ -134,146 +133,146 @@
                         <h6>Validación</h6>
                     </span>
                 </div>
-                <?php 
-                
-                
-                if ($codigo_rol == '2') {?> 
-                <div class="row border border-danger rounded mx-md-n5">
-                    <div class="col px-md-6 my-2">
-                        <div class="p-3 border bg-light">
-                            <label for="formGroup" class="form-label">Validación 1</label>
-                            <select class="form-select form-select-sm disabled" aria-label=".form-select-sm example" id="Validador1" name="Validador1">
-                                <option value="" selected>Escoger Opción</option>
-                                <?php
-                                while ($obj = pg_fetch_object($resultado_qu2)) { ?>
-                                    <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
+                <?php
 
-                    <div class="col px-md-6 my-2">
-                        <div class="p-3 border bg-light">
-                            <label for="formGroup" class="form-label">Validación 2</label>
-                            <select class="form-select form-select-sm disabled" aria-label=".form-select-sm example" id="Validador2" name="Validador2">
-                                <option value="" selected>Escoger Opción</option>
-                                <?php
-                                while ($obj = pg_fetch_object($resultado_qu3)) { ?>
-                                    <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option> 
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <?php } 
-                    if ($codigo_rol=='4') { ?>
+
+                if ($codigo_rol == '2') { ?>
                     <div class="row border border-danger rounded mx-md-n5">
-                    <div class="col px-md-6 my-2">
-                        <div class="p-3 border bg-light">
-                            <label for="formGroup" class="form-label">Validación 1</label>
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="Validador1" name="Validador1">
-                                <option value="" selected>Escoger Opción</option>
-                                <?php
-                                while ($obj = pg_fetch_object($resultado_qu2)) { ?>
-                                    <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
+                        <div class="col px-md-6 my-2">
+                            <div class="p-3 border bg-light">
+                                <label for="formGroup" class="form-label">Validación 1</label>
+                                <select class="form-select form-select-sm disabled" aria-label=".form-select-sm example" id="Validador1" name="Validador1">
+                                    <option value="" selected>Escoger Opción</option>
+                                    <?php
+                                    while ($obj = pg_fetch_object($resultado_qu2)) { ?>
+                                        <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col px-md-6 my-2">
-                        <div class="p-3 border bg-light">
-                            <label for="formGroup" class="form-label">Validación 2</label>
-                            <select class="form-select form-select-sm disabled" aria-label=".form-select-sm example" id="Validador2" name="Validador2">
-                                <option value="" selected>Escoger Opción</option>
-                                <?php
-                                while ($obj = pg_fetch_object($resultado_qu3)) { ?>
-                                    <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option> 
-                                <?php
-                                }
-                                ?>
-                            </select>
+                        <div class="col px-md-6 my-2">
+                            <div class="p-3 border bg-light">
+                                <label for="formGroup" class="form-label">Validación 2</label>
+                                <select class="form-select form-select-sm disabled" aria-label=".form-select-sm example" id="Validador2" name="Validador2">
+                                    <option value="" selected>Escoger Opción</option>
+                                    <?php
+                                    while ($obj = pg_fetch_object($resultado_qu3)) { ?>
+                                        <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <?php } 
-                    if ($codigo_rol=='5') { ?>
-                    <div class="row border border-danger rounded mx-md-n5">
-                    <div class="col px-md-6 my-2">
-                        <div class="p-3 border bg-light">
-                            <label for="formGroup" class="form-label">Validación 1</label>
-                            <select class="form-select form-select-sm disabled" aria-label=".form-select-sm example" id="Validador1" name="Validador1">
-                                <option value="" selected>Escoger Opción</option>
-                                <?php
-                                while ($obj = pg_fetch_object($resultado_qu2)) { ?>
-                                    <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col px-md-6 my-2">
-                        <div class="p-3 border bg-light">
-                            <label for="formGroup" class="form-label">Validación 2</label>
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="Validador2" name="Validador2">
-                                <option value="" selected>Escoger Opción</option>
-                                <?php
-                                while ($obj = pg_fetch_object($resultado_qu3)) { ?>
-                                    <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option> 
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
                     <?php }
-                    if ($codigo_rol=='1'){?>
-                    <div class="row border border-danger rounded mx-md-n5">
-                    <div class="col px-md-6 my-2">
-                        <div class="p-3 border bg-light">
-                            <label for="formGroup" class="form-label">Validación 1</label>
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="Validador1" name="Validador1">
-                                <option value="" selected>Escoger Opción</option>
-                                <?php
-                                while ($obj = pg_fetch_object($resultado_qu2)) { ?>
-                                    <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
+                if ($codigo_rol == '4') { ?>
+                        <div class="row border border-danger rounded mx-md-n5">
+                            <div class="col px-md-6 my-2">
+                                <div class="p-3 border bg-light">
+                                    <label for="formGroup" class="form-label">Validación 1</label>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="Validador1" name="Validador1">
+                                        <option value="" selected>Escoger Opción</option>
+                                        <?php
+                                        while ($obj = pg_fetch_object($resultado_qu2)) { ?>
+                                            <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col px-md-6 my-2">
+                                <div class="p-3 border bg-light">
+                                    <label for="formGroup" class="form-label">Validación 2</label>
+                                    <select class="form-select form-select-sm disabled" aria-label=".form-select-sm example" id="Validador2" name="Validador2">
+                                        <option value="" selected>Escoger Opción</option>
+                                        <?php
+                                        while ($obj = pg_fetch_object($resultado_qu3)) { ?>
+                                            <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        <?php }
+                    if ($codigo_rol == '5') { ?>
+                            <div class="row border border-danger rounded mx-md-n5">
+                                <div class="col px-md-6 my-2">
+                                    <div class="p-3 border bg-light">
+                                        <label for="formGroup" class="form-label">Validación 1</label>
+                                        <select class="form-select form-select-sm disabled" aria-label=".form-select-sm example" id="Validador1" name="Validador1">
+                                            <option value="" selected>Escoger Opción</option>
+                                            <?php
+                                            while ($obj = pg_fetch_object($resultado_qu2)) { ?>
+                                                <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col px-md-6 my-2">
+                                    <div class="p-3 border bg-light">
+                                        <label for="formGroup" class="form-label">Validación 2</label>
+                                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="Validador2" name="Validador2">
+                                            <option value="" selected>Escoger Opción</option>
+                                            <?php
+                                            while ($obj = pg_fetch_object($resultado_qu3)) { ?>
+                                                <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            <?php }
+                        if ($codigo_rol == '1') { ?>
+                                <div class="row border border-danger rounded mx-md-n5">
+                                    <div class="col px-md-6 my-2">
+                                        <div class="p-3 border bg-light">
+                                            <label for="formGroup" class="form-label">Validación 1</label>
+                                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="Validador1" name="Validador1">
+                                                <option value="" selected>Escoger Opción</option>
+                                                <?php
+                                                while ($obj = pg_fetch_object($resultado_qu2)) { ?>
+                                                    <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col px-md-6 my-2">
+                                        <div class="p-3 border bg-light">
+                                            <label for="formGroup" class="form-label">Validación 2</label>
+                                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="Validador2" name="Validador2">
+                                                <option value="" selected>Escoger Opción</option>
+                                                <?php
+                                                while ($obj = pg_fetch_object($resultado_qu3)) { ?>
+                                                    <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 mt-2"></div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-danger" id="BtnGuardar" type="submit">Guardar</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col px-md-6 my-2">
-                        <div class="p-3 border bg-light">
-                            <label for="formGroup" class="form-label">Validación 2</label>
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="Validador2" name="Validador2">
-                                <option value="" selected>Escoger Opción</option>
-                                <?php
-                                while ($obj = pg_fetch_object($resultado_qu3)) { ?>
-                                    <option value="<?php echo $obj->nomcompleto; ?>"><?php echo $obj->nomcompleto; ?></option> 
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <?php } ?>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 mt-2"></div>
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-danger" id="BtnGuardar" type="submit">Guardar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </form>

@@ -10,7 +10,7 @@ include('conexion2.php');
 $query_micro = "SELECT * FROM $tablam1 WHERE id= '$codigoConsulta'";
 $resultado_qm = pg_query($conexion, $query_micro);
 $objConsulta = pg_fetch_object($resultado_qm);
-$codprog=$objConsulta->codigo_programa;
+$codprog = $objConsulta->codigo_programa;
 $array = $objConsulta->requisitos;
 $array = str_replace('{', ' ',  $array);
 $array = str_replace('}', ' ',  $array);
@@ -109,28 +109,7 @@ foreach ($valor as $t) {
                     <div class="col-lg-12 mt-2">
 
                         <label for="formGroup" class="form-label">Requisitos</label>
-                        <select class="form-select" name="requisitos2[]" id="requisitos2" data-placeholder="Escoger opcion" multiple>
-                            <?php
-                            foreach ($result as $val) { ?>
-                                <option value="<?php echo $val; ?>" selected><?php echo $val; ?></option>
-                            <?php
-                            }
-                            ?>
-
-                            <?php while ($objC = pg_fetch_object($resultado_qas2)) { ?>
-                                <option value="<?php echo $objC->codigo_asignatura;
-                                                echo " - ";
-                                                echo $objC->nom_asignatura; ?>"><?php echo $objC->codigo_asignatura;
-                                                                                echo "  |  ";
-                                                                                echo $objC->nom_asignatura; ?></option>
-
-
-
-                            <?php
-
-                            }
-
-                            ?>
+                        <select class="form-select" name="requisitos2[]" id="requisitos2" multiple disabled>
 
                         </select>
                     </div>
