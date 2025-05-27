@@ -21,9 +21,6 @@ $codigo_rol = $_SESSION['codigo_rol'];
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.5.2/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- DataTables JS -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="../assets/css/app.css">
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
@@ -54,6 +51,12 @@ $codigo_rol = $_SESSION['codigo_rol'];
 
     .progress-bar-animated {
         animation: progress-bar-stripes 1s linear infinite;
+    }
+
+    .select2-container .select2-dropdown .select2-results {
+        max-height: 250px;
+        /* Ajusta esta altura a tu gusto */
+        overflow-y: auto;
     }
 </style>
 
@@ -213,7 +216,7 @@ $codigo_rol = $_SESSION['codigo_rol'];
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success" id="btnGuardar">Guardar</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i>Cancelar</button>
                         </div>
                     </form>
                 </div>

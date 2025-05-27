@@ -7,7 +7,8 @@ switch ($tipo) {
         $sql = "SELECT codigo_usuario AS id, nomcompleto AS text FROM sistema.usuarios WHERE codigo_rol=2";
         break;
     case 'asignaturas':
-        $sql = "SELECT codigo_asignatura AS id, nom_asignatura AS text, semestre FROM sistema.asignaturas";
+        $sql = "SELECT a.codigo_asignatura AS id, a.nom_asignatura AS text, p.semestre FROM sistema.asignaturas a
+        INNER JOIN sistema.pensum p ON p.codigo_asignatura = a.codigo_asignatura";
         break;
     case 'programas':
         $sql = "SELECT codigo_programa AS id, nombre_programa AS text FROM sistema.programas";

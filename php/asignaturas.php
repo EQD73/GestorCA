@@ -10,279 +10,281 @@ $nombre = $_SESSION['nombres'];
 $codigo_rol = $_SESSION['codigo_rol'];
 $periodo = $_SESSION['codigo_periodo'];
 
-include('conexion.php');
-
-//select de tabla programas
-$query_programas = "SELECT * FROM sistema.programas ORDER BY codigo_programa ASC ";
-$resultado_qp = pg_query($conexion, $query_programas);
-$num1 = pg_num_rows($resultado_qp);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Contenidos Académicos - UniCorsalud</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.5.2/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/app.css">
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.css" integrity="sha512-us/9of/cEp3FrrmLUpCcWUAzm2gE7EOPnfEAWBMwdWR1Lpxw0orMoVvLyyoGSD9iMGAUlEd8XHzt5+SDwmdGLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.js" integrity="sha512-vgklhe3vcXaOdX0on3diSDRNRFlqWR9sLH6mMT4gm8ZzSMG0OxE8S1Tm8LHUOfEdZICn45OO2eluLLt81oHvtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        thead input {
-            width: 100%;
-            box-sizing: border-box;
-        }
-    </style>
-    <style>
-        .contenedor-centrado {
-            display: flex;
-            justify-content: center;
-            /* Centrado horizontal */
-            /*align-items: center;*/
-            /* Centrado vertical (si quieres) */
-            height: 100vh;
-            /* Ocupa toda la altura de la ventana */
+        #asignaturasTable {
+            font-size: 13px;
+            padding: 10px;
         }
 
-        table.dataTable {
-            width: auto !important;
-            /* Evita que el DataTable ocupe 100% */
+
+        body {
+            padding-top: 20px;
+        }
+
+        .modal-lg {
+            max-width: 800px;
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        #asignaturasTable td.acciones-cell {
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        .btn-group-sm>.btn {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .btn-accion:hover {
+            transform: scale(1.05);
+            transition: transform 0.2s;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice {
+            display: flex;
+            align-items: center;
+            background: #e9ecef;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove {
+            order: 2;
+            margin-left: 0.5rem;
+            color: #6c757d;
+        }
+
+        .prerequisitos-disabled .select2-selection {
+            background-color: #e9ecef;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .select2-container--disabled .select2-selection--multiple {
+            background-color: #f8f9fa;
+            cursor: not-allowed;
+        }
+
+        .select2-container--disabled .select2-selection--multiple .select2-selection__choice {
+            background-color: #e9ecef;
+            opacity: 0.9;
+            border: 1px solid #dee2e6;
+        }
+
+        .select2-container--disabled .select2-selection--multiple .select2-selection__choice__remove {
+            display: none;
+        }
+
+        /* Agrega esto a tu sección <style> */
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice {
+            display: inline-flex;
+            align-items: center;
+            border: none !important;
+            padding: 0.25rem 0.5rem !important;
+            margin-right: 4px !important;
+            margin-bottom: 4px !important;
+            border-radius: 10px !important;
+            color: white !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove {
+            color: white !important;
+            margin-left: 6px !important;
+            order: 2;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove:hover {
+            color: #f8f9fa !important;
+        }
+
+        .swal2-popup {
+            font-family: inherit;
+            border-radius: 0.5rem;
+        }
+
+        .swal2-title {
+            font-size: 1.25rem;
+        }
+
+        .swal2-confirm {
+            background-color: #0d6efd !important;
+        }
+
+        .select2-container .select2-dropdown .select2-results {
+            max-height: 250px;
+            /* Ajusta esta altura a tu gusto */
+            overflow-y: auto;
         }
     </style>
 </head>
-<?php
-if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_rol == '2') { ?>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            Swal.fire({
-                icon: "info",
-                title: "Cuidado!",
-                text: "Usted no tiene los permisos para ingresar a esta opción",
-                showConfirmButton: true,
-                confirmButtonText: "Cerrar"
-            }).then(function(result) {
-                if (result.value) {
-                    window.location.href = "home.php";
 
-                }
-            });
-        });
-    </script>
-<?php
-} else {
-?>
-
-    <body>
-        <div id="app">
-            <?php include("cargue_menul.html"); ?>
-            <div id="main">
-                <nav class="navbar navbar-header navbar-expand navbar-light">
-                    <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
-                    <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
-                            <li class="dropdown nav-icon">
-                                <a href="#" data-bs-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
-                                    <div class="d-lg-inline-block">
-                                        <i data-feather="bell"></i>
-                                    </div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-large">
-                                    <h6 class='py-2 px-4'>Notificaciones</h6>
-                                    <ul class="list-group rounded-none">
-                                        <li class="list-group-item border-0 align-items-start">
-                                            <div class="avatar bg-success me-3">
-                                                <span class="avatar-content"><i data-feather="alert-circle"></i></span>
-                                            </div>
-                                            <div>
-                                                <h6 class='text-bold'>Aviso</h6>
-                                                <p class='text-xs'>
-                                                    No ha ingresado informacion en las ultimas dos semanas
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
+<body>
+    <div id="app">
+        <?php include("cargue_menul.html"); ?>
+        <div id="main">
+            <nav class="navbar navbar-header navbar-expand navbar-light">
+                <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
+                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
+                        <li class="dropdown nav-icon">
+                            <a href="#" data-bs-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
+                                <div class="d-lg-inline-block">
+                                    <i data-feather="bell"></i>
                                 </div>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                    <div class="avatar me-1">
-                                        <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
-                                    </div>
-                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
-                                    <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#"><i data-feather="user"></i> Cuenta/Perfil</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"><i data-feather="log-out"></i>Salir</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-
-                <div class="container">
-                    <h3 class="text-center">CRUD Tabla de Asignaturas</h3>
-                    <div class="mb-6" id="exportButtons"></div>
-                    <div class="row">
-                        <div class="col-4 offset-9">
-                            <div class="text-center">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalAsignatura" style="font-size:0.8em" id="botonCrear">
-                                    <i class="fa fa-plus-square" aria-hidden="true"></i> Nueva Asignatura</button>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-large">
+                                <h6 class='py-2 px-4'>Notificaciones</h6>
+                                <ul class="list-group rounded-none">
+                                    <li class="list-group-item border-0 align-items-start">
+                                        <div class="avatar bg-success me-3">
+                                            <span class="avatar-content"><i data-feather="alert-circle"></i></span>
+                                        </div>
+                                        <div>
+                                            <h6 class='text-bold'>Aviso</h6>
+                                            <p class='text-xs'>
+                                                No ha ingresado informacion en las ultimas dos semanas
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                    <br />
-                    <br />
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                                <div class="avatar me-1">
+                                    <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
+                                </div>
+                                <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
+                                <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#"><i data-feather="user"></i> Cuenta/Perfil</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"><i data-feather="log-out"></i>Salir</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
-
-                    <div class="contenedor-centrado" style="font-size:0.8em">
-                        <table id="datos_asignatura" class="table table-bordered table-striped display nowrap display" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Código</th>
-                                    <th>Nombre</th>
-                                    <th>Periodo</th>
-                                    <th>Semestre</th>
-                                    <th>Grupo</th>
-                                    <th>Código Prog.</th>
-                                    <th>Nom. Programa</th>
-                                    <th>Codigo Docente</th>
-                                    <th>Nombre Docente</th>
-                                    <th>Editar</th>
-                                    <th>Borrar</th>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <th><input type=" text" placeholder="Buscar..." />
-                                    </th>
-                                    <th><input type="text" placeholder="Buscar..." /></th>
-                                    <th></th>
-                                    <th><input type="text" placeholder="Buscar..." /></th>
-                                    <th><input type="text" placeholder="Buscar..." /></th>
-                                    <th><input type="text" placeholder="Buscar..." /></th>
-                                    <th><input type="text" placeholder="Buscar..." /></th>
-                                    <th><input type="text" placeholder="Buscar..." /></th>
-                                    <th><input type="text" placeholder="Buscar..." /></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+            <div class="container mt-4">
+                <h3 class="text-center mb-4">Gestión CRUD de Asignaturas</h3>
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#asignaturaModal" onclick="resetForm()">
+                        <i class="bi bi-plus-circle"></i> Nueva Asignatura
+                    </button>
                 </div>
 
-                <!-- Modal -->
-                <div class=" modal fade" id="modalAsignatura" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+
+                <table id="asignaturasTable" class="table table-striped table-bordered mt-1" style="width:100%">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>ID</th>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Programa</th>
+                            <th>Nombre Programa</th>
+                            <th>IHS</th>
+                            <th>Créditos</th>
+                            <!-- <th>Prerrequisitos</th> -->
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <!-- Modal para agregar/editar asignatura -->
+                <div class="modal fade" id="asignaturaModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Crear Asignatura</h5>
-                                <button type="button" class="btn-close" id="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div class="modal-header" id="modalAsignaturasHeader">
+                                <h5 class="modal-title" id="modalAsignaturasTitle">Nueva Asignatura</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-
-                            <form method="POST" id="formulario" enctype="multipart/form-data">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <label for="codigo_asigna">Código Asignatura <span style="color: red">*</span></label>
-                                                <input type="text" name="codigo_asigna" id="codigo_asigna" class="form-control">
-                                            </div>
-
-                                            <div class="col-sm-9">
-                                                <label for="nom_asigna">Nombre Asignatura <span style="color: red">*</span></label>
-                                                <input type="text" name="nom_asigna" id="nom_asigna" class="form-control" style="text-transform: uppercase">
-                                            </div>
+                            <form id="asignaturaForm">
+                                <input type="hidden" id="id" name="id">
+                                <div class="modal-body">
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <label for="codigo_asignatura" class="form-label">Código Asignatura*</label>
+                                            <input type="text" class="form-control" id="codigo_asignatura" name="codigo_asignatura" required>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label for="formGroup" class="form-label">Programa <span style="color: red">*</span></label>
-                                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="CodigoPrograma" name="CodigoPrograma">
-                                                    <option value="" data-codigo="" data-nombre="" selected>Escoger Opción</option>
-                                                    <?php
-                                                    while ($obj = pg_fetch_object($resultado_qp)) { ?>
-                                                        <option value="<?php echo $obj->codigo_programa; ?>" data-codigo="<?php echo $obj->codigo_programa; ?>" data-nombre="<?php echo $obj->nombre_programa; ?>"><?php echo $obj->codigo_programa;
-                                                                                                                                                                                                                    echo "  |  ";
-                                                                                                                                                                                                                    echo $obj->nombre_programa; ?></option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-
-                                            <input type="hidden" class="form-control form-control" id="CodProg" name="CodProg">
-
-                                            <div class="col-sm-8">
-                                                <label for="formGroup" class="form-label">Nombre del Programa <span style="color: red">*</span></label>
-                                                <input type="text" class="form-control form-control" id="NombreProg" name="NombreProg" readonly>
-                                            </div>
+                                        <div class="col-md-9">
+                                            <label for="nom_asignatura" class="form-label">Nombre Asignatura*</label>
+                                            <input type="text" class="form-control" id="nom_asignatura" name="nom_asignatura" style="text-transform: uppercase;" required>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                                <label for="semestre">Semestre <span style="color: red">*</span></label>
-                                                <input type="text" name="semestre" id="semestre" class="form-control">
-                                            </div>
-
-                                            <div class="col-sm-2">
-                                                <label for="grupo">Grupo <span style="color: red">*</span></label>
-                                                <input type="text" name="grupo" id="grupo" class="form-control">
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <label for="ihs">Periodo</label>
-                                                <input type="text" name="periodo" id="periodo" class="form-control" value="<?php echo $periodo; ?>" readonly>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <label for="ihs">Int.Hor.Sem<span style="color: red">*</span></label>
-                                                <input type="text" name="ihs" id="ihs" class="form-control">
-                                            </div>
-
-                                            <div class="col-sm-2">
-                                                <label for="Créditos">Créditos<span style="color: red">*</span></label>
-                                                <input type="text" name="creditos" id="creditos" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-12 mt-2" id="req1">
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label for="cod_docente">Codigo Docente <span style="color: red">*</span></label>
-                                                <input type="text" name="cod_docente" id="cod_docente" class="form-control">
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <label for="nom_docente">Nombre Docente</label>
-                                                <input type="text" name="nom_docente" id="nom_docente" class="form-control" style="text-transform: uppercase">
-                                            </div>
-                                        </div>
-
                                     </div>
 
-                                    <div class="modal-footer">
-                                        <input type="hidden" name="id_asigna" id="id_asigna">
-                                        <input type="hidden" name="operacion" id="operacion">
-                                        <input type="submit" name="action" id="action" class="btn btn-success" value="Crear">
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <label for="codigo_programa">Programa*</label>
+                                            <select id="codigo_programa" name="codigo_programa" class="form-select" required></select>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <label for="nombre_programa">Nombre Programa</label>
+                                            <input type="text" id="nombre_programa" class="form-control" readonly>
+                                        </div>
                                     </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <label for="ihs" class="form-label">IHS</label>
+                                            <input type="number" class="form-control" id="ihs" name="ihs">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="creditos" class="form-label">Créditos</label>
+                                            <input type="number" class="form-control" id="creditos" name="creditos">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="prerequisito" class="form-label">Prerrequisitos</label>
+                                        <select class="form-select" id="prerequisito" name="prerequisito[]" multiple="multiple" disabled>
+                                            <!-- Las opciones se cargarán dinámicamente -->
+                                        </select>
+                                        <small class="text-muted">Los prerrequisitos se gestionan desde el módulo correspondiente</small>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" id="btnGuardar" class="btn btn-primary">Guardar</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 </div>
                             </form>
                         </div>
@@ -290,103 +292,49 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                 </div>
             </div>
         </div>
-        <footer>
-            <div class="footer clearfix mb-0 text-muted">
-                <div class="float-start">
-                    <p>2024 &copy; UniCorsalud </p>
-                </div>
-                <!--  <div class="float-end">
-                        <p>Crafted with <span class='text-danger'><i data-feather=""></i></span> by <a href="#">Eqd</a></p>
-                    </div> -->
-            </div>
-        </footer>
-        </div>
-        </div>
-    <?php
-} ?>
+    </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../assets/js/feather-icons/feather.min.js"></script>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
     <script src="../assets/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <!-- Botones exportación -->
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
-
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#botonCrear").click(function() {
-                $("#formulario")[0].reset();
-                $(".modal-title").text("Crear Asignatura");
-                $("#action").val("Crear");
-                $("#operacion").val("Crear");
+    <script>
+        function mostrarAlerta(icono, titulo, mensaje) {
+            Swal.fire({
+                icon: icono,
+                title: titulo,
+                text: mensaje,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
             });
+        }
+        //**// */
+        let dataTable;
+        let asignaturaActual = null;
 
-            //$('#datos_asignatura thead tr').clone(true).appendTo('#datos_asignatura thead');
+        $(document).ready(function() {
+            cargarSelects();
+            inicializarSelect2("#codigo_programa", "#asignaturaForm");
+            //cargarAsignaturasParaPrerequisitos();
 
-            let table = $('#datos_asignatura').DataTable({
-                processing: true,
-                serverSide: true,
+            // Inicializar DataTable
+            dataTable = $('#asignaturasTable').DataTable({
                 ajax: {
-                    url: 'obtener_registrosAsignatura.php',
-                    type: 'POST'
+                    url: 'backend_asignaturas3.php',
+                    type: 'GET',
+                    data: {
+                        action: 'list'
+                    },
+                    dataSrc: ''
                 },
-                dom: "<'row align-items-center mb-3'<'col-md-4'l><'col-md-4 text-center'B><'col-md-4'f>>" +
-                    "<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-
-                buttons: [{
-                        extend: 'copyHtml5',
-                        text: '<i class="fa fa-copy"></i> Copiar',
-                        className: 'btn btn-sm btn-secondary me-1 mb-1'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        text: '<i class="fa fa-file-excel"></i> Excel',
-                        className: 'btn btn-sm btn-success me-1 mb-1' // ✅ Verde sólido
-                    },
-                    {
-                        extend: 'csvHtml5',
-                        text: '<i class="fa fa-file-alt"></i> CSV',
-                        className: 'btn btn-sm btn-primary me-1 mb-1' // 🔵 Azul sólido
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        text: '<i class="fa fa-file-pdf"></i> PDF',
-                        className: 'btn btn-sm btn-danger mb-1', // 🔴 Rojo sólido
-                        orientation: 'landscape',
-                        pageSize: 'A4',
-                        customize: function(doc) {
-                            doc.styles.tableHeader.fontSize = 10;
-                            doc.defaultStyle.fontSize = 9;
-                            doc.styles.title = {
-                                fontSize: 16,
-                                bold: true,
-                                alignment: 'center',
-                                margin: [0, 0, 0, 10]
-                            };
-                        }
-                    }
-                ],
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-                },
-                orderCellsTop: true,
-                fixedHeader: true,
-                responsive: true,
                 columns: [{
                         data: 'id'
                     },
@@ -394,16 +342,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                         data: 'codigo_asignatura'
                     },
                     {
-                        data: 'nombre_asignatura'
-                    },
-                    {
-                        data: 'periodo'
-                    },
-                    {
-                        data: 'semestre'
-                    },
-                    {
-                        data: 'grupo'
+                        data: 'nom_asignatura'
                     },
                     {
                         data: 'codigo_programa'
@@ -412,292 +351,514 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                         data: 'nombre_programa'
                     },
                     {
-                        data: 'codigo_docente'
+                        data: 'ihs'
                     },
                     {
-                        data: 'nombre_docente'
+                        data: 'creditos'
                     },
+                    /* {
+                        data: 'prerequisitos',
+                        render: function(data, type, row) {
+                            if (data && data.length > 0) {
+                                return data.map(p => p.codigo_prerequisito).join(', ');
+                            }
+                            return 'Ninguno';
+                        }
+                    }, */
                     {
-                        data: 'editar',
+                        data: null,
+                        className: "acciones-cell",
                         orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'borrar',
-                        orderable: false,
-                        searchable: false
+                        searchable: false,
+                        render: function(data, type, row) {
+                            return `
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-info btn-accion" onclick="viewDetails(${row.id})" title="Ver detalles">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-accion" onclick="editAsignatura(${row.id})" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-accion" onclick="deleteAsignatura(${row.id})" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            `;
+                        }
                     }
-                ]
+                ],
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                }
             });
 
 
+            $('#asignaturaForm').submit(function(e) {
+                e.preventDefault();
 
-            $('#datos_asignatura thead tr:eq(1) th').each(function(i) {
-                $('input', this).on('keyup change', function() {
-                    if (table.column(i).search() !== this.value) {
-                        table.column(i).search(this.value).draw();
+                const formData = {
+                    id: $('#id').val(),
+                    codigo_asignatura: $('#codigo_asignatura').val(),
+                    nom_asignatura: $('#nom_asignatura').val(),
+                    codigo_programa: $('#codigo_programa').val(),
+                    ihs: $('#ihs').val(),
+                    creditos: $('#creditos').val(),
+                    action: $('#id').val() ? 'update' : 'create'
+                };
+
+                // Validación básica
+                if (!formData.codigo_asignatura || !formData.nom_asignatura || !formData.codigo_programa) {
+                    mostrarAlerta('error', 'Error', 'Por favor complete los campos requeridos');
+                    return;
+                }
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: $('#id').val() ? '¿Deseas actualizar esta asignatura?' : '¿Deseas crear esta nueva asignatura?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, continuar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Mostrar loader durante la operación
+                        Swal.fire({
+                            title: 'Procesando',
+                            html: 'Por favor espere...',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        $.ajax({
+                            url: 'backend_asignaturas3.php',
+                            type: 'POST',
+                            data: formData,
+                            dataType: 'json',
+                            success: function(response) {
+                                Swal.close();
+                                if (response.success) {
+                                    $('#asignaturaModal').modal('hide');
+                                    dataTable.ajax.reload();
+                                    mostrarAlerta('success', 'Éxito', response.message);
+                                } else {
+                                    mostrarAlerta('error', 'Error', response.message);
+                                }
+                            },
+                            error: function(xhr) {
+                                Swal.close();
+                                mostrarAlerta('error', 'Error', 'Error en la solicitud: ' + xhr.responseText);
+                            }
+                        });
                     }
                 });
             });
+        });
+
+        // Modificar la función resetForm
+        function resetForm() {
+            document.getElementById("modalAsignaturasHeader").className = "modal-header bg-primary text-white";
+            document.getElementById("modalAsignaturasTitle").textContent = "Nueva Asignatura";
+            const btnGuardar = document.getElementById("btnGuardar");
+            btnGuardar.className = "btn btn-primary";
+            btnGuardar.innerHTML = '<i class="bi bi-save"></i> Guardar';
+
+            $('#asignaturaForm')[0].reset();
+            $('#id').val('');
+            $("#codigo_programa").val(null).trigger("change");
+
+            // Configurar Select2 para prerrequisitos
+            const $prerequisitoSelect = $('#prerequisito');
+            $prerequisitoSelect.empty();
+
+            // Habilitar temporalmente para inicializar Select2
+            $prerequisitoSelect.prop('disabled', false);
 
 
-            $(document).on('submit', '#formulario', function(event) {
-                event.preventDefault();
+            $prerequisitoSelect.select2({
+                theme: 'bootstrap-5',
+                placeholder: 'No hay prerrequisitos definidos',
+                allowClear: true,
+                width: '100%',
+                dropdownParent: $('#asignaturaModal'),
+                closeOnSelect: false,
+                disabled: true, // Deshabilitar después de inicializar
+                templateSelection: function(data) {
+                    // Determinar el color basado en el código de la asignatura
+                    var color = obtenerColorPorCodigo(data.id);
+                    return $('<span>')
+                        .text(data.text)
+                        .css('background-color', color)
+                        .css('color', 'black')
+                        .css('padding', '2px 8px')
+                        .css('border-radius', '10px')
+                        .css('margin-right', '4px');
+                }
 
-                var codigo_asigna = $('#codigo_asigna').val();
-                var nombre_asigna = $('#nom_asigna').val();
-                var semestre = $('#semestre').val();
-                var grupo = $('#grupo').val();
-                var periodo = $('#periodo').val();
-                var cod_docente = $('#cod_docente').val();
-                var nom_docente = $('#nom_docente').val();
-                var ihs = $('#ihs').val();
-                var creditos = $('#creditos').val();
+            });
 
-                if (codigo_asigna != '' && nombre_asigna != '' && semestre != '' && grupo != '' && ihs != '' && creditos != '') {
+            // Deshabilitar la interacción
+            $prerequisitoSelect.prop('disabled', true);
+            $prerequisitoSelect.next('.select2-container').css('pointer-events', 'none');
+            $prerequisitoSelect.next('.select2-container').css('opacity', '0.7');
 
-                    // ✅ Mostrar spinner de carga
+            $('#asignaturaForm input, #asignaturaForm textarea').prop('disabled', false);
+            $('#btnGuardar').show();
+            $('#asignaturaModal .modal-footer').show();
+        }
+
+
+        // Modificar la función editAsignatura
+        function editAsignatura(id) {
+            $.ajax({
+                url: 'backend_asignaturas3.php',
+                type: 'GET',
+                data: {
+                    action: 'get',
+                    id: id
+                },
+                success: function(response) {
+                    if (response.success) {
+                        const asignatura = response.data;
+
+                        // Llenar campos básicos
+                        $('#id').val(asignatura.id);
+                        $('#codigo_asignatura').val(asignatura.codigo_asignatura);
+                        $('#nom_asignatura').val(asignatura.nom_asignatura);
+                        $('#codigo_programa').val(asignatura.codigo_programa).trigger('change');
+                        $('#nombre_programa').val(asignatura.nombre_programa);
+                        $('#ihs').val(asignatura.ihs);
+                        $('#creditos').val(asignatura.creditos);
+
+                        // Configurar Select2 para prerrequisitos
+                        const $prerequisitoSelect = $('#prerequisito');
+
+                        // Destruir Select2 si ya estaba inicializado
+                        if ($prerequisitoSelect.hasClass('select2-hidden-accessible')) {
+                            $prerequisitoSelect.select2('destroy');
+                        }
+
+                        // Limpiar y habilitar temporalmente
+                        $prerequisitoSelect.empty().prop('disabled', false);
+
+                        $prerequisitoSelect.select2({
+                            theme: 'bootstrap-5',
+                            placeholder: 'No hay prerrequisitos definidos',
+                            allowClear: false,
+                            width: '100%',
+                            dropdownParent: $('#asignaturaModal'),
+                            closeOnSelect: false,
+                            templateSelection: function(data) {
+                                var color = obtenerColorPorCodigo(data.id);
+                                return $('<span>')
+                                    .text(data.text)
+                                    .css('background-color', color)
+                                    .css('color', 'black')
+                                    .css('padding', '2px 8px')
+                                    .css('border-radius', '10px')
+                                    .css('margin-right', '4px');
+                            }
+
+                        });
+
+                        // Procesar los prerrequisitos del JSON
+                        if (asignatura.prerequisito && asignatura.prerequisito !== 'null') {
+                            try {
+                                // Parsear el string JSON
+                                const prerequisitosStr = asignatura.prerequisito
+                                    .replace(/[{"}]/g, '') // Eliminar {, }, y "
+                                    .replace(/\\/g, ''); // Eliminar escapes
+
+                                // Separar los prerrequisitos
+                                const prerequisitosArray = prerequisitosStr.split(',');
+
+                                // Crear opciones para cada prerrequisito
+                                prerequisitosArray.forEach(prereq => {
+                                    if (prereq.trim()) {
+                                        const [codigo, nombre] = prereq.split('-');
+                                        if (codigo && nombre) {
+                                            const option = new Option(
+                                                `${codigo.trim()} - ${nombre.trim()}`,
+                                                codigo.trim(),
+                                                false,
+                                                false
+                                            );
+                                            $prerequisitoSelect.append(option);
+                                        }
+                                    }
+                                });
+
+                                // Seleccionar todos los prerrequisitos
+                                const prereqCodes = prerequisitosArray.map(prereq => {
+                                    const [codigo] = prereq.split('-');
+                                    return codigo ? codigo.trim() : null;
+                                }).filter(Boolean);
+
+                                $prerequisitoSelect.val(prereqCodes).trigger('change');
+                            } catch (e) {
+                                console.error('Error al procesar prerrequisitos:', e);
+                            }
+                        }
+
+                        // Deshabilitar el select después de cargar
+                        $prerequisitoSelect.prop('disabled', true);
+                        $prerequisitoSelect.next('.select2-container').css('pointer-events', 'none');
+                        $prerequisitoSelect.next('.select2-container').css('opacity', '0.7');
+
+                        // Configurar modal
+                        $('#modalAsignaturasHeader').removeClass('bg-primary bg-info').addClass('bg-warning text-black');
+                        $('#modalAsignaturasTitle').text('Editar Asignatura');
+                        $('#btnGuardar').removeClass('btn-primary').addClass('btn-warning text-black')
+                            .html('<i class="bi bi-pencil-square"></i> Actualizar');
+                        $('#asignaturaForm input, #asignaturaForm textarea').prop('disabled', false);
+                        $('#asignaturaModal .modal-footer').show();
+                        $('#btnGuardar').show();
+                        $('#asignaturaModal').modal('show');
+                    } else {
+                        mostrarAlerta('Error: ' + response.message);
+                    }
+                }
+            });
+        }
+
+        function viewDetails(id) {
+            $.ajax({
+                url: 'backend_asignaturas3.php',
+                type: 'GET',
+                data: {
+                    action: 'get',
+                    id: id
+                },
+                success: function(response) {
+                    if (response.success) {
+                        const a = response.data;
+
+                        // Configurar el formulario como solo lectura
+                        $('#asignaturaForm input, #asignaturaForm select, #asignaturaForm textarea').prop('disabled', true);
+                        $('#asignaturaModal .modal-footer').hide();
+
+                        // Llenar campos básicos
+                        $('#id').val(a.id);
+                        $('#codigo_asignatura').val(a.codigo_asignatura);
+                        $('#nom_asignatura').val(a.nom_asignatura);
+                        $('#codigo_programa').val(a.codigo_programa);
+                        $('#nombre_programa').val(a.nombre_programa);
+                        $('#ihs').val(a.ihs);
+                        $('#creditos').val(a.creditos);
+
+                        // Configurar Select2 para prerrequisitos
+                        const $prerequisitoSelect = $('#prerequisito');
+
+                        // Destruir Select2 si ya estaba inicializado
+                        if ($prerequisitoSelect.hasClass('select2-hidden-accessible')) {
+                            $prerequisitoSelect.select2('destroy');
+                        }
+
+                        // Limpiar y habilitar temporalmente
+                        $prerequisitoSelect.empty().prop('disabled', false);
+
+                        // Inicializar Select2
+                        $prerequisitoSelect.select2({
+                            theme: 'bootstrap-5',
+                            placeholder: 'No hay prerrequisitos definidos',
+                            allowClear: false,
+                            width: '100%',
+                            dropdownParent: $('#asignaturaModal'),
+                            closeOnSelect: false,
+                            templateSelection: function(data) {
+                                var color = obtenerColorPorCodigo(data.id);
+                                return $('<span>')
+                                    .text(data.text)
+                                    .css('background-color', color)
+                                    .css('color', 'black')
+                                    .css('padding', '2px 8px')
+                                    .css('border-radius', '10px')
+                                    .css('margin-right', '4px');
+                            }
+                        });
+
+                        // Procesar los prerrequisitos del JSON
+                        if (a.prerequisito && a.prerequisito !== 'null') {
+                            try {
+                                // Parsear el string JSON
+                                const prerequisitosStr = a.prerequisito
+                                    .replace(/[{"}]/g, '') // Eliminar {, }, y "
+                                    .replace(/\\/g, ''); // Eliminar escapes
+
+                                // Separar los prerrequisitos
+                                const prerequisitosArray = prerequisitosStr.split(',');
+
+                                // Crear opciones para cada prerrequisito
+                                prerequisitosArray.forEach(prereq => {
+                                    if (prereq.trim()) {
+                                        const [codigo, nombre] = prereq.split('-');
+                                        if (codigo && nombre) {
+                                            const option = new Option(
+                                                `${codigo.trim()} - ${nombre.trim()}`,
+                                                codigo.trim(),
+                                                false,
+                                                false
+                                            );
+                                            $prerequisitoSelect.append(option);
+                                        }
+                                    }
+                                });
+
+                                // Seleccionar todos los prerrequisitos
+                                const prereqCodes = prerequisitosArray.map(prereq => {
+                                    const [codigo] = prereq.split('-');
+                                    return codigo ? codigo.trim() : null;
+                                }).filter(Boolean);
+
+                                $prerequisitoSelect.val(prereqCodes).trigger('change');
+                            } catch (e) {
+                                console.error('Error al procesar prerrequisitos:', e);
+                            }
+                        }
+
+                        // Deshabilitar el select después de cargar
+                        $prerequisitoSelect.prop('disabled', true);
+                        $prerequisitoSelect.next('.select2-container').css('pointer-events', 'none');
+                        $prerequisitoSelect.next('.select2-container').css('opacity', '0.7');
+
+                        // Configurar modal
+                        $('#modalAsignaturasHeader').removeClass('bg-primary bg-warning').addClass('bg-info');
+                        $('#modalAsignaturasTitle').text('Detalles de Asignatura');
+                        $('#btnGuardar').hide();
+
+                        $('#asignaturaModal').modal('show');
+                    } else {
+                        mostrarAlerta('Error: ' + response.message);
+                    }
+                }
+            });
+        }
+
+
+        function deleteAsignatura(id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esta acción!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
                     Swal.fire({
-                        title: 'Guardando...',
-                        html: 'Por favor espera...',
+                        title: 'Eliminando',
+                        html: 'Por favor espere...',
                         allowOutsideClick: false,
-                        allowEscapeKey: false,
                         didOpen: () => {
                             Swal.showLoading();
                         }
                     });
 
                     $.ajax({
-                        url: "crearAsignatura.php",
-                        method: 'POST',
-                        data: new FormData(this),
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            // ✅ Cerrar spinner
-                            Swal.close();
-
-                            // ✅ Mostrar mensaje de éxito
-                            Swal.fire({
-                                icon: "success",
-                                title: "¡Éxito!",
-                                text: data,
-                                confirmButtonText: "Ok"
-                            }).then(() => {
-                                // ✅ Cerrar modal
-                                const modalEl = document.getElementById('modalAsignatura');
-                                const modal = bootstrap.Modal.getInstance(modalEl);
-                                if (modal) modal.hide();
-
-                                // ✅ Limpiar backdrop si quedó
-                                document.body.classList.remove('modal-open');
-                                document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-
-                                // ✅ Limpiar formulario
-                                $('#formulario')[0].reset();
-
-                                // ✅ Recargar contenido y tabla
-                                $('#req1').load('Requisitos.php');
-                                table.ajax.reload();
-                                location.reload();
-                            });
-                        },
-                        error: function() {
-                            Swal.close();
-                            Swal.fire("Error", "Ocurrió un problema al guardar.", "error");
-                        }
-                    });
-
-                } else {
-                    Swal.fire({
-                        icon: "info",
-                        title: "Atención",
-                        text: "Algunos campos son obligatorios",
-                        confirmButtonText: "Ok"
-                    });
-                }
-            });
-
-            //Funcionalida de editar
-            $(document).on('click', '.editar', function() {
-                var id_asigna = $(this).attr("id");
-                // Limpia campos antes de cargar nuevos datos
-                $('#formulario')[0].reset();
-                $('#id_asigna').val('');
-                $('#operacion').val('');
-                $('#action').val('');
-                $('.modal-title').text('Editar');
-
-                $.ajax({
-                    url: "obtener_registroAsignatura.php",
-                    method: "POST",
-                    data: {
-                        id_asigna: id_asigna
-                    },
-                    dataType: "json",
-                    success: function(data) {
-                        $('#modalAsignatura').modal('show');
-
-                        $('#codigo_asigna').val(data.codigo_asignatura);
-                        $('#nom_asigna').val(data.nombre_asignatura);
-                        $('#CodigoPrograma').val(data.codigo_programa);
-                        $('#CodProg').val(data.codigo_programa);
-                        $('#NombreProg').val(data.nombre_programa);
-                        $('#semestre').val(data.semestre);
-                        $('#grupo').val(data.grupo);
-                        $('#periodo').val(data.periodo);
-                        $('#ihs').val(data.ihs);
-                        $('#creditos').val(data.creditos);
-                        $('#requisitos').val(data.prerequisito)
-                        $('#cod_docente').val(data.codigo_docente);
-                        $('#nom_docente').val(data.nombre_docente);
-
-                        $('.modal-title').text("Editar Asignatura");
-
-                        $('#id_asigna').val(id_asigna);
-                        $('#action').val("Editar");
-                        $('#operacion').val("Editar");
-                        $('#req1').load('Requisitos.php');
-
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus, errorThrown);
-                    }
-                })
-            });
-
-            //Funcionalidad de borrar
-            $(document).on('click', '.borrar', function() {
-                var id_asigna = $(this).attr("id");
-
-                Swal.fire({
-                    title: 'Estás seguro de borrar este registro de la asignatura: ' + id_asigna + ' ?',
-                    text: "No podrás revertir los cambios!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si, borralo!'
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "borrarAsignatura.php",
-                            method: "POST",
-                            data: {
-                                id_asigna: id_asigna
-                            },
-                            success: function(data) {
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Exito!",
-                                    text: data,
-                                    showConfirmButton: true,
-                                    confirmButtonText: "Ok"
-                                })
-                                table.ajax.reload();
-                            }
-
-                        });
-                        table.ajax.reload();
-                    } else {
-                        return false;
-                    }
-                })
-            })
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var miModal = document.getElementById('modalAsignatura');
-            miModal.addEventListener('shown.bs.modal', function() {
-                document.getElementById('codigo_asigna').focus();
-            });
-        });
-
-        $('#btn-close').on('click', function() {
-            $('#modalAsignatura').on('hidden.bs.modal', function() {
-                location.reload(); // recarga la página cuando el modal se ha cerrado
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#cod_docente').on('change', function() { // también puedes usar 'change' o 'keypress'
-                var codigo = $(this).val();
-
-                if (codigo !== '') {
-                    $.ajax({
-                        url: 'buscar_docente.php',
+                        url: 'backend_asignaturas3.php',
                         type: 'POST',
                         data: {
-                            codigo_docente: codigo
+                            action: 'delete',
+                            id: id
                         },
-                        dataType: 'json',
-                        success: function(data) {
-                            if (data && data.nombre) {
-
-                                $('#nom_docente').val(data.nombre);
+                        success: function(response) {
+                            Swal.close();
+                            if (response.success) {
+                                dataTable.ajax.reload();
+                                mostrarAlerta('success', 'Éxito', response.message);
                             } else {
-                                $('#nom_docente').val('Docente no encontrado');
+                                mostrarAlerta('error', 'Error', response.message);
                             }
                         },
-                        error: function() {
-                            $('#nom_docente').val('Error en la búsqueda');
+                        error: function(xhr) {
+                            Swal.close();
+                            mostrarAlerta('error', 'Error', 'Error en la solicitud: ' + xhr.responseText);
                         }
                     });
                 }
             });
-        });
-    </script>
-
-
-    <script type="text/javascript">
-        document.getElementById('CodigoPrograma').onchange = function() {
-            /* Referencia a los atributos data de la opción seleccionada */
-            var mData = this.options[this.selectedIndex].dataset;
-
-            /* Referencia a los input */
-            var elCode = document.getElementById('CodProg');
-            var elName = document.getElementById('NombreProg');
-
-            /* Asignamos cada dato a su input*/
-            elCode.value = mData.codigo;
-            elName.value = mData.nombre;
-
-            var dato = document.getElementById('CodProg').value;
-
-
-            $.ajax({
-                    url: "EnviarDato.php",
-                    type: "post",
-                    data: {
-                        variable: dato
-                    }
-                })
-                .done(function(data) {
-                    //alert(data);
-                    $('#req1').load('Requisitos.php');
-                });
-        };
-    </script>
-
-    <!-- <script type="text/javascript">
-        function removeModal(target) {
-            $(target).removeClass('in');
-            $('.modal-backdrop').remove();
-            $('body').removeClass('modal-open');
-            $('body').css('padding-right', '');
-            $(target).hide();
         }
-    </script> -->
+
+        function cargarSelects() {
+            ["programas"].forEach((tipo) => {
+                $.get(
+                    "asignaturas_select2.php", {
+                        tipo
+                    },
+                    function(data) {
+                        let select = $("#codigo_" + tipo.slice(0, -1));
+                        select.html('<option value="">Seleccione</option>');
+                        data.forEach((opt) => {
+                            let extraData =
+                                tipo === "asignaturas" ? ` data-semestre="${opt.semestre}"` : "";
+                            select.append(
+                                `<option value="${opt.id}"${extraData}>${opt.id} | ${opt.text}</option>`
+                            );
+                        });
+                        select.select2({
+                            width: "100%",
+                            theme: "bootstrap-5",
+                            dropdownParent: $("#asignaturaForm"),
+                        });
+                    },
+                    "json"
+                );
+            });
+        }
+
+        $(
+            "#codigo_programa"
+        ).on("change", function() {
+            const id = $(this).attr("id");
+            const tipo = id.split("_")[1];
+            const nombre = "nombre_" + tipo;
+            const text = $(this).find("option:selected").text();
+            const valor = $(this).val();
+            const soloNombre = text.split(" | ")[1] || "";
+            $("#" + nombre).val(soloNombre);
+        });
+
+        function inicializarSelect2(selector, modalSelector = null) {
+            $(selector).select2({
+                theme: "bootstrap-5",
+                width: "100%",
+                dropdownParent: modalSelector ? $(modalSelector) : $(document.body),
+            });
+        }
+        // Agrega esta función al final de tu script para determinar colores
+        function obtenerColorPorCodigo(codigo) {
+            if (!codigo) return '#6c757d'; // Color por defecto
+
+            // Extraer números del código (ej: "MAT101" -> 101)
+            const numeros = codigo.match(/\d+/);
+            const num = numeros ? parseInt(numeros[0]) : 0;
+
+            // Paleta de colores Bootstrap
+            const colores = [
+                '#dc3545', // rojo
+                '#fd7e14', // naranja
+                '#ffc107', // amarillo
+                '#28a745', // verde
+                '#20c997', // verde agua
+                '#17a2b8', // cyan
+                '#007bff', // azul
+                '#6f42c1', // morado
+                '#e83e8c' // rosa
+            ];
+
+            // Asignar color basado en el código
+            return colores[num % colores.length];
+        }
+    </script>
+
     <script type="text/javascript">
         function cerrarsession() {
             window.sessionStorage.removeItem("mostrarModal");
         }
     </script>
-
-
-    </body>
+</body>

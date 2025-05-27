@@ -21,16 +21,9 @@ $codigo_rol = $_SESSION['codigo_rol'];
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.5.2/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
     <!-- DataTables CDN -->
-    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet"> -->
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- DataTables JS CDN -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <!-- SweetAlert2 CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Bootstrap icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="../assets/css/app.css">
@@ -45,6 +38,12 @@ $codigo_rol = $_SESSION['codigo_rol'];
     div.dataTables_filter {
         margin-bottom: 5px;
         /* o la cantidad de espacio que desees */
+    }
+
+    .select2-container .select2-dropdown .select2-results {
+        max-height: 250px;
+        /* Ajusta esta altura a tu gusto */
+        overflow-y: auto;
     }
 </style>
 
@@ -103,7 +102,8 @@ $codigo_rol = $_SESSION['codigo_rol'];
             <div class="container mt-4">
                 <h3 class="text-center">Gestión - CRUD Tabla Pensum Académico</h3>
                 <div class="d-flex justify-content-end mb-3">
-                    <button id="btnNuevo" class="btn btn-success">
+                    <!-- <button id="btnNuevo" class="btn btn-success"> -->
+                    <button type="button" id="btnNuevo" class="btn btn-success mb-1 btn-sm">
                         <i class="bi bi-plus-circle"></i> Nuevo Registro
                     </button>
                 </div>
@@ -215,8 +215,11 @@ $codigo_rol = $_SESSION['codigo_rol'];
         </div>
     </div>
     <!-- Script de lógica -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../assets/js/feather-icons/feather.min.js"></script>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>

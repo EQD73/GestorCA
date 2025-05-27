@@ -8,12 +8,6 @@ $(document).ready(function () {
   inicializarSelect2("#codigo_programa", "#modalFormulario");
   inicializarSelect2("#codigo_periodo", "#modalFormulario");
 
-  /*  tabla = $('#tabla').DataTable({  // Inicializar correctamente
-        language: {
-            url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json'
-        }
-    });
- */
   $("#tabla").DataTable({
     ajax: {
       url: "carga_crud.php",
@@ -346,8 +340,6 @@ $(document).ready(function () {
   });
 
   $("#tabla tbody").on("click", ".btnEditar", function () {
-    //alert('aqui estoy');
-
     const tabla = $("#tabla").DataTable();
     const data = tabla.row($(this).closest("tr")).data();
     if (!data) {
@@ -448,79 +440,6 @@ function cargarSelects() {
   });
 }
 
-/* function cargarRegistros() {
-    $.post('carga_crud.php', { accion: 'leer' }, function (data) {
-        const tabla = $('#tabla').DataTable();
-        tabla.clear(); // Limpiar datos anteriores
-
-        data.forEach(d => {
-            tabla.row.add([
-                d.id,
-                d.codigo_docente, d.nombre_docente,
-                d.codigo_asignatura, d.nom_asignatura,
-                d.codigo_programa, d.nombre_programa,
-                d.codigo_periodo, d.nombre_periodo,
-                d.semestre, d.grupo,
-                `<div class="btn-group" role="group">
-                           <button class="btn btn-sm btn-secondary btnEditar me-1" title="Editar">
-                             <i class="bi bi-pencil-square"></i>
-                           </button>
-                           <button class="btn btn-sm btn-danger btnEliminar" title="Eliminar">
-                             <i class="bi bi-trash"></i>
-                           </button>
-                         </div>
-                       `
-            ]);
-        });
-
-        tabla.draw(); // Redibujar tabla con nuevos datos
-    }, 'json');
-} */
-
-/* function cargarRegistros() {
-    $.post('carga_crud.php', { accion: 'leer' }, function (data) {
-        const tabla = $('#tabla').DataTable();
-        tabla.clear().destroy(); // Destruir la tabla existente completamente
-        
-        // Recrear la tabla con los nuevos datos
-        tabla = $('#tabla').DataTable({
-            data: data,
-            columns: [
-                { data: 'id' },
-                { data: 'codigo_docente' },
-                { data: 'nombre_docente' },
-                { data: 'codigo_asignatura' },
-                { data: 'nom_asignatura' },
-                { data: 'codigo_programa' },
-                { data: 'nombre_programa' },
-                { data: 'codigo_periodo' },
-                { data: 'nombre_periodo' },
-                { data: 'semestre' },
-                { data: 'grupo' },
-                { 
-                    data: null,
-                    render: function(data, type, row) {
-                        return `
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-sm btn-secondary btnEditar me-1" title="Editar">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger btnEliminar" title="Eliminar">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
-                        `;
-                    }
-                }
-            ],
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json'
-            }
-        });
-    }, 'json').fail(function() {
-        Swal.fire('Error', 'No se pudieron cargar los registros', 'error');
-    });
-} */
 function cargarRegistros() {
   $.post(
     "carga_crud.php",
