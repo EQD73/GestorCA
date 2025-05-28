@@ -29,7 +29,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Diligenciamiento por programas</title>
+    <title>Gestor de Contenidos Académicos - UniCorsalud</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/app.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -170,7 +170,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                         <select id="selectSemestre" class="form-select">
                             <option value="">Todos</option>
                             <?php
-                            $query = "SELECT DISTINCT semestre FROM sistema.asignaturas ORDER BY semestre";
+                            $query = "SELECT DISTINCT semestre FROM sistema.pensum ORDER BY semestre";
                             $result = pg_query($conexion, $query);
                             while ($row = pg_fetch_assoc($result)) {
                                 echo "<option value='{$row['semestre']}'>Semestre {$row['semestre']}</option>";
@@ -194,23 +194,6 @@ $_SESSION['nombre_rol'] = $nombre_rol;
 
                 <h4 class="mt-4"><i class="fa-solid fa-chart-column"></i> Gráfico de Avance <i class="fa-solid fa-chart-column"></i></h4>
 
-                <!-- Gráfica -->
-                <!-- <div class="card-fluid mt-4">
-                    <div class="card-body">
-                        <canvas id="graficoDocentes" width="1200" height="700"></canvas>
-                    </div>
-                </div> -->
-
-                <!-- <div class="container mt-5">
-                     <h3 class="mb-4">Unidades Diligenciadas por Docente (Año 2025)</h3> 
-                    <div style="overflow-x: auto;">
-                        <canvas id="graficoDocentes"></canvas>
-                    </div>
-                </div> -->
-
-                <!-- <div class="chart-container" style="width: 100%; height: 600px; overflow-x: auto;">
-                    <canvas id="graficoDocentes"></canvas>
-                </div> -->
 
                 <div class="chart-wrapper" style="width: 100%; overflow-x: auto; background: #f8f9fa; border-radius: 8px; padding: 15px; position: relative;">
                     <div class="chart-container" style="position: relative; height: 550px;">
@@ -387,135 +370,6 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                             canvas.parentElement.scrollLeft = 0;
                         });
                 }
-                /* function cargarDatos() {
-                    const ano_micro = document.getElementById('selectAno').value;
-                    const codigo_programa = document.getElementById('selectPrograma').value;
-                    const codigo_asignaturacurso = document.getElementById('selectAsignatura').value;
-                    const semestre = document.getElementById('selectSemestre').value;
-
-                    fetch(`getdatos_micro.php?ano_micro=${ano_micro}&codigo_programa=${codigo_programa}&codigo_asignaturacurso=${codigo_asignaturacurso}&semestre=${semestre}`)
-                        .then(response => response.json())
-                        .then(datos => {
-                            const canvas = document.getElementById('graficoDocentes');
-                            const ctx = canvas.getContext('2d');
-
-                            if (window.myChart) {
-                                window.myChart.destroy();
-                            }
-
-                            const dataLength = datos.length;
-                            let fontSize = 10;
-                            let barThickness = 30;
-
-                            if (dataLength > 100) {
-                                fontSize = 8;
-                                barThickness = 20;
-                            } else if (dataLength > 50) {
-                                fontSize = 9;
-                            }
-
-                            const config = {
-                                type: 'bar',
-                                data: {
-                                    labels: datos.map(d => d.nombre_docente),
-                                    datasets: [{
-                                        label: 'Unidades diligenciadas',
-                                        data: datos.map(d => Math.max(d.unidades_diligenciadas, 0.1)),
-                                        backgroundColor: function(context) {
-                                            return context.raw <= 0.1 ? 'rgba(255, 99, 132, 0.7)' : 'rgba(54, 162, 235, 0.7)';
-                                        },
-                                        borderColor: function(context) {
-                                            return context.raw <= 0.1 ? 'rgba(255, 99, 132, 1)' : 'rgba(54, 162, 235, 1)';
-                                        },
-                                        borderWidth: 1,
-                                        barThickness: barThickness,
-                                        minBarLength: 5
-                                    }]
-                                },
-                                options: {
-                                    responsive: false,
-                                    maintainAspectRatio: false,
-                                    scales: {
-                                        x: {
-                                            ticks: {
-                                                display: false // Ocultamos las etiquetas del eje X originales
-                                            },
-                                            grid: {
-                                                display: false
-                                            }
-                                        },
-                                        y: {
-                                            ticks: {
-                                                stepSize: 1,
-                                                callback: function(value) {
-                                                    if (value < 1) return '0';
-                                                    return value;
-                                                }
-                                            },
-                                            beginAtZero: true,
-                                            suggestedMin: 0,
-                                            suggestedMax: 5,
-                                            title: {
-                                                display: true,
-                                                text: 'Unidades diligenciadas'
-                                            }
-                                        }
-                                    },
-                                    plugins: {
-                                        legend: {
-                                            display: false
-                                        },
-                                        tooltip: {
-                                            callbacks: {
-                                                title: function(context) {
-                                                    return context[0].label;
-                                                },
-                                                label: function(context) {
-                                                    const dataIndex = context.dataIndex;
-                                                    const asignatura = datos[dataIndex].nom_asignatura;
-                                                    const unidades = datos[dataIndex].unidades_diligenciadas;
-                                                    return [
-                                                        `Asignatura: ${asignatura}`,
-                                                        `Unidades: ${unidades}`
-                                                    ];
-                                                },
-                                                backgroundColor: function(context) {
-                                                    return datos[context.dataIndex].unidades_diligenciadas === 0 ?
-                                                        'rgba(255, 99, 132, 0.9)' : 'rgba(54, 162, 235, 0.9)';
-                                                }
-                                            }
-                                        },
-                                        // NUEVO: Plugin para mostrar nombres de asignatura sobre las barras
-                                        datalabels: {
-                                            align: 'end',
-                                            anchor: 'end',
-                                            rotation: -45, // Rotación de 45 grados (negativo para inclinación hacia la derecha)
-                                            color: '#333',
-                                            font: {
-                                                size: fontSize - 1 // Un poco más pequeño que las otras fuentes
-                                            },
-                                            formatter: function(value, context) {
-                                                return datos[context.dataIndex].nom_asignatura;
-                                            }
-                                        }
-                                    }
-                                },
-                                plugins: [ChartDataLabels] // Asegúrate de tener este plugin importado
-                            };
-
-                            const requiredWidth = Math.max(
-                                canvas.parentElement.offsetWidth,
-                                dataLength * (barThickness + 30) // Más espacio para las etiquetas
-                            );
-                            canvas.width = requiredWidth;
-                            canvas.height = 600; // Aumentamos altura para acomodar las etiquetas
-                            canvas.style.width = requiredWidth + 'px';
-                            canvas.style.height = '600px';
-
-                            window.myChart = new Chart(ctx, config);
-                            canvas.parentElement.scrollLeft = 0;
-                        });
-                } */
             </script>
 
             <script>

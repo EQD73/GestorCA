@@ -28,7 +28,7 @@ include 'conexion6.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graficos Reporte de Avance</title>
+    <title>Gestor de Contenidos Académicos - UniCorsalud</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/app.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -166,8 +166,8 @@ include 'conexion6.php';
             <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
             <script src="../assets/js/main.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-            <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
             <script>
                 let chartAvance = null; // Variable global para almacenar el gráfico
 
@@ -198,7 +198,7 @@ include 'conexion6.php';
                                 response.forEach(item => {
                                     tablaHtml += `<tr>
                                 <td>${item.codigo_asignatura}</td>
-                                <td>${item.nombre_asignatura}</td>
+                                <td>${item.nom_asignatura}</td>
                                 <td>${item.semestre}</td>
                                 <td>${item.grupo}</td>
                                 <td>${item.nombre_programa}</td>
@@ -206,7 +206,7 @@ include 'conexion6.php';
                                 <td>${item.fecha_registro}</td>
                             </tr>`;
 
-                                    labels.push(item.nombre_asignatura);
+                                    labels.push(item.nom_asignatura);
                                     data.push(item.avance);
                                     semanas.push(item.total_semanas); // Agregar el total de semanas al array
                                 });
@@ -218,41 +218,7 @@ include 'conexion6.php';
                                     chartAvance.destroy();
                                 }
 
-                                /* let ctx = document.getElementById("graficoAvance").getContext("2d");
-                                chartAvance = new Chart(ctx, {
-                                    type: "bar",
-                                    data: {
-                                        labels: labels,
-                                        datasets: [{
-                                            label: "Avance (%)",
-                                            data: data,
-                                            backgroundColor: "rgba(75, 192, 192, 0.6)",
-                                            borderColor: "rgba(75, 192, 192, 1)",
-                                            borderWidth: 1
-                                        }]
-                                    },
-                                    options: {
-                                        scales: {
-                                            y: {
-                                                beginAtZero: true,
-                                                max: 100
-                                            }
-                                        },
-                                        plugins: {
-                                            tooltip: {
-                                                callbacks: {
-                                                    // Modificar el tooltip para incluir el total de semanas
-                                                    afterLabel: function(tooltipItem) {
-                                                        // Obtén el índice de la etiqueta actual en el gráfico
-                                                        var index = tooltipItem.dataIndex;
-                                                        // Retorna el texto del tooltip
-                                                        return `Total de semanas: ${semanas[index]}`;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }); */
+
                                 let ctx = document.getElementById("graficoAvance").getContext("2d");
                                 chartAvance = new Chart(ctx, {
                                     type: "bar",

@@ -4,28 +4,27 @@ header('Content-Type: application/json'); // Respuesta en JSON
 include('conexion2.php');
 
 // Obtener los filtros desde la URL
-$periodo = isset($_GET['periodo']) ?? '';
-$codigo_programa = isset($_GET['codigo_programa']) ?? '';
-$codigo_asignatura = isset($_GET['codigo_asignatura']) ?? '';
-$semestre = isset($_GET['semestre']) ?? '';
-$grupo = isset($_GET['grupo']) ?? '';
+$periodo = $_GET['periodo'] ?? '';
+$codigo_programa = $_GET['codigo_programa'] ?? '';
+$codigo_asignatura = $_GET['codigo_asignatura'] ?? '';
+$semestre = $_GET['semestre'] ?? '';
+$grupo = $_GET['grupo'] ?? '';
 
 $params = [$periodo]; // periodo
-
 $filters = "";
-$join_extra = "";
+$join_conditions = "m3.codigo_asignatura = p.codigo_asignatura AND m3.codigo_periodo = ?";
 
-if (!empty($programa)) {
-    $join_extra .= " AND m3.codigo_programa = ?";
-    $params[] = $programa;
+if (!empty($codigo_programa)) {
+    $join_conditions .= " AND m3.codigo_programa = ?";
+    $params[] = $codigo_programa;
 
     $filters .= " AND p.codigo_programa = ?";
-    $params[] = $programa;
+    $params[] = $codigo_programa;
 }
 
-if (!empty($asignatura)) {
+if (!empty($codigo_asignatura)) {
     $filters .= " AND p.codigo_asignatura = ?";
-    $params[] = $asignatura;
+    $params[] = $codigo_asignatura;
 }
 
 if (!empty($semestre)) {
@@ -39,8 +38,6 @@ if (!empty($grupo)) {
 }
 
 if (!in_array($codigo_programa, [26, 31, 32, 30])) {
-    // Código a ejecutar si codigo_programa es diferente de 26, 31, 32 y 30
-    // Construir la consulta base
     $query = "SELECT 
     p.codigo_asignatura,
     p.nom_asignatura,
@@ -73,8 +70,7 @@ if (!in_array($codigo_programa, [26, 31, 32, 30])) {
         (CASE WHEN TRIM(s18_descripcion) != '' THEN 1 ELSE 0 END)
     ) as semanas_diligenciadas
     FROM sistema.pensum p
-LEFT JOIN sistema.m3 m3 ON m3.codigo_asignatura = p.codigo_asignatura AND m3.codigo_periodo = ?
-$join_extra
+LEFT JOIN sistema.m3 m3 ON $join_conditions
 LEFT JOIN sistema.programas pr ON pr.codigo_programa = COALESCE(m3.codigo_programa, p.codigo_programa)
 WHERE 1=1
 $filters
@@ -93,7 +89,8 @@ GROUP BY
 ORDER BY p.codigo_programa, p.codigo_asignatura, p.semestre
 ";
 } else {
-    $query = "SELECT p.codigo_asignatura,
+    $query = "SELECT
+    p.codigo_asignatura,
     p.nom_asignatura,
     COALESCE(CAST(m3.grupo AS TEXT), 'Sin datos') AS grupo,
     COALESCE(m3.codigo_programa, p.codigo_programa) AS codigo_programa,
@@ -110,8 +107,7 @@ ORDER BY p.codigo_programa, p.codigo_asignatura, p.semestre
         (CASE WHEN TRIM(s5_descripcion_p) != '' THEN 1 ELSE 0 END)
     ) as semanas_diligenciadas
     FROM sistema.pensum p
-LEFT JOIN sistema.m3 m3 ON m3.codigo_asignatura = p.codigo_asignatura AND m3.codigo_periodo = ?
-$join_extra
+LEFT JOIN sistema.m3 m3 ON $join_conditions
 LEFT JOIN sistema.programas pr ON pr.codigo_programa = COALESCE(m3.codigo_programa, p.codigo_programa)
 WHERE 1=1
 $filters

@@ -31,7 +31,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Diligenciamiento por programas</title>
+    <title>Gestor de Contenidos Académicos - UniCorsalud</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/app.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -169,7 +169,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                         <select id="selectSemestre" class="form-select">
                             <option value="">Todos</option>
                             <?php
-                            $query = "SELECT DISTINCT semestre FROM sistema.asignaturas ORDER BY semestre";
+                            $query = "SELECT DISTINCT semestre FROM sistema.pensum ORDER BY semestre";
                             $result = pg_query($conexion, $query);
                             while ($row = pg_fetch_assoc($result)) {
                                 echo "<option value='{$row['semestre']}'>Semestre {$row['semestre']}</option>";
@@ -184,7 +184,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                         <select id="selectGrupo" class="form-select">
                             <option value="">Todos</option>
                             <?php
-                            $query = "SELECT DISTINCT grupo FROM sistema.asignaturas ORDER BY grupo";
+                            $query = "SELECT DISTINCT grupo FROM sistema.docente_asignaturas_periodo ORDER BY grupo";
                             $result = pg_query($conexion, $query);
                             while ($row = pg_fetch_assoc($result)) {
                                 echo "<option value='{$row['grupo']}'>Grupo {$row['grupo']}</option>";
@@ -241,7 +241,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                     const semestre = document.getElementById('selectSemestre').value;
                     const grupo = document.getElementById('selectGrupo').value;
 
-                    fetch(`getdatos_consigna.php?periodo=${periodos}&codigo_programa=${codigo_programa}&codigo_asignatura=${codigo_asignatura}&semestre=${semestre}&grupo=${grupo}`)
+                    fetch(`getdatos_registro.php?periodo=${periodos}&codigo_programa=${codigo_programa}&codigo_asignatura=${codigo_asignatura}&semestre=${semestre}&grupo=${grupo}`)
                         .then(response => response.json())
                         .then(datos => {
                             const canvas = document.getElementById('graficoDocentes');

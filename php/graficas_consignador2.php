@@ -166,8 +166,7 @@ include 'conexion6.php';
             <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
             <script src="../assets/js/main.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
-            <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
             <script>
                 let chartAvance = null; // Variable global para almacenar el gráfico
 
@@ -218,41 +217,6 @@ include 'conexion6.php';
                                     chartAvance.destroy();
                                 }
 
-                                /* let ctx = document.getElementById("graficoAvance").getContext("2d");
-                                chartAvance = new Chart(ctx, {
-                                    type: "bar",
-                                    data: {
-                                        labels: labels,
-                                        datasets: [{
-                                            label: "Avance (%)",
-                                            data: data,
-                                            backgroundColor: "rgba(75, 192, 192, 0.6)",
-                                            borderColor: "rgba(75, 192, 192, 1)",
-                                            borderWidth: 1
-                                        }]
-                                    },
-                                    options: {
-                                        scales: {
-                                            y: {
-                                                beginAtZero: true,
-                                                max: 100
-                                            }
-                                        },
-                                        plugins: {
-                                            tooltip: {
-                                                callbacks: {
-                                                    // Modificar el tooltip para incluir el total de semanas
-                                                    afterLabel: function(tooltipItem) {
-                                                        // Obtén el índice de la etiqueta actual en el gráfico
-                                                        var index = tooltipItem.dataIndex;
-                                                        // Retorna el texto del tooltip
-                                                        return `Total de semanas: ${semanas[index]}`;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }); */
                                 let ctx = document.getElementById("graficoAvance").getContext("2d");
                                 chartAvance = new Chart(ctx, {
                                     type: "bar",

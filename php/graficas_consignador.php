@@ -169,7 +169,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                         <select id="selectSemestre" class="form-select">
                             <option value="">Todos</option>
                             <?php
-                            $query = "SELECT DISTINCT semestre FROM sistema.asignaturas ORDER BY semestre";
+                            $query = "SELECT DISTINCT semestre FROM sistema.pensum ORDER BY semestre";
                             $result = pg_query($conexion, $query);
                             while ($row = pg_fetch_assoc($result)) {
                                 echo "<option value='{$row['semestre']}'>Semestre {$row['semestre']}</option>";
@@ -184,7 +184,7 @@ $_SESSION['nombre_rol'] = $nombre_rol;
                         <select id="selectGrupo" class="form-select">
                             <option value="">Todos</option>
                             <?php
-                            $query = "SELECT DISTINCT grupo FROM sistema.asignaturas ORDER BY grupo";
+                            $query = "SELECT DISTINCT grupo FROM sistema.docente_asignaturas_periodo ORDER BY grupo";
                             $result = pg_query($conexion, $query);
                             while ($row = pg_fetch_assoc($result)) {
                                 echo "<option value='{$row['grupo']}'>Grupo {$row['grupo']}</option>";

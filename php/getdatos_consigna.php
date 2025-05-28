@@ -39,8 +39,7 @@ if (!empty($grupo)) {
 }
 
 if (!in_array($codigo_programa, [26, 31, 32, 30])) {
-    $query = "
-SELECT 
+    $query = "SELECT 
     p.codigo_asignatura,
     p.nom_asignatura,
     COALESCE(CAST(m2.grupo AS TEXT), 'Sin datos') AS grupo,
@@ -90,8 +89,7 @@ GROUP BY
 ORDER BY p.codigo_programa, p.codigo_asignatura, p.semestre
 ";
 } else {
-    $query = "
-SELECT 
+    $query = "SELECT 
     p.codigo_asignatura,
     p.nom_asignatura,
     COALESCE(CAST(m2.grupo AS TEXT), 'Sin datos') AS grupo,
