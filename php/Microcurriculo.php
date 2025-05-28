@@ -45,6 +45,71 @@ $num1 = pg_num_rows($resultado_qf);
     </script>
 </head>
 
+<!-- <style>
+    /* Estilos para el scroll */
+    .sidebar-content {
+        scrollbar-width: thin;
+        scrollbar-color: #4a5568 #e2e8f0;
+    }
+
+    .sidebar-content::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .sidebar-content::-webkit-scrollbar-track {
+        background: #e2e8f0;
+        border-radius: 4px;
+    }
+
+    .sidebar-content::-webkit-scrollbar-thumb {
+        background-color: #4a5568;
+        border-radius: 4px;
+    }
+
+    /* Asegurar que el menú no se desborde */
+    .sidebar-menu {
+        padding-bottom: 20px;
+    }
+
+    .menu {
+        max-height: 100%;
+        overflow: hidden;
+    }
+
+    .submenu {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .sidebar-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    .sidebar-content {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    /* Asegurar que el menú sea visible */
+    .sidebar-menu {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* Estilos para el scroll (opcional) */
+    .sidebar-content::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .sidebar-content::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+    }
+</style>
+ -->
 
 <body>
 
