@@ -144,7 +144,8 @@ $pdf->SetFont("Arial", "B", 9);
 $pdf->Cell(30, 5, mb_convert_encoding("Total Semanas:", 'ISO-8859-1'), 1, 0, "L");
 $pdf->SetFont("Arial", "", 9);
 $pdf->Cell(20, 5, "$obj->total_semanas_periodo", 1, 1, "C");
-// cargue de datos json requisitos
+$codigoasig = $obj->codigo_asignaturacurso;
+/* // cargue de datos json requisitos
 if ($obj->requisitos == '{}') {
   $text_array = '';
 } else {
@@ -170,6 +171,35 @@ $pdf->SetXY(40, $y);
 $pdf->MultiCell(170, 7, mb_convert_encoding($text_array, 'ISO-8859-1'), 0, 'FJ', 0);
 $pdf->Rect(40, 70, 170, 14);
 $pdf->Ln(7);
+ */
+
+// Consulta para obtener prerrequisitos (formato: "CÓDIGO - NOMBRE")
+$text_array = '';
+$sql_prerequisitos = "SELECT p.codigo_prerequisito || ' - ' || p.nombre_prerequisito AS nombre_prerequisito 
+                      FROM prerequisitos p
+                      WHERE p.codigo_asignatura = $1";
+$result_prerequisitos = pg_query_params($conexion, $sql_prerequisitos, [$codigoasig]);
+
+if ($result_prerequisitos && pg_num_rows($result_prerequisitos) > 0) {
+  while ($prereq = pg_fetch_object($result_prerequisitos)) {
+    $text_array .= $prereq->nombre_prerequisito . " | ";
+  }
+  // Elimina el último separador " | " si es necesario
+  $text_array = rtrim($text_array, " | ");
+} else {
+  $text_array = 'No hay prerequisitos registrados';
+}
+
+// El resto de tu código para mostrar los requisitos permanece igual
+$pdf->SetFont("Arial", "B", 9);
+$y = $pdf->GetY();
+$pdf->MultiCell(30, 14, "Requisitos:", 1, 'FJ', 0);
+$pdf->SetFont("Arial", "", 9);
+$pdf->SetXY(40, $y);
+$pdf->MultiCell(170, 7, mb_convert_encoding($text_array, 'ISO-8859-1'), 0, 'FJ', 0);
+$pdf->Rect(40, 70, 170, 14);
+$pdf->Ln(7);
+
 // hasta aqui ///
 //nivel de formacion
 $pdf->SetFont("Arial", "B", 9);

@@ -119,7 +119,7 @@ $codigo_rol = $_SESSION['codigo_rol'];
                 </div>
                 <h3 class="text-center mb-4">Gestión Docente - Asignaturas por Periodo (Carga Académica)</h3>
                 <div class="d-flex justify-content-end mb-3">
-                    <button id="btnNuevo" class="btn btn-success">
+                    <button id="btnNuevo" class="btn btn-success btn-sm">
                         <i class="bi bi-plus-circle"></i> Nuevo Registro
                     </button>
                 </div>
@@ -216,7 +216,7 @@ $codigo_rol = $_SESSION['codigo_rol'];
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success" id="btnGuardar">Guardar</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i>Cancelar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i Cancelar</button>
                         </div>
                     </form>
                 </div>
