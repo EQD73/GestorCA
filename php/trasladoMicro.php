@@ -322,6 +322,10 @@ $codigo_rol = $_SESSION['codigo_rol'];
                                 $('#vista_previa_resultado').addClass('d-none');
                                 $('#preview-body').empty();
                                 $('#confirmar-traslado').prop('disabled', true);
+                                $('#form-periodos')[0].reset();
+                                $('#select_all_programas').prop('checked', false);
+                                $('#periodo_origen').val(null).trigger('change');
+                                $('#periodo_destino').val(null).trigger('change');
                             } else {
                                 Swal.fire('Error', res.message, 'error');
                             }

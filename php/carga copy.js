@@ -8,6 +8,49 @@ $(document).ready(function () {
   inicializarSelect2("#codigo_programa", "#modalFormulario");
   inicializarSelect2("#codigo_periodo", "#modalFormulario");
 
+  $("#tabla").DataTable({
+    ajax: {
+      url: "carga_crud.php",
+      type: "POST",
+      data: {
+        accion: "leer",
+      },
+      dataSrc: "", // o 'data' si tu respuesta es { data: [...] }
+    },
+    columns: [
+      { data: "id" },
+      { data: "codigo_docente" },
+      { data: "nombre_docente" },
+      { data: "codigo_asignatura" },
+      { data: "nom_asignatura" },
+      { data: "codigo_programa" },
+      { data: "nombre_programa" },
+      { data: "codigo_periodo" },
+      { data: "nombre_periodo" },
+      { data: "semestre" },
+      { data: "grupo" },
+      {
+        data: null,
+        render: function (data, type, row) {
+          return `
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-sm btn-secondary btnEditar me-1" title="Editar">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger btnEliminar" title="Eliminar">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        `;
+        },
+        orderable: false,
+      },
+    ],
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json",
+    },
+  });
+
   $("#btnNuevo").on("click", function () {
     document.getElementById("modalCargaHeader").className =
       "modal-header bg-success text-white";
@@ -299,7 +342,6 @@ $(document).ready(function () {
   $("#tabla tbody").on("click", ".btnEditar", function () {
     const tabla = $("#tabla").DataTable();
     const data = tabla.row($(this).closest("tr")).data();
-    console.log(data);
     if (!data) {
       alert("No se encontraron datos para la fila seleccionada.");
       return;
@@ -327,6 +369,7 @@ $(document).ready(function () {
       semestre: data.semestre,
       grupo: data.grupo,
     };
+
     editar(d);
   });
 
@@ -336,16 +379,15 @@ $(document).ready(function () {
 
   $("#tabla tbody").on("click", ".btnEliminar", function () {
     // const data = tabla.row($(this).parents('tr')).data();
-    const tabla = $("#tabla").DataTable();
     const data = tabla.row($(this).closest("tr")).data();
-    console.log(data);
     const d = {
       id: data.id,
       nom_asignatura: data.nom_asignatura,
     };
+    //console.log(d);
     Swal.fire({
       title: "¿Estás seguro?",
-      text: `Se eliminará el registro de la asignatura "${d.nom_asignatura}"`,
+      text: `Se eliminará el registro de la asignatura "${d.nombre_asignatura}"`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Sí, eliminar",
@@ -362,7 +404,9 @@ $(document).ready(function () {
               r.mensaje,
               r.estado === "Éxito" ? "success" : "error"
             );
+            //tabla.clear();               // limpia la tabla
             cargarRegistros();
+            //tabla.draw();
           }
         );
       }
@@ -397,34 +441,33 @@ function cargarSelects() {
 }
 
 function cargarRegistros() {
-  if ($.fn.DataTable.isDataTable("#tabla")) {
-    $("#tabla").DataTable().destroy();
-  }
-  $("#tabla").DataTable({
-    ajax: {
-      url: "carga_crud.php",
-      type: "POST",
-      data: {
-        accion: "leer",
-      },
-      dataSrc: "", // o 'data' si tu respuesta es { data: [...] }
-    },
-    columns: [
-      { data: "id" },
-      { data: "codigo_docente" },
-      { data: "nombre_docente" },
-      { data: "codigo_asignatura" },
-      { data: "nom_asignatura" },
-      { data: "codigo_programa" },
-      { data: "nombre_programa" },
-      { data: "codigo_periodo" },
-      { data: "nombre_periodo" },
-      { data: "semestre" },
-      { data: "grupo" },
-      {
-        data: null,
-        render: function (data, type, row) {
-          return `
+  $.post(
+    "carga_crud.php",
+    { accion: "leer" },
+    function (data) {
+      // Verificar si la tabla ya está inicializada
+      if ($.fn.DataTable.isDataTable("#tabla")) {
+        $("#tabla").DataTable().destroy();
+      }
+
+      $("#tabla").DataTable({
+        data: data,
+        columns: [
+          { data: "id" },
+          { data: "codigo_docente" },
+          { data: "nombre_docente" },
+          { data: "codigo_asignatura" },
+          { data: "nom_asignatura" },
+          { data: "codigo_programa" },
+          { data: "nombre_programa" },
+          { data: "codigo_periodo" },
+          { data: "nombre_periodo" },
+          { data: "semestre" },
+          { data: "grupo" },
+          {
+            data: null,
+            render: function (data, type, row) {
+              return `
                             <div class="btn-group" role="group">
                                 <button class="btn btn-sm btn-secondary btnEditar me-1" title="Editar">
                                     <i class="bi bi-pencil-square"></i>
@@ -434,13 +477,24 @@ function cargarRegistros() {
                                 </button>
                             </div>
                         `;
+            },
+            orderable: false,
+          },
+        ],
+        language: {
+          url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json",
         },
-        orderable: false,
-      },
-    ],
-    language: {
-      url: "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json",
+      });
     },
+    "json"
+  ).fail(function (jqXHR) {
+    Swal.fire({
+      title: "Error",
+      text:
+        "Error al cargar datos: " +
+        (jqXHR.responseJSON?.mensaje || jqXHR.statusText),
+      icon: "error",
+    });
   });
 }
 
