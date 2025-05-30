@@ -1,6 +1,6 @@
 <?php
 // Ruta del archivo CSV en tu servidor
-$file = 'plantilla asignaturas.csv';
+$file = 'plantilla pensum.csv';
 
 // Verificar que el archivo exista
 if (file_exists($file)) {

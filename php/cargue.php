@@ -96,7 +96,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                     <div class="avatar me-1">
                                         <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
                                     </div>
-                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br> 
+                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
                                     <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
@@ -112,7 +112,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                     <div class="row justify-content-center">
                         <div class="col-md-6">
                             <div class="jumbotron text-center">
-                                                             
+
                                 <h3 class="text-center">Cargue Masivo de Información</h3>
                                 <p class="lead">Escoje la tabla en la que deseas realizar el cargue:</p>
                                 <form id="tablaForm">
@@ -122,6 +122,9 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                             <option value="">Seleccione una tabla</option>
                                             <option value="cargue1.php">Usuarios</option>
                                             <option value="cargue2.php">Asignaturas</option>
+                                            <option value="cargue3.php">Prerequisitos</option>
+                                            <option value="cargue4.php">Pensum Académico</option>
+                                            <option value="cargue5.php">Carga Académica</option>
                                         </select>
                                     </div>
                                     <button type="button" class="btn btn-primary" id="submitBtn">Seleccionar</button>
@@ -147,7 +150,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
 }
     ?>
 
-    
+
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="../assets/js/feather-icons/feather.min.js"></script>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -159,11 +162,11 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
     <script type="text/javascript">
         document.getElementById('submitBtn').addEventListener('click', function() {
             var selectedValue = document.getElementById('actionSelect').value;
-                      
-           
+
+
             if (selectedValue) {
                 // Redirige al archivo PHP seleccionado                
-                window.location.href= selectedValue;
+                window.location.href = selectedValue;
             } else {
                 alert("Por favor selecciona una opción.");
             }
@@ -176,6 +179,6 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
     </script>
 
 
-</body>
+    </body>
 
 </html>

@@ -6,8 +6,8 @@ include("conexion5.php");
 
 // === Configuración de logs ===
 $fechaLog = date('Ymd');
-$logFileGeneral = "../logs/log_Cargue2_$fechaLog.txt";
-$logFileErrores = "../logs/errores_Cargue2_$fechaLog.txt";
+$logFileGeneral = "../logs/log_Cargue4_$fechaLog.txt";
+$logFileErrores = "../logs/errores_Cargue4_$fechaLog.txt";
 
 function write_log($message)
 {
@@ -71,28 +71,29 @@ try {
             continue;
         }
 
-        if (count($data) < 5) {
+        if (count($data) < 6) {
             logError("Línea $lineaActual incompleta. Saltada.");
             continue;
         }
 
-        $codigo_asignatura = mb_convert_encoding(trim($data[0]), 'UTF-8', 'auto');
-        $nomasig = mb_convert_encoding(trim($data[1]), 'UTF-8', 'auto');
-        $codprog = mb_convert_encoding(trim($data[2]), 'UTF-8', 'auto');
-        $ihs = trim($data[3]);
-        $creditos = trim($data[4]);
+        $codigo_programa = mb_convert_encoding(trim($data[0]), 'UTF-8', 'auto');
+        $codigo_facultad = mb_convert_encoding(trim($data[1]), 'UTF-8', 'auto');
+        $codigo_asignatura = mb_convert_encoding(trim($data[2]), 'UTF-8', 'auto');
+        $nombre_asignatura = mb_convert_encoding(trim($data[3]), 'UTF-8', 'auto');
+        $semestre = trim($data[4]);
+        $estado = mb_convert_encoding(trim($data[5]), 'UTF-8', 'auto');
 
         if (empty($codigo_asignatura)) {
             logError("Línea $lineaActual sin código de asignatura. Saltada.");
             continue;
         }
 
-        if (!is_numeric($ihs) || !is_numeric($creditos)) {
-            logError("Línea $lineaActual con IHS o Créditos no numéricos. Saltada.");
+        if (!is_numeric($semestre)) {
+            logError("Línea $lineaActual con Semestre no numéricos. Saltada.");
             continue;
         }
 
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM sistema.asignaturas WHERE codigo_asignatura = ?");
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM sistema.pensum WHERE codigo_asignatura = ?");
         $stmt->execute([$codigo_asignatura]);
         if ($stmt->fetchColumn() > 0) {
             $duplicados[] = $codigo_asignatura;
@@ -101,10 +102,10 @@ try {
         }
 
         try {
-            $insert = $pdo->prepare("INSERT INTO sistema.asignaturas (codigo_asignatura, nom_asignatura, codigo_programa, ihs, creditos) VALUES (?, ?, ?, ?, ?)");
-            $insert->execute([$codigo_asignatura, $nomasig, $codprog, $ihs, $creditos]);
+            $insert = $pdo->prepare("INSERT INTO pensum (codigo_programa, codigo_facultad, codigo_asignatura, nom_asignatura, semestre, estado) VALUES (?, ?, ?, ?, ?, ?)");
+            $insert->execute([$codigo_programa, $codigo_facultad, $codigo_asignatura, $nombre_asignatura, $semestre, $estado]);
             $insertados++;
-            write_log("Insertado: $codigo_asignatura - $nomasig");
+            write_log("Insertado: $codigo_programa - $codigo_asignatura - $nombre_asignatura");
         } catch (PDOException $e) {
             logError("Error insertando $codigo_asignatura: " . $e->getMessage());
         }

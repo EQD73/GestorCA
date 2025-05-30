@@ -142,3 +142,20 @@
 [2025-03-24 03:45:44] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
 [2025-03-24 03:46:08] Error al insertar el código 224776261: Codigo_Usuario Duplicado
 [2025-03-24 03:46:08] Error al insertar el código : SQLSTATE[23502]: Not null violation: 7 ERROR:  el valor null para la columna «codigo_usuario» viola la restricción not null
+[2025-05-28 22:14:06] Error al insertar el código 72111123: Codigo_Usuario Duplicado
+[2025-05-28 23:03:44] Error al insertar el código 72111124: SQLSTATE[HY093]: Invalid parameter number: :email_institucional
+[2025-05-28 23:05:11] Error al insertar el código 72111124: SQLSTATE[HY093]: Invalid parameter number: :email_institucional
+[2025-05-28 23:22:48] Error al insertar el código 72111124: SQLSTATE[HY093]: Invalid parameter number: :email_institucional
+[2025-05-28 23:34:25] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-28 23:34:59] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-28 23:41:03] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-29 00:02:15] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-29 00:03:07] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-29 00:08:41] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-29 00:32:05] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-29 00:32:22] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-29 00:36:13] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-29 00:36:32] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-29 00:38:32] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-29 01:53:23] Error al insertar el código 72111124: Codigo_Usuario Duplicado
+[2025-05-29 01:53:43] Error al insertar el código 72111124: Codigo_Usuario Duplicado

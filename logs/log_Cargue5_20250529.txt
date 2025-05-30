@@ -1,0 +1,14 @@
+[2025-05-29 20:11:01] Conexión a la base de datos exitosa.
+[2025-05-29 20:15:48] Conexión a la base de datos exitosa.
+[2025-05-29 20:16:51] Conexión a la base de datos exitosa.
+[2025-05-29 20:19:13] Conexión a la base de datos exitosa.
+[2025-05-29 20:19:39] Insertado: 1143122184 - 58010912
+[2025-05-29 20:19:53] Insertado: 1143122184 - 58010913
+[2025-05-29 20:20:04] Insertado: 22477626 - 58010941
+[2025-05-29 20:20:15] Insertado: 22477626 - 58010612
+[2025-05-29 20:20:15] Insertado: 1143123760 - 59020111
+[2025-05-29 20:20:19] Insertado: 72191896 - 59020112
+[2025-05-29 20:24:57] Conexión a la base de datos exitosa.
+[2025-05-29 20:25:09] Insertado: 22477626 - 58010941
+[2025-05-29 20:25:09] Insertado: 72191896 - 59020112
+[2025-05-29 20:25:51] Conexión a la base de datos exitosa.

@@ -1,0 +1,85 @@
+[2025-05-29 10:20:17] Código duplicado: 72111124
+[2025-05-29 10:24:30] Código duplicado: 72111124
+[2025-05-29 10:24:30] Error insertando : SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+[2025-05-29 10:24:30] Error insertando : SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+[2025-05-29 10:25:04] Código duplicado: 72111124
+[2025-05-29 10:25:04] Error insertando : SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+[2025-05-29 10:25:04] Error insertando : SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+[2025-05-29 10:26:27] Código duplicado: 72111124
+[2025-05-29 10:26:27] Error insertando 72111125: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+[2025-05-29 10:26:27] Error insertando 72111128: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+[2025-05-29 10:28:25] Código duplicado: 72111124
+[2025-05-29 10:28:25] Error insertando 72111125: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+[2025-05-29 10:28:25] Error insertando 72111128: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+[2025-05-29 10:31:22] Código duplicado: 72111124
+[2025-05-29 10:31:23] Error insertando 72111125: SQLSTATE[08P01]: <<Unknown error>>: 7 ERROR:  el mensaje de enlace (bind) entrega 7 parámetros, pero la sentencia preparada «pdo_stmt_00000003» requiere 8
+[2025-05-29 10:31:23] Error insertando 72111128: SQLSTATE[08P01]: <<Unknown error>>: 7 ERROR:  el mensaje de enlace (bind) entrega 7 parámetros, pero la sentencia preparada «pdo_stmt_00000005» requiere 8
+[2025-05-29 10:35:19] Código duplicado: 72111124
+[2025-05-29 10:35:19] Error insertando 72111125: SQLSTATE[08P01]: <<Unknown error>>: 7 ERROR:  el mensaje de enlace (bind) entrega 7 parámetros, pero la sentencia preparada «pdo_stmt_00000003» requiere 8
+[2025-05-29 10:35:19] Error insertando 72111128: SQLSTATE[08P01]: <<Unknown error>>: 7 ERROR:  el mensaje de enlace (bind) entrega 7 parámetros, pero la sentencia preparada «pdo_stmt_00000005» requiere 8
+[2025-05-29 10:37:15] Código duplicado: 72111124
+[2025-05-29 10:40:27] Código duplicado: 72111124
+[2025-05-29 10:40:27] Código duplicado: 72111125
+[2025-05-29 10:40:27] Código duplicado: 72111128
+[2025-05-29 10:40:59] Código duplicado: 72111124
+[2025-05-29 10:40:59] Código duplicado: 72111128
+[2025-05-29 10:50:31] Código duplicado: 72111124
+[2025-05-29 10:50:31] Código duplicado: 72111125
+[2025-05-29 10:50:31] Código duplicado: 72111128
+[2025-05-29 11:02:18] Código duplicado: 72111124
+[2025-05-29 11:02:18] Código duplicado: 72111125
+[2025-05-29 11:02:18] Código duplicado: 72111128
+[2025-05-29 11:03:35] Código duplicado: 72111124
+[2025-05-29 11:03:35] Código duplicado: 72111128
+[2025-05-29 12:03:34] Código duplicado: 24010341
+[2025-05-29 12:03:34] Código duplicado: 24010432
+[2025-05-29 12:03:34] Código duplicado: 24010411
+[2025-05-29 12:03:34] Código duplicado: 24010412
+[2025-05-29 12:03:34] Código duplicado: 24010421
+[2025-05-29 12:03:34] Código duplicado: 24010422
+[2025-05-29 12:08:24] Código duplicado: 58010341
+[2025-05-29 12:08:24] Código duplicado: 58010432
+[2025-05-29 12:08:24] Código duplicado: 58010411
+[2025-05-29 12:08:24] Código duplicado: 58010412
+[2025-05-29 12:08:24] Código duplicado: 58010421
+[2025-05-29 12:08:24] Código duplicado: 58010422
+[2025-05-29 12:13:47] Código duplicado: 58010341
+[2025-05-29 12:13:47] Código duplicado: 58010432
+[2025-05-29 12:13:47] Código duplicado: 58010411
+[2025-05-29 12:13:47] Código duplicado: 58010412
+[2025-05-29 12:13:47] Código duplicado: 58010421
+[2025-05-29 12:13:47] Código duplicado: 58010422
+[2025-05-29 12:18:48] Código duplicado: 58010341
+[2025-05-29 12:18:48] Código duplicado: 58010432
+[2025-05-29 12:18:48] Código duplicado: 58010411
+[2025-05-29 12:18:48] Código duplicado: 58010412
+[2025-05-29 12:18:48] Código duplicado: 58010421
+[2025-05-29 12:18:48] Código duplicado: 58010422
+[2025-05-29 12:25:00] Código duplicado: 58010341
+[2025-05-29 12:25:00] Código duplicado: 58010432
+[2025-05-29 12:25:00] Código duplicado: 58010411
+[2025-05-29 12:25:00] Código duplicado: 58010412
+[2025-05-29 12:25:00] Código duplicado: 58010421
+[2025-05-29 12:25:00] Código duplicado: 58010422
+[2025-05-29 18:32:48] Código duplicado: 58010341
+[2025-05-29 18:33:28] Código duplicado: 58010341
+[2025-05-29 18:33:28] Código duplicado: 58010432
+[2025-05-29 18:33:28] Código duplicado: 58010411
+[2025-05-29 18:33:28] Código duplicado: 58010412
+[2025-05-29 18:33:28] Código duplicado: 58010421
+[2025-05-29 18:33:28] Código duplicado: 58010422
+[2025-05-29 18:34:18] Código duplicado: 58010341
+[2025-05-29 18:34:18] Código duplicado: 58010412
+[2025-05-29 18:34:18] Código duplicado: 58010422
+[2025-05-29 20:07:36] Código duplicado: 1143122184
+[2025-05-29 20:07:36] Código duplicado: 1143122184
+[2025-05-29 20:07:36] Código duplicado: 22477626
+[2025-05-29 20:07:36] Código duplicado: 22477626
+[2025-05-29 20:07:36] Código duplicado: 1143123760
+[2025-05-29 20:07:36] Código duplicado: 72191896
+[2025-05-29 20:09:29] Código duplicado: 1143122184
+[2025-05-29 20:09:29] Código duplicado: 1143122184
+[2025-05-29 20:09:29] Código duplicado: 22477626
+[2025-05-29 20:09:29] Código duplicado: 22477626
+[2025-05-29 20:09:29] Código duplicado: 1143123760
+[2025-05-29 20:09:29] Código duplicado: 72191896

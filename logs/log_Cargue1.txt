@@ -198,3 +198,52 @@
 [2025-03-24 03:45:44] Error al subir el archivo CSV.
 [2025-03-24 03:46:08] Conexión a la base de datos exitosa.
 [2025-03-24 03:46:08] Error al subir el archivo CSV.
+[2025-05-28 21:28:08] Conexión a la base de datos exitosa.
+[2025-05-28 21:28:09] Datos insertados: 72111123, PEPE EMILIO. GRILLO MONTES
+[2025-05-28 21:28:09] Archivo CSV procesado correctamente.
+[2025-05-28 22:14:06] Conexión a la base de datos exitosa.
+[2025-05-28 22:14:06] Error al subir el archivo CSV.
+[2025-05-28 23:03:44] Conexión a la base de datos exitosa.
+[2025-05-28 23:03:44] Archivo CSV procesado correctamente.
+[2025-05-28 23:05:11] Conexión a la base de datos exitosa.
+[2025-05-28 23:05:11] Archivo CSV procesado correctamente.
+[2025-05-28 23:22:48] Conexión a la base de datos exitosa.
+[2025-05-28 23:22:48] Archivo CSV procesado correctamente.
+[2025-05-28 23:26:44] Conexión a la base de datos exitosa.
+[2025-05-28 23:26:44] Datos insertados: 72111124, MARIA JOSE,  GRILLO MONTES, email@unicorsalud.edu.co, 2, ACTIVO
+[2025-05-28 23:26:44] Archivo CSV procesado correctamente.
+[2025-05-28 23:32:55] Conexión a la base de datos exitosa.
+[2025-05-28 23:32:55] Datos insertados: 72111124, MARIA JOSE,  GRILLO MONTES, email@unicorsalud.edu.co, 2, ACTIVO
+[2025-05-28 23:32:55] Archivo CSV procesado correctamente.
+[2025-05-28 23:34:00] Conexión a la base de datos exitosa.
+[2025-05-28 23:34:00] Datos insertados: 72111124, MARIA JOSE,  GRILLO MONTES, email@unicorsalud.edu.co, 2, ACTIVO
+[2025-05-28 23:34:00] Archivo CSV procesado correctamente.
+[2025-05-28 23:34:25] Conexión a la base de datos exitosa.
+[2025-05-28 23:34:25] Error al subir el archivo CSV.
+[2025-05-28 23:34:59] Conexión a la base de datos exitosa.
+[2025-05-28 23:34:59] Error al subir el archivo CSV.
+[2025-05-28 23:41:03] Conexión a la base de datos exitosa.
+[2025-05-28 23:41:03] Error al subir el archivo CSV.
+[2025-05-29 00:02:15] Conexión a la base de datos exitosa.
+[2025-05-29 00:02:15] Error al subir el archivo CSV.
+[2025-05-29 00:03:07] Conexión a la base de datos exitosa.
+[2025-05-29 00:03:07] Error al subir el archivo CSV.
+[2025-05-29 00:08:41] Conexión a la base de datos exitosa.
+[2025-05-29 00:08:41] Error al subir el archivo CSV.
+[2025-05-29 00:32:05] Conexión a la base de datos exitosa.
+[2025-05-29 00:32:05] Error al subir el archivo CSV.
+[2025-05-29 00:32:22] Conexión a la base de datos exitosa.
+[2025-05-29 00:32:22] Error al subir el archivo CSV.
+[2025-05-29 00:35:17] Conexión a la base de datos exitosa.
+[2025-05-29 00:35:17] Datos insertados: 72111124, MARIA JOSE,  GRILLO MONTES, email@unicorsalud.edu.co, 2, ACTIVO
+[2025-05-29 00:35:17] Archivo CSV procesado correctamente.
+[2025-05-29 00:36:13] Conexión a la base de datos exitosa.
+[2025-05-29 00:36:13] Error al subir el archivo CSV.
+[2025-05-29 00:36:32] Conexión a la base de datos exitosa.
+[2025-05-29 00:36:32] Error al subir el archivo CSV.
+[2025-05-29 00:38:32] Conexión a la base de datos exitosa.
+[2025-05-29 00:38:32] Error al subir el archivo CSV.
+[2025-05-29 01:53:23] Conexión a la base de datos exitosa.
+[2025-05-29 01:53:23] Error al subir el archivo CSV.
+[2025-05-29 01:53:43] Conexión a la base de datos exitosa.
+[2025-05-29 01:53:43] Error al subir el archivo CSV.

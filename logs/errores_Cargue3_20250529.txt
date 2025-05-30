@@ -1,0 +1,27 @@
+[2025-05-29 08:59:38] Línea 2 incompleta. Saltada.
+[2025-05-29 08:59:38] Línea 3 incompleta. Saltada.
+[2025-05-29 08:59:38] Línea 4 incompleta. Saltada.
+[2025-05-29 08:59:38] Línea 5 incompleta. Saltada.
+[2025-05-29 09:17:58] Excepción general: SQLSTATE[42P01]: Undefined table: 7 ERROR:  no existe la relación «sistema.prerequisito»
+LINE 1: SELECT COUNT(*) FROM sistema.prerequisito WHERE codigo_prere...
+                             ^
+[2025-05-29 09:19:50] 58010412
+[2025-05-29 09:19:50] 58011031
+[2025-05-29 09:19:50] 58010943
+[2025-05-29 09:19:50] 58010843
+[2025-05-29 09:37:25] Código duplicado: 58010312 , 58010412
+[2025-05-29 09:37:52] Código duplicado: 58010931 , 58011031
+[2025-05-29 09:37:55] Código duplicado: 58010844 , 58010943
+[2025-05-29 09:37:56] Código duplicado: 58010742 , 58010843
+[2025-05-29 09:40:27] Código duplicado: 58010312 - 58010412
+[2025-05-29 09:40:27] Código duplicado: 58010931 - 58011031
+[2025-05-29 09:40:27] Código duplicado: 58010844 - 58010943
+[2025-05-29 09:40:27] Código duplicado: 58010742 - 58010843
+[2025-05-29 09:41:32] Código duplicado: 58010312 - 58010412
+[2025-05-29 09:41:32] Código duplicado: 58010844 - 58010943
+[2025-05-29 09:43:42] Código duplicado: 58010312 - 58010412
+[2025-05-29 09:43:42] Código duplicado: 58010742 - 58010843
+[2025-05-29 09:44:33] Código duplicado: 58010312 - 58010412
+[2025-05-29 09:44:33] Código duplicado: 58010931 - 58011031
+[2025-05-29 09:44:33] Código duplicado: 58010844 - 58010943
+[2025-05-29 09:44:33] Código duplicado: 58010742 - 58010843

@@ -8,7 +8,7 @@ $nombre = $_SESSION['nombres'];
 $codigo_rol = $_SESSION['codigo_rol'];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -104,13 +104,13 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                     </div>
                 </nav>
                 <div class="container mt-5">
-                    <h3 class="text-center">Carga Masiva de la tabla Asignaturas</h3>
+                    <h3 class="text-center">Carga Masiva de la tabla Carga Académica</h3>
 
                     <!-- Enlace de descarga con una imagen -->
                     <div class="text-center">
-                        <a href="descargar2.php" class="btn btn-danger">
+                        <a href="descargar5.php" class="btn btn-danger">
                             <img src="https://img.icons8.com/?size=100&id=11594&format=png&color=000000" alt="Descargar CSV" style="width: 24px; height: 24px; margin-right: 8px;">
-                            Descargar Plantilla Asignaturas.CSV
+                            Descargar Plantilla Carga.CSV
                         </a>
                     </div>
 
@@ -130,7 +130,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
 
                     <div class="card mt-3">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Tabla de Asignaturas</h5>
+                            <h5 class="mb-0">Tabla de Carga Académica</h5>
                             <button id="infoProgramasBtn" class="btn btn-outline-danger btn-sm">
                                 <i class="bi bi-question-circle me-1"></i> Códigos de programas
                             </button>
@@ -140,11 +140,12 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                             <table id="csvPreview" class="table table-bordered mt-3">
                                 <thead>
                                     <tr>
-                                        <th>Codigo</th>
-                                        <th>Nombre Asig</th>
-                                        <th>Codigo Programa</th>
-                                        <th>Ihs</th>
-                                        <th>Creditos</th>
+                                        <th>Código Docente</th>
+                                        <th>Código Asig</th>
+                                        <th>Semestre</th>
+                                        <th>Grupo</th>
+                                        <th>Código Programa</th>
+                                        <th>Código Periodo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -190,7 +191,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                     title: 'Recuerda:',
                     icon: 'info',
                     html: `
-                    <ul class="text-start mb-0" style="max-height: 300px; overflow-y: auto;">
+                     <ul class="text-start mb-0" style="max-height: 300px; overflow-y: auto;">
                         <li><strong>Codigo_programa = 24</strong> → INGENIERÍA INDUSTRIAL</li>
                         <li><strong>Codigo_programa = 25</strong> → INGENIERÍA AMBIENTAL</li>
                         <li><strong>Codigo_programa = 26</strong> → GERENCIA SALUD OCUPACIONAL</li>
@@ -232,7 +233,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                     //const lines = content.split(/\r\n|\n/).filter(line => line.trim() !== '');
 
                     // Detectar si la primera línea es encabezado
-                    const headerWords = ['codigo', 'nombre', 'codigo', 'ihs', 'creditos'];
+                    const headerWords = ['docente', 'asignatura', 'semestre', 'grupo', 'programa', 'periodo'];
                     const firstLine = lines[0].toLowerCase();
                     const isHeader = headerWords.some(word => firstLine.includes(word));
 
@@ -247,19 +248,20 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                             cell.replace(/^"|"$/g, '').trim()
                         );
 
-                        if (cleanCells.length >= 5) {
+                        if (cleanCells.length >= 6) {
                             tableHtml += `<tr>
                         <td>${cleanCells[0] || ''}</td>
                         <td>${cleanCells[1] || ''}</td>
                         <td>${cleanCells[2] || ''}</td>
                         <td>${cleanCells[3] || ''}</td>
-                        <td>${cleanCells[4] || ''}</td>                        
+                        <td>${cleanCells[4] || ''}</td> 
+                        <td>${cleanCells[5] || ''}</td>                     
                     </tr>`;
                         }
                     }
 
                     document.querySelector('#csvPreview tbody').innerHTML = tableHtml ||
-                        '<tr><td colspan="5">No se pudieron leer datos del archivo</td></tr>';
+                        '<tr><td colspan="6">No se pudieron leer datos del archivo</td></tr>';
 
                 } catch (error) {
                     console.error('Error procesando CSV:', error);
@@ -322,7 +324,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                             return xhr;
                         },
                         type: 'POST',
-                        url: 'upload2.php',
+                        url: 'upload5.php',
                         data: formData,
                         contentType: false,
                         processData: false,
@@ -401,16 +403,17 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                 data.forEach(function(row) {
                     tbody.append(
                         '<tr>' +
-                        '<td>' + row.codigo + '</td>' +
-                        '<td>' + row.nombre_asig + '</td>' +
-                        '<td>' + row.codigo_prog + '</td>' +
-                        '<td>' + row.ihs + '</td>' +
-                        '<td>' + row.creditos + '</td>' +
+                        '<td>' + row.codigo_docente + '</td>' +
+                        '<td>' + row.codigo_asignatura + '</td>' +
+                        '<td>' + row.semestre + '</td>' +
+                        '<td>' + row.grupo + '</td>' +
+                        '<td>' + row.codigo_programa + '</td>' +
+                        '<td>' + row.codigo_periodo + '</td>' +
                         '</tr>'
                     );
                 });
             } else {
-                tbody.append('<tr><td colspan="5" class="text-center">No hay datos para mostrar</td></tr>');
+                tbody.append('<tr><td colspan="6" class="text-center">No hay datos para mostrar</td></tr>');
             }
         }
     </script>

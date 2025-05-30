@@ -216,7 +216,7 @@ $codigo_rol = $_SESSION['codigo_rol'];
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success" id="btnGuardar">Guardar</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i Cancelar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cancelar</button>
                         </div>
                     </form>
                 </div>

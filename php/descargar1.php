@@ -1,6 +1,6 @@
 <?php
 // Ruta del archivo CSV en tu servidor
-$file = 'Plantilla Usuarios_nuevos.csv';
+$file = 'plantilla usuarios.csv';
 
 // Verificar que el archivo exista
 if (file_exists($file)) {
@@ -12,7 +12,7 @@ if (file_exists($file)) {
     header('Cache-Control: must-revalidate');
     header('Pragma: public');
     header('Content-Length: ' . filesize($file));
-    
+
     // Limpiar el búfer de salida
     flush();
 
@@ -24,4 +24,3 @@ if (file_exists($file)) {
     // En caso de que el archivo no exista
     echo "El archivo no existe.";
 }
-?>

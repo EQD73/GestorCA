@@ -60,3 +60,23 @@
 [2024-09-22 04:54:35] Error al subir el archivo CSV.
 [2025-05-12 16:21:06] Conexión a la base de datos exitosa.
 [2025-05-12 16:21:07] Archivo CSV procesado correctamente.
+[2025-05-29 02:48:36] Conexión a la base de datos exitosa.
+[2025-05-29 02:48:36] Archivo CSV procesado correctamente.
+[2025-05-29 02:52:48] Conexión a la base de datos exitosa.
+[2025-05-29 02:52:48] Error al subir el archivo CSV.
+[2025-05-29 03:11:35] Conexión a la base de datos exitosa.
+[2025-05-29 03:11:35] Error al subir el archivo CSV.
+[2025-05-29 03:14:25] Conexión a la base de datos exitosa.
+[2025-05-29 03:14:25] Datos insertados: 58010212, ALGEBRA LINEAL, 24, 0, 0
+[2025-05-29 03:14:25] Archivo CSV procesado correctamente.
+[2025-05-29 03:24:49] Conexión a la base de datos exitosa.
+[2025-05-29 03:24:49] Datos insertados: 58010212, ALGEBRA LINEAL, 24, 0, 0
+[2025-05-29 03:24:49] Archivo CSV procesado correctamente.
+[2025-05-29 03:42:41] Conexión a la base de datos exitosa.
+[2025-05-29 03:42:41] Insertado: 58010212 - ALGEBRA LINEAL
+[2025-05-29 03:44:31] Conexión a la base de datos exitosa.
+[2025-05-29 03:48:13] Conexión a la base de datos exitosa.
+[2025-05-29 03:50:06] Conexión a la base de datos exitosa.
+[2025-05-29 03:51:44] Conexión a la base de datos exitosa.
+[2025-05-29 03:52:15] Conexión a la base de datos exitosa.
+[2025-05-29 03:53:03] Conexión a la base de datos exitosa.

@@ -1,0 +1,53 @@
+[2025-05-29 10:20:16] Conexión a la base de datos exitosa.
+[2025-05-29 10:24:30] Conexión a la base de datos exitosa.
+[2025-05-29 10:25:04] Conexión a la base de datos exitosa.
+[2025-05-29 10:26:27] Conexión a la base de datos exitosa.
+[2025-05-29 10:28:25] Conexión a la base de datos exitosa.
+[2025-05-29 10:31:22] Conexión a la base de datos exitosa.
+[2025-05-29 10:35:19] Conexión a la base de datos exitosa.
+[2025-05-29 10:37:15] Conexión a la base de datos exitosa.
+[2025-05-29 10:37:15] Insertado: 72111125 - GOMEZ MONTES SOFIA INES
+[2025-05-29 10:37:15] Insertado: 72111128 - PEREZ MONTES ANTONELLA
+[2025-05-29 10:40:16] Conexión a la base de datos exitosa.
+[2025-05-29 10:40:16] Insertado: 72111124 - GRILLO MONTES MARIA JOSE
+[2025-05-29 10:40:16] Insertado: 72111125 - GOMEZ MONTES SOFIA INES
+[2025-05-29 10:40:16] Insertado: 72111128 - PEREZ MONTES ANTONELLA
+[2025-05-29 10:40:27] Conexión a la base de datos exitosa.
+[2025-05-29 10:40:59] Conexión a la base de datos exitosa.
+[2025-05-29 10:40:59] Insertado: 72111125 - GOMEZ MONTES SOFIA INES
+[2025-05-29 10:50:31] Conexión a la base de datos exitosa.
+[2025-05-29 10:57:27] Conexión a la base de datos exitosa.
+[2025-05-29 10:57:27] Insertado: 72111124 - GRILLO MONTES MARIA JOSE
+[2025-05-29 10:57:27] Insertado: 72111125 - GOMEZ MONTES SOFIA INES
+[2025-05-29 10:57:27] Insertado: 72111128 - PEREZ MONTES ANTONELLA
+[2025-05-29 11:02:18] Conexión a la base de datos exitosa.
+[2025-05-29 11:03:35] Conexión a la base de datos exitosa.
+[2025-05-29 11:03:35] Insertado: 72111125 - GOMEZ MONTES SOFIA INES
+[2025-05-29 12:03:34] Conexión a la base de datos exitosa.
+[2025-05-29 12:07:27] Conexión a la base de datos exitosa.
+[2025-05-29 12:07:27] Insertado: 58 -  - PROYECTO INTEGRADOR I
+[2025-05-29 12:07:27] Insertado: 58 -  - ELECTIVA DE CONTEXTO II
+[2025-05-29 12:07:27] Insertado: 58 -  - ECUACIONES DIFERENCIALES
+[2025-05-29 12:07:27] Insertado: 58 -  - FÍSICA CALOR ONDAS
+[2025-05-29 12:07:27] Insertado: 58 -  - CIENCIA DE LOS MATERIALES
+[2025-05-29 12:07:27] Insertado: 58 -  - FUNDAMENTOS DE ECONOMÍA
+[2025-05-29 12:08:24] Conexión a la base de datos exitosa.
+[2025-05-29 12:13:47] Conexión a la base de datos exitosa.
+[2025-05-29 12:18:48] Conexión a la base de datos exitosa.
+[2025-05-29 12:25:00] Conexión a la base de datos exitosa.
+[2025-05-29 12:26:51] Conexión a la base de datos exitosa.
+[2025-05-29 18:32:34] Conexión a la base de datos exitosa.
+[2025-05-29 18:33:28] Conexión a la base de datos exitosa.
+[2025-05-29 18:34:18] Conexión a la base de datos exitosa.
+[2025-05-29 18:34:18] Insertado: 58 - 58010432 - ELECTIVA DE CONTEXTO II
+[2025-05-29 18:34:18] Insertado: 58 - 58010411 - ECUACIONES DIFERENCIALES
+[2025-05-29 18:34:18] Insertado: 58 - 58010421 - CIENCIA DE LOS MATERIALES
+[2025-05-29 18:35:08] Conexión a la base de datos exitosa.
+[2025-05-29 18:35:08] Insertado: 58 - 58010341 - PROYECTO INTEGRADOR I
+[2025-05-29 18:35:08] Insertado: 58 - 58010432 - ELECTIVA DE CONTEXTO II
+[2025-05-29 18:35:08] Insertado: 58 - 58010411 - ECUACIONES DIFERENCIALES
+[2025-05-29 18:35:08] Insertado: 58 - 58010412 - FÍSICA CALOR ONDAS
+[2025-05-29 18:35:08] Insertado: 58 - 58010421 - CIENCIA DE LOS MATERIALES
+[2025-05-29 18:35:08] Insertado: 58 - 58010422 - FUNDAMENTOS DE ECONOMÍA
+[2025-05-29 20:07:36] Conexión a la base de datos exitosa.
+[2025-05-29 20:09:29] Conexión a la base de datos exitosa.

@@ -6,8 +6,8 @@ include("conexion5.php");
 
 // === Configuración de logs ===
 $fechaLog = date('Ymd');
-$logFileGeneral = "../logs/log_Cargue2_$fechaLog.txt";
-$logFileErrores = "../logs/errores_Cargue2_$fechaLog.txt";
+$logFileGeneral = "../logs/log_Cargue3_$fechaLog.txt";
+$logFileErrores = "../logs/errores_Cargue3_$fechaLog.txt";
 
 function write_log($message)
 {
@@ -71,42 +71,38 @@ try {
             continue;
         }
 
-        if (count($data) < 5) {
+        if (count($data) < 4) {
             logError("Línea $lineaActual incompleta. Saltada.");
             continue;
         }
 
-        $codigo_asignatura = mb_convert_encoding(trim($data[0]), 'UTF-8', 'auto');
-        $nomasig = mb_convert_encoding(trim($data[1]), 'UTF-8', 'auto');
-        $codprog = mb_convert_encoding(trim($data[2]), 'UTF-8', 'auto');
-        $ihs = trim($data[3]);
-        $creditos = trim($data[4]);
+        $codigo_prereq = mb_convert_encoding(trim($data[0]), 'UTF-8', 'auto');
+        $nomprereq = mb_convert_encoding(trim($data[1]), 'UTF-8', 'auto');
+        $codasig = mb_convert_encoding(trim($data[2]), 'UTF-8', 'auto');
+        $codprog = mb_convert_encoding(trim($data[3]), 'UTF-8', 'auto');
 
-        if (empty($codigo_asignatura)) {
-            logError("Línea $lineaActual sin código de asignatura. Saltada.");
+
+        if (empty($codigo_prereq)) {
+            logError("Línea $lineaActual sin código de prerequisito. Saltada.");
             continue;
         }
 
-        if (!is_numeric($ihs) || !is_numeric($creditos)) {
-            logError("Línea $lineaActual con IHS o Créditos no numéricos. Saltada.");
-            continue;
-        }
 
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM sistema.asignaturas WHERE codigo_asignatura = ?");
-        $stmt->execute([$codigo_asignatura]);
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM sistema.prerequisitos WHERE codigo_prerequisito = ? AND codigo_asignatura = ?");
+        $stmt->execute([$codigo_prereq, $codasig]);
         if ($stmt->fetchColumn() > 0) {
-            $duplicados[] = $codigo_asignatura;
-            logError("Código duplicado: $codigo_asignatura");
+            $duplicados[] = $codigo_prereq . " - " . $codasig;
+            logError("Código duplicado: " . $codigo_prereq . " - " . $codasig);
             continue;
         }
 
         try {
-            $insert = $pdo->prepare("INSERT INTO sistema.asignaturas (codigo_asignatura, nom_asignatura, codigo_programa, ihs, creditos) VALUES (?, ?, ?, ?, ?)");
-            $insert->execute([$codigo_asignatura, $nomasig, $codprog, $ihs, $creditos]);
+            $insert = $pdo->prepare("INSERT INTO sistema.prerequisitos (codigo_prerequisito, nombre_prerequisito, codigo_asignatura, codigo_programa) VALUES (?, ?, ?, ?)");
+            $insert->execute([$codigo_prereq, $nomprereq, $codasig, $codprog]);
             $insertados++;
-            write_log("Insertado: $codigo_asignatura - $nomasig");
+            write_log("Insertado: $codigo_prereq - $nomprereq");
         } catch (PDOException $e) {
-            logError("Error insertando $codigo_asignatura: " . $e->getMessage());
+            logError("Error insertando $codigo_prereq: " . $e->getMessage());
         }
     }
 

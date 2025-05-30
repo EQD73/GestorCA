@@ -104,13 +104,13 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                     </div>
                 </nav>
                 <div class="container mt-5">
-                    <h3 class="text-center">Carga Masiva de la tabla Asignaturas</h3>
+                    <h3 class="text-center">Carga Masiva de la tabla Prerequisitos</h3>
 
                     <!-- Enlace de descarga con una imagen -->
                     <div class="text-center">
-                        <a href="descargar2.php" class="btn btn-danger">
+                        <a href="descargar3.php" class="btn btn-danger">
                             <img src="https://img.icons8.com/?size=100&id=11594&format=png&color=000000" alt="Descargar CSV" style="width: 24px; height: 24px; margin-right: 8px;">
-                            Descargar Plantilla Asignaturas.CSV
+                            Descargar Plantilla Prerequisitos.CSV
                         </a>
                     </div>
 
@@ -130,7 +130,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
 
                     <div class="card mt-3">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Tabla de Asignaturas</h5>
+                            <h5 class="mb-0">Tabla de Prerequisitos</h5>
                             <button id="infoProgramasBtn" class="btn btn-outline-danger btn-sm">
                                 <i class="bi bi-question-circle me-1"></i> Códigos de programas
                             </button>
@@ -141,10 +141,9 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                 <thead>
                                     <tr>
                                         <th>Codigo</th>
-                                        <th>Nombre Asig</th>
+                                        <th>Nombre Prerequisito</th>
+                                        <th>Codigo Asignatura</th>
                                         <th>Codigo Programa</th>
-                                        <th>Ihs</th>
-                                        <th>Creditos</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -232,7 +231,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                     //const lines = content.split(/\r\n|\n/).filter(line => line.trim() !== '');
 
                     // Detectar si la primera línea es encabezado
-                    const headerWords = ['codigo', 'nombre', 'codigo', 'ihs', 'creditos'];
+                    const headerWords = ['codigo', 'nombre', 'codigo', 'codigo'];
                     const firstLine = lines[0].toLowerCase();
                     const isHeader = headerWords.some(word => firstLine.includes(word));
 
@@ -247,13 +246,12 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                             cell.replace(/^"|"$/g, '').trim()
                         );
 
-                        if (cleanCells.length >= 5) {
+                        if (cleanCells.length >= 4) {
                             tableHtml += `<tr>
                         <td>${cleanCells[0] || ''}</td>
                         <td>${cleanCells[1] || ''}</td>
                         <td>${cleanCells[2] || ''}</td>
-                        <td>${cleanCells[3] || ''}</td>
-                        <td>${cleanCells[4] || ''}</td>                        
+                        <td>${cleanCells[3] || ''}</td>                                             
                     </tr>`;
                         }
                     }
@@ -322,7 +320,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                             return xhr;
                         },
                         type: 'POST',
-                        url: 'upload2.php',
+                        url: 'upload3.php',
                         data: formData,
                         contentType: false,
                         processData: false,
@@ -348,9 +346,9 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                                         icon: 'warning',
                                         title: 'Carga parcial',
                                         html: `
-                                    <p>${res.message}</p>
-                                    <p><strong>Duplicados:</strong> ${res.duplicados.join(', ')}</p>
-                                `,
+                                        <p>${res.message}</p>
+                                        <p><strong>Duplicados:</strong> ${res.duplicados.join(', ')}</p>
+                                    `,
                                         confirmButtonText: 'Aceptar'
                                     }).then(() => {
                                         resetFormUI();
@@ -402,15 +400,14 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                     tbody.append(
                         '<tr>' +
                         '<td>' + row.codigo + '</td>' +
-                        '<td>' + row.nombre_asig + '</td>' +
+                        '<td>' + row.nombre_prereq + '</td>' +
+                        '<td>' + row.codigo_asig + '</td>' +
                         '<td>' + row.codigo_prog + '</td>' +
-                        '<td>' + row.ihs + '</td>' +
-                        '<td>' + row.creditos + '</td>' +
                         '</tr>'
                     );
                 });
             } else {
-                tbody.append('<tr><td colspan="5" class="text-center">No hay datos para mostrar</td></tr>');
+                tbody.append('<tr><td colspan="4" class="text-center">No hay datos para mostrar</td></tr>');
             }
         }
     </script>
