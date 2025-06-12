@@ -1,0 +1,96 @@
+<!-- ─── Topbar ─── -->
+<nav
+  id="topbar"
+  class="d-flex align-items-center justify-content-between px-4 gap-2"
+>
+  <!-- Asegúrate de que el id sea exactamente "btnToggleSidebar" -->
+  <button id="btnToggleSidebar" class="btn">
+    <i class="bi bi-list"></i>
+  </button>
+  <!-- <h3 class="m-0 text-danger"><?= htmlspecialchars($pageTitle ?? "Panel Principal") ?></h3> -->
+  <h3 class="m-0 text-danger">
+    <i
+      class="bi <?= $iconClass ?? 'bi-house-door' ?> <?= $iconColor ?> me-2"
+    ></i
+    ><?= htmlspecialchars($pageTitle ?? "Panel Principal") ?>
+  </h3>
+
+  <strong
+    >Rol:
+    <?= htmlspecialchars($nombre_rol) ?? "" ?></strong
+  >
+  <?php if (!empty($_SESSION['descripcion'])): ?>
+  <strong
+    >Periodo Académico: [<?= htmlspecialchars($_SESSION['descripcion']) ?>]</strong
+  >
+  <?php endif; ?>
+  <?php
+        $badgeClass = "bg-secondary"; // clase por defecto
+
+        switch (strtoupper($estado)) {
+            case 'ACTIVO':
+                $badgeClass = "bg-success";
+                break;
+            case 'BLOQUEADO':
+                $badgeClass = "bg-danger";
+                break;
+                // Puedes agregar más estados si los necesitas
+        }
+        ?>
+  <strong
+    >Estado Periodo:
+    <span class="badge <?= $badgeClass ?> rounded-pill ms-2"
+      ><?= htmlspecialchars($estado) ?></span
+    ></strong
+  >
+  <div class="d-flex align-items-center gap-3">
+    <a href="#" class="text-secondary">
+      <i class="bi bi-bell-fill fs-5"></i>
+    </a>
+    <div class="dropdown">
+      <a
+        href="#"
+        class="d-flex align-items-center text-secondary text-decoration-none dropdown-toggle"
+        id="dropdownUser"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <img
+          src="https://ui-avatars.com/api/?name=<?= urlencode($nombre . ' ' . $apellido) ?>&background=0d6efd&color=fff&size=32"
+          alt="avatar"
+          class="rounded-circle me-2"
+          width="32"
+          height="32"
+        />
+        <strong><?= htmlspecialchars($nombre . ' ' . $apellido) ?></strong>
+      </a>
+      <ul
+        class="dropdown-menu dropdown-menu-end text-small shadow"
+        aria-labelledby="dropdownUser"
+      >
+        <li>
+          <a class="dropdown-item" href="#"
+            ><i class="bi bi-person-fill"></i> Perfil</a
+          >
+        </li>
+        <li>
+          <a class="dropdown-item" href="#"
+            ><i class="bi bi-gear"></i> Configuración</a
+          >
+        </li>
+        <li>
+          <hr class="dropdown-divider" />
+        </li>
+        <li>
+          <a
+            class="dropdown-item text-danger"
+            onclick="cerrarsession(event)"
+            href="#"
+            ><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- /Topbar -->

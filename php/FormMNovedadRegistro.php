@@ -14,10 +14,10 @@ $objConsulta = pg_fetch_object($resultado_qm);
 
 <form action="guardarMNovedadregistro.php" method="POST" id="pills-tabContent" name="pills-tabContent">
     <div class="tab-content">
-    <div class="row">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+        <div class="row">
+            <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-center">
               <a href="#" class="btn btn-success btn-ms" id="BtnBorrar" type="button" data-toggle="tooltip" data-placement="top" title="Borrar Registro de Actividades" onclick="borrardatos();"><i data-feather="trash-2" width="20"></i> Borrar</a>
-            </div>
+            </div> -->
         </div>
         <div class="row">
             <div class="col-md-12 mt-2"></div>
@@ -41,7 +41,7 @@ $objConsulta = pg_fetch_object($resultado_qm);
                     <input type="hidden" class="form-control form-control sm" id="CodigoCur" name="CodigoCur">
                     <div class="col-md-6 mt-2">
                         <label for="formGroup" class="form-label">Nombre de la asignatura</label>
-                        <input type="text" class="form-control form-control sm" id="NombreCurso" name="NombreCurso" value="<?php echo $objConsulta->nombre_asignatura; ?>"readonly>
+                        <input type="text" class="form-control form-control sm" id="NombreCurso" name="NombreCurso" value="<?php echo $objConsulta->nombre_asignatura; ?>" readonly>
                     </div>
                     <div class="col-md-2 mt-2">
                         <label for="formGroup" class="form-label">Grupo</label>
@@ -72,7 +72,7 @@ $objConsulta = pg_fetch_object($resultado_qm);
                         <input type="text" class="form-control form-control sm" id="CodigoDocente" name="CodigoDocente" value="<?php echo $objConsulta->codigo_docente; ?>" readonly>
                     </div>
 
-                    <input type="hidden" class="form-control form-control sm" id="id_registro" name="id_registro" value="<?php echo $codigoConsulta?>">
+                    <input type="hidden" class="form-control form-control sm" id="id_registro" name="id_registro" value="<?php echo $codigoConsulta ?>">
 
                     <div class="col-md-8 mt-2">
                         <label for="formGroup" class="form-label">Nombre del Docente</label>

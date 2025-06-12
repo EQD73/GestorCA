@@ -1,19 +1,38 @@
 <?php
-
 session_start();
-
-if (!isset($_SESSION['codigo_usuario'])) {
-    header("Location: ../index.php");
-}
-
-$nombre = $_SESSION['nombres'];
-$codigo_rol = $_SESSION['codigo_rol'];
-$estadoper = $_SESSION['estado_periodo'];
-
-
+include('conexion2.php');
 include('conexion.php');
 
-//select de tabla usuarios
+
+// 1) Si no hay usuario logueado, redirigir a la pantalla de login
+if (!isset($_SESSION['codigo_usuario'])) {
+    header("Location: ../index.php");
+    exit();
+}
+
+// 2) Recuperar datos del usuario para mostrar (opcional)
+$codigo_rol = $_SESSION['codigo_rol'];
+$nombre     = $_SESSION['nombres'];
+$apellido   = $_SESSION['apellidos'];
+
+$nombre = explode(" ", trim($nombre))[0];
+$apellido = explode(" ", trim($apellido))[0];
+
+$estadoper = $_SESSION['estado_periodo'];
+$estado = $_SESSION['estado_periodo'] ?? null;
+$query_roles = "SELECT nombre_rol FROM sistema.roles WHERE codigo_rol = :codigo_rol";
+$stmt = $pdo->prepare($query_roles);
+$stmt->execute(['codigo_rol' => $codigo_rol]);
+$objroles = $stmt->fetch(PDO::FETCH_OBJ);
+
+if ($objroles) {
+    $_SESSION['nombre_rol'] = $objroles->nombre_rol;
+    $nombre_rol = $objroles->nombre_rol;
+} else {
+    $_SESSION['nombre_rol'] = null; // o maneja el caso según necesites
+}
+
+//select de tabla facultades
 
 $query_facultad = "SELECT * FROM sistema.facultades ORDER BY codigo_facultad ASC ";
 $resultado_qf = pg_query($conexion, $query_facultad);
@@ -28,231 +47,71 @@ $num1 = pg_num_rows($resultado_qf);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Contenidos Académicos - UniCorsalud</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-    <!-- jQuery Library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.dataTables.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css"> -->
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <!-- <link rel="stylesheet" href="../css/estilos.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.css" integrity="sha512-us/9of/cEp3FrrmLUpCcWUAzm2gE7EOPnfEAWBMwdWR1Lpxw0orMoVvLyyoGSD9iMGAUlEd8XHzt5+SDwmdGLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.js" integrity="sha512-vgklhe3vcXaOdX0on3diSDRNRFlqWR9sLH6mMT4gm8ZzSMG0OxE8S1Tm8LHUOfEdZICn45OO2eluLLt81oHvtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
     <script>
         const estadoPeriodo = "<?php echo $estadoper; ?>";
     </script>
+    <style>
+        <?php require('stylepanel.html'); ?>
+    </style>
 </head>
 
-<!-- <style>
-    /* Estilos para el scroll */
-    .sidebar-content {
-        scrollbar-width: thin;
-        scrollbar-color: #4a5568 #e2e8f0;
-    }
-
-    .sidebar-content::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    .sidebar-content::-webkit-scrollbar-track {
-        background: #e2e8f0;
-        border-radius: 4px;
-    }
-
-    .sidebar-content::-webkit-scrollbar-thumb {
-        background-color: #4a5568;
-        border-radius: 4px;
-    }
-
-    /* Asegurar que el menú no se desborde */
-    .sidebar-menu {
-        padding-bottom: 20px;
-    }
-
-    .menu {
-        max-height: 100%;
-        overflow: hidden;
-    }
-
-    .submenu {
-        max-height: none;
-        overflow: visible;
-    }
-
-    .sidebar-wrapper {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-    }
-
-    .sidebar-content {
-        flex: 1;
-        overflow-y: auto;
-    }
-
-    /* Asegurar que el menú sea visible */
-    .sidebar-menu {
-        display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-
-    /* Estilos para el scroll (opcional) */
-    .sidebar-content::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .sidebar-content::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 3px;
-    }
-</style>
- -->
-
 <body>
-
-    <div id="app">
-        <?php include("cargue_menul.html"); ?>
-        <div id="main">
-            <nav class="navbar navbar-header navbar-expand navbar-light">
-                <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
-                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+    <?php include("sidebar.html");
+    //Define esto antes de incluir el topbar -->
+    $iconColor = 'text-danger';
+    $iconClass = 'bi-stack';
+    $pageTitle = "Gestión de Microcuriculos"; // Cambia esto según la lógica de tu aplicación style="font-size:0.8em"
+    include("topbar.html"); ?>
+    <!-- <div class="container mt-5 pt-3" style="margin-left: var(--sidebar-width); max-width:87%;"> -->
+    <main id="content">
+        <h3 class="text-center mt-2" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Módulo MicroCurriculo</h3>
+        <div class="row justify-content-end mb-4"> <!-- Botón alineado a la derecha -->
+            <div class="col-auto">
+                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalUsuario" id="botonCrear">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo MicroCurriculo
                 </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
-                        <li class="dropdown nav-icon">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="d-lg-inline-block">
-                                    <i data-feather="bell"></i>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-large">
-                                <h6 class='py-2 px-4'>Notificaciones</h6>
-                                <ul class="list-group rounded-none">
-                                    <li class="list-group-item border-0 align-items-start">
-                                        <div class="avatar bg-success me-3">
-                                            <span class="avatar-content"><i data-feather="alert-circle"></i></span>
-                                        </div>
-                                        <div>
-                                            <h6 class='text-bold'>Aviso</h6>
-                                            <p class='text-xs'>
-                                                No hay información
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="avatar me-1">
-                                    <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
-                                </div>
-                                <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
-                                <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#"><i data-feather="user"></i> Cuenta/Perfil</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"><i data-feather="log-out"></i>Salir</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <div class="container">
-
-                <div class="row">
-                    <h4 class="text-center" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Periodo Académico: <?php echo $_SESSION['descripcion']; ?></h4>
-
-                </div>
-
-                <h3 class="text-center" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Módulo MicroCurriculo</h3>
-
-
-                <div class="row">
-                    <div class="col-4 offset-9">
-                        <div class="text-center">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#modalUsuario" style="font-size:0.8em" id="botonCrear">
-                                <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo MicroCurriculo
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <br />
-
-                <div class="table-responsive-sm" style="font-size:0.8em">
-                    <table id="datos_micro" class="table table-sm table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Código</th>
-                                <th>Nombre</th>
-                                <th>Grupo</th>
-                                <th>Cod.Docente</th>
-                                <th>Nom.Docente</th>
-                                <th>Semestre</th>
-                                <th>Nombre Programa</th>
-                                <th>Editar</th>
-                                <th>Borrar</th>
-                                <th>Imprimir</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
 
-
-    </div>
-
-    <footer>
-        <div class="footer clearfix mb-0 text-muted">
-            <div class="float-start">
-                <p>2024 &copy; UniCorsalud </p>
-            </div>
-            <!--  <div class="float-end">
-                        <p>Crafted with <span class='text-danger'><i data-feather=""></i></span> by <a href="#">Eqd</a></p>
-                    </div> -->
+        <div class="table-responsive-sm mt-1" style="width: 100%">
+            <table id="datos_micro" class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Grupo</th>
+                        <th>Cod.Docente</th>
+                        <th>Nom.Docente</th>
+                        <th>Semestre</th>
+                        <th>Nombre Programa</th>
+                        <th>Editar</th>
+                        <th>Borrar</th>
+                        <th>Imprimir</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
-    </footer>
-    </div>
-    </div>
+        <footer>
+            <p>© 2024 UniCorsalud. Todos los derechos reservados.</p>
+        </footer>
+    </main>
 
-
-
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="../assets/js/feather-icons/feather.min.js"></script>
-    <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.3.2/js/dataTables.fixedHeader.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script> -->
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
             $("#botonCrear").click(function() {
                 window.location.href = 'agregar_micro.php';
-                /* $("#formulario")[0].reset();
-                $(".modal-title").text("Crear Usuario");
-                $("#action").val("Crear");
-                $("#operacion").val("Crear"); */
             });
 
             var dataTable = $('#datos_micro').DataTable({
@@ -266,9 +125,6 @@ $num1 = pg_num_rows($resultado_qf);
                     /* 'url': 'datos_micro.php',
                     /* "data": function (d) {}, */
                 },
-
-
-
                 'columns': [{
 
                         data: 'id'
@@ -413,9 +269,55 @@ $num1 = pg_num_rows($resultado_qf);
 
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const topbar = document.getElementById('topbar');
+            const content = document.getElementById('content');
+            const btnToggle = document.getElementById('btnToggleSidebar');
+            const sidebarToggler = document.querySelector('.sidebar-toggler');
+
+            // Función para alternar la clase 'collapsed'
+            function toggleSidebar() {
+                sidebar.classList.toggle('collapsed');
+                topbar.classList.toggle('collapsed');
+                content.classList.toggle('collapsed');
+
+                // Cambiar el ícono del botón hamburguesa (bi-list ↔ bi-x)
+                const icon = btnToggle.querySelector('i');
+                icon.classList.toggle('bi-list');
+                icon.classList.toggle('bi-x');
+            }
+
+            // Cuando se hace clic en el botón hamburguesa
+            btnToggle.addEventListener('click', toggleSidebar);
+
+            // Cuando se hace clic en el botón “X” del sidebar
+            sidebarToggler.addEventListener('click', () => {
+                sidebar.classList.add('collapsed');
+                topbar.classList.add('collapsed');
+                content.classList.add('collapsed');
+            });
+        });
+    </script>
+
     <script type="text/javascript">
-        function cerrarsession() {
-            window.sessionStorage.removeItem("mostrarModal");
+        function cerrarsession(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Vas a salir del sistema.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, salir',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'logout.php';
+                }
+            });
         }
     </script>
 </body>

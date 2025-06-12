@@ -1,0 +1,569 @@
+<!-- ─── Sidebar ─── -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-header">
+      <img src="../assets/images/logo.png" width="200" height="80" alt="Logo" />
+    </div>
+  </div>
+  <?php switch ($codigo_rol) {
+            case '2':  ?>
+  <ul class="sidebar-menu">
+    <li class="sidebar-title">Menu Principal</li>
+    <li>
+      <a href="dashboard.php" class="nav-link active">
+        <i class="bi bi-house-door"></i>
+        <span>Inicio</span>
+      </a>
+    </li>
+
+    <!-- Submenú Módulos -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuModulos"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuModulos"
+      >
+        <span><i class="bi bi-stack"></i> Módulos</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuModulos">
+        <ul class="submenu">
+          <li>
+            <a href="Microcurriculo.php" class="nav-link">Microcurriculo</a>
+          </li>
+          <li>
+            <a href="Consignador.php" class="nav-link">Consignador Académico</a>
+          </li>
+          <li>
+            <a href="Registro.php" class="nav-link">Registro de Actividades</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <!-- Submenú Utilidades -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuUtilidades"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuUtilidades"
+      >
+        <span><i class="bi bi-tools"></i> Utilidades</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuUtilidades">
+        <ul class="submenu">
+          <li>
+            <a href="trasladoConsigna.php" class="nav-link"
+              >Traslados entre Asignaturas Consignador</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Submenú Ayuda -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuAyuda"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuAyuda"
+      >
+        <span><i class="bi bi-question-circle"></i> Ayuda</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuAyuda">
+        <ul class="submenu">
+          <li>
+            <a
+              href="../manual/Manual de Usuario Gestor CA V1.7.pdf"
+              download="Manual de Usuario GestorCA.pdf"
+              class="nav-link"
+              >Manual de Usuario</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <!-- Opción Cerrar Sesión -->
+    <li class="mt-4">
+      <a href="#" class="nav-link text-danger" onclick="cerrarsession(event)">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Cerrar Sesión</span>
+      </a>
+    </li>
+  </ul>
+  <!-- Botón “X” para colapsar desde abajo -->
+  <button class="sidebar-toggler btn">
+    <i class="bi bi-x"></i>
+  </button>
+  <?php break;
+            case '5':
+            case '1': ?>
+  <ul class="sidebar-menu">
+    <li class="sidebar-title">Menu Principal</li>
+    <li>
+      <a href="dashboard.php" class="nav-link active">
+        <i class="bi bi-house-door"></i>
+        <span>Inicio</span>
+      </a>
+    </li>
+    <!-- Submenú Módulos -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuModulos"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuModulos"
+      >
+        <span><i class="bi bi-stack"></i> Módulos</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuModulos">
+        <ul class="submenu">
+          <li>
+            <a href="Microcurriculo.php" class="nav-link">Microcurriculo</a>
+          </li>
+          <li>
+            <a href="Consignador.php" class="nav-link">Consignador Académico</a>
+          </li>
+          <li>
+            <a href="Registro.php" class="nav-link">Registro de Actividades</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="sidebar-title">Formularios/Tablas</li>
+    <!-- Submenú Tablas Basicas -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuTablasBasicas"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuTablasBasicas"
+      >
+        <span><i class="bi bi-database-fill"></i> Tablas Básicas</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuTablasBasicas">
+        <ul class="submenu">
+          <li>
+            <a href="periodo.php" class="nav-link">Periodos Académicos</a>
+          </li>
+          <li><a href="facultades.php" class="nav-link">Facultades</a></li>
+          <li><a href="programas.php" class="nav-link">Programas</a></li>
+          <li><a href="asignaturas.php" class="nav-link">Asignaturas</a></li>
+          <li>
+            <a href="prerequisitos.php" class="nav-link">Prerequisitos</a>
+          </li>
+          <li><a href="pensum.php" class="nav-link">Pensum Académico</a></li>
+          <li><a href="carga.php" class="nav-link">Carga Académica</a></li>
+        </ul>
+      </div>
+    </li>
+    <!-- Submenú Tablas Complementarias -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuTablasComplementarias"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuTablasComplementarias"
+      >
+        <span
+          ><i class="bi bi-database-fill-add"></i> Tablas Complementarias</span
+        >
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuTablasComplementarias">
+        <ul class="submenu">
+          <li><a href="sedes.php" class="nav-link">Sedes</a></li>
+          <li><a href="nivel.php" class="nav-link">Nivel</a></li>
+          <li><a href="revisionf.php" class="nav-link">Version Formato</a></li>
+          <li>
+            <a href="estrategia.php" class="nav-link"
+              >Estrategias Metodológicas</a
+            >
+          </li>
+          <li>
+            <a href="met_evaluacion.php" class="nav-link"
+              >Metodología Evaluación</a
+            >
+          </li>
+          <li><a href="evaluacion.php" class="nav-link">Evaluación</a></li>
+        </ul>
+      </div>
+    </li>
+    <!-- Submenú Control de Usuarios -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuControldeUsuarios"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuControldeUsuarios"
+      >
+        <span><i class="bi bi-people-fill"></i> Control de Usuarios</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuControldeUsuarios">
+        <ul class="submenu">
+          <li><a href="roles.php" class="nav-link">Roles Usuarios</a></li>
+          <li><a href="usuarios.php" class="nav-link">Usuarios</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="sidebar-title">Herramientas</li>
+    <!-- Submenú Utilidades -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuUtilidades"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuUtilidades"
+      >
+        <span><i class="bi bi-tools"></i> Utilidades</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuUtilidades">
+        <ul class="submenu">
+          <li><a href="cargue.php" class="nav-link">Cargue Masivo</a></li>
+          <li>
+            <a href="backup_front.php" class="nav-link">Copias de Soporte</a>
+          </li>
+          <li>
+            <a href="restore_front.php" class="nav-link">Restaurar Datos</a>
+          </li>
+          <li>
+            <a href="trasladoMicro.php" class="nav-link"
+              >Traslados entre Periodos Microcurriculo</a
+            >
+          </li>
+          <li>
+            <a href="trasladoConsigna.php" class="nav-link"
+              >Traslados entre Asignaturas Consignador</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <!-- Submenú Graficas -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuGraficas"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuGraficas"
+      >
+        <span><i class="bi bi-bar-chart-fill"></i> Gráficas/Estadísticas</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuGraficas">
+        <ul class="submenu">
+          <li>
+            <a href="graficas_micro.php" class="nav-link"
+              >Microcurrículo/Avance x Programas</a
+            >
+          </li>
+          <li>
+            <a href="graficas_micro3.php" class="nav-link"
+              >Microcurrículo/Avance x Docentes</a
+            >
+          </li>
+          <li>
+            <a href="graficas_consignador.php" class="nav-link"
+              >Consignador/Reporte x Programas</a
+            >
+          </li>
+          <li>
+            <a href="graficas_consignador2.php" class="nav-link"
+              >Consignador/Reporte x Docentes</a
+            >
+          </li>
+          <li>
+            <a href="graficas_registro.php" class="nav-link"
+              >Registro/Reporte x Programas</a
+            >
+          </li>
+          <li>
+            <a href="graficas_registro2.php" class="nav-link"
+              >Registro/Reporte x Docentes</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="sidebar-title">Reportes/Informes</li>
+    <!-- Submenú Informes -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuInformes"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuInformes"
+      >
+        <span><i class="bi bi-file-earmark-text-fill"></i> Informes</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuInformes">
+        <ul class="submenu">
+          <li>
+            <a href="Reporte_Micro.php" class="nav-link">Microcurrículo</a>
+          </li>
+          <li>
+            <a href="Reporte_Consigna.php" class="nav-link">Consignador</a>
+          </li>
+          <li>
+            <a href="Reporte_Registro.php" class="nav-link"
+              >Registro Actividades</a
+            >
+          </li>
+          <li>
+            <a href="ImprimirUsuarios.php" class="nav-link" target="_blank"
+              >Usuarios</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <!-- Submenú Reportes Excel -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuReportesExcel"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuReportesExcel"
+      >
+        <span
+          ><i class="bi bi-file-earmark-excel-fill"></i> Reportes Excel</span
+        >
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuReportesExcel">
+        <ul class="submenu">
+          <li>
+            <a href="ReporteMicro_Excel.php" class="nav-link">Microcurrículo</a>
+          </li>
+          <li>
+            <a href="ReporteConsigna_Excel.php" class="nav-link">Consignador</a>
+          </li>
+          <li>
+            <a href="ReporteRegistro_Excel.php" class="nav-link"
+              >Registro Actividades</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <!-- Submenú Ayuda -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuAyuda"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuAyuda"
+      >
+        <span><i class="bi bi-question-circle"></i> Ayuda</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuAyuda">
+        <ul class="submenu">
+          <li>
+            <a
+              href="../manual/Manual de Usuario Gestor CA V1.7.pdf"
+              download="Manual de Usuario GestorCA.pdf"
+              class="nav-link"
+              >Manual de Usuario</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <!-- Opción Cerrar Sesión -->
+    <li class="mt-4">
+      <a href="#" class="nav-link text-danger" onclick="cerrarsession(event)">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Cerrar Sesión</span>
+      </a>
+    </li>
+  </ul>
+  <!--Botón “X” para colapsar desde abajo -->
+  <button class="sidebar-toggler btn">
+    <i class="bi bi-x"></i>
+  </button>
+  <?php break;
+            default: ?>
+  <ul class="sidebar-menu">
+    <li class="sidebar-item"></li>
+    <li class="sidebar-title">Menu Principal</li>
+    <li>
+      <a href="dashboard.php" class="nav-link active">
+        <i class="bi bi-house-door"></i>
+        <span>Inicio</span>
+      </a>
+    </li>
+
+    <!-- Submenú Módulos -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuModulos"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuModulos"
+      >
+        <span><i class="bi bi-stack"></i> Módulos</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuModulos">
+        <ul class="submenu">
+          <li>
+            <a href="Microcurriculo.php" class="nav-link">Microcurriculo</a>
+          </li>
+          <li>
+            <a href="Consignador.php" class="nav-link">Consignador Académico</a>
+          </li>
+          <li>
+            <a href="Registro.php" class="nav-link">Registro de Actividades</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="sidebar-title">Reportes/Informes</li>
+    <!-- Submenú Informes -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuInformes"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuInformes"
+      >
+        <span><i class="bi bi-file-earmark-text-fill"></i> Informes</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuInformes">
+        <ul class="submenu">
+          <li>
+            <a href="Reporte_Micro.php" class="nav-link">Microcurrículo</a>
+          </li>
+          <li>
+            <a href="Reporte_Consigna.php" class="nav-link">Consignador</a>
+          </li>
+          <li>
+            <a href="Reporte_Registro.php" class="nav-link"
+              >Registro Actividades</a
+            >
+          </li>
+          <li>
+            <a href="ImprimirUsuarios.php" class="nav-link" target="_blank"
+              >Usuarios</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <!-- Submenú Reportes Excel -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuReportesExcel"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuReportesExcel"
+      >
+        <span
+          ><i class="bi bi-file-earmark-excel-fill"></i> Reportes Excel</span
+        >
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuReportesExcel">
+        <ul class="submenu">
+          <li>
+            <a href="ReporteMicro_Excel.php" class="nav-link">Microcurrículo</a>
+          </li>
+          <li>
+            <a href="ReporteConsigna_Excel.php" class="nav-link">Consignador</a>
+          </li>
+          <li>
+            <a href="ReporteRegistro_Excel.php" class="nav-link"
+              >Registro Actividades</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <!-- Submenú Ayuda -->
+    <li>
+      <a
+        class="nav-link d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse"
+        href="#submenuAyuda"
+        role="button"
+        aria-expanded="false"
+        aria-controls="submenuAyuda"
+      >
+        <span><i class="bi bi-question-circle"></i> Ayuda</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="submenuAyuda">
+        <ul class="submenu">
+          <li>
+            <a
+              href="../manual/Manual de Usuario Gestor CA V1.7.pdf"
+              download="Manual de Usuario GestorCA.pdf"
+              class="nav-link"
+              >Manual de Usuario</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <!-- Opción Cerrar Sesión -->
+    <li class="mt-4">
+      <a href="#" class="nav-link text-danger" onclick="cerrarsession(event)">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Cerrar Sesión</span>
+      </a>
+    </li>
+  </ul>
+  <!-- Botón “X” para colapsar desde abajo -->
+  <button class="sidebar-toggler btn">
+    <i class="bi bi-x"></i>
+  </button>
+  <?php break;
+        } ?>
+
+  <!-- Botón “X” para colapsar desde abajo -->
+  <!--  <button class="sidebar-toggler btn">
+            <i class="bi bi-x"></i>
+        </button>  -->
+</nav>
+<!-- /Sidebar -->

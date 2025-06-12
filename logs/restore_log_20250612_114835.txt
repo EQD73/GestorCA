@@ -1,0 +1,4 @@
+Resultado DROP SCHEMA:
+CREATE SCHEMA
+
+pg_restore: [archivador] el archivo de entrada es demasiado corto (leidos 0, esperados 5)

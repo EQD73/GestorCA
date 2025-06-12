@@ -1,37 +1,56 @@
 <?php
 session_start();
+include('conexion2.php');
+include('conexion.php');
 
+
+// 1) Si no hay usuario logueado, redirigir a la pantalla de login
 if (!isset($_SESSION['codigo_usuario'])) {
     header("Location: ../index.php");
+    exit();
 }
-$nombre = $_SESSION['nombres'];
+
+// 2) Recuperar datos del usuario para mostrar (opcional)
 $codigo_rol = $_SESSION['codigo_rol'];
+$nombre     = $_SESSION['nombres'];
+$apellido   = $_SESSION['apellidos'];
+
+$nombre = explode(" ", trim($nombre))[0];
+$apellido = explode(" ", trim($apellido))[0];
+
+$estadoper = $_SESSION['estado_periodo'];
+$estado = $_SESSION['estado_periodo'] ?? null;
+$query_roles = "SELECT nombre_rol FROM sistema.roles WHERE codigo_rol = :codigo_rol";
+$stmt = $pdo->prepare($query_roles);
+$stmt->execute(['codigo_rol' => $codigo_rol]);
+$objroles = $stmt->fetch(PDO::FETCH_OBJ);
+
+if ($objroles) {
+    $_SESSION['nombre_rol'] = $objroles->nombre_rol;
+    $nombre_rol = $objroles->nombre_rol;
+} else {
+    $_SESSION['nombre_rol'] = null; // o maneja el caso según necesites
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Gestor de Contenidos Académicos - UniCorsalud</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
-    <script src="../assets/js/feather-icons/feather.min.js"></script>
-    <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.css" integrity="sha512-us/9of/cEp3FrrmLUpCcWUAzm2gE7EOPnfEAWBMwdWR1Lpxw0orMoVvLyyoGSD9iMGAUlEd8XHzt5+SDwmdGLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.2/sweetalert2.js" integrity="sha512-vgklhe3vcXaOdX0on3diSDRNRFlqWR9sLH6mMT4gm8ZzSMG0OxE8S1Tm8LHUOfEdZICn45OO2eluLLt81oHvtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+        <?php require('stylepanel.html'); ?>
+    </style>
     <style>
         .bg-orange {
             background-color: #fd7e14 !important;
         }
     </style>
-
-
 </head>
 
 <?php
@@ -46,7 +65,7 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                 confirmButtonText: "Cerrar"
             }).then(function(result) {
                 if (result.value) {
-                    window.location.href = "home.php";
+                    window.location.href = "dashboard.php";
 
                 }
             });
@@ -57,103 +76,42 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
 ?>
 
     <body>
-        <div id="app">
-            <?php include("cargue_menul.html"); ?>
-
-            <div id="main">
-                <nav class="navbar navbar-header navbar-expand navbar-light">
-                    <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
-                    <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
-                            <li class="dropdown nav-icon">
-                                <a href="#" data-bs-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
-                                    <div class="d-lg-inline-block">
-                                        <i data-feather="bell"></i>
-                                    </div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-large">
-                                    <h6 class='py-2 px-4'>Notificaciones</h6>
-                                    <ul class="list-group rounded-none">
-                                        <li class="list-group-item border-0 align-items-start">
-                                            <div class="avatar bg-success me-3">
-                                                <span class="avatar-content"><i data-feather="alert-circle"></i></span>
-                                            </div>
-                                            <div>
-                                                <h6 class='text-bold'>Aviso</h6>
-                                                <p class='text-xs'>
-                                                    No hay notificaciones
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                    <div class="avatar me-1">
-                                        <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
-                                    </div>
-                                    <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
-                                    <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#"><i data-feather="user"></i> Cuenta/Perfil</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"><i data-feather="log-out"></i> Salir</a>
-                                </div>
-                            </li>
-                        </ul>
+        <?php include("sidebar.html");
+        //Define esto antes de incluir el topbar -->
+        $iconColor = 'text-success';
+        $iconClass = 'bi-tools';
+        $pageTitle = "Gestión de Utilidades"; // Cambia esto según la lógica de tu aplicación style="font-size:0.8em"
+        include("topbar.html"); ?>
+        <!-- <div class="container mt-5 pt-3" style="margin-left: var(--sidebar-width); max-width:87%;"> -->
+        <main id="content">
+            <h1 class="text-center">Restaurar Base de Datos</h1>
+            <div class="mt-4">
+                <form id="restoreForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="backupFile">Selecciona el archivo de backup (.sql):</label>
+                        <input type="file" id="backupFile" name="backupFile" class="form-control" required>
                     </div>
-                </nav>
-
-
-
-
-
-                <div class="container mt-5">
-                    <h1 class="text-center">Restaurar Base de Datos PostgreSQL</h1>
-                    <div class="mt-4">
-                        <form id="restoreForm" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="backupFile">Selecciona el archivo de backup (.sql):</label>
-                                <input type="file" id="backupFile" name="backupFile" class="form-control" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary text-center mt-3" id="restoreBtn">Restaurar Base de Datos</button>
-                        </form>
-                    </div>
-                    <div class="progress mt-4 position-relative" style="height: 30px; display: none;" id="progressContainer">
-                        <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
-                        <span id="progressText" class="position-absolute w-100 text-center text-white" style="line-height: 30px;">0%</span>
-                    </div>
-
-
-                    <div id="responseMsg" class="text-center mt-3"></div>
-                </div>
-
-                <footer>
-                    <div class="footer clearfix mb-0 text-muted">
-                        <div class="float-start">
-                            <p>2024 &copy; UniCorsalud </p>
-                        </div>
-                    </div>
-                </footer>
+                    <button type="submit" class="btn btn-danger text-center mt-3" id="restoreBtn"><i class="bi bi-database-up"></i> Restaurar Base de Datos</button>
+                </form>
             </div>
-        </div>
+            <div class="progress mt-4 position-relative" style="height: 30px; display: none;" id="progressContainer">
+                <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                <span id="progressText" class="position-absolute w-100 text-center text-white" style="line-height: 30px;">0%</span>
+            </div>
+            <div id="responseMsg" class="text-center mt-3"></div>
+            <footer>
+                <p>© 2024 UniCorsalud. Todos los derechos reservados.</p>
+            </footer>
+        </main>
+
     <?php
 }
     ?>
 
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="../assets/js/feather-icons/feather.min.js"></script>
-    <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <script>
         $('#restoreForm').submit(function(event) {
@@ -233,6 +191,57 @@ if ($codigo_rol == '3' || $codigo_rol == '4' || $codigo_rol == '5' || $codigo_ro
                 }
             });
         });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const topbar = document.getElementById('topbar');
+            const content = document.getElementById('content');
+            const btnToggle = document.getElementById('btnToggleSidebar');
+            const sidebarToggler = document.querySelector('.sidebar-toggler');
+
+            // Función para alternar la clase 'collapsed'
+            function toggleSidebar() {
+                sidebar.classList.toggle('collapsed');
+                topbar.classList.toggle('collapsed');
+                content.classList.toggle('collapsed');
+
+                // Cambiar el ícono del botón hamburguesa (bi-list ↔ bi-x)
+                const icon = btnToggle.querySelector('i');
+                icon.classList.toggle('bi-list');
+                icon.classList.toggle('bi-x');
+            }
+
+            // Cuando se hace clic en el botón hamburguesa
+            btnToggle.addEventListener('click', toggleSidebar);
+
+            // Cuando se hace clic en el botón “X” del sidebar
+            sidebarToggler.addEventListener('click', () => {
+                sidebar.classList.add('collapsed');
+                topbar.classList.add('collapsed');
+                content.classList.add('collapsed');
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        function cerrarsession(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Vas a salir del sistema.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, salir',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'logout.php';
+                }
+            });
+        }
     </script>
 
     </body>

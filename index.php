@@ -4,13 +4,13 @@ require "php/conexion.php";
 
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <title>Gestor CA - Inicio de Sesión | Unicorsalud 2024</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
@@ -20,11 +20,6 @@ require "php/conexion.php";
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.9/dist/sweetalert2.min.css" rel="stylesheet">
   <link rel="shortcut icon" href="images/faviconV2.png" type="image/x-icon">
-
-
-
-
-  <title>Gestor CA - Inicio de Sesión | Unicorsalud 2024</title>
 
   <script>
     $(document).ready(function() {
@@ -80,19 +75,7 @@ require "php/conexion.php";
       margin: 0 auto;
     }
 
-    /*  .ball {
-      width: 20px;
-      height: 20px;
-      background-color: red;
-      border-radius: 50%;
-      position: absolute;
-      top: 40px;
-      left: 40px;
-      transform-origin: center;
-      animation: ballspin 1.5s linear infinite;
-      box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
-    }
- */
+
 
     .ball {
       position: absolute;
@@ -249,6 +232,7 @@ require "php/conexion.php";
         </div>
         <div class="col-lg-12 d-flex flex-column">
           <h2>Software Gestor de Contenidos</h2>
+          <h5 class="text-center text-danger">Version 1.7</h5>
           <!-- <p class="h2">Software Gestor de Contenidos</p> -->
         </div>
         <div class="align-self-center w-100 px-lg-4 py-lg-4 p-4" id="login">

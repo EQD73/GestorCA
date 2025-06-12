@@ -20,11 +20,11 @@ if (isset($_SESSION['codigo_usuario'])) {
 }
 
 $codigo_usuario = isset($_POST['codigo_usuario']) ? $_POST['codigo_usuario'] : '';
-$password = isset($_POST['password']) ? $_POST['password'] : '';
-$pass = md5($password);
+$password       = isset($_POST['password']) ? $_POST['password'] : '';
+$pass           = md5($password);
 
 try {
-    $consulta = "SELECT * FROM sistema.usuarios WHERE codigo_usuario = :codigo_usuario AND password = :password";
+    $consulta  = "SELECT * FROM sistema.usuarios WHERE codigo_usuario = :codigo_usuario AND password = :password";
     $resultado = $pdo->prepare($consulta);
     $resultado->bindParam(':codigo_usuario', $codigo_usuario);
     $resultado->bindParam(':password', $pass);
@@ -33,15 +33,22 @@ try {
     if ($resultado->rowCount() >= 1) {
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
+        // ❶ Asignar variables de sesión del usuario
         $_SESSION['codigo_usuario'] = $codigo_usuario;
         foreach ($data as $valor) {
-            $_SESSION['nombres'] = $valor['nombres'];
-            $_SESSION['codigo_rol'] = $valor['codigo_rol'];
+            $_SESSION['nombres']     = $valor['nombres'];
+            $_SESSION['apellidos']     = $valor['apellidos'];
+            $_SESSION['codigo_rol']  = $valor['codigo_rol'];
         }
+
+        // ❷ Aquí marcamos que, al entrar a principal.php, debe mostrarse el modal
+        $_SESSION['mostrar_modal_periodo'] = true;
     } else {
+        // Credenciales incorrectas
         $_SESSION['codigo_usuario'] = null;
-        $_SESSION['nombres'] = null;
-        $_SESSION['codigo_rol'] = null;
+        $_SESSION['nombres']        = null;
+        $_SESSION['apellidos']        = null;
+        $_SESSION['codigo_rol']     = null;
         $data = [];
     }
 } catch (Exception $e) {
@@ -52,6 +59,7 @@ try {
 // Limpiar cualquier salida anterior
 ob_clean();
 
+// Enviamos JSON al frontend para que el JS sepa que el login fue exitoso
 header('Content-Type: application/json');
 echo json_encode($data);
 exit;

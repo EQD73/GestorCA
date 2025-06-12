@@ -12,7 +12,7 @@ $objConsulta = pg_fetch_object($resultado_qm);
 
 ?>
 
-<form action="guardarNovedadregistro.php" method="POST" id="pills-tabContent" name="pills-tabContent" class="was-validated"> 
+<form action="guardarNovedadregistro.php" method="POST" id="pills-tabContent" name="pills-tabContent" class="was-validated">
     <div class="tab-content">
 
         <div class="tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab" tabindex="0">
@@ -31,7 +31,7 @@ $objConsulta = pg_fetch_object($resultado_qm);
                     <input type="hidden" class="form-control form-control sm" id="CodigoCur" name="CodigoCur">
                     <div class="col-md-6 mt-2">
                         <label for="formGroup" class="form-label">Nombre de la asignatura</label>
-                        <input type="text" class="form-control form-control sm" id="NombreCurso" name="NombreCurso" value="<?php echo $objConsulta->nombre_asignatura; ?>"readonly>
+                        <input type="text" class="form-control form-control sm" id="NombreCurso" name="NombreCurso" value="<?php echo $objConsulta->nombre_asignatura; ?>" readonly>
                     </div>
                     <div class="col-md-2 mt-2">
                         <label for="formGroup" class="form-label">Grupo</label>
@@ -62,7 +62,7 @@ $objConsulta = pg_fetch_object($resultado_qm);
                         <input type="text" class="form-control form-control sm" id="CodigoDocente" name="CodigoDocente" value="<?php echo $objConsulta->codigo_docente; ?>" readonly>
                     </div>
 
-                    <input type="hidden" class="form-control form-control sm" id="id_registro" name="id_registro" value="<?php echo $codigoConsulta?>">
+                    <input type="hidden" class="form-control form-control sm" id="id_registro" name="id_registro" value="<?php echo $codigoConsulta ?>">
 
                     <div class="col-md-8 mt-2">
                         <label for="formGroup" class="form-label">Nombre del Docente</label>

@@ -1,0 +1,260 @@
+:root {
+            --sidebar-width: 240px;
+            /* Ancho fijo del sidebar */
+            --sidebar-bg: #343a40;
+            /* Fondo del sidebar */
+            --sidebar-color: #ffffff;
+            /* Texto del sidebar */
+            --sidebar-hover-bg: #495057;
+            /* Hover en enlaces del sidebar */
+            --primary-color: #0d6efd;
+            /* Color principal (azul) */
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        /* ─── Sidebar ─── */
+        #sidebar {
+            position: fixed; 
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-color);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto; 
+           
+        }
+
+        /* Cuando tenga la clase 'collapsed', lo ocultamos con translateX(-100%) */
+        #sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        #sidebar .sidebar-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            /* Ajusta según el espacio deseado */
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        
+
+        #sidebar .sidebar-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            font-size: 1rem;
+            font-weight: 700;
+            /* Extra bold */
+            /*color: #d3d3d3;*/
+            color: #ff4d4f;
+
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            letter-spacing: 2px;
+        }
+
+        #sidebar .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #sidebar .sidebar-menu .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--sidebar-color);
+            padding: 0.75rem 1.25rem;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        #sidebar .sidebar-menu .nav-link:hover,
+        #sidebar .sidebar-menu .nav-link.active {
+            background-color: var(--sidebar-hover-bg);
+            text-decoration: none;
+        }
+
+        #sidebar .sidebar-menu .nav-link i {
+            font-size: 1.25rem;
+        }
+
+        /* Submenú indentado */
+        #sidebar .sidebar-menu .submenu {
+            list-style: none;
+            padding-left: 1.75rem;
+        }
+
+        #sidebar .sidebar-menu .submenu .nav-link {
+            font-size: 0.95rem;
+            padding: 0.5rem 1.25rem;
+            background-color: transparent;
+        }
+
+        #sidebar .sidebar-menu .submenu .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Botón X para colapsar desde abajo */
+        .sidebar-toggler {
+            <!-- position: absolute; -->
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: none;
+            border: none;
+            color: var(--sidebar-color);
+            font-size: 1.25rem;
+            z-index: 1200;
+            position: relative; 
+        }
+
+        /* ─── Topbar ─── */
+        #topbar {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            height: 56px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            transition: left 0.3s ease;
+            z-index: 900;
+        }
+
+        /* Cuando el sidebar está colapsado, movemos el topbar a la izquierda */
+        #topbar.collapsed {
+            left: 0;
+        }
+
+        /* Estilos del botón hamburguesa */
+        #btnToggleSidebar {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #6c757d;
+        }
+
+        #btnToggleSidebar:hover {
+            color: var(--primary-color);
+        }
+
+        #btnToggleSidebar:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        /* ─── Contenido Principal ─── */
+        #content {
+            margin-top: 56px;
+            margin-left: var(--sidebar-width); 
+            padding: 2rem;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Cuando el sidebar esté colapsado, el content ocupa todo el ancho */
+        #content.collapsed {
+            margin-left: 0;
+        }
+
+        /* ─── Tarjetas de Estadísticas (ejemplo) ─── */
+        .card-stat {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            background-color: #fff;
+        }
+
+        .card-stat:hover {
+            transform: translateY(-3px);
+        }
+
+        .card-stat .card-body {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .card-stat .card-body i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .card-stat .stat-info h5 {
+            margin: 0;
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .card-stat .stat-info h2 {
+            margin: 0;
+            font-size: 1.75rem;
+            font-weight: bold;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            color: #6c757d;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 2rem;
+            background-color: #ffffff;
+        }
+
+        /* ─── Responsive (< 992px) ─── */
+        @media (max-width: 992px) {
+            #sidebar {
+                transform: translateX(-100%);
+            }
+
+            /* Si el sidebar en móvil tiene .collapsed, lo mostramos */
+            #sidebar.collapsed {
+                transform: translateX(0);
+            }
+
+            #topbar {
+                left: 0;
+            }
+
+            #content {
+                margin-left: 0;
+            }
+
+            #content.collapsed {
+                margin-left: var(--sidebar-width);
+            }
+        }
+
+        select.form-select:focus {
+            border-color: #ff4d4f;
+            /* Rojo UniCorsalud */
+            box-shadow: 0 0 0 0.2rem rgba(255, 77, 79, 0.25);
+        }

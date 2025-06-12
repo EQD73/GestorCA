@@ -213,21 +213,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <!-- <div class="col-md-6 mt-2 p-3 bg-secondary bg-opacity-10 border border-secondary border-start-0 rounded-end">
-                        <label for="formGroup" class="form-label">Horas de trabajo</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="HorasRadioOptions" id="HorasRadio1" value="Presencial" checked="true">
-                            <label class="form-check-label" for="HorasRadio1">Presencial</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="HorasRadioOptions" id="HorasRadio2" value="Virtual">
-                            <label class="form-check-label" for="HorasRadio2">Virtual</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="HorasRadioOptions" id="HorasRadio3" value="Indepediente">
-                            <label class="form-check-label" for="HorasRadio3">Independiente</label>
-                        </div>
-                    </div> -->
                     <div class="col-md-2 mt-2">
                         <label for="formGroup" class="form-label">Total Horas Trabajo</label>
                         <input type="text" class="form-control form-control sm" id="tht" name="tht" readonly>

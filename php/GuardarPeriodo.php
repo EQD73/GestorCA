@@ -27,7 +27,7 @@
                 <option value="" selected>Escoger Opción</option>
                 <option value="ACTIVO">ACTIVO</option>
                 <option value="INACTIVO">INACTIVO</option>
-                <option value="INACTIVO">BLOQUEADO</option>
+                <option value="BLOQUEADO">BLOQUEADO</option>
             </select>
         </div>
 

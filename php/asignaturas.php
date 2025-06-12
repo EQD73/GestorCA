@@ -1,15 +1,38 @@
 <?php
-
 session_start();
+include('conexion2.php');
+include('conexion.php');
 
+
+// 1) Si no hay usuario logueado, redirigir a la pantalla de login
 if (!isset($_SESSION['codigo_usuario'])) {
     header("Location: ../index.php");
+    exit();
 }
 
-$nombre = $_SESSION['nombres'];
+// 2) Recuperar datos del usuario para mostrar (opcional)
 $codigo_rol = $_SESSION['codigo_rol'];
+$nombre     = $_SESSION['nombres'];
+$apellido   = $_SESSION['apellidos'];
+
+$nombre = explode(" ", trim($nombre))[0];
+$apellido = explode(" ", trim($apellido))[0];
+
+$estadoper = $_SESSION['estado_periodo'];
+$estado = $_SESSION['estado_periodo'] ?? null;
 $periodo = $_SESSION['codigo_periodo'];
 
+$query_roles = "SELECT nombre_rol FROM sistema.roles WHERE codigo_rol = :codigo_rol";
+$stmt = $pdo->prepare($query_roles);
+$stmt->execute(['codigo_rol' => $codigo_rol]);
+$objroles = $stmt->fetch(PDO::FETCH_OBJ);
+
+if ($objroles) {
+    $_SESSION['nombre_rol'] = $objroles->nombre_rol;
+    $nombre_rol = $objroles->nombre_rol;
+} else {
+    $_SESSION['nombre_rol'] = null; // o maneja el caso según necesites
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,21 +44,16 @@ $periodo = $_SESSION['codigo_periodo'];
     <title>Gestor de Contenidos Académicos - UniCorsalud</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.5.2/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/app.css">
     <link rel="shortcut icon" href="../images/faviconV2.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <style>
         #asignaturasTable {
             font-size: 13px;
             padding: 10px;
         }
-
 
         body {
             padding-top: 20px;
@@ -149,162 +167,113 @@ $periodo = $_SESSION['codigo_periodo'];
             overflow-y: auto;
         }
     </style>
+    <style>
+        <?php require('stylepanel.html'); ?>
+    </style>
 </head>
 
 <body>
-    <div id="app">
-        <?php include("cargue_menul.html"); ?>
-        <div id="main">
-            <nav class="navbar navbar-header navbar-expand navbar-light">
-                <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
-                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
-                        <li class="dropdown nav-icon">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="d-lg-inline-block">
-                                    <i data-feather="bell"></i>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-large">
-                                <h6 class='py-2 px-4'>Notificaciones</h6>
-                                <ul class="list-group rounded-none">
-                                    <li class="list-group-item border-0 align-items-start">
-                                        <div class="avatar bg-success me-3">
-                                            <span class="avatar-content"><i data-feather="alert-circle"></i></span>
-                                        </div>
-                                        <div>
-                                            <h6 class='text-bold'>Aviso</h6>
-                                            <p class='text-xs'>
-                                                No ha ingresado informacion en las ultimas dos semanas
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="avatar me-1">
-                                    <img src="../assets/images/avatar/avatarX.png" alt="" srcset="">
-                                </div>
-                                <div class="d-none d-md-block d-lg-inline-block">Hola, <?php echo $nombre; ?></div><br>
-                                <div class="d-none d-md-block d-lg-inline-block"><?php echo $_SESSION['nombre_rol']; ?></div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#"><i data-feather="user"></i> Cuenta/Perfil</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout.php" onclick="cerrarsession()"><i data-feather="log-out"></i>Salir</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+    <?php include("sidebar.html");
+    //Define esto antes de incluir el topbar -->
+    $iconColor = 'text-warning';
+    $iconClass = 'bi-database-fill';
+    $pageTitle = "Gestión de Tablas Básicas"; // Cambia esto según la lógica de tu aplicación style="font-size:0.8em"
+    include("topbar.html"); ?>
+    <!-- <div class="container mt-5 pt-3" style="margin-left: var(--sidebar-width); max-width:87%;"> -->
+    <main id="content">
+        <h4 class="text-center mb-4">CRUD - Tabla de Asignaturas</h4>
+        <div class="d-flex justify-content-end mb-3 mt-4">
+            <button class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#asignaturaModal" onclick="resetForm()">
+                <i class="bi bi-plus-circle"></i> Nueva Asignatura
+            </button>
+        </div>
+        <table id="asignaturasTable" class="table table-resposive-sm table-bordered mt-2" style="width:100%">
+            <thead class="table-primary">
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Programa</th>
+                    <th>Nombre Programa</th>
+                    <th>IHS</th>
+                    <th>Créditos</th>
+                    <!-- <th>Prerrequisitos</th> -->
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
 
-            <div class="container mt-4">
-                <h3 class="text-center mb-4">Gestión CRUD de Asignaturas</h3>
-                <div class="d-flex justify-content-end mb-3">
-                    <button class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#asignaturaModal" onclick="resetForm()">
-                        <i class="bi bi-plus-circle"></i> Nueva Asignatura
-                    </button>
-                </div>
-
-
-                <table id="asignaturasTable" class="table table-striped table-bordered mt-1" style="width:100%">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>ID</th>
-                            <th>Código</th>
-                            <th>Nombre</th>
-                            <th>Programa</th>
-                            <th>Nombre Programa</th>
-                            <th>IHS</th>
-                            <th>Créditos</th>
-                            <!-- <th>Prerrequisitos</th> -->
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-
-                <!-- Modal para agregar/editar asignatura -->
-                <div class="modal fade" id="asignaturaModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header" id="modalAsignaturasHeader">
-                                <h5 class="modal-title" id="modalAsignaturasTitle">Nueva Asignatura</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <form id="asignaturaForm">
-                                <input type="hidden" id="id" name="id">
-                                <div class="modal-body">
-                                    <div class="row mb-3">
-                                        <div class="col-md-3">
-                                            <label for="codigo_asignatura" class="form-label">Código Asignatura*</label>
-                                            <input type="text" class="form-control" id="codigo_asignatura" name="codigo_asignatura" required>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <label for="nom_asignatura" class="form-label">Nombre Asignatura*</label>
-                                            <input type="text" class="form-control" id="nom_asignatura" name="nom_asignatura" style="text-transform: uppercase;" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-md-3">
-                                            <label for="codigo_programa">Programa*</label>
-                                            <select id="codigo_programa" name="codigo_programa" class="form-select" required></select>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <label for="nombre_programa">Nombre Programa</label>
-                                            <input type="text" id="nombre_programa" class="form-control" readonly>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-md-3">
-                                            <label for="ihs" class="form-label">IHS</label>
-                                            <input type="number" class="form-control" id="ihs" name="ihs">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="creditos" class="form-label">Créditos</label>
-                                            <input type="number" class="form-control" id="creditos" name="creditos">
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="prerequisito" class="form-label">Prerrequisitos</label>
-                                        <select class="form-select" id="prerequisito" name="prerequisito[]" multiple="multiple" disabled>
-                                            <!-- Las opciones se cargarán dinámicamente -->
-                                        </select>
-                                        <small class="text-muted">Los prerrequisitos se gestionan desde el módulo correspondiente</small>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="submit" id="btnGuardar" class="btn btn-primary">Guardar</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                </div>
-                            </form>
-                        </div>
+        <!-- Modal para agregar/editar asignatura -->
+        <div class="modal fade" id="asignaturaModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" id="modalAsignaturasHeader">
+                        <h5 class="modal-title" id="modalAsignaturasTitle">Nueva Asignatura</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <form id="asignaturaForm">
+                        <input type="hidden" id="id" name="id">
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label for="codigo_asignatura" class="form-label">Código Asignatura*</label>
+                                    <input type="text" class="form-control" id="codigo_asignatura" name="codigo_asignatura" required>
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="nom_asignatura" class="form-label">Nombre Asignatura*</label>
+                                    <input type="text" class="form-control" id="nom_asignatura" name="nom_asignatura" style="text-transform: uppercase;" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label for="codigo_programa">Programa*</label>
+                                    <select id="codigo_programa" name="codigo_programa" class="form-select" required></select>
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="nombre_programa">Nombre Programa</label>
+                                    <input type="text" id="nombre_programa" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label for="ihs" class="form-label">IHS</label>
+                                    <input type="number" class="form-control" id="ihs" name="ihs">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="creditos" class="form-label">Créditos</label>
+                                    <input type="number" class="form-control" id="creditos" name="creditos">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="prerequisito" class="form-label">Prerrequisitos</label>
+                                <select class="form-select" id="prerequisito" name="prerequisito[]" multiple="multiple" disabled>
+                                    <!-- Las opciones se cargarán dinámicamente -->
+                                </select>
+                                <small class="text-muted">Los prerrequisitos se gestionan desde el módulo correspondiente</small>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="btnGuardar" class="btn btn-primary">Guardar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
+        <footer>
+            <p>© 2024 UniCorsalud. Todos los derechos reservados.</p>
+        </footer>
+    </main>
 
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../assets/js/feather-icons/feather.min.js"></script>
-    <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/main.js"></script>
+
 
     <script>
         function mostrarAlerta(icono, titulo, mensaje) {
@@ -824,9 +793,55 @@ $periodo = $_SESSION['codigo_periodo'];
         }
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const topbar = document.getElementById('topbar');
+            const content = document.getElementById('content');
+            const btnToggle = document.getElementById('btnToggleSidebar');
+            const sidebarToggler = document.querySelector('.sidebar-toggler');
+
+            // Función para alternar la clase 'collapsed'
+            function toggleSidebar() {
+                sidebar.classList.toggle('collapsed');
+                topbar.classList.toggle('collapsed');
+                content.classList.toggle('collapsed');
+
+                // Cambiar el ícono del botón hamburguesa (bi-list ↔ bi-x)
+                const icon = btnToggle.querySelector('i');
+                icon.classList.toggle('bi-list');
+                icon.classList.toggle('bi-x');
+            }
+
+            // Cuando se hace clic en el botón hamburguesa
+            btnToggle.addEventListener('click', toggleSidebar);
+
+            // Cuando se hace clic en el botón “X” del sidebar
+            sidebarToggler.addEventListener('click', () => {
+                sidebar.classList.add('collapsed');
+                topbar.classList.add('collapsed');
+                content.classList.add('collapsed');
+            });
+        });
+    </script>
+
     <script type="text/javascript">
-        function cerrarsession() {
-            window.sessionStorage.removeItem("mostrarModal");
+        function cerrarsession(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Vas a salir del sistema.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, salir',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'logout.php';
+                }
+            });
         }
     </script>
 </body>

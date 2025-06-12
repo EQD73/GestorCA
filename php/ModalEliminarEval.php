@@ -11,7 +11,8 @@
       <div class="modal-body">
         <strong style="text-align: center !important">
           <?php echo $dataEval['id'];
-          ?>
+          echo " - ";
+          echo $dataEval['momento']; ?>
         </strong>
       </div>
 

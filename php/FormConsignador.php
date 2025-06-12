@@ -121,9 +121,9 @@
             </div>
         </div>
         <div class="tab-pane fade" id="pills-2" role="tabpanel" aria-labelledby="pills-2-tab" tabindex="0">
-            <div class="row" id="pills-2c">
+            <!-- <div class="row" id="pills-2c">
 
-            </div>
+            </div> -->
         </div>
         <div class="tab-pane fade" id="pills-3" role="tabpanel" aria-labelledby="pills-3-tab" tabindex="0">
             <div class="container">
